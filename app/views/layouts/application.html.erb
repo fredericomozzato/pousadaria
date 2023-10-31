@@ -16,11 +16,11 @@
       <nav>
         <ul>
           <li>Pousadaria</li>
-            <% if user_signed_in? %>
-              <li><%= current_user.email %></li>
-              <li><%= link_to "Sair", destroy_user_session_path, method: :delete, data: { turbo_method: :delete } %></li>
+            <% if owner_signed_in? %>
+              <li><%= current_owner.email %></li>
+              <li><%= link_to "Sair", destroy_owner_session_path, method: :delete, data: { turbo_method: :delete } %></li>
             <% else %>
-              <li><%= link_to "Entrar", new_user_session_path %></li>
+              <li><%= link_to "Entrar", logins_path %></li>
             <% end %>
         </ul>
       </nav>

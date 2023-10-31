@@ -11,12 +11,13 @@ describe "Usuário visita a página inicial" do
       end
     end
 
-    it "e faz login" do
-      User.create!(email: "user@example.com", password: "123456")
+    it "e faz login como Proprietário" do
+      Owner.create!(email: "owner@example.com", password: "123456")
 
       visit root_path
       click_on "Entrar"
-      fill_in "E-mail", with: "user@example.com"
+      click_on "Proprietário"
+      fill_in "E-mail", with: "owner@example.com"
       fill_in "Senha", with: "123456"
       within "form" do
         click_on "Entrar"
@@ -24,20 +25,20 @@ describe "Usuário visita a página inicial" do
 
       within "nav" do
         expect(page).to have_link "Sair"
-        expect(page).to have_content "user@example.com"
+        expect(page).to have_content "owner@example.com"
       end
     end
   end
 
-  context "autenticado" do
+  context "autenticado como Proprietário" do
     it "e vê o menu" do
-      user = User.create!(email: "user@example.com", password: "123456")
+      owner = Owner.create!(email: "owner@example.com", password: "123456")
 
-      login_as user
+      login_as owner
       visit root_path
 
       within "nav" do
-        expect(page).to have_content "user@example.com"
+        expect(page).to have_content "owner@example.com"
         expect(page).to have_link "Sair"
         expect(page).not_to have_link "Entrar"
       end
