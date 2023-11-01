@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  before_action :check_if_owner_has_inn, only: [:index]
+  before_action :redirect_to_new_if_no_inn, only: [:index]
 
   def index
 

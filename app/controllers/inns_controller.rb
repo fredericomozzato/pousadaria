@@ -1,6 +1,7 @@
 class InnsController < ApplicationController
   before_action :authenticate_owner!
-  before_action :check_if_owner_has_inn, only: [:show, :my_inn]
+  before_action :redirect_to_new_if_no_inn, only: [:show, :my_inn]
+
 
   def new
     @inn = Inn.find_by(owner_id: current_owner.id)
@@ -8,7 +9,7 @@ class InnsController < ApplicationController
       redirect_to inn_path(@inn), notice: "Você já tem uma pousada cadastrada"
     else
       @inn = Inn.new
-      @address = Address.new
+      @inn.build_address
     end
   end
 
@@ -21,7 +22,9 @@ class InnsController < ApplicationController
     if @inn.save
       redirect_to minha_pousada_path, notice: "Pousada criada com sucesso"
     else
-      render :new
+      @address = @inn.address
+      flash.now[:alert] = "Erro ao cadastrar Pousada"
+      render :new, status: :unprocessable_entity
     end
   end
 

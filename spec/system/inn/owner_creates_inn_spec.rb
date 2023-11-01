@@ -114,4 +114,42 @@ describe "Proprietário visita a página de cadastro de pousada" do
     expect(page).to have_content "Você já tem uma pousada cadastrada"
     expect(current_path).to eq inn_path(inn)
   end
+
+  it "e tenta cadastrar pousada com dados incompletos" do
+    owner = Owner.create!(email: "owner@email.com", password: "123456")
+
+    login_as(owner)
+    visit new_inn_path
+    fill_in "Nome", with: "Mar Aberto"
+    fill_in "Razão social", with: ""
+    fill_in "CNPJ", with: "84.485.218/0001-73"
+    fill_in "Telefone", with: "4899999-9999"
+    fill_in "E-mail", with: ""
+    fill_in "Descrição", with: ""
+    fill_in "Métodos de pagamento", with: "Crédito, débito, dinheiro ou pix"
+    check "Aceita pets"
+    fill_in "Políticas de uso", with: ""
+    select "09", from: "date_checkin_hour"
+    select "00", from: "date_checkin_minute"
+    select "15", from: "date_checkout_hour"
+    select "30", from: "date_checkout_minute"
+    fill_in "Rua", with: ""
+    fill_in "Número", with: ""
+    fill_in "Bairro", with: ""
+    fill_in "Cidade", with: "Florianópolis"
+    fill_in "Estado", with: "SC"
+    fill_in "CEP", with: "88000-000"
+    click_on "Criar Pousada"
+
+    expect(page).to have_content "Erro ao cadastrar Pousada"
+    expect(page).to have_content "Razão social não pode ficar em branco"
+    expect(page).to have_content "E-mail não pode ficar em branco"
+    expect(page).to have_content "Rua não pode ficar em branco"
+    expect(page).to have_content "Bairro não pode ficar em branco"
+    expect(page).to have_field "Nome", with: "Mar Aberto"
+    expect(page).to have_field "CNPJ", with: "84.485.218/0001-73"
+    expect(page).to have_field "Métodos de pagamento", with: "Crédito, débito, dinheiro ou pix"
+    expect(page).to have_field "Cidade", with: "Florianópolis"
+    expect(page).to have_field "Estado", with: "SC"
+  end
 end

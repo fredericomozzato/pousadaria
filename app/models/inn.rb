@@ -1,4 +1,12 @@
 class Inn < ApplicationRecord
+  validates :name,
+            :corporate_name,
+            :registration_number,
+            :phone,
+            :email,
+            :pay_methods,
+            presence: true
+
   has_one :address
   belongs_to :owner
 
