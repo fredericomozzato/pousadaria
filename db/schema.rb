@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_01_115753) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_01_123049) do
   create_table "addresses", force: :cascade do |t|
     t.string "street"
     t.integer "number"
@@ -39,8 +39,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_01_115753) do
     t.boolean "active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "owner_id", null: false
     t.index ["corporate_name"], name: "index_inns_on_corporate_name", unique: true
     t.index ["email"], name: "index_inns_on_email", unique: true
+    t.index ["owner_id"], name: "index_inns_on_owner_id"
     t.index ["registration_number"], name: "index_inns_on_registration_number", unique: true
   end
 
@@ -70,4 +72,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_01_115753) do
 
   add_foreign_key "addresses", "inns"
   add_foreign_key "addresses", "inns"
+  add_foreign_key "inns", "owners"
 end

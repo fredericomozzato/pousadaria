@@ -71,5 +71,6 @@ describe "Proprietário visita a página de cadastro de pousada" do
     expect(page).to have_content "CEP: 88000-000"
     expect(page).to have_content "Status na plataforma: Ativa"
     expect(page).to have_button "Editar"
+    expect(Inn.last.owner_id).to eq(owner.id)
   end
 end

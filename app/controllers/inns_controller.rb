@@ -7,8 +7,13 @@ class InnsController < ApplicationController
 
   def create
     @inn = Inn.new(inn_params)
-    @inn.save
-    redirect_to inn_path(@inn), notice: "Pousada criada com sucesso"
+    @inn.owner_id = current_owner.id
+
+    if @inn.save
+      redirect_to inn_path(@inn), notice: "Pousada criada com sucesso"
+    else
+      
+    end
   end
 
   def show
