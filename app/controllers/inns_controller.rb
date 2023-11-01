@@ -14,8 +14,8 @@ class InnsController < ApplicationController
   end
 
   def create
-    @inn = Inn.new(inn_params)
-    @inn.owner_id = current_owner.id
+    @owner = current_owner
+    @inn = @owner.build_inn(inn_params)
     @inn.check_in_time = get_time(:checkin_hour, :checkin_minute)
     @inn.check_out_time = get_time(:checkout_hour, :checkout_minute)
 
