@@ -16,7 +16,7 @@
       <nav>
         <ul>
           <li>Pousadaria</li>
-            <% if owner_signed_in? %>
+            <% if current_owner %>
               <li><%= current_owner.email %></li>
               <li><%= link_to "Sair", destroy_owner_session_path, method: :delete, data: { turbo_method: :delete } %></li>
             <% else %>
@@ -27,5 +27,6 @@
     </header>
 
     <%= yield %>
+
   </body>
 </html>

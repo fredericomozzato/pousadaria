@@ -1,0 +1,35 @@
+<%= form_with model: @address do |f| %>
+  <div>
+    <%= f.label :street, "Rua" %>
+    <%= f.text_field :rua %>
+  </div>
+
+  <div>
+    <%= f.label :number, "Número" %>
+    <%= f.number_field :number %>
+  </div>
+
+  <div>
+    <%= f.label :neighborhood, "Bairro" %>
+    <%= f.text_field :neighborhood%>
+  </div>
+
+  <div>
+    <%= f.label :city, "Cidade" %>
+    <%= f.text_field :city %>
+  </div>
+
+  <div>
+    <%= f.label :state, "Estado" %>
+    <%= f.text_field :state %>
+  </div>
+
+  <div>
+    <%= f.label :postal_code, "CEP" %>
+    <%= f.text_field :postal_code %>
+  </div>
+
+  <div>
+    <%= f.submit %>
+  </div>
+<% end %>

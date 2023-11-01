@@ -1,9 +1,10 @@
 require "rails_helper"
 
 describe "Proprietário visita a página de cadastro de pousada" do
-  it "a partir da tela inicial" do
+  it "e vê o formulário" do
     owner = Owner.create!(email: "owner@email.com", password: "123456")
 
+    login_as(owner)
     visit new_inn_path
 
     expect(page).to have_content "Cadastro de Pousada"
@@ -26,5 +27,49 @@ describe "Proprietário visita a página de cadastro de pousada" do
     expect(page).to have_field "CEP"
     expect(page).to have_field "Ativa"
     expect(page).to have_button "Criar Pousada"
+  end
+
+  it "e cadastra uma nova pousada" do
+    owner = Owner.create!(email: "owner@email.com", password: "123456")
+
+    login_as(owner)
+    visit new_inn_path
+
+    fill_in "Nome", with: "Mar Aberto"
+    fill_in "Razão social", with: "Pousada Mar Aberto/SC"
+    fill_in "CNPJ", with: "84.485.218/0001-73"
+    fill_in "Telefone", with: "4899999-9999"
+    fill_in "E-mail", with: "pousadamaraberto@hotmail.com"
+    fill_in "Descrição", with: "Pousada na beira do mar com suítes e café da manhã incluso."
+    fill_in "Métodos de pagamento", with: "Crédito, débito, dinheiro ou pix"
+    check "Aceita pets"
+    fill_in "Políticas de uso", with: "A pousada conta com lei do silêncio das 22h às 8h"
+    fill_in "Horário de check-in", with: "9:00"
+    fill_in "Horário de check-out", with: "15:00"
+    fill_in "Rua", with: "Rua das Flores"
+    fill_in "Número", with: 300
+    fill_in "Bairro", with: "Canasvieiras"
+    fill_in "Cidade", with: "Florianópolis"
+    fill_in "Estado", with: "SC"
+    fill_in "CEP", with: "88000-000"
+    click_on "Criar Pousada"
+
+    expect(page).to have_content "Pousada criada com sucesso"
+    expect(page).to have_content "Nome público: Mar Aberto"
+    expect(page).to have_content "Razão social: Pousada Mar Aberto/SC"
+    expect(page).to have_content "CNPJ: 84.485.218/0001-73"
+    expect(page).to have_content "Telefone: 4899999-9999"
+    expect(page).to have_content "E-mail: pousadamaraberto@hotmail.com"
+    expect(page).to have_content "Descrição: Pousada na beira do mar com suítes e café da manhã incluso."
+    expect(page).to have_content "Métodos de pagamento: Crédito, débito, dinheiro ou pix"
+    expect(page).to have_content "Aceita pets: sim"
+    expect(page).to have_content "Políticas de uso: A pousada conta com lei do silêncio das 22h às 8h"
+    expect(page).to have_content "Horário de check-in: a partir das 9:00"
+    expect(page).to have_content "Horário de check-out: até as 15:00"
+    expect(page).to have_content "Endereço: Rua das Flores, 300"
+    expect(page).to have_content "Canasvieiras - Florianópolis, SC"
+    expect(page).to have_content "CEP: 88000-000"
+    expect(page).to have_content "Status na plataforma: Ativa"
+    expect(page).to have_button "Editar"
   end
 end
