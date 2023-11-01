@@ -2,7 +2,12 @@ class InnsController < ApplicationController
   before_action :authenticate_owner!
 
   def new
-    @inn = Inn.new
+    @inn = Inn.find_by(owner_id: current_owner.id)
+    if @inn
+      redirect_to inn_path(@inn), notice: "Você já tem uma pousada cadastrada"
+    else
+      @inn = Inn.new
+    end
   end
 
   def create

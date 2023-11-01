@@ -81,6 +81,34 @@ describe "Proprietário visita a página de cadastro de pousada" do
   end
 
   it "quando já tem uma pousada cadastrada" do
+    owner = Owner.create!(email: "owner@email.com", password: "123456")
+    inn = Inn.create!(
+      name: "Pousada",
+      corporate_name: "Pousada Teste",
+      registration_number: "1234567890",
+      phone: "999999999",
+      email: "teste@teste.com",
+      description: "Descrição teste",
+      pay_methods: "Teste",
+      user_policies: "Teste",
+      check_in_time: Time.new(2000, 1, 1, 9, 0, 0, 'UTC'),
+      check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
+      owner_id: owner.id
+    )
+    Address.create!(
+      street: "Teste",
+      number: 0,
+      neighborhood: "Teste",
+      city: "Teste",
+      state: "Teste",
+      postal_code: "0123456789",
+      inn_id: inn.id
+    )
 
+    login_as(owner)
+    visit new_inn_path
+
+    expect(page).to have_content "Você já tem uma pousada cadastrada"
+    expect(current_path).to eq inn_path(inn)
   end
 end
