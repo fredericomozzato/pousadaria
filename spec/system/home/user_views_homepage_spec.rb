@@ -24,6 +24,7 @@ describe "Usuário visita a página inicial" do
       end
 
       within "nav" do
+        expect(page).to have_link "Minha Pousada"
         expect(page).to have_link "Sair"
         expect(page).to have_content "owner@example.com"
       end
@@ -41,6 +42,7 @@ describe "Usuário visita a página inicial" do
 
       within "nav" do
         expect(page).to have_content "owner@example.com"
+        expect(page).to have_link "Minha Pousada"
         expect(page).to have_link "Sair"
         expect(page).not_to have_link "Entrar"
       end
@@ -57,6 +59,7 @@ describe "Usuário visita a página inicial" do
 
       expect(page).to have_link "Entrar"
       expect(page).not_to have_link "Sair"
+      expect(page).not_to have_link "Minha Pousada"
       expect(page).not_to have_content "owner@example.com"
     end
   end

@@ -1,6 +1,6 @@
 class InnsController < ApplicationController
   before_action :authenticate_owner!
-  before_action :check_if_owner_has_inn, only: [:show]
+  before_action :check_if_owner_has_inn, only: [:show, :my_inn]
 
   def new
     @inn = Inn.find_by(owner_id: current_owner.id)
@@ -8,6 +8,7 @@ class InnsController < ApplicationController
       redirect_to inn_path(@inn), notice: "Você já tem uma pousada cadastrada"
     else
       @inn = Inn.new
+      @address = Address.new
     end
   end
 
@@ -18,7 +19,7 @@ class InnsController < ApplicationController
     @inn.check_out_time = get_time(:checkout_hour, :checkout_minute)
 
     if @inn.save
-      redirect_to inn_path(@inn), notice: "Pousada criada com sucesso"
+      redirect_to minha_pousada_path, notice: "Pousada criada com sucesso"
     else
       render :new
     end
@@ -26,6 +27,15 @@ class InnsController < ApplicationController
 
   def show
     set_inn
+  end
+
+  def edit
+    set_inn
+    @address = Address.find_by(inn_id: @inn.id)
+  end
+
+  def my_inn
+    @inn = Inn.find_by(owner_id: current_owner.id)
   end
 
   private

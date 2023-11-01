@@ -11,5 +11,6 @@ Rails.application.routes.draw do
   get "logins", to: "home#logins"
 
   resources :addresses, only: [:new, :create]
-  resources :inns, only: [:new, :create, :show]
+  resources :inns, only: [:new, :create, :show, :edit, :update]
+  get "minha_pousada", to: "inns#my_inn"
 end

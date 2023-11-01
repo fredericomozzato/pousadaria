@@ -76,12 +76,15 @@ describe "Proprietário visita a página de cadastro de pousada" do
     expect(page).to have_content "Canasvieiras - Florianópolis, SC"
     expect(page).to have_content "CEP: 88000-000"
     expect(page).to have_content "Status na plataforma: Ativa"
-    expect(page).to have_button "Editar"
+    expect(page).to have_link "Editar"
     expect(Inn.last.owner_id).to eq(owner.id)
   end
 
   it "quando já tem uma pousada cadastrada" do
-    owner = Owner.create!(email: "owner@email.com", password: "123456")
+    owner = Owner.create!(
+      email: "owner@email.com",
+      password: "123456"
+    )
     inn = Inn.create!(
       name: "Pousada",
       corporate_name: "Pousada Teste",

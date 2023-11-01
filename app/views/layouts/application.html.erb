@@ -16,7 +16,8 @@
       <nav>
         <ul>
           <li>Pousadaria</li>
-            <% if current_owner %>
+            <% if owner_signed_in? %>
+              <li><%= link_to "Minha Pousada", minha_pousada_path %></li>
               <li><%= current_owner.email %></li>
               <li><%= link_to "Sair", destroy_owner_session_path, method: :delete, data: { turbo_method: :delete } %></li>
             <% else %>
