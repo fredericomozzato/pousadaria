@@ -1,0 +1,18 @@
+pt-BR:
+  activerecord:
+    models:
+      inn: "Pousada"
+    attributes:
+      inn:
+        name: "Nome"
+        corporate_name: "Razão social"
+        registration_number: "CNPJ"
+        phone: "Telefone"
+        email: "E-mail"
+        description: "Descrição"
+        pay_methods: "Métodos de pagamento"
+        pet_friendly: "Aceita pets"
+        user_policies: "Políticas de uso"
+        check_in_time: "Horário de check-in"
+        check_out_time: "Horário de check-out"
+        active: "Ativa"
