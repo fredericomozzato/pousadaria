@@ -67,11 +67,13 @@
   </div>
   <div>
     <%= f.label :check_in_time, "Horário de check-in" %>
-    <%= f.text_field :check_in_time %>
+    <%= select_hour Time.new, field_name: "checkin_hour" %>:
+    <%= select_minute Time.new, field_name: "checkin_minute", minute_step: 15 %> horas
   </div>
   <div>
     <%= f.label :check_out_time, "Horário de check-out" %>
-    <%= f.text_field :check_out_time %>
+    <%= select_hour Time.new, field_name: "checkout_hour" %>:
+    <%= select_minute Time.new, field_name: "checkout_minute", minute_step: 15 %> horas
   </div>
   <div>
     <%= f.label :active, "Ativa" %>

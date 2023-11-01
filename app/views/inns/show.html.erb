@@ -25,8 +25,8 @@
     <dt>Check-out:</dt>
     <dd>até as <%= @inn.check_out_time.strftime("%k:%M") %></dd>
     <dt>Endereço:</dt>
-    <dd><%= @inn.address.street %>, <%= @inn.address.number %></dd>
-    <dd><%= @inn.address.neighborhood %> - <%= @inn.address.city %>, <%= @inn.address.state %></dd>
+    <dd><%= @inn.get_street_values %></dd>
+    <dd><%= @inn.get_location_values %></dd>
     <dt>CEP:</dt>
     <dd><%= @inn.address.postal_code %></dd>
     <dt>Status na plataforma:</dt>

@@ -17,8 +17,12 @@ describe "Proprietário visita a página de cadastro de pousada" do
     expect(page).to have_field "Métodos de pagamento"
     expect(page).to have_field "Aceita pets"
     expect(page).to have_field "Políticas de uso"
-    expect(page).to have_field "Horário de check-in"
-    expect(page).to have_field "Horário de check-out"
+    expect(page).to have_content "Horário de check-in"
+    expect(page).to have_select "date_checkin_hour"
+    expect(page).to have_select "date_checkin_minute"
+    expect(page).to have_content "Horário de check-out"
+    expect(page).to have_select "date_checkout_hour"
+    expect(page).to have_select "date_checkout_minute"
     expect(page).to have_field "Rua"
     expect(page).to have_field "Número"
     expect(page).to have_field "Bairro"
@@ -29,7 +33,7 @@ describe "Proprietário visita a página de cadastro de pousada" do
     expect(page).to have_button "Criar Pousada"
   end
 
-  it "e cadastra uma nova pousada" do
+  it "e cadastra uma nova pousada com sucesso" do
     owner = Owner.create!(email: "owner@email.com", password: "123456")
 
     login_as(owner)
@@ -44,8 +48,10 @@ describe "Proprietário visita a página de cadastro de pousada" do
     fill_in "Métodos de pagamento", with: "Crédito, débito, dinheiro ou pix"
     check "Aceita pets"
     fill_in "Políticas de uso", with: "A pousada conta com lei do silêncio das 22h às 8h"
-    fill_in "Horário de check-in", with: "9:00"
-    fill_in "Horário de check-out", with: "15:00"
+    select "09", from: "date_checkin_hour"
+    select "00", from: "date_checkin_minute"
+    select "15", from: "date_checkout_hour"
+    select "30", from: "date_checkout_minute"
     fill_in "Rua", with: "Rua das Flores"
     fill_in "Número", with: 300
     fill_in "Bairro", with: "Canasvieiras"
@@ -65,12 +71,16 @@ describe "Proprietário visita a página de cadastro de pousada" do
     expect(page).to have_content "Aceita pets: sim"
     expect(page).to have_content "Políticas de uso: A pousada conta com lei do silêncio das 22h às 8h"
     expect(page).to have_content "Check-in: a partir das 9:00"
-    expect(page).to have_content "Check-out: até as 15:00"
+    expect(page).to have_content "Check-out: até as 15:30"
     expect(page).to have_content "Endereço: Rua das Flores, 300"
     expect(page).to have_content "Canasvieiras - Florianópolis, SC"
     expect(page).to have_content "CEP: 88000-000"
     expect(page).to have_content "Status na plataforma: Ativa"
     expect(page).to have_button "Editar"
     expect(Inn.last.owner_id).to eq(owner.id)
+  end
+
+  it "quando já tem uma pousada cadastrada" do
+
   end
 end
