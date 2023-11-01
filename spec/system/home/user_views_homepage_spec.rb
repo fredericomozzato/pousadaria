@@ -27,6 +27,8 @@ describe "Usuário visita a página inicial" do
         expect(page).to have_link "Sair"
         expect(page).to have_content "owner@example.com"
       end
+      expect(current_path).to eq new_inn_path
+      expect(page).to have_content "Cadastre sua Pousada!"
     end
   end
 
@@ -45,9 +47,9 @@ describe "Usuário visita a página inicial" do
     end
 
     it "e faz logout" do
-      user = User.create!(email: "user@example.com", password: "123456")
+      owner = Owner.create!(email: "owner@example.com", password: "123456")
 
-      login_as user
+      login_as owner
       visit root_path
       within "nav" do
         click_on "Sair"
@@ -55,7 +57,7 @@ describe "Usuário visita a página inicial" do
 
       expect(page).to have_link "Entrar"
       expect(page).not_to have_link "Sair"
-      expect(page).not_to have_content "user@example.com"
+      expect(page).not_to have_content "owner@example.com"
     end
   end
 end

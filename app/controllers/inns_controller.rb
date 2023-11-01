@@ -1,5 +1,6 @@
 class InnsController < ApplicationController
   before_action :authenticate_owner!
+  before_action :check_if_owner_has_inn, only: [:show]
 
   def new
     @inn = Inn.find_by(owner_id: current_owner.id)
