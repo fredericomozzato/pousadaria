@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_31_215544) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_01_115753) do
   create_table "addresses", force: :cascade do |t|
     t.string "street"
     t.integer "number"
@@ -20,6 +20,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_31_215544) do
     t.string "postal_code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "inn_id"
+    t.index ["inn_id"], name: "index_addresses_on_inn_id"
   end
 
   create_table "inns", force: :cascade do |t|
@@ -28,7 +30,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_31_215544) do
     t.string "registration_number"
     t.string "phone"
     t.string "email"
-    t.integer "address_id", null: false
     t.string "description"
     t.string "pay_methods"
     t.boolean "pet_friendly", default: false
@@ -38,7 +39,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_31_215544) do
     t.boolean "active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["address_id"], name: "index_inns_on_address_id"
     t.index ["corporate_name"], name: "index_inns_on_corporate_name", unique: true
     t.index ["email"], name: "index_inns_on_email", unique: true
     t.index ["registration_number"], name: "index_inns_on_registration_number", unique: true
@@ -68,5 +68,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_31_215544) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "inns", "addresses"
+  add_foreign_key "addresses", "inns"
+  add_foreign_key "addresses", "inns"
 end

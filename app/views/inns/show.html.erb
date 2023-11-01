@@ -1,0 +1,36 @@
+<h1>Dados da Pousada</h1>
+
+<div>
+  <dl>
+    <dt>Nome público:</dt>
+    <dd><%= @inn.name %></dd>
+    <dt>Razão social:</dt>
+    <dd><%= @inn.corporate_name %></dd>
+    <dt>CNPJ:</dt>
+    <dd><%= @inn.registration_number %></dd>
+    <dt>Telefone:</dt>
+    <dd><%= @inn.phone %></dd>
+    <dt>E-mail:</dt>
+    <dd><%= @inn.email %></dd>
+    <dt>Descrição:</dt>
+    <dd><%= @inn.description %></dd>
+    <dt>Métodos de pagamento:</dt>
+    <dd><%= @inn.pay_methods %></dd>
+    <dt>Aceita pets:</dt>
+    <dd><%= @inn.pet_friendly ? "sim" : "não" %></dd>
+    <dt>Políticas de uso:</dt>
+    <dd><%= @inn.user_policies %></dd>
+    <dt>Check-in:</dt>
+    <dd>a partir das <%= @inn.check_in_time.strftime("%k:%M") %></dd>
+    <dt>Check-out:</dt>
+    <dd>até as <%= @inn.check_out_time.strftime("%k:%M") %></dd>
+    <dt>Endereço:</dt>
+    <dd><%= @inn.address.street %>, <%= @inn.address.number %></dd>
+    <dd><%= @inn.address.neighborhood %> - <%= @inn.address.city %>, <%= @inn.address.state %></dd>
+    <dt>CEP:</dt>
+    <dd><%= @inn.address.postal_code %></dd>
+    <dt>Status na plataforma:</dt>
+    <dd><%= @inn.active ? "Ativa" : "Inativa" %></dd>
+  </dl>
+  <%= button_to "Editar" %>
+</div>

@@ -26,6 +26,13 @@
       </nav>
     </header>
 
+    <div>
+      <% if flash %>
+        <%= notice %>
+        <%= alert %>
+      <% end %>
+    </div>
+
     <%= yield %>
 
   </body>
