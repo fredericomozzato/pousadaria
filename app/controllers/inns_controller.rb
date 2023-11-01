@@ -59,9 +59,9 @@ class InnsController < ApplicationController
 
   def get_time(hour, minute)
     Time.new(
-      2000,
-      1,
-      1,
+      Time.now.year,
+      Time.now.month,
+      Time.now.day,
       params[:date][hour],
       params[:date][minute],
       0,
