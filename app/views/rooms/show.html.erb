@@ -1,0 +1,30 @@
+<h1>Quarto: <%= @room.name %></h1>
+
+<dl>
+  <dt>Descrição: </dt>
+  <dd><%= @room.description %></dd>
+  <dt>Tamanho:</dt>
+  <dd><%= @room.size %> m²</dd>
+  <dt>Número máximo de hóspedes:</dt>
+  <dd><%= @room.max_guests %></dd>
+  <dt>Valor da diária:</dt>
+  <dd><%= number_to_currency @room.price, unit: "R$", separator: ",", delimiter: "." %></dd>
+  <dt>Comodidades:</dt>
+  <dd>
+    <ul class="ammenities">
+      <li>Banheiro próprio: <%= @room.bathroom ? "sim" : "não" %></li>
+      <li>Varanda: <%= @room.porch ? "sim" : "não" %></li>
+      <li>Ar-condicionado: <%= @room.air_conditioner ? "sim" : "não" %></li>
+      <li>Televisão: <%= @room.tv ? "sim" : "não" %></li>
+      <li>Guarda-roupas: <%= @room.wardrobe ? "sim" : "não" %></li>
+      <li>Cofre: <%= @room.safe ? "sim" : "não" %></li>
+      <li>Acessibilidade: <%= @room.accessibility ? "sim" : "não" %></li>
+      <li>Wi-fi: <%= @room.wifi ? "sim" : "não" %></li>
+    </ul>
+  </dd>
+</dl>
+
+<div>
+  <%= button_to "Editar Quarto" %>
+  <%= button_to "Desativar Quarto" %>
+</div>

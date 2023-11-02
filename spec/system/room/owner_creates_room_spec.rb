@@ -82,8 +82,9 @@ describe "Proprietário acessa formulário de cadastro de quarto" do
       inn_id: inn.id
     )
 
+    login_as(owner)
     visit new_room_path
-    fill_in "Nome", with: "Quarto Oceano Atlântico"
+    fill_in "Nome", with: "Oceano Atlântico"
     fill_in "Descrição", with: "Quarto com vista para o oceano Atlântico"
     fill_in "Tamanho (m²)", with: 30
     fill_in "Número máximo de hóspedes", with: 2
@@ -95,5 +96,23 @@ describe "Proprietário acessa formulário de cadastro de quarto" do
     check "Acessibilidade"
     check "Wi-fi"
     click_on "Salvar Quarto"
+
+    expect(page).to have_content "Quarto cadastrado com sucesso"
+    expect(page).to have_content "Quarto: Oceano Atlântico"
+    expect(page).to have_content "Descrição: Quarto com vista para o oceano Atlântico"
+    expect(page).to have_content "Tamanho: 30 m²"
+    expect(page).to have_content "Número máximo de hóspedes: 2"
+    expect(page).to have_content "Valor da diária: R$ 200,00"
+    expect(page).to have_content "Comodidades:"
+    within ".ammenities" do
+      expect(page).to have_content "Banheiro próprio: sim"
+      expect(page).to have_content "Varanda: sim"
+      expect(page).to have_content "Ar-condicionado: sim"
+      expect(page).to have_content "Guarda-roupas: sim"
+      expect(page).to have_content "Acessibilidade: sim"
+      expect(page).to have_content "Wi-fi: sim"
+    end
+    expect(page).to have_button "Editar Quarto"
+    expect(page).to have_button "Desativar Quarto"
   end
 end
