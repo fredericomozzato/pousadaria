@@ -1,0 +1,35 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyString
+  size: 1
+  max_guests: 1
+  price: 9.99
+  bathroom: false
+  porch: false
+  air_conditioner: false
+  tv: false
+  wardrobe: false
+  safe: false
+  wifi: false
+  accessibility: false
+  inn: one
+  active: false
+
+two:
+  name: MyString
+  description: MyString
+  size: 1
+  max_guests: 1
+  price: 9.99
+  bathroom: false
+  porch: false
+  air_conditioner: false
+  tv: false
+  wardrobe: false
+  safe: false
+  wifi: false
+  accessibility: false
+  inn: two
+  active: false

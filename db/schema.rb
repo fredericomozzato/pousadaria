@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_01_123049) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_02_183925) do
   create_table "addresses", force: :cascade do |t|
     t.string "street"
     t.integer "number"
@@ -58,6 +58,27 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_01_123049) do
     t.index ["reset_password_token"], name: "index_owners_on_reset_password_token", unique: true
   end
 
+  create_table "rooms", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "description"
+    t.integer "size", null: false
+    t.integer "max_guests", null: false
+    t.decimal "price", precision: 10, scale: 2, null: false
+    t.boolean "bathroom", default: false
+    t.boolean "porch", default: false
+    t.boolean "air_conditioner", default: false
+    t.boolean "tv", default: false
+    t.boolean "wardrobe", default: false
+    t.boolean "safe", default: false
+    t.boolean "wifi", default: false
+    t.boolean "accessibility", default: false
+    t.integer "inn_id", null: false
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["inn_id"], name: "index_rooms_on_inn_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -73,4 +94,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_01_123049) do
   add_foreign_key "addresses", "inns"
   add_foreign_key "addresses", "inns"
   add_foreign_key "inns", "owners"
+  add_foreign_key "rooms", "inns"
 end
