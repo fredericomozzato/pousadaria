@@ -4,4 +4,8 @@
 
 <%= render partial: "inn_form" %>
 
-<%= button_to "Desativar Pousada", change_status_inn_path, { method: "patch" } %>
+<% if @inn.active? %>
+    <%= button_to "Desativar Pousada", change_status_inn_path, { method: "patch" } %>
+<% else %>
+    <%= button_to "Ativar Pousada", change_status_inn_path, { method: "patch" } %>
+<% end %>

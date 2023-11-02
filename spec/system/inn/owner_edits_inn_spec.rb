@@ -241,7 +241,8 @@ describe "Proprietário acessa a página de sua pousada" do
       user_policies: "Teste",
       check_in_time: Time.new(2000, 1, 1, 9, 0, 0, 'UTC'),
       check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
-      owner_id: owner.id
+      owner_id: owner.id,
+      active: false
     )
     Address.create!(
       street: "Teste",
@@ -256,5 +257,9 @@ describe "Proprietário acessa a página de sua pousada" do
     login_as(owner)
     visit minha_pousada_path
     click_on "Editar"
+    click_on "Ativar Pousada"
+
+    expect(page).to have_content("Pousada editada com sucesso")
+    expect(page).to have_content("Status na plataforma: Ativa")
   end
 end
