@@ -1,11 +1,5 @@
 <h1>Cadastro de Pousada</h1>
 
-<% if @inn.errors %>
-  <ul>
-    <% @inn.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end%>
-  </ul>
-<% end %>
+<%= render partial: "shared/form_errors", locals: { model: @inn } %>
 
 <%= render partial: "inn_form" %>

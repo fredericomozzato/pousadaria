@@ -1,6 +1,7 @@
 class InnsController < ApplicationController
   before_action :authenticate_owner!
   before_action :redirect_to_new_if_no_inn, only: [:show, :my_inn]
+  before_action :set_inn, only: [:show, :edit, :update]
 
 
   def new
@@ -29,25 +30,22 @@ class InnsController < ApplicationController
   end
 
   def show
-    set_inn
   end
 
   def edit
-    set_inn
     @address = Address.find_by(inn_id: @inn.id)
   end
 
   def update
-    set_inn
     @inn.check_in_time = get_time(:checkin_hour, :checkin_minute)
     @inn.check_out_time = get_time(:checkout_hour, :checkout_minute)
 
-    @address = @inn.address
-    @address.update(inn_params[:address_attributes])
-    
+    @inn.address.update(inn_params[:address_attributes])
+
     if @inn.update(inn_params.except(:address_attributes))
       redirect_to minha_pousada_path, notice: "Pousada atualizada com sucesso"
     else
+      @address = @inn.address
       flash.now[:alert] = "Erro ao atualizar Pousada"
       render :edit, status: :unprocessable_entity
     end
