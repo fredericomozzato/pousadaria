@@ -37,6 +37,22 @@ class InnsController < ApplicationController
     @address = Address.find_by(inn_id: @inn.id)
   end
 
+  def update
+    set_inn
+    @inn.check_in_time = get_time(:checkin_hour, :checkin_minute)
+    @inn.check_out_time = get_time(:checkout_hour, :checkout_minute)
+
+    @address = @inn.address
+    @address.update(inn_params[:address_attributes])
+    
+    if @inn.update(inn_params.except(:address_attributes))
+      redirect_to minha_pousada_path, notice: "Pousada atualizada com sucesso"
+    else
+      flash.now[:alert] = "Erro ao atualizar Pousada"
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   def my_inn
     @inn = Inn.find_by(owner_id: current_owner.id)
   end
