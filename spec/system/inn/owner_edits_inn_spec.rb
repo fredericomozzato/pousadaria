@@ -7,27 +7,27 @@ describe "Proprietário acessa a página de sua pousada" do
       password: "123456"
     )
     inn = Inn.create!(
-    name: "Mar Aberto",
-    corporate_name: "Pousada Mar Aberto/SC",
-    registration_number: "84.485.218/0001-73",
-    phone: "4899999-9999",
-    email: "pousadamaraberto@hotmail.com",
-    description: "Pousada na beira do mar com suítes e café da manhã incluso.",
-    pay_methods: "Crédito, débito, dinheiro ou pix",
-    pet_friendly: true,
-    user_policies: "A pousada conta com lei do silêncio das 22h às 8h",
-    check_in_time: Time.new(2000, 1, 1, 9, 0, 0, "UTC"),
-    check_out_time: Time.new(2000, 1, 1, 15, 30, 0, "UTC"),
-    owner_id: owner.id
+      name: "Mar Aberto",
+      corporate_name: "Pousada Mar Aberto/SC",
+      registration_number: "84.485.218/0001-73",
+      phone: "4899999-9999",
+      email: "pousadamaraberto@hotmail.com",
+      description: "Pousada na beira do mar com suítes e café da manhã incluso.",
+      pay_methods: "Crédito, débito, dinheiro ou pix",
+      pet_friendly: true,
+      user_policies: "A pousada conta com lei do silêncio das 22h às 8h",
+      check_in_time: Time.new(2000, 1, 1, 9, 0, 0, "UTC"),
+      check_out_time: Time.new(2000, 1, 1, 15, 30, 0, "UTC"),
+      owner_id: owner.id
     )
     Address.create!(
-    street: "Rua das Flores",
-    number: 300,
-    neighborhood: "Canasvieiras",
-    city: "Florianópolis",
-    state: "SC",
-    postal_code: "88000-000",
-    inn_id: inn.id
+      street: "Rua das Flores",
+      number: 300,
+      neighborhood: "Canasvieiras",
+      city: "Florianópolis",
+      state: "SC",
+      postal_code: "88000-000",
+      inn_id: inn.id
     )
 
     login_as owner
@@ -261,5 +261,65 @@ describe "Proprietário acessa a página de sua pousada" do
 
     expect(page).to have_content("Pousada editada com sucesso")
     expect(page).to have_content("Status na plataforma: Ativa")
+  end
+
+  it "e não pode editar pousada de outro proprietário" do
+    first_owner = Owner.create!(
+      email: "owner@email.com",
+      password: "123456"
+    )
+    first_inn = Inn.create!(
+      name: "Pousada",
+      corporate_name: "Pousada Teste",
+      registration_number: "1234567890",
+      phone: "999999999",
+      email: "teste@teste.com",
+      description: "Descrição teste",
+      pay_methods: "Teste",
+      user_policies: "Teste",
+      check_in_time: Time.new(2000, 1, 1, 9, 0, 0, 'UTC'),
+      check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
+      owner_id: first_owner.id
+    )
+    Address.create!(
+      street: "Teste",
+      number: 0,
+      neighborhood: "Teste",
+      city: "Teste",
+      state: "Teste",
+      postal_code: "0123456789",
+      inn_id: first_inn.id
+    )
+    second_owner = Owner.create!(
+      email: "differentowner@email.com",
+      password: "123456"
+    )
+    second_inn = Inn.create!(
+      name: "Paradouro",
+      corporate_name: "Paradouro Teste",
+      registration_number: "0987654321",
+      phone: "888888888",
+      email: "paradouro@teste.com",
+      description: "Descrição paradouro",
+      pay_methods: "Teste",
+      user_policies: "Teste",
+      check_in_time: Time.new(2000, 1, 1, 9, 0, 0, 'UTC'),
+      check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
+      owner_id: second_owner.id
+    )
+    Address.create!(
+      street: "Rua teste",
+      number: 0,
+      neighborhood: "Bairro teste",
+      city: "Cidade teste",
+      state: "Estado Teste",
+      postal_code: "9876543210",
+      inn_id: second_inn.id
+    )
+
+    login_as(first_owner)
+    visit inn_path(second_inn)
+
+    expect(page).not_to have_button "Editar"
   end
 end
