@@ -1,7 +1,7 @@
 class InnsController < ApplicationController
   before_action :authenticate_owner!
   before_action :redirect_to_new_if_no_inn, only: [:show, :my_inn]
-  before_action :set_inn, only: [:show, :edit, :update]
+  before_action :set_inn, only: [:show, :edit, :update, :change_status]
 
 
   def new
@@ -53,6 +53,16 @@ class InnsController < ApplicationController
 
   def my_inn
     @inn = Inn.find_by(owner_id: current_owner.id)
+  end
+
+  def change_status
+    @inn.active = !@inn.active
+
+    if @inn.save
+      redirect_to minha_pousada_path, notice: "Pousada editada com sucesso"
+    else
+      redirect_to minha_pousada_path, alert: "Erro ao editar Pousada"
+    end
   end
 
   private

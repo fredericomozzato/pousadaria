@@ -29,7 +29,6 @@ describe "Proprietário visita a página de cadastro de pousada" do
     expect(page).to have_field "Cidade"
     expect(page).to have_field "Estado"
     expect(page).to have_field "CEP"
-    expect(page).to have_field "Ativa"
     expect(page).to have_button "Criar Pousada"
   end
 

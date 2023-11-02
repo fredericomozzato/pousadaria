@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   get "logins", to: "home#logins"
 
   resources :addresses, only: [:new, :create]
-  resources :inns, only: [:new, :create, :show, :edit, :update]
+  resources :inns, only: [:new, :create, :show, :edit, :update] do
+    patch "change_status", on: :member
+  end
   get "minha_pousada", to: "inns#my_inn"
 end

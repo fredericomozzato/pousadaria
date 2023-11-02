@@ -186,4 +186,75 @@ describe "Proprietário acessa a página de sua pousada" do
     expect(page).to have_field "Nome", with: "Mar Aberto"
     expect(page).to have_field "Rua", with: "Rua das Flores"
   end
+
+  it "e desativa a pousada" do
+    owner = Owner.create!(
+      email: "owner@email.com",
+      password: "123456"
+    )
+    inn = Inn.create!(
+      name: "Pousada",
+      corporate_name: "Pousada Teste",
+      registration_number: "1234567890",
+      phone: "999999999",
+      email: "teste@teste.com",
+      description: "Descrição teste",
+      pay_methods: "Teste",
+      user_policies: "Teste",
+      check_in_time: Time.new(2000, 1, 1, 9, 0, 0, 'UTC'),
+      check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
+      owner_id: owner.id
+    )
+    Address.create!(
+      street: "Teste",
+      number: 0,
+      neighborhood: "Teste",
+      city: "Teste",
+      state: "Teste",
+      postal_code: "0123456789",
+      inn_id: inn.id
+    )
+
+    login_as(owner)
+    visit minha_pousada_path
+    click_on "Editar"
+
+    click_on "Desativar Pousada"
+
+    expect(page).to have_content("Pousada editada com sucesso")
+    expect(page).to have_content("Status na plataforma: Desativada")
+  end
+
+  it "e ativa a pousada" do
+    owner = Owner.create!(
+      email: "owner@email.com",
+      password: "123456"
+    )
+    inn = Inn.create!(
+      name: "Pousada",
+      corporate_name: "Pousada Teste",
+      registration_number: "1234567890",
+      phone: "999999999",
+      email: "teste@teste.com",
+      description: "Descrição teste",
+      pay_methods: "Teste",
+      user_policies: "Teste",
+      check_in_time: Time.new(2000, 1, 1, 9, 0, 0, 'UTC'),
+      check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
+      owner_id: owner.id
+    )
+    Address.create!(
+      street: "Teste",
+      number: 0,
+      neighborhood: "Teste",
+      city: "Teste",
+      state: "Teste",
+      postal_code: "0123456789",
+      inn_id: inn.id
+    )
+
+    login_as(owner)
+    visit minha_pousada_path
+    click_on "Editar"
+  end
 end

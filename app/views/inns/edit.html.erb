@@ -3,3 +3,5 @@
 <%= render partial: "shared/form_errors", locals: { model: @inn }%>
 
 <%= render partial: "inn_form" %>
+
+<%= button_to "Desativar Pousada", change_status_inn_path, { method: "patch" } %>
