@@ -1,0 +1,18 @@
+pt-BR:
+  activerecord:
+    models:
+      room: "Quarto"
+    attributes:
+      room:
+        name: "Nome"
+        description: "Descrição"
+        size: "Tamanho"
+        max_guests: "Número máximo de hóspedes"
+        price: "Preço"
+        bathroom: "Banheiro"
+        air_conditioner: "Ar-condicionado"
+        tv: "Televisão"
+        wardrobe: "Guarda-roupas"
+        safe: "Cofre"
+        wifi: "Wi-fi"
+        accessibility: "Acessibilidade"
