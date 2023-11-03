@@ -58,7 +58,8 @@ class RoomsController < ApplicationController
       :wardrobe,
       :safe,
       :wifi,
-      :accessibility
+      :accessibility,
+      :active
     )
   end
 

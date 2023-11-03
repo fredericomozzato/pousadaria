@@ -52,6 +52,7 @@ describe "Proprietário acessa formulário de cadastro de quarto" do
       expect(page).to have_field "Cofre", type: "checkbox"
       expect(page).to have_field "Acessibilidade", type: "checkbox"
       expect(page).to have_field "Wi-fi", type: "checkbox"
+      expect(page).to have_field "Disponível para reservas", type: "checkbox"
       expect(page).to have_button "Salvar Quarto"
     end
 
@@ -114,6 +115,7 @@ describe "Proprietário acessa formulário de cadastro de quarto" do
         expect(page).to have_content "Acessibilidade: sim"
         expect(page).to have_content "Wi-fi: sim"
       end
+      expect(page).to have_content "Disponível para reservas: sim"
       expect(page).to have_link "Editar Quarto"
       expect(Room.last.inn).to eq(inn)
     end

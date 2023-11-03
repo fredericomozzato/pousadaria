@@ -22,8 +22,8 @@
       <li>Wi-fi: <%= @room.wifi ? "sim" : "não" %></li>
     </ul>
   </dd>
-  <dt>Status:</dt>
-  <dd><%= @room.active? ? "ativo" : "inativo" %></dd>
+  <dt>Disponível para reservas:</dt>
+  <dd><%= @room.active? ? "sim" : "não" %></dd>
 </dl>
 
 <div>

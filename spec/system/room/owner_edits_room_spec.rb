@@ -199,7 +199,7 @@ describe "Proprietário acessa página de quartos" do
     expect(page).to have_content "Número máximo de hóspedes deve ser maior que 0"
   end
 
-  it "e desativa um quarto ativo" do
+  it "e o indisponibiliza para reservas" do
     owner = Owner.create!(
       email: "owner@email.com",
       password: "123456"
@@ -240,14 +240,15 @@ describe "Proprietário acessa página de quartos" do
     visit rooms_path
     click_on "Oceano"
     click_on "Editar Quarto"
-    click_on "Desativar Quarto"
+    uncheck "Disponível para reservas"
+    click_on "Salvar Quarto"
 
     expect(page).to have_content "Quarto atualizado com sucesso!"
     expect(page).to have_content "Quarto: Oceano"
-    expect(page).to have_content "Status: inativo"
+    expect(page).to have_content "Disponível para reservas: não"
   end
 
-  it "e ativa um quarto inativo" do
+  it "e o disponibiliza para reservas" do
     owner = Owner.create!(
       email: "owner@email.com",
       password: "123456"
@@ -289,10 +290,11 @@ describe "Proprietário acessa página de quartos" do
     visit rooms_path
     click_on "Montanha"
     click_on "Editar Quarto"
-    click_on "Ativar Quarto"
+    check "Disponível para reservas"
+    click_on "Salvar Quarto"
 
     expect(page).to have_content "Quarto atualizado com sucesso!"
     expect(page).to have_content "Quarto: Montanha"
-    expect(page).to have_content "Status: ativo"
+    expect(page).to have_content "Disponível para reservas: sim"
   end
 end
