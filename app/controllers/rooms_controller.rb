@@ -1,6 +1,8 @@
 class RoomsController < ApplicationController
   before_action :set_room, only: [:show, :edit, :update, :change_status]
-  before_action :authenticate_owner!, only: [:index, :new, :create]
+  before_action :authenticate_owner!, only: [:index, :new, :create, :edit,
+                                             :update, :change_status]
+  before_action :authenticate_current_owner, only: [:edit, :update, :change_status]
 
   def index
     @inn = current_owner.inn
@@ -65,5 +67,11 @@ class RoomsController < ApplicationController
 
   def set_room
     @room = Room.find(params[:id])
+  end
+
+  def authenticate_current_owner
+    if current_owner != @room.inn.owner
+      redirect_to root_path, alert: "Você não tem permissão para acessar essa página!"
+    end
   end
 end

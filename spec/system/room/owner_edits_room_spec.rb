@@ -298,5 +298,77 @@ describe "Proprietário acessa página de quartos" do
     expect(page).to have_content "Disponível para reservas: sim"
   end
 
+  it "e não consegue editar um quarto de outro proprietário" do
+    owner = Owner.create!(
+      email: "owner@email.com",
+      password: "123456"
+    )
+    inn = Inn.create!(
+      name: "Mar Aberto",
+      corporate_name: "Pousada Mar Aberto/SC",
+      registration_number: "84.485.218/0001-73",
+      phone: "4899999-9999",
+      email: "pousadamaraberto@gmail.com",
+      description: "Pousada na beira do mar com suítes e café da manhã incluso.",
+      pay_methods: "Crédito, débito, dinheiro ou pix",
+      user_policies: "A pousada conta com lei do silêncio das 22h às 8h",
+      pet_friendly: true,
+      check_in_time: Time.new(2000, 1, 1, 9, 0, 0, 'UTC'),
+      check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
+      owner_id: owner.id
+    )
+    Address.create!(
+      street: "Rua das Flores",
+      number: 300,
+      neighborhood: "Canasvieiras",
+      city: "Florianópolis",
+      state: "SC",
+      postal_code: "88000-000",
+      inn_id: inn.id
+    )
+    room_ocean = Room.create!(
+      name: "Oceano",
+      description: "Quarto com vista para o mar",
+      size: 30,
+      max_guests: 2,
+      price: 200.00,
+      inn_id: inn.id
+    )
+    different_owner = Owner.create!(
+      email: "differentowner@example.com",
+      password: "123456"
+    )
+    different_inn = Inn.create!(
+      name: "Parador da Montanha",
+      corporate_name: "Pousada Montanha/RS",
+      registration_number: "54.235.764/0001-84",
+      phone: "5499999-9999",
+      email: "paradordamontanha@gmail.com",
+      description: "Pousada de frente para montanha.",
+      pay_methods: "Crédito, débito, dinheiro ou pix",
+      user_policies: "Proibido fumar nas dependências da pousada.",
+      pet_friendly: false,
+      check_in_time: Time.new(2000, 1, 1, 9, 0, 0, 'UTC'),
+      check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
+      owner_id: different_owner.id
+    )
+    Address.create!(
+      street: "Estrada da montanha",
+      number: nil,
+      neighborhood: "Nova Petrópolis",
+      city: "Canela",
+      state: "RS",
+      postal_code: "32000-000",
+      inn_id: different_inn.id
+    )
+
+    login_as different_owner
+    visit edit_room_path(room_ocean)
+
+    expect(page).to have_content "Você não tem permissão para acessar essa página"
+    expect(page).not_to have_field "Nome"
+    expect(page).not_to have_field "Descrição"
+    expect(page).not_to have_button "Salvar Quarto"
+  end
 
 end

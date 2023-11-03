@@ -27,5 +27,7 @@
 </dl>
 
 <div>
-  <%= link_to "Editar Quarto", edit_room_path(@room) %>
+  <% if owner_signed_in? %>
+    <%= link_to "Editar Quarto", edit_room_path(@room) %>
+  <% end %>
 </div>
