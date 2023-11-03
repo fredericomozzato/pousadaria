@@ -15,7 +15,7 @@
     <header>
       <nav>
         <ul>
-          <li>Pousadaria</li>
+          <li><%= link_to "Pousadaria", root_path %></li>
             <% if owner_signed_in? %>
               <li><%= link_to "Minha Pousada", minha_pousada_path %></li>
               <li><%= current_owner.email %></li>

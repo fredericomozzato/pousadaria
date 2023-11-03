@@ -194,7 +194,7 @@ describe "Proprietário acessa página de quartos" do
 
     expect(page).to have_content "Erro ao atualizar quarto!"
     expect(page).to have_content "Nome não pode ficar em branco"
-    expect(page).to have_content "Valor da diária deve ser maior ou igual a 0"
+    expect(page).to have_content "Valor da diária deve ser maior que 0"
     expect(page).to have_content "Tamanho (m²) não pode ficar em branco"
     expect(page).to have_content "Número máximo de hóspedes deve ser maior que 0"
   end
@@ -297,4 +297,6 @@ describe "Proprietário acessa página de quartos" do
     expect(page).to have_content "Quarto: Montanha"
     expect(page).to have_content "Disponível para reservas: sim"
   end
+
+
 end
