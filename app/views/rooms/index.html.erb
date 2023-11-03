@@ -6,16 +6,18 @@
   <p>Nenhum quarto cadastrado</p>
 <% end %>
 
-<% @rooms.each do |room| %>
-  <div>
-    <h4>Quarto</h4>
-    <h2><%= room.name %></h2>
-    <p><%= room.description %></p>
-    <p><%= room.size %> m²</p>
-    <p>Hóspedes: <%= room.max_guests %></p>
-    <p>Diária: <%= number_to_currency room.price, 
-       unit: "R$", separator: ",", delimiter: "." %></p>
-  </div>
-<% end %>
-
+<section>
+  <% @rooms.each do |room| %>
+    <div class="room-preview">
+      <h4>Quarto</h4>
+      <h2><%= link_to room.name, room %></h2>
+      <p><%= room.description %></p>
+      <p><%= room.size %> m²</p>
+      <p>Hóspedes: <%= room.max_guests %></p>
+      <p>Diária: <%= number_to_currency room.price, 
+        unit: "R$", separator: ",", delimiter: "." %></p>
+      <p>Situação: <%= room.active? ? "ativo" : "inativo" %></p>
+    </div>
+  <% end %>
+</section>
 
