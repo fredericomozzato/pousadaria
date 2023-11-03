@@ -1,8 +1,8 @@
 class RoomsController < ApplicationController
   before_action :set_room, only: [:show, :edit, :update, :change_status]
+  before_action :authenticate_current_owner, only: [:edit, :update, :change_status]
   before_action :authenticate_owner!, only: [:index, :new, :create, :edit,
                                              :update, :change_status]
-  before_action :authenticate_current_owner, only: [:edit, :update, :change_status]
 
   def index
     @inn = current_owner.inn
@@ -70,6 +70,8 @@ class RoomsController < ApplicationController
   end
 
   def authenticate_current_owner
+    return redirect_to logins_path if current_owner.nil?
+
     if current_owner != @room.inn.owner
       redirect_to root_path, alert: "Você não tem permissão para acessar essa página!"
     end
