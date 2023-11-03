@@ -114,8 +114,7 @@ describe "Proprietário acessa formulário de cadastro de quarto" do
         expect(page).to have_content "Acessibilidade: sim"
         expect(page).to have_content "Wi-fi: sim"
       end
-      expect(page).to have_button "Editar Quarto"
-      expect(page).to have_button "Desativar Quarto"
+      expect(page).to have_link "Editar Quarto"
       expect(Room.last.inn).to eq(inn)
     end
 

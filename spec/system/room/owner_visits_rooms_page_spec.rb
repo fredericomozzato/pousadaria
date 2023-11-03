@@ -198,8 +198,7 @@ describe "Proprietário acessa página de quartos" do
         expect(page).to have_content "Acessibilidade: não"
         expect(page).to have_content "Wi-fi: não"
       end
-      expect(page).to have_button "Editar Quarto"
-      expect(page).to have_button "Desativar Quarto"
+      expect(page).to have_link "Editar Quarto"
     end
   end
 end

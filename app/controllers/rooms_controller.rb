@@ -1,5 +1,5 @@
 class RoomsController < ApplicationController
-  before_action :set_room, only: [:show]
+  before_action :set_room, only: [:show, :edit, :update]
   before_action :authenticate_owner!, only: [:index, :new, :create]
 
   def index
@@ -22,6 +22,19 @@ class RoomsController < ApplicationController
   end
 
   def show; end
+
+  def edit; end
+
+  def update
+    @room.update(room_params)
+
+    if @room.save
+      redirect_to @room, notice: "Quarto atualizado com sucesso!"
+    else
+      flash.now[:alert] = "Erro ao atualizar quarto!"
+      render :edit
+    end
+  end
 
   private
 
