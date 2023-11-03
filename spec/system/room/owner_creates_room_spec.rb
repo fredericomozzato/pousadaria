@@ -114,5 +114,6 @@ describe "Proprietário acessa formulário de cadastro de quarto" do
     end
     expect(page).to have_button "Editar Quarto"
     expect(page).to have_button "Desativar Quarto"
+    expect(Room.last.inn).to eq(inn)
   end
 end

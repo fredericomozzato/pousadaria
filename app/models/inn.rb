@@ -9,6 +9,7 @@ class Inn < ApplicationRecord
 
   has_one :address
   belongs_to :owner
+  has_many :rooms
 
   accepts_nested_attributes_for :address
 

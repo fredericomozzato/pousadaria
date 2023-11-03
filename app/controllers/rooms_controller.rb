@@ -6,8 +6,7 @@ class RoomsController < ApplicationController
   end
 
   def create
-    @room = Room.new(room_params)
-    @room.inn = current_owner.inn
+    @room = current_owner.inn.rooms.build(room_params)
 
     if @room.save
       redirect_to @room, notice: "Quarto cadastrado com sucesso!"
@@ -16,7 +15,7 @@ class RoomsController < ApplicationController
   end
 
   def show
-    
+
   end
 
   private
