@@ -1,56 +1,56 @@
 <%= form_with model: @room do |f| %>
   <div>
-    <%= f.label :name, "Nome" %>
+    <%= f.label :name %>
     <%= f.text_field :name %>
   </div>
   <div>
-    <%= f.label :description, "Descrição" %>
+    <%= f.label :description %>
     <%= f.text_field :description %>
   </div>
   <div>
-    <%= f.label :size, "Tamanho (m²)" %>
+    <%= f.label :size %>
     <%= f.number_field :size%>
   </div>
   <div>
-    <%= f.label :max_guests, "Número máximo de hóspedes" %>
+    <%= f.label :max_guests %>
     <%= f.number_field :max_guests%>
   </div>
   <div>
-    <%= f.label :price, "Valor da diária" %>
+    <%= f.label :price %>
     <%= f.number_field :price, step: 0.01%>
   </div>
   <div>
     <p>Comodidades</p>
     <div>
-      <%= f.label :bathroom, "Banheiro próprio" %>
+      <%= f.label :bathroom %>
       <%= f.check_box :bathroom %>
     </div>
     <div>
-      <%= f.label :porch, "Varanda" %>
+      <%= f.label :porch %>
       <%= f.check_box :porch %>
     </div>
     <div>
-      <%= f.label :air_conditioner, "Ar-condicionado" %>
+      <%= f.label :air_conditioner %>
       <%= f.check_box :air_conditioner %>
     </div>
     <div>
-      <%= f.label :tv, "Televisão" %>
+      <%= f.label :tv %>
       <%= f.check_box :tv %>
     </div>
     <div>
-      <%= f.label :wardrobe, "Guarda-roupas" %>
+      <%= f.label :wardrobe %>
       <%= f.check_box :wardrobe %>
     </div>
     <div>
-      <%= f.label :safe, "Cofre" %>
+      <%= f.label :safe %>
       <%= f.check_box :safe %>
     </div>
     <div>
-      <%= f.label :accessibility, "Acessibilidade" %>
+      <%= f.label :accessibility %>
       <%= f.check_box :accessibility%>
     </div>
     <div>
-      <%= f.label :wifi, "Wi-fi" %>
+      <%= f.label :wifi %>
       <%= f.check_box :wifi %>
     </div>
   </div>

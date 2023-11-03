@@ -7,16 +7,15 @@ class RoomsController < ApplicationController
 
   def create
     @room = current_owner.inn.rooms.build(room_params)
-
     if @room.save
       redirect_to @room, notice: "Quarto cadastrado com sucesso!"
     else
+      flash.now[:alert] = "Erro ao cadastrar quarto!"
+      render :new
     end
   end
 
-  def show
-
-  end
+  def show; end
 
   private
 

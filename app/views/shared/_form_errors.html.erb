@@ -1,6 +1,6 @@
 <% if model.errors %>
   <ul>
-    <% @inn.errors.full_messages.each do |msg| %>
+    <% model.errors.full_messages.each do |msg| %>
       <li><%= msg %></li>
     <% end%>
   </ul>
