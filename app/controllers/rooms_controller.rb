@@ -1,5 +1,11 @@
 class RoomsController < ApplicationController
   before_action :set_room, only: [:show]
+  before_action :authenticate_owner!, only: [:index, :new, :create]
+
+  def index
+    @inn = current_owner.inn
+    @rooms = @inn.rooms
+  end
 
   def new
     @room = Room.new

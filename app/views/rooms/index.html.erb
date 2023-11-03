@@ -1,0 +1,21 @@
+<h1>Quartos: <%= @inn.name %></h1>
+
+<%=link_to "Novo Quarto", new_room_path %>
+
+<% if @rooms.empty? %>
+  <p>Nenhum quarto cadastrado</p>
+<% end %>
+
+<% @rooms.each do |room| %>
+  <div>
+    <h4>Quarto</h4>
+    <h2><%= room.name %></h2>
+    <p><%= room.description %></p>
+    <p><%= room.size %> m²</p>
+    <p>Hóspedes: <%= room.max_guests %></p>
+    <p>Diária: <%= number_to_currency room.price, 
+       unit: "R$", separator: ",", delimiter: "." %></p>
+  </div>
+<% end %>
+
+
