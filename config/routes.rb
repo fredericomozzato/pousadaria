@@ -15,5 +15,7 @@ Rails.application.routes.draw do
   resources :inns, only: [:new, :create, :show, :edit, :update] do
     patch "change_status", on: :member
   end
-  resources :rooms, only: [:index, :new, :create, :show, :edit, :update]
+  resources :rooms, only: [:index, :new, :create, :show, :edit, :update] do
+    patch "change_status", on: :member
+  end
 end

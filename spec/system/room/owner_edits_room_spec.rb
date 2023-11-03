@@ -145,7 +145,7 @@ describe "Proprietário acessa página de quartos" do
     expect(page).to have_content "Wi-fi: sim"
   end
 
-  it "e edita um quarto com valores inválidos" do
+  it "e não consegue editar um quarto com valores inválidos" do
     owner = Owner.create!(
       email: "owner@email.com",
       password: "123456"
@@ -197,5 +197,102 @@ describe "Proprietário acessa página de quartos" do
     expect(page).to have_content "Valor da diária deve ser maior ou igual a 0"
     expect(page).to have_content "Tamanho (m²) não pode ficar em branco"
     expect(page).to have_content "Número máximo de hóspedes deve ser maior que 0"
+  end
+
+  it "e desativa um quarto ativo" do
+    owner = Owner.create!(
+      email: "owner@email.com",
+      password: "123456"
+    )
+    inn = Inn.create!(
+      name: "Mar Aberto",
+      corporate_name: "Pousada Mar Aberto/SC",
+      registration_number: "84.485.218/0001-73",
+      phone: "9999999994899999-9999",
+      email: "pousadamaraberto@gmail.com",
+      description: "Pousada na beira do mar com suítes e café da manhã incluso.",
+      pay_methods: "Crédito, débito, dinheiro ou pix",
+      user_policies: "A pousada conta com lei do silêncio das 22h às 8h",
+      pet_friendly: true,
+      check_in_time: Time.new(2000, 1, 1, 9, 0, 0, 'UTC'),
+      check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
+      owner_id: owner.id
+    )
+    Address.create!(
+      street: "Rua das Flores",
+      number: 300,
+      neighborhood: "Canasvieiras",
+      city: "Florianópolis",
+      state: "SC",
+      postal_code: "88000-000",
+      inn_id: inn.id
+    )
+    room_ocean = Room.create!(
+      name: "Oceano",
+      description: "Quarto com vista para o mar",
+      size: 30,
+      max_guests: 2,
+      price: 200.00,
+      inn_id: inn.id
+    )
+
+    login_as owner
+    visit rooms_path
+    click_on "Oceano"
+    click_on "Editar Quarto"
+    click_on "Desativar Quarto"
+
+    expect(page).to have_content "Quarto atualizado com sucesso!"
+    expect(page).to have_content "Quarto: Oceano"
+    expect(page).to have_content "Status: inativo"
+  end
+
+  it "e ativa um quarto inativo" do
+    owner = Owner.create!(
+      email: "owner@email.com",
+      password: "123456"
+    )
+    inn = Inn.create!(
+      name: "Mar Aberto",
+      corporate_name: "Pousada Mar Aberto/SC",
+      registration_number: "84.485.218/0001-73",
+      phone: "9999999994899999-9999",
+      email: "pousadamaraberto@gmail.com",
+      description: "Pousada na beira do mar com suítes e café da manhã incluso.",
+      pay_methods: "Crédito, débito, dinheiro ou pix",
+      user_policies: "A pousada conta com lei do silêncio das 22h às 8h",
+      pet_friendly: true,
+      check_in_time: Time.new(2000, 1, 1, 9, 0, 0, 'UTC'),
+      check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
+      owner_id: owner.id
+    )
+    Address.create!(
+      street: "Rua das Flores",
+      number: 300,
+      neighborhood: "Canasvieiras",
+      city: "Florianópolis",
+      state: "SC",
+      postal_code: "88000-000",
+      inn_id: inn.id
+    )
+    room_mountain = Room.create!(
+      name: "Montanha",
+      description: "Quarto com vista para a montanha",
+      size: 25,
+      max_guests: 4,
+      price: 250.00,
+      inn_id: inn.id,
+      active: false
+    )
+
+    login_as owner
+    visit rooms_path
+    click_on "Montanha"
+    click_on "Editar Quarto"
+    click_on "Ativar Quarto"
+
+    expect(page).to have_content "Quarto atualizado com sucesso!"
+    expect(page).to have_content "Quarto: Montanha"
+    expect(page).to have_content "Status: ativo"
   end
 end
