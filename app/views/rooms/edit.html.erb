@@ -3,9 +3,3 @@
 <%= render partial: "shared/form_errors", locals: { model: @room } %>
 
 <%= render partial: "room_form" %>
-
-<% if @room.active? %>
-  <%= button_to "Desativar Quarto", change_status_room_path, { method: "patch" } %>
-<% else %>
-  <%= button_to "Ativar Quarto", change_status_room_path, { method: "patch" } %>
-<% end %>

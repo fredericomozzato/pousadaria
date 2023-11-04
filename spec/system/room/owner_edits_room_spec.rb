@@ -72,7 +72,6 @@ describe "Proprietário acessa página de quartos" do
     expect(page).to have_unchecked_field "Acessibilidade"
     expect(page).to have_unchecked_field "Wi-fi"
     expect(page).to have_button "Salvar Quarto"
-    expect(page).to have_button "Desativar Quarto"
   end
 
   it "e edita um quarto com sucesso" do
