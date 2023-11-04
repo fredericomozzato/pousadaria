@@ -30,7 +30,7 @@
   <h3>Preços Sazonais</h3>
   <ul id="seasonal-prices">
     <% @seasonal_prices.each do |price| %>
-      <li><%= l(price.start) %> - <%= l(price.end) %>: <%= number_to_currency price.price, unit: "R$", separator: ",", delimiter: "." %></li>
+      <li><%= price.date_pretty_print %>: <%= number_to_currency price.price, unit: "R$", separator: ",", delimiter: "." %></li>
     <% end %>
   </ul>
 </div>
