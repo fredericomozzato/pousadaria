@@ -18,4 +18,5 @@ Rails.application.routes.draw do
   resources :rooms, only: [:index, :new, :create, :show, :edit, :update] do
     patch "change_status", on: :member
   end
+  resources :seasonal_prices, only: [:new, :create]
 end

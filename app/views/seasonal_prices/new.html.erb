@@ -1,0 +1,8 @@
+<h1>Detalhes de Período Sazonal</h1>
+
+<%= form_with model: SeasonalPrice.new do |f| %>
+  <div>
+    <%= f.label :room, "Quartos disponíveis" %>
+    <%= f.collection_select :room_id, Room.all, :id, :name %>
+  </div>
+<% end %>
