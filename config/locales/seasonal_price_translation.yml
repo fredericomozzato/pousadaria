@@ -1,0 +1,9 @@
+pt-BR:
+  activerecord:
+    models:
+      seasonal_price: "Preço Sazonal"
+    attributes:
+      seasonal_price:
+        start: "Data de início"
+        end: "Data de término"
+        price: "Valor da diária"
