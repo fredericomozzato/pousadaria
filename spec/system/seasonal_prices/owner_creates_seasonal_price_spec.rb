@@ -246,7 +246,7 @@ describe "Proprietário visita a página de criação de preços sazonais" do
     fill_in "Valor da diária", with: 500.00
     click_on "Salvar Período Sazonal"
 
-    expect(page).to have_content "Período Sazonal criado com sucesso"
+    expect(page).to have_content "Preço Sazonal criado com sucesso"
     expect(page).to have_content "Quarto: Atlântico"
     expect(page).to have_content "Preços Sazonais"
     within "#seasonal-prices" do
@@ -315,7 +315,7 @@ describe "Proprietário visita a página de criação de preços sazonais" do
     fill_in "Valor da diária", with: 500.00
     click_on "Salvar Período Sazonal"
 
-    expect(page).to have_content "Erro ao criar Período Sazonal"
+    expect(page).to have_content "Erro ao criar Preço Sazonal"
     expect(page).to have_content "Data de início não pode ser antes da data de término"
     expect(page).to have_select "seasonal_price_room_id", selected: "Oceano"
     expect(page).to have_field "Data de início", with: "2023-12-25"
@@ -384,7 +384,7 @@ describe "Proprietário visita a página de criação de preços sazonais" do
     fill_in "Valor da diária", with: 300.99
     click_on "Salvar Período Sazonal"
 
-    expect(page).to have_content "Erro ao criar Período Sazonal"
+    expect(page).to have_content "Erro ao criar Preço Sazonal"
     expect(page).to have_content "Data de término não pode estar no passado"
     expect(page).to have_select "seasonal_price_room_id", selected: "Montanha"
     expect(page).to have_field "Data de início", with: 1.week.ago.strftime("%Y-%m-%d")
@@ -465,7 +465,7 @@ describe "Proprietário visita a página de criação de preços sazonais" do
     fill_in "Valor da diária", with: 250.50
     click_on "Salvar Período Sazonal"
 
-    expect(page).to have_content "Erro ao criar Período Sazonal"
+    expect(page).to have_content "Erro ao criar Preço Sazonal"
     expect(page).to have_content "Data de início conflita com outro preço sazonal"
     expect(page).to have_select "seasonal_price_room_id", selected: "Montanha"
   end
@@ -543,7 +543,7 @@ describe "Proprietário visita a página de criação de preços sazonais" do
     fill_in "Valor da diária", with: 150.00
     click_on "Salvar Período Sazonal"
 
-    expect(page).to have_content "Erro ao criar Período Sazonal"
+    expect(page).to have_content "Erro ao criar Preço Sazonal"
     expect(page).to have_content "Data de término conflita com outro preço sazonal"
   end
 end
