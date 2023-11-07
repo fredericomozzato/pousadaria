@@ -24,7 +24,6 @@ class SeasonalPricesController < ApplicationController
   end
 
   def update
-    p @seasonal_price.id
     @seasonal_price.update!(seasonal_params)
     redirect_to room_path(@seasonal_price.room_id), notice: "Preço Sazonal atualizado com sucesso"
   end

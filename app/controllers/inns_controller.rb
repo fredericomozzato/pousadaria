@@ -1,5 +1,5 @@
 class InnsController < ApplicationController
-  before_action :authenticate_owner!
+  before_action :authenticate_owner!, only: [:new, :create, :edit, :update, :my_inn, :change_status]
   before_action :redirect_to_new_if_no_inn, only: [:show, :my_inn]
   before_action :set_inn, only: [:show, :edit, :update, :change_status]
 

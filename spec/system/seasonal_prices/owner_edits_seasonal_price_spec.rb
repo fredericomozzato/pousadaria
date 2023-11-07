@@ -238,6 +238,15 @@ describe "Proprietário acessa a página de um Preço Sazonal" do
       check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
       owner_id: second_owner.id
     )
+    Address.create!(
+      street: "Rua da Cachoeira",
+      number: 560,
+      neighborhood: "Zona Rual",
+      city: "Cambará do Sul",
+      state: "RS",
+      postal_code: "77000-000",
+      inn_id: second_inn.id
+    )
 
     login_as second_owner
     visit edit_seasonal_price_path seasonal_price
