@@ -329,11 +329,11 @@ describe "Usuário visita a página inicial" do
       click_on "Proprietário"
       fill_in "E-mail", with: "owner@example.com"
       fill_in "Senha", with: "123456"
-      within "form" do
+      within "#new_owner" do
         click_on "Entrar"
       end
 
-      within "nav" do
+      within "#navigation-bar" do
         expect(page).to have_link "Minha Pousada"
         expect(page).to have_link "Sair"
         expect(page).to have_content "owner@example.com"

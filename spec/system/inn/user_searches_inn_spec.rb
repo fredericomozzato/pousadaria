@@ -1,11 +1,11 @@
 require "rails_helper"
 
-describe "Usuário clica em um link no menu de cidades" do
-  it "e vê uma lista de pousadas daquela cidade" do
+describe "Usuário usa o campo de buscas" do
+  it "e pesquisa pousadas por cidade" do
     first_owner = Owner.create!(
-        email: "owner@example.com",
-        password: "123456"
-      )
+      email: "owner@example.com",
+      password: "123456"
+    )
     first_inn = Inn.create!(
       name: "Mar Aberto",
       corporate_name: "Pousada Mar Aberto/SC",
@@ -111,18 +111,18 @@ describe "Usuário clica em um link no menu de cidades" do
       inn_id: fourth_inn.id
     )
     fifth_owner = Owner.create!(
-      email: "fifthownr@example.com",
+      email: "fifthowner@example.com",
       password: "ghijklm"
     )
     fifth_inn = Inn.create!(
-      name: "Inativa",
-      corporate_name: "Inativa",
-      registration_number: "00000000000",
-      phone: "000000000000",
-      email: "inativa@inativa.com",
-      description: "Pousada inativa.",
-      pay_methods: "Inativo",
-      user_policies: "A pousada está inativa na plataforma",
+      name: "Pousada da Mata",
+      corporate_name: "Paradouro Silva e Compania",
+      registration_number: "70.816.898/0001-56",
+      phone: "349899999999",
+      email: "pousadasilva@example.com",
+      description: "Pousada na zona da mata.",
+      pay_methods: "Somente dinheiro",
+      user_policies: "Proíbida a entrada de animais de estimação",
       pet_friendly: false,
       check_in_time: Time.new(2000, 1, 1, 9, 0, 0, 'UTC'),
       check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
@@ -130,33 +130,35 @@ describe "Usuário clica em um link no menu de cidades" do
       active: false
     )
     Address.create!(
-      street: "Enderço Inativo",
-      number: 0,
-      neighborhood: "Sem bairro",
-      city: "Sem cidade",
-      state: "XX",
-      postal_code: "00000-000",
+      street: "Rua da Mata",
+      number: 18,
+      neighborhood: "Cachoeirinha",
+      city: "Uberlândia",
+      state: "MG",
+      postal_code: "00330-000",
       inn_id: fifth_inn.id
     )
 
     visit root_path
-    within "#cities-menu" do
-      click_on "Florianópolis"
+    within "#navigation-bar" do
+      fill_in "Buscar Pousada", with: "Florianópolis"
+      click_on "Buscar"
     end
 
-    expect(page).to have_content "Pousadas em: Florianópolis"
+    expect(page).to have_content "Busca por: Florianópolis"
+    expect(page).to have_content "Resultados: 2"
     expect(page).to have_link "Ilha da Magia"
     expect(page).to have_link "Mar Aberto"
-    expect("Ilha da Magia").to appear_before "Mar Aberto"
     expect(page).not_to have_link "Morro Azul"
-    expect(page).not_to have_link "Lage da Pedra"
+    expect(page).not_to have_link "Pousada da Mata"
+    expect("Ilha da Magia").to appear_before "Mar Aberto"
   end
 
-  it "e acessa a página de detalhes de uma pousada encotnrada na busca" do
+  it "e pesquisa pousadas por nome" do
     first_owner = Owner.create!(
-        email: "owner@example.com",
-        password: "123456"
-      )
+      email: "owner@example.com",
+      password: "123456"
+    )
     first_inn = Inn.create!(
       name: "Mar Aberto",
       corporate_name: "Pousada Mar Aberto/SC",
@@ -239,11 +241,11 @@ describe "Usuário clica em um link no menu de cidades" do
       password: "xyzpqr"
     )
     fourth_inn = Inn.create!(
-      name: "Lage da Pedra",
-      corporate_name: "Pousada Lage da Pedra",
+      name: "Ilha da Pedra",
+      corporate_name: "Pousada Ilha da Pedra",
       registration_number: "09.167.769/0001-73",
       phone: "3499999-9999",
-      email: "lagedapedra@gmail.com",
+      email: "ilhadapedra@gmail.com",
       description: "Pousada com cachoeiras.",
       pay_methods: "Crédito, débito, dinheiro ou pix",
       user_policies: "A pousada conta com lei do silêncio das 22h às 8h",
@@ -262,18 +264,18 @@ describe "Usuário clica em um link no menu de cidades" do
       inn_id: fourth_inn.id
     )
     fifth_owner = Owner.create!(
-      email: "fifthownr@example.com",
+      email: "fifthowner@example.com",
       password: "ghijklm"
     )
     fifth_inn = Inn.create!(
-      name: "Inativa",
-      corporate_name: "Inativa",
-      registration_number: "00000000000",
-      phone: "000000000000",
-      email: "inativa@inativa.com",
-      description: "Pousada inativa.",
-      pay_methods: "Inativo",
-      user_policies: "A pousada está inativa na plataforma",
+      name: "Pousada da Mata",
+      corporate_name: "Paradouro Silva e Compania",
+      registration_number: "70.816.898/0001-56",
+      phone: "349899999999",
+      email: "pousadasilva@example.com",
+      description: "Pousada na zona da mata.",
+      pay_methods: "Somente dinheiro",
+      user_policies: "Proíbida a entrada de animais de estimação",
       pet_friendly: false,
       check_in_time: Time.new(2000, 1, 1, 9, 0, 0, 'UTC'),
       check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
@@ -281,32 +283,23 @@ describe "Usuário clica em um link no menu de cidades" do
       active: false
     )
     Address.create!(
-      street: "Enderço Inativo",
-      number: 0,
-      neighborhood: "Sem bairro",
-      city: "Sem cidade",
-      state: "XX",
-      postal_code: "00000-000",
+      street: "Rua da Mata",
+      number: 18,
+      neighborhood: "Cachoeirinha",
+      city: "Uberlândia",
+      state: "MG",
+      postal_code: "00330-000",
       inn_id: fifth_inn.id
     )
 
     visit root_path
-    within "#cities-menu" do
-      click_on "Florianópolis"
+    within "#navigation-bar" do
+        fill_in "Buscar Pousada", with: "ilha"
+        click_on "Buscar"
     end
-    click_on "Mar Aberto"
 
-    expect(current_path).to eq inn_path first_inn
-    expect(page).to have_content "Nome: Mar Aberto"
-    expect(page).to have_content "Telefone: 4899999-9999"
-    expect(page).to have_content "E-mail: pousadamaraberto@hotmail.com"
-    expect(page).to have_content "Descrição: Pousada na beira do mar com suítes e café da manhã incluso."
-    expect(page).to have_content "Métodos de pagamento: Crédito, débito, dinheiro ou pix"
-    expect(page).to have_content "Políticas de uso: A pousada conta com lei do silêncio das 22h às 8h"
-    expect(page).to have_content "Aceita pets: sim"
-    expect(page).to have_content "Horário de check-in: a partir das 9:00"
-    expect(page).to have_content "Horário de check-out: até as 15:30"
-    expect(page).to have_content "Rua das Flores, 300 Canasvieiras - Florianópolis, SC"
-    expect(page).to have_content "CEP: 88000-000"
+    expect(page).to have_link "Ilha da Magia"
+    expect(page).to have_link "Ilha da Pedra"
+    expect("Ilha da Magia").to appear_before("Ilha da Pedra")
   end
 end
