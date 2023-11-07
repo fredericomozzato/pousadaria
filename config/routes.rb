@@ -19,5 +19,5 @@ Rails.application.routes.draw do
     patch "change_status", on: :member
     resources :seasonal_prices, only: [:new, :create]
   end
-  resources :seasonal_prices, only: [:show, :edit, :update]
+  resources :seasonal_prices, only: [:show, :edit, :update, :destroy]
 end

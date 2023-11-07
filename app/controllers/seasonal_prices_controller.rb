@@ -1,4 +1,5 @@
 class SeasonalPricesController < ApplicationController
+  
   before_action :set_room, only: [:new, :create]
 
   def new
@@ -26,6 +27,12 @@ class SeasonalPricesController < ApplicationController
     p @seasonal_price.id
     @seasonal_price.update!(seasonal_params)
     redirect_to room_path(@seasonal_price.room_id), notice: "Preço Sazonal atualizado com sucesso"
+  end
+
+  def destroy
+    set_seasonal_price
+    @seasonal_price.destroy!
+    redirect_to room_path(@seasonal_price.room_id), notice: "Preço Sazonal excluído com sucesso"
   end
 
   private

@@ -1,3 +1,7 @@
 <h1>Editar Preço Sazonal</h1>
 
 <%= render partial: "seasonal_price_form" %>
+
+<div>
+  <%= link_to "Excluir", seasonal_price_path(@seasonal_price), data: { turbo_method: :delete } %>
+</div>
