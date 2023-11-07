@@ -1,5 +1,5 @@
 class InnsController < ApplicationController
-  before_action :authenticate_owner!, except: [:show]
+  before_action :authenticate_owner!, except: [:show, :city_search]
   before_action :redirect_to_new_if_no_inn, only: [:show, :my_inn]
   before_action :set_inn, only: [:show, :edit, :update, :change_status]
 
@@ -63,6 +63,12 @@ class InnsController < ApplicationController
     else
       redirect_to minha_pousada_path, alert: "Erro ao editar Pousada"
     end
+  end
+
+  def city_search
+    city = params[:city]
+    addresses = Address.where(city: city)
+    @found_inns = Inn.joins(:address).where(address: { city: city }).order(:name)
   end
 
   private

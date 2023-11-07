@@ -1,7 +1,7 @@
 <nav id="cities-menu">
   <ul>
     <% @cities.each do |city| %>
-      <li><%= link_to city %></li>
+      <li><%= link_to city, city_search_inns_path(city: city) %></li>
     <% end %>
   </ul>
 </nav>

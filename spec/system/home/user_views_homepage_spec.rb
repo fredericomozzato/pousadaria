@@ -5,7 +5,7 @@ describe "Usuário visita a página inicial" do
     it "e vê o menu" do
       visit root_path
 
-      within "nav" do
+      within "#navigation-bar" do
         expect(page).to have_content "Pousadaria"
         expect(page).to have_link "Entrar"
       end
