@@ -2,28 +2,28 @@
 
 <div>
   <dl>
-    <dt>Nome:</dt>
+    <dt><%= Inn.human_attribute_name(:name) %>:</dt>
     <dd><%= @inn.name %></dd>
-    <dt>Telefone:</dt>
+    <dt><%= Inn.human_attribute_name(:phone) %>:</dt>
     <dd><%= @inn.phone %></dd>
-    <dt>E-mail:</dt>
+    <dt><%= Inn.human_attribute_name(:email) %>:</dt>
     <dd><%= @inn.email %></dd>
-    <dt>Descrição:</dt>
+    <dt><%= Inn.human_attribute_name(:description) %>:</dt>
     <dd><%= @inn.description %></dd>
-    <dt>Métodos de pagamento:</dt>
+    <dt><%= Inn.human_attribute_name(:pay_methods) %>:</dt>
     <dd><%= @inn.pay_methods %></dd>
-    <dt>Aceita pets:</dt>
+    <dt><%= Inn.human_attribute_name(:pet_friendly) %>:</dt>
     <dd><%= @inn.pet_friendly ? "sim" : "não" %></dd>
-    <dt>Políticas de uso:</dt>
+    <dt><%= Inn.human_attribute_name(:user_policies) %>:</dt>
     <dd><%= @inn.user_policies %></dd>
-    <dt>Check-in:</dt>
+    <dt><%= Inn.human_attribute_name(:check_in_time) %>:</dt>
     <dd>a partir das <%= @inn.check_in_time.strftime("%k:%M") %></dd>
-    <dt>Check-out:</dt>
+    <dt><%= Inn.human_attribute_name(:check_out_time) %>:</dt>
     <dd>até as <%= @inn.check_out_time.strftime("%k:%M") %></dd>
-    <dt>Endereço:</dt>
+    <dt><%= Address.model_name.human %>:</dt>
     <dd><%= @inn.get_street_values %></dd>
     <dd><%= @inn.get_location_values %></dd>
-    <dt>CEP:</dt>
+    <dt><%= Address.human_attribute_name(:postal_code) %>:</dt>
     <dd><%= @inn.address.postal_code %></dd>
   </dl>
 </div>
