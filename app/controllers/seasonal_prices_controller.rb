@@ -1,6 +1,8 @@
 class SeasonalPricesController < ApplicationController
-  
+  before_action :authenticate_owner!, only: [:new, :create, :edit, :update, :destroy]
   before_action :set_room, only: [:new, :create]
+  before_action :set_seasonal_price, only: [:edit, :update, :destroy]
+  before_action :authorize_owner, only: [:edit, :update, :destroy]
 
   def new
       @seasonal_price = SeasonalPrice.new
@@ -18,19 +20,16 @@ class SeasonalPricesController < ApplicationController
   end
 
   def edit
-    set_seasonal_price
     @room_id = @seasonal_price.room_id
   end
 
   def update
-    set_seasonal_price
     p @seasonal_price.id
     @seasonal_price.update!(seasonal_params)
     redirect_to room_path(@seasonal_price.room_id), notice: "Preço Sazonal atualizado com sucesso"
   end
 
   def destroy
-    set_seasonal_price
     @seasonal_price.destroy!
     redirect_to room_path(@seasonal_price.room_id), notice: "Preço Sazonal excluído com sucesso"
   end
@@ -48,5 +47,11 @@ class SeasonalPricesController < ApplicationController
 
   def set_room
     @room = Room.find(params[:room_id])
+  end
+
+  def authorize_owner
+    if current_owner != @seasonal_price.room.inn.owner
+      redirect_to root_path, alert: "Página não encontrada"
+    end
   end
 end
