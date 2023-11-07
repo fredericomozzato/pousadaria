@@ -6,6 +6,5 @@ class HomeController < ApplicationController
     @inns = Inn.where.not(id: @recent_inns.map { |inn| inn.id }).where(active: true)
   end
 
-  def logins
-  end
+  def logins; end
 end
