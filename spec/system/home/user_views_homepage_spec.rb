@@ -120,9 +120,39 @@ describe "Usuário visita a página inicial" do
         postal_code: "33000-000",
         inn_id: fourth_inn.id
       )
+      fifth_owner = Owner.create!(
+        email: "fifthownr@example.com",
+        password: "ghijklm"
+      )
+      fifth_inn = Inn.create!(
+        name: "Inativa",
+        corporate_name: "Inativa",
+        registration_number: "00000000000",
+        phone: "000000000000",
+        email: "inativa@inativa.com",
+        description: "Pousada inativa.",
+        pay_methods: "Inativo",
+        user_policies: "A pousada está inativa na plataforma",
+        pet_friendly: false,
+        check_in_time: Time.new(2000, 1, 1, 9, 0, 0, 'UTC'),
+        check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
+        owner_id: fifth_owner.id,
+        active: false
+      )
+      Address.create!(
+        street: "Enderço Inativo",
+        number: 0,
+        neighborhood: "Sem bairro",
+        city: "Sem cidade",
+        state: "XX",
+        postal_code: "00000-000",
+        inn_id: fifth_inn.id
+      )
 
       visit root_path
       within "#recent" do
+      expect(page).not_to have_content "Inativa"
+      expect(page).not_to have_content "Sem cidade - XX"
         expect(page).to have_content "Lage da Pedra"
         expect(page).to have_content "Uberlândia - MG"
         expect(page).to have_content "Ilha Bela"
@@ -136,6 +166,8 @@ describe "Usuário visita a página inicial" do
         expect(page).not_to have_content "Lage da Pedra"
         expect(page).not_to have_content "Ilha Bela"
         expect(page).not_to have_content "Morro Azul"
+        expect(page).not_to have_content "Inativa"
+        expect(page).not_to have_content "Sem cidade - XX"
       end
     end
 
