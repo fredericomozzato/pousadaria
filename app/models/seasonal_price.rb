@@ -30,7 +30,12 @@ class SeasonalPrice < ApplicationRecord
   def date_conflict
     return if self.start.nil? || self.end.nil?
 
-    room_seasonal_prices = SeasonalPrice.where("room_id = ?", self.room_id)
+    if self.id.nil?
+      room_seasonal_prices = SeasonalPrice.where("room_id = ?", self.room_id)
+    else
+      room_seasonal_prices = SeasonalPrice.where("room_id = ? AND id != ?", self.room_id, self.id)
+    end
+
     room_seasonal_prices.each do |room|
       if (room.start..room.end).cover? self.start
         errors.add :start, "Data de início conflita com outro preço sazonal"

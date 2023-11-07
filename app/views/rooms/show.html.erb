@@ -27,16 +27,18 @@
 </dl>
 
 <div>
-  <h3>Preços Sazonais</h3>
-  <ul id="seasonal-prices">
-    <% @seasonal_prices.each do |price| %>
-      <li><%= price.date_pretty_print %>: <%= number_to_currency price.price, unit: "R$", separator: ",", delimiter: "." %></li>
-    <% end %>
-  </ul>
-</div>
-
-<div>
   <% if owner_signed_in? %>
     <%= link_to "Editar Quarto", edit_room_path(@room) %>
   <% end %>
 </div>
+
+<div>
+  <h3>Preços Sazonais</h3>
+  <%= link_to "Novo Preço Sazonal", new_room_seasonal_price_path(@room) %>
+  <ul id="seasonal-prices">
+    <% @seasonal_prices.each do |price| %>
+      <li><%= link_to price.date_pretty_print, edit_seasonal_price_path(price) %> | <%= number_to_currency price.price, unit: "R$", separator: ",", delimiter: "." %></li>
+    <% end %>
+  </ul>
+</div>
+

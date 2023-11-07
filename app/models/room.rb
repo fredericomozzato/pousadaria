@@ -10,5 +10,6 @@ class Room < ApplicationRecord
             numericality: { greater_than: 0 }
 
   belongs_to :inn
+  has_many :seasonal_prices
 
 end

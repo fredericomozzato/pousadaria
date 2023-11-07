@@ -19,7 +19,7 @@ RSpec.describe SeasonalPrice, type: :model do
     end
 
     it "inválido com data de início maior que data de término" do
-      sp = SeasonalPrice.new(start: Date.today, end: Date.yesterday)
+      sp = SeasonalPrice.new(start: Date.today, end: 2.days.ago)
 
       expect(sp.valid?).to be false
       expect(sp.errors.include?(:start)).to be true
@@ -27,7 +27,7 @@ RSpec.describe SeasonalPrice, type: :model do
     end
 
     it "inválido com data de término no passado" do
-      sp = SeasonalPrice.new(end: Date.yesterday)
+      sp = SeasonalPrice.new(end: 2.days.ago)
 
       expect(sp.valid?).to be false
       expect(sp.errors.include?(:end)).to be true
