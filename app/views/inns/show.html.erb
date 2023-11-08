@@ -1,4 +1,4 @@
-<h1>Dados da Pousada</h1>
+<h1><%= @inn.name %></h1>
 
 <div>
   <dl>
@@ -26,4 +26,13 @@
     <dt><%= Address.human_attribute_name(:postal_code) %>:</dt>
     <dd><%= @inn.address.postal_code %></dd>
   </dl>
+</div>
+
+<div id="rooms-list">
+  <h2>Quartos disponíveis:</h2>
+  <% @rooms.each do |room| %>
+    <div>
+      <%= render room %>
+    </div>
+  <% end %>
 </div>

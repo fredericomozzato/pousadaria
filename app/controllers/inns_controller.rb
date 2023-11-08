@@ -29,7 +29,9 @@ class InnsController < ApplicationController
     end
   end
 
-  def show; end
+  def show
+    @rooms = @inn.rooms.where(active: true)
+  end
 
   def edit
     @address = Address.find_by(inn_id: @inn.id)
