@@ -335,7 +335,7 @@ describe "Usuário visita a página inicial" do
 
       within "#navigation-bar" do
         expect(page).to have_link "Minha Pousada"
-        expect(page).to have_link "Sair"
+        expect(page).to have_button "Sair"
         expect(page).to have_content "owner@example.com"
       end
       expect(current_path).to eq new_inn_path
@@ -353,7 +353,7 @@ describe "Usuário visita a página inicial" do
       within "nav" do
         expect(page).to have_content "owner@example.com"
         expect(page).to have_link "Minha Pousada"
-        expect(page).to have_link "Sair"
+        expect(page).to have_button "Sair"
         expect(page).not_to have_link "Entrar"
       end
     end
@@ -368,7 +368,7 @@ describe "Usuário visita a página inicial" do
       end
 
       expect(page).to have_link "Entrar"
-      expect(page).not_to have_link "Sair"
+      expect(page).not_to have_button "Sair"
       expect(page).not_to have_link "Minha Pousada"
       expect(page).not_to have_content "owner@example.com"
     end

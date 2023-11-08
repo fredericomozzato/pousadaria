@@ -23,7 +23,7 @@ describe "Usuário acessa a página de cadastro" do
 
       within "nav" do
         expect(page).to have_content "owner@example.com"
-        expect(page).to have_link "Sair"
+        expect(page).to have_button "Sair"
       end
       expect(current_path).to eq new_inn_path
     end

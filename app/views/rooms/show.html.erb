@@ -37,7 +37,10 @@
   <%= link_to "Novo Preço Sazonal", new_room_seasonal_price_path(@room) %>
   <ul id="seasonal-prices">
     <% @seasonal_prices.each do |price| %>
-      <li><%= link_to price.date_pretty_print, edit_seasonal_price_path(price) %> | <%= number_to_currency price.price, unit: "R$", separator: ",", delimiter: "." %></li>
+      <li>
+        <%= link_to price.date_pretty_print, edit_seasonal_price_path(price) %> | 
+        <%= number_to_currency price.price, unit: "R$", separator: ",", delimiter: "." %>
+      </li>
     <% end %>
   </ul>
 </div>
