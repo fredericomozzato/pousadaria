@@ -40,7 +40,7 @@
       </div>
       <div>
         <%= a.label :state, "Estado" %>
-        <%= a.text_field :state %>
+        <%= a.select :state, Address.states.keys, prompt: "Selecione" %>
       </div>
       <div>
         <%= a.label :postal_code, "CEP" %>

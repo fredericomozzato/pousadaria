@@ -27,7 +27,7 @@ describe "Proprietário visita a página de cadastro de pousada" do
     expect(page).to have_field "Número"
     expect(page).to have_field "Bairro"
     expect(page).to have_field "Cidade"
-    expect(page).to have_field "Estado"
+    expect(page).to have_select "Estado"
     expect(page).to have_field "CEP"
     expect(page).to have_button "Criar Pousada"
   end
@@ -55,7 +55,7 @@ describe "Proprietário visita a página de cadastro de pousada" do
     fill_in "Número", with: "300"
     fill_in "Bairro", with: "Canasvieiras"
     fill_in "Cidade", with: "Florianópolis"
-    fill_in "Estado", with: "SC"
+    select "SC", from: "inn_address_attributes_state"
     fill_in "CEP", with: "88000-000"
     click_on "Criar Pousada"
 
@@ -136,7 +136,7 @@ describe "Proprietário visita a página de cadastro de pousada" do
     fill_in "Número", with: ""
     fill_in "Bairro", with: ""
     fill_in "Cidade", with: "Florianópolis"
-    fill_in "Estado", with: "SC"
+    select "SC", from: "inn_address_attributes_state"
     fill_in "CEP", with: "88000-000"
     click_on "Criar Pousada"
 

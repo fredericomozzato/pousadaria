@@ -51,7 +51,7 @@ describe "Proprietário acessa a página de sua pousada" do
     expect(page).to have_field "Número", with: 300
     expect(page).to have_field "Bairro", with: "Canasvieiras"
     expect(page).to have_field "Cidade", with: "Florianópolis"
-    expect(page).to have_field "Estado", with: "SC"
+    expect(page).to have_select "inn_address_attributes_state", selected: "SC"
     expect(page).to have_field "CEP", with: "88000-000"
     expect(page).to have_button "Atualizar Pousada"
   end
@@ -105,7 +105,7 @@ describe "Proprietário acessa a página de sua pousada" do
     fill_in "Número", with: "300"
     fill_in "Bairro", with: "Canasvieiras"
     fill_in "Cidade", with: "Florianópolis"
-    fill_in "Estado", with: "SC"
+    select "SC", from: "inn_address_attributes_state"
     fill_in "CEP", with: "88000-000"
     click_on "Atualizar Pousada"
 
@@ -176,7 +176,7 @@ describe "Proprietário acessa a página de sua pousada" do
     fill_in "Número", with: "300"
     fill_in "Bairro", with: ""
     fill_in "Cidade", with: "Florianópolis"
-    fill_in "Estado", with: "SC"
+    select "SC", from: "inn_address_attributes_state"
     fill_in "CEP", with: "88000-000"
     click_on "Atualizar Pousada"
 
