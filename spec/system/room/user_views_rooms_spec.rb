@@ -10,7 +10,7 @@ describe "Usuário visita a página de uma pousada" do
       name: "Mar Aberto",
       corporate_name: "Pousada Mar Aberto/SC",
       registration_number: "84.485.218/0001-73",
-      phone: "9999999994899999-9999",
+      phone: "4899999-9999",
       email: "pousadamaraberto@gmail.com",
       description: "Pousada na beira do mar com suítes e café da manhã incluso.",
       pay_methods: "Crédito, débito, dinheiro ou pix",
@@ -67,7 +67,20 @@ describe "Usuário visita a página de uma pousada" do
 
     visit root_path
     click_on "Mar Aberto"
+    expect(current_path).to eq inn_path(inn)
     expect(page).to have_content "Mar Aberto"
+    expect(page).to have_content "Telefone: 4899999-9999"
+    expect(page).to have_content "E-mail: pousadamaraberto@gmail.com"
+    expect(page).to have_content "Descrição: Pousada na beira do mar com suítes e café da manhã incluso."
+    expect(page).to have_content "Métodos de pagamento: Crédito, débito, dinheiro ou pix"
+    expect(page).to have_content "Aceita pets: sim"
+    expect(page).to have_content "Políticas de uso: A pousada conta com lei do silêncio das 22h às 8h"
+    expect(page).to have_content "Horário de check-in: a partir das 9:00"
+    expect(page).to have_content "Horário de check-out: até as 15:00"
+    expect(page).to have_content "Endereço: Rua das Flores, 300"
+    expect(page).to have_content "Canasvieiras - Florianópolis, SC"
+    expect(page).to have_content "CEP: 88000-000"
+
     within "#rooms-list" do
       expect(page).to have_content "Quartos disponíveis:"
       expect(page).to have_content "Oceano"
