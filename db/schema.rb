@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_08_184132) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_08_191531) do
   create_table "addresses", force: :cascade do |t|
     t.string "street"
     t.string "number"
@@ -25,13 +25,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_08_184132) do
   end
 
   create_table "inns", force: :cascade do |t|
-    t.string "name"
-    t.string "corporate_name"
-    t.string "registration_number"
-    t.string "phone"
-    t.string "email"
+    t.string "name", null: false
+    t.string "corporate_name", null: false
+    t.string "registration_number", null: false
+    t.string "phone", null: false
+    t.string "email", null: false
     t.string "description"
-    t.string "pay_methods"
+    t.string "pay_methods", null: false
     t.boolean "pet_friendly", default: false
     t.string "user_policies"
     t.time "check_in_time"
