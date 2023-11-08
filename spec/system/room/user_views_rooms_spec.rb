@@ -81,8 +81,8 @@ describe "Usuário visita a página de uma pousada" do
     expect(page).to have_content "Canasvieiras - Florianópolis, SC"
     expect(page).to have_content "CEP: 88000-000"
 
+    expect(page).to have_content "Quartos disponíveis:"
     within "#rooms-list" do
-      expect(page).to have_content "Quartos disponíveis:"
       expect(page).to have_content "Oceano"
       expect(page).to have_content "Descrição: Quarto com vista para o mar"
       expect(page).to have_content "Tamanho: 30 m²"
@@ -96,7 +96,10 @@ describe "Usuário visita a página de uma pousada" do
       expect(page).to have_content "Acessibilidade: sim"
       expect(page).to have_content "Cofre: não"
       expect(page).to have_content "Wi-fi: sim"
+      expect(page).to have_content "Disponível para reservas: sim"
+
       expect(page).not_to have_content "Montanha"
+
       expect(page).to have_content "Campo"
       expect(page).to have_content "Descrição: Quarto com vista para o campo"
       expect(page).to have_content "Tamanho: 20 m²"
@@ -109,6 +112,7 @@ describe "Usuário visita a página de uma pousada" do
       expect(page).to have_content "Acessibilidade: não"
       expect(page).to have_content "Cofre: não"
       expect(page).to have_content "Wi-fi: não"
+      expect(page).to have_content "Disponível para reservas: sim"
     end
   end
 end
