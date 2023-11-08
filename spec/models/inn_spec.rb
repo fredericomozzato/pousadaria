@@ -44,4 +44,22 @@ RSpec.describe Inn, type: :model do
       expect(inn.errors.include?(:pay_methods)).to be true
     end
   end
+
+  describe "#get_street_values" do
+    it "retorna rua e número formatados" do
+      inn = Inn.new
+      inn.address = Address.new(street: "Rua das Flores", number: "300")
+
+      expect(inn.get_street_values).to eq "Rua das Flores, 300"
+    end
+  end
+
+  describe "#get_location_values" do
+    it "retorna bairro, cidade e estado formatados" do
+      inn = Inn.new
+      inn.address = Address.new(neighborhood: "Centro", city: "São Paulo", state: "SP")
+
+      expect(inn.get_location_values).to eq "Centro - São Paulo, SP"
+    end
+  end
 end
