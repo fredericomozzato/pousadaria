@@ -154,7 +154,7 @@ describe "Usuário usa o campo de buscas" do
     expect("Ilha da Magia").to appear_before "Mar Aberto"
   end
 
-  it "e pesquisa pousadas por nome" do
+  it "e pesquisa pousadas por nome a partir da tela de uma pousada" do
     first_owner = Owner.create!(
       email: "owner@example.com",
       password: "123456"
@@ -292,7 +292,7 @@ describe "Usuário usa o campo de buscas" do
       inn_id: fifth_inn.id
     )
 
-    visit root_path
+    visit inn_path(second_inn)
     within "#navigation-bar" do
         fill_in "Buscar Pousada", with: "ilha"
         click_on "Buscar"
@@ -301,5 +301,72 @@ describe "Usuário usa o campo de buscas" do
     expect(page).to have_link "Ilha da Magia"
     expect(page).to have_link "Ilha da Pedra"
     expect("Ilha da Magia").to appear_before("Ilha da Pedra")
+  end
+
+  it "e não encontra uma pousada inativa" do
+    active_owner = Owner.create!(
+      email: "activeowner@example.com",
+      password: "abcdefg"
+    )
+    active_inn = Inn.create!(
+      name: "Ilha da Magia",
+      corporate_name: "Pousada Ilha da Magia Floripa",
+      registration_number: "81.289.700/0001-40",
+      phone: "48829999-9999",
+      email: "pousadailhadamagia@gmail.com",
+      description: "Pousada na Ilha da Magia.",
+      pay_methods: "Crédito, débito, dinheiro ou pix",
+      user_policies: "A pousada conta com lei do silêncio das 22h às 8h",
+      pet_friendly: false,
+      check_in_time: Time.new(2000, 1, 1, 9, 0, 0, 'UTC'),
+      check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
+      owner_id: active_owner.id,
+    )
+    Address.create!(
+      street: "Rua da Praia",
+      number: 190,
+      neighborhood: "Campeche",
+      city: "Florianópolis",
+      state: "SC",
+      postal_code: "88800-000",
+      inn_id: active_inn.id
+    )
+    inactive_owner = Owner.create!(
+      email: "fourthowner@example.com",
+      password: "xyzpqr"
+    )
+    inactive_inn = Inn.create!(
+      name: "Ilha da Pedra",
+      corporate_name: "Pousada Ilha da Pedra",
+      registration_number: "09.167.769/0001-73",
+      phone: "3499999-9999",
+      email: "ilhadapedra@gmail.com",
+      description: "Pousada com cachoeiras.",
+      pay_methods: "Crédito, débito, dinheiro ou pix",
+      user_policies: "A pousada conta com lei do silêncio das 22h às 8h",
+      pet_friendly: false,
+      check_in_time: Time.new(2000, 1, 1, 9, 0, 0, 'UTC'),
+      check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
+      owner_id: inactive_owner.id,
+      active: false
+    )
+    Address.create!(
+      street: "Servidão da Cachoeira",
+      number: 32,
+      neighborhood: "Morro da Pedra",
+      city: "Uberlândia",
+      state: "MG",
+      postal_code: "33000-000",
+      inn_id: inactive_inn.id
+    )
+
+    visit root_path
+    within "#navigation-bar" do
+        fill_in "Buscar Pousada", with: "ilha"
+        click_on "Buscar"
+    end
+
+    expect(page).to have_link "Ilha da Magia"
+    expect(page).not_to have_link "Ilha da Pedra"
   end
 end
