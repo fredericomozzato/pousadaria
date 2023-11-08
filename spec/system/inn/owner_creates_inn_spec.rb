@@ -52,7 +52,7 @@ describe "Proprietário visita a página de cadastro de pousada" do
     select "15", from: "date_checkout_hour"
     select "30", from: "date_checkout_minute"
     fill_in "Rua", with: "Rua das Flores"
-    fill_in "Número", with: 300
+    fill_in "Número", with: "300"
     fill_in "Bairro", with: "Canasvieiras"
     fill_in "Cidade", with: "Florianópolis"
     fill_in "Estado", with: "SC"

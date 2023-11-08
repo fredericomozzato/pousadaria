@@ -102,7 +102,7 @@ describe "Proprietário acessa a página de sua pousada" do
     select "17", from: "date_checkout_hour"
     select "45", from: "date_checkout_minute"
     fill_in "Rua", with: "Rua das Flores"
-    fill_in "Número", with: 300
+    fill_in "Número", with: "300"
     fill_in "Bairro", with: "Canasvieiras"
     fill_in "Cidade", with: "Florianópolis"
     fill_in "Estado", with: "SC"
@@ -173,7 +173,7 @@ describe "Proprietário acessa a página de sua pousada" do
     select "17", from: "date_checkout_hour"
     select "45", from: "date_checkout_minute"
     fill_in "Rua", with: "Rua das Flores"
-    fill_in "Número", with: 300
+    fill_in "Número", with: "300"
     fill_in "Bairro", with: ""
     fill_in "Cidade", with: "Florianópolis"
     fill_in "Estado", with: "SC"
