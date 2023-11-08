@@ -47,7 +47,7 @@ describe "Proprietário acessa a página de sua pousada" do
     expect(page).to have_select "date_checkin_minute"
     expect(page).to have_select "date_checkout_hour"
     expect(page).to have_select "date_checkout_minute"
-    expect(page).to have_field "Rua", with: "Rua das Flores"
+    expect(page).to have_field "Logradouro", with: "Rua das Flores"
     expect(page).to have_field "Número", with: 300
     expect(page).to have_field "Bairro", with: "Canasvieiras"
     expect(page).to have_field "Cidade", with: "Florianópolis"
@@ -101,7 +101,7 @@ describe "Proprietário acessa a página de sua pousada" do
     select "00", from: "date_checkin_minute"
     select "17", from: "date_checkout_hour"
     select "45", from: "date_checkout_minute"
-    fill_in "Rua", with: "Rua das Flores"
+    fill_in "Logradouro", with: "Rua das Flores"
     fill_in "Número", with: "300"
     fill_in "Bairro", with: "Canasvieiras"
     fill_in "Cidade", with: "Florianópolis"
@@ -172,7 +172,7 @@ describe "Proprietário acessa a página de sua pousada" do
     select "00", from: "date_checkin_minute"
     select "17", from: "date_checkout_hour"
     select "45", from: "date_checkout_minute"
-    fill_in "Rua", with: "Rua das Flores"
+    fill_in "Logradouro", with: "Rua das Flores"
     fill_in "Número", with: "300"
     fill_in "Bairro", with: ""
     fill_in "Cidade", with: "Florianópolis"
@@ -184,7 +184,7 @@ describe "Proprietário acessa a página de sua pousada" do
     expect(page).to have_content "CNPJ não pode ficar em branco"
     expect(page).to have_content "Bairro não pode ficar em branco"
     expect(page).to have_field "Nome", with: "Mar Aberto"
-    expect(page).to have_field "Rua", with: "Rua das Flores"
+    expect(page).to have_field "Logradouro", with: "Rua das Flores"
   end
 
   it "e desativa a pousada" do

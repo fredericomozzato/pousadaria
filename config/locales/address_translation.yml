@@ -4,7 +4,7 @@ pt-BR:
       address: "Endereço"
     attributes:
       address:
-        street: "Rua"
+        street: "Logradouro"
         number: "Número"
         neighborhood: "Bairro"
         city: "Cidade"
