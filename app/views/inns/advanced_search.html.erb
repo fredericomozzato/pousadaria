@@ -1,7 +1,7 @@
 <h1>Busca avançada</h1>
 
 <div id="advanced-search-form">
-  <%= form_with(url: advanced_search_inns_path, method: :get) do |f| %>
+  <%= form_with(url: search_inns_path, method: :get) do |f| %>
     <div>
       <%= f.label :name, "Nome" %>
       <%= f.text_field :name %>
@@ -9,10 +9,6 @@
     <div>
       <%= f.label :city, "Cidade" %>
       <%= f.text_field :city %>
-    </div>
-    <div>
-      <%= f.label :neighborhood, "Bairro" %>
-      <%= f.text_field :neighborhood %>
     </div>
     <div>
       <%= f.label :pet_friendly, "Aceita pets" %>
@@ -27,25 +23,30 @@
       <%= f.check_box :wifi %>
     </div>
     <div>
-      <%= f.label :air_conditioner, "Quartos com ar-condicionado" %>
+      <%= f.label :bathroom, "Banheiro privativo" %>
+      <%= f.check_box :bathroom %>
+    </div>
+    <div>
+      <%= f.label :air_conditioner, "Ar-condicionado" %>
       <%= f.check_box :air_conditioner %>
     </div>
     <div>
-      <%= f.label :wardrobe, "Quartos com guarda-roupas" %>
+      <%= f.label :wardrobe, "Guarda-roupas" %>
       <%= f.check_box :wardrobe %>
     </div>
     <div>
-      <%= f.label :tv, "Quartos com TV" %>
+      <%= f.label :tv, "TV" %>
       <%= f.check_box :tv %>
     </div>
     <div>
-      <%= f.label :porch, "Quartos com varanda" %>
+      <%= f.label :porch, "Varanda" %>
       <%= f.check_box :porch %>
     </div>
     <div>
-      <%= f.label :safe, "Quartos com cofre" %>
+      <%= f.label :safe, "Cofre" %>
       <%= f.check_box :safe %>
     </div>
+    <%= f.hidden_field :advanced, { value: true } %>
     <div>
       <%= f.submit "Buscar" %>
     </div>

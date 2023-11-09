@@ -10,7 +10,7 @@ describe "Proprietário acessa página de quartos" do
       name: "Mar Aberto",
       corporate_name: "Pousada Mar Aberto/SC",
       registration_number: "84.485.218/0001-73",
-      phone: "9999999994899999-9999",
+      phone: "4899999-9999",
       email: "pousadamaraberto@gmail.com",
       description: "Pousada na beira do mar com suítes e café da manhã incluso.",
       pay_methods: "Crédito, débito, dinheiro ou pix",

@@ -15,9 +15,30 @@ class Inn < ApplicationRecord
 
   def self.search_inns(query)
     Inn.joins(:address)
-               .where(active: true)
-               .where("name LIKE :query OR city LIKE :query OR neighborhood LIKE :query",
-                      query: "%#{query}%")
-               .order(:name)
+       .where(active: true)
+       .where("name LIKE :query OR city LIKE :query OR neighborhood LIKE :query",
+               query: "%#{query}%")
+       .order(:name)
+  end
+
+  def self.advanced_search(params)
+    Inn.joins(:address, :rooms)
+       .where("inns.name LIKE ?", "%#{params[:name]}%")
+       .where(
+          inns: {
+            active: true,
+            pet_friendly: params[:pet_friendly]
+          },
+          rooms: {
+            bathroom: params[:bathroom],
+            porch: params[:porch],
+            air_conditioner: params[:air_conditioner],
+            tv: params[:tv],
+            wardrobe: params[:wardrobe],
+            safe: params[:safe],
+            wifi: params[:wifi],
+            accessibility: params[:accessibility]
+          })
+        .where("addresses.city LIKE ?", "%#{params[:city]}%")
   end
 end

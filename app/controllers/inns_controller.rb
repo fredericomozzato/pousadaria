@@ -67,17 +67,14 @@ class InnsController < ApplicationController
   end
 
   def search
-    @inns = Inn.search_inns(params[:query])
+    @inns = Inn.search_inns(params[:query]) if params[:query]
+    @inns = Inn.advanced_search(advanced_params) if params[:advanced]
   end
 
   def city_search
     @found_inns = Inn.joins(:address)
                      .where(address: { city: params[:city] })
                      .order(:name)
-  end
-
-  def advanced_search
-
   end
 
   private
@@ -109,6 +106,23 @@ class InnsController < ApplicationController
         :checkout_minute
       ]
     )
+  end
+
+  def advanced_params
+    params.permit(
+      :name,
+      :city,
+      :pet_friendly,
+      :accessibility,
+      :wifi,
+      :bathroom,
+      :air_conditioner,
+      :wardrobe,
+      :tv,
+      :porch,
+      :safe
+    )
+
   end
 
   def set_inn
