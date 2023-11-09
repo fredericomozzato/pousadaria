@@ -74,7 +74,7 @@ RSpec.describe SeasonalPrice, type: :model do
       expect(invalid_sp.errors[:end]).to include("Data de término conflita com outro preço sazonal")
     end
 
-    it "inválido com data de início igual a data de in;icio de outro preço sazonal" do
+    it "inválido com data de início igual a data de início de outro preço sazonal" do
       owner = Owner.create!(email: "owner@email.com", password: "123456")
       inn = Inn.create!(name: "Pousada", corporate_name: "Pousada S/A",
                     registration_number: "123445566799", phone: "999999999",

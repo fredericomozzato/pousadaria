@@ -22,9 +22,8 @@ class SeasonalPrice < ApplicationRecord
   def end_date_is_past
     return if self.end.nil?
 
-    if self.end < Date.today
-      errors.add :end, "Data de término não pode estar no passado"
-    end
+    error_message = "Data de término não pode estar no passado"
+    errors.add :end, error_message if self.end < Date.today
   end
 
   def date_conflict
@@ -37,19 +36,20 @@ class SeasonalPrice < ApplicationRecord
     end
 
     room_seasonal_prices.each do |room|
-      if (room.start..room.end).cover? self.start
-        errors.add :start, "Data de início conflita com outro preço sazonal"
-      elsif (room.start..room.end).cover? self.end
-        errors.add :end, "Data de término conflita com outro preço sazonal"
-      end
+      return if self.start.nil? || self.end.nil?
+
+      start_error_msg = "Data de início conflita com outro preço sazonal"
+      end_error_msg = "Data de término conflita com outro preço sazonal"
+
+      errors.add :start, start_error_msg if (room.start..room.end).cover? self.start
+      errors.add :end, end_error_msg if (room.start..room.end).cover? self.end
     end
   end
 
   def start_equals_to_end
     return if self.start.nil? || self.end.nil?
 
-    if self.start == self.end
-      errors.add :start, "Data de início não pode ser igual à data de término"
-    end
+    error_message = "Data de início não pode ser igual à data de término"
+    errors.add :start, error_message if self.start == self.end
   end
 end
