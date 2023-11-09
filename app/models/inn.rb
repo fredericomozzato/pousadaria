@@ -13,6 +13,14 @@ class Inn < ApplicationRecord
             :pay_methods,
             presence: true
 
+  def self.search_inns(query)
+    Inn.joins(:address)
+               .where(active: true)
+               .where("name LIKE :query OR city LIKE :query OR neighborhood LIKE :query",
+                      query: "%#{query}%")
+               .order(:name)
+  end
+
   def get_street_values
     "#{address.street}, #{address.number}"
   end

@@ -67,11 +67,7 @@ class InnsController < ApplicationController
   end
 
   def search
-    @inns = Inn.joins(:address)
-               .where(active: true)
-               .where("name LIKE :query OR city LIKE :query OR neighborhood LIKE :query",
-                      query: "%#{params[:query]}%")
-               .order(:name)
+    @inns = Inn.search_inns(params[:query])
   end
 
   def city_search
