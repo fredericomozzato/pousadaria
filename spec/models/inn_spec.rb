@@ -62,4 +62,208 @@ RSpec.describe Inn, type: :model do
       expect(inn.get_location_values).to eq "Centro - São Paulo, SP"
     end
   end
+
+  describe ".search_inns" do
+    it "encontra Pousada pelo nome" do
+      owner = Owner.create!(
+        email: "owner@email.com",
+        password: "123456"
+      )
+      inn = Inn.create!(
+        name: "Pousada",
+        corporate_name: "Pousada Teste",
+        registration_number: "1234567890",
+        phone: "999999999",
+        email: "teste@teste.com",
+        description: "Descrição teste",
+        pay_methods: "Teste",
+        user_policies: "Teste",
+        check_in_time: Time.new(2000, 1, 1, 9, 0, 0, 'UTC'),
+        check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
+        owner_id: owner.id
+      )
+      Address.create!(
+        street: "Rua da Praia",
+        number: "160",
+        neighborhood: "Praia Brava",
+        city: "Florianópolis",
+        state: "SC",
+        postal_code: "88888-888",
+        inn_id: inn.id
+      )
+
+      result = Inn.search_inns("pousada")
+
+      expect(result.count).to eq 1
+      expect(result).to include inn
+    end
+
+    it "encontra Pousada pela cidade" do
+      owner = Owner.create!(
+        email: "owner@email.com",
+        password: "123456"
+      )
+      inn = Inn.create!(
+        name: "Pousada",
+        corporate_name: "Pousada Teste",
+        registration_number: "1234567890",
+        phone: "999999999",
+        email: "teste@teste.com",
+        description: "Descrição teste",
+        pay_methods: "Teste",
+        user_policies: "Teste",
+        check_in_time: Time.new(2000, 1, 1, 9, 0, 0, 'UTC'),
+        check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
+        owner_id: owner.id
+      )
+      Address.create!(
+        street: "Rua da Praia",
+        number: "160",
+        neighborhood: "Praia Brava",
+        city: "Florianópolis",
+        state: "SC",
+        postal_code: "88888-888",
+        inn_id: inn.id
+      )
+
+      result = Inn.search_inns("Florianópolis")
+
+      expect(result.count).to eq 1
+      expect(result).to include inn
+    end
+
+    it "encontra pousada pelo bairro" do
+      owner = Owner.create!(
+        email: "owner@email.com",
+        password: "123456"
+      )
+      inn = Inn.create!(
+        name: "Pousada",
+        corporate_name: "Pousada Teste",
+        registration_number: "1234567890",
+        phone: "999999999",
+        email: "teste@teste.com",
+        description: "Descrição teste",
+        pay_methods: "Teste",
+        user_policies: "Teste",
+        check_in_time: Time.new(2000, 1, 1, 9, 0, 0, 'UTC'),
+        check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
+        owner_id: owner.id
+      )
+      Address.create!(
+        street: "Rua da Praia",
+        number: "160",
+        neighborhood: "Praia Brava",
+        city: "Florianópolis",
+        state: "SC",
+        postal_code: "88888-888",
+        inn_id: inn.id
+      )
+
+      result = Inn.search_inns("Praia Brava")
+
+      expect(result.count).to eq 1
+      expect(result).to include inn
+    end
+
+    it "não encontra pousada pelo nome" do
+      owner = Owner.create!(
+        email: "owner@email.com",
+        password: "123456"
+      )
+      inn = Inn.create!(
+        name: "Pousada",
+        corporate_name: "Pousada Teste",
+        registration_number: "1234567890",
+        phone: "999999999",
+        email: "teste@teste.com",
+        description: "Descrição teste",
+        pay_methods: "Teste",
+        user_policies: "Teste",
+        check_in_time: Time.new(2000, 1, 1, 9, 0, 0, 'UTC'),
+        check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
+        owner_id: owner.id
+      )
+      Address.create!(
+        street: "Rua da Praia",
+        number: "160",
+        neighborhood: "Praia Brava",
+        city: "Florianópolis",
+        state: "SC",
+        postal_code: "88888-888",
+        inn_id: inn.id
+      )
+
+      result = Inn.search_inns("Montanha")
+
+      expect(result).to be_empty
+    end
+
+    it "não encontra pousada pela cidade" do
+      owner = Owner.create!(
+        email: "owner@email.com",
+        password: "123456"
+      )
+      inn = Inn.create!(
+        name: "Pousada",
+        corporate_name: "Pousada Teste",
+        registration_number: "1234567890",
+        phone: "999999999",
+        email: "teste@teste.com",
+        description: "Descrição teste",
+        pay_methods: "Teste",
+        user_policies: "Teste",
+        check_in_time: Time.new(2000, 1, 1, 9, 0, 0, 'UTC'),
+        check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
+        owner_id: owner.id
+      )
+      Address.create!(
+        street: "Rua da Praia",
+        number: "160",
+        neighborhood: "Praia Brava",
+        city: "Florianópolis",
+        state: "SC",
+        postal_code: "88888-888",
+        inn_id: inn.id
+      )
+
+      result = Inn.search_inns("São Paulo")
+
+      expect(result).to be_empty
+    end
+
+    it "não encontra pousada pelo bairro" do
+      owner = Owner.create!(
+        email: "owner@email.com",
+        password: "123456"
+      )
+      inn = Inn.create!(
+        name: "Pousada",
+        corporate_name: "Pousada Teste",
+        registration_number: "1234567890",
+        phone: "999999999",
+        email: "teste@teste.com",
+        description: "Descrição teste",
+        pay_methods: "Teste",
+        user_policies: "Teste",
+        check_in_time: Time.new(2000, 1, 1, 9, 0, 0, 'UTC'),
+        check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
+        owner_id: owner.id
+      )
+      Address.create!(
+        street: "Rua da Praia",
+        number: "160",
+        neighborhood: "Praia Brava",
+        city: "Florianópolis",
+        state: "SC",
+        postal_code: "88888-888",
+        inn_id: inn.id
+      )
+
+      result = Inn.search_inns("Campeche")
+
+      expect(result).to be_empty
+    end
+
+  end
 end
