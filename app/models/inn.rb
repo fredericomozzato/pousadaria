@@ -1,4 +1,10 @@
 class Inn < ApplicationRecord
+  has_one :address
+  belongs_to :owner
+  has_many :rooms
+
+  accepts_nested_attributes_for :address
+
   validates :name,
             :corporate_name,
             :registration_number,
@@ -6,12 +12,6 @@ class Inn < ApplicationRecord
             :email,
             :pay_methods,
             presence: true
-
-  has_one :address
-  belongs_to :owner
-  has_many :rooms
-
-  accepts_nested_attributes_for :address
 
   def get_street_values
     "#{address.street}, #{address.number}"

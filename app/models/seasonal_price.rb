@@ -1,12 +1,12 @@
 class SeasonalPrice < ApplicationRecord
   belongs_to :room
+  
   validates :start, :end, :price, presence: true
   validates :price, numericality: { greater_than: 0 }
   validate :end_date_is_past, :date_conflict, :start_date_before_end_date, :start_equals_to_end
 
   def date_pretty_print
-    formatter = "%d/%m/%Y"
-    "#{self.start.strftime(formatter)} - #{self.end.strftime(formatter)}"
+    "#{I18n.l(self.start.to_date)} - #{I18n.l(self.end.to_date)}"
   end
 
   private
