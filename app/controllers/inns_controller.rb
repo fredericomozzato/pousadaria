@@ -1,5 +1,5 @@
 class InnsController < ApplicationController
-  before_action :authenticate_owner!, except: [:show, :search, :city_search]
+  before_action :authenticate_owner!, except: [:show, :search, :city_search, :advanced_search]
   before_action :redirect_to_new_if_no_inn, only: [:show, :my_inn]
   before_action :set_inn, only: [:show, :edit, :update, :change_status]
 
@@ -74,6 +74,10 @@ class InnsController < ApplicationController
     @found_inns = Inn.joins(:address)
                      .where(address: { city: params[:city] })
                      .order(:name)
+  end
+
+  def advanced_search
+
   end
 
   private

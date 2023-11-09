@@ -1,0 +1,53 @@
+<h1>Busca avançada</h1>
+
+<div id="advanced-search-form">
+  <%= form_with(url: advanced_search_inns_path, method: :get) do |f| %>
+    <div>
+      <%= f.label :name, "Nome" %>
+      <%= f.text_field :name %>
+    </div>
+    <div>
+      <%= f.label :city, "Cidade" %>
+      <%= f.text_field :city %>
+    </div>
+    <div>
+      <%= f.label :neighborhood, "Bairro" %>
+      <%= f.text_field :neighborhood %>
+    </div>
+    <div>
+      <%= f.label :pet_friendly, "Aceita pets" %>
+      <%= f.check_box :pet_friendly %>
+    </div>
+    <div>
+      <%= f.label :accessibility, "Acessível para PCD" %>
+      <%= f.check_box :accessibility %>
+    </div>
+    <div>
+      <%= f.label :wifi, "Wi-fi" %>
+      <%= f.check_box :wifi %>
+    </div>
+    <div>
+      <%= f.label :air_conditioner, "Quartos com ar-condicionado" %>
+      <%= f.check_box :air_conditioner %>
+    </div>
+    <div>
+      <%= f.label :wardrobe, "Quartos com guarda-roupas" %>
+      <%= f.check_box :wardrobe %>
+    </div>
+    <div>
+      <%= f.label :tv, "Quartos com TV" %>
+      <%= f.check_box :tv %>
+    </div>
+    <div>
+      <%= f.label :porch, "Quartos com varanda" %>
+      <%= f.check_box :porch %>
+    </div>
+    <div>
+      <%= f.label :safe, "Quartos com cofre" %>
+      <%= f.check_box :safe %>
+    </div>
+    <div>
+      <%= f.submit "Buscar" %>
+    </div>
+  <% end %>
+</div>

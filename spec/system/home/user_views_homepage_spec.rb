@@ -9,6 +9,7 @@ describe "Usuário visita a página inicial" do
         expect(page).to have_content "Pousadaria"
         expect(page).to have_field "Buscar Pousada"
         expect(page).to have_button "Buscar"
+        expect(page).to have_link "Busca avançada"
         expect(page).to have_link "Entrar"
       end
     end
