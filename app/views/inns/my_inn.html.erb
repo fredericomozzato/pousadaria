@@ -1,31 +1,44 @@
 <dl>
     <dt>Nome público:</dt>
     <dd><%= @inn.name %></dd>
+
     <dt><%= Inn.human_attribute_name(:corporate_name) %>:</dt>
     <dd><%= @inn.corporate_name %></dd>
+
     <dt><%= Inn.human_attribute_name(:registration_number) %>:</dt>
     <dd><%= @inn.registration_number %></dd>
+
     <dt><%= Inn.human_attribute_name(:phone) %>:</dt>
     <dd><%= @inn.phone %></dd>
+
     <dt><%= Inn.human_attribute_name(:email) %>:</dt>
     <dd><%= @inn.email %></dd>
+
     <dt><%= Inn.human_attribute_name(:description) %>:</dt>
     <dd><%= @inn.description %></dd>
+
     <dt><%= Inn.human_attribute_name(:pay_methods) %>:</dt>
     <dd><%= @inn.pay_methods %></dd>
+
     <dt><%= Inn.human_attribute_name(:pet_friendly) %>:</dt>
     <dd><%= @inn.pet_friendly ? "sim" : "não" %></dd>
+
     <dt><%= Inn.human_attribute_name(:user_policies) %>:</dt>
     <dd><%= @inn.user_policies %></dd>
+
     <dt><%= Inn.human_attribute_name(:check_in_time) %>:</dt>
     <dd>a partir das <%= @inn.check_in_time.strftime("%k:%M") %></dd>
+
     <dt><%= Inn.human_attribute_name(:check_out_time) %>:</dt>
     <dd>até as <%= @inn.check_out_time.strftime("%k:%M") %></dd>
+
     <dt><%= Address.model_name.human %>:</dt>
-    <dd><%= @inn.get_street_values %></dd>
-    <dd><%= @inn.get_location_values %></dd>
+    <dd><%= @inn.address.street_values %></dd>
+    <dd><%= @inn.address.location_values %></dd>
+
     <dt><%= Address.human_attribute_name(:postal_code) %>:</dt>
     <dd><%= @inn.address.postal_code %></dd>
+
     <dt>Status na plataforma:</dt>
     <dd><%= @inn.active ? "Ativa" : "Desativada" %></dd>
   </dl>

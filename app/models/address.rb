@@ -37,4 +37,12 @@ class Address < ApplicationRecord
     SE: 26,
     TO: 27
   }
+
+  def street_values
+    "#{street}, #{number}"
+  end
+
+  def location_values
+    "#{neighborhood} - #{city}, #{state}"
+  end
 end
