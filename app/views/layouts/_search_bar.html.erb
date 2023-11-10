@@ -1,0 +1,5 @@
+  <%= form_with(url: search_inns_path, method: :get) do |f| %>
+    <%= f.label :query, "Buscar Pousada" %>
+    <%= f.text_field :query, placeholder: "Nome, cidade ou bairro"%>
+    <%= f.submit "Buscar" %>
+  <% end %>

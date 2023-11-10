@@ -1,0 +1,13 @@
+<ul>
+  <li><%= link_to "Pousadaria", root_path %></li>
+  <li><%= render partial: "layouts/search_bar" %></li>
+  <li><%= link_to "Busca avançada", advanced_search_inns_path %></li>
+
+  <% if owner_signed_in? %>
+    <li><%= link_to "Minha Pousada", minha_pousada_path %></li>
+    <li><%= current_owner.email %></li>
+    <li><%= button_to "Sair", destroy_owner_session_path, method: :delete %></li>
+  <% else %>
+    <li><%= link_to "Entrar", logins_path %></li>
+  <% end %>
+</ul>
