@@ -311,6 +311,67 @@ RSpec.describe Inn, type: :model do
       expect(result).to include inn
     end
 
+    it "e não encontra pousada por nome" do
+      owner = Owner.create!(
+        email: "owner@email.com",
+        password: "123456"
+      )
+      inn = Inn.create!(
+        name: "Pousada",
+        corporate_name: "Pousada Teste",
+        registration_number: "1234567890",
+        phone: "999999999",
+        email: "teste@teste.com",
+        description: "Descrição teste",
+        pay_methods: "Teste",
+        user_policies: "Teste",
+        check_in_time: Time.new(2000, 1, 1, 9, 0, 0, 'UTC'),
+        check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
+        owner_id: owner.id
+      )
+      Address.create!(
+        street: "Rua da Praia",
+        number: "160",
+        neighborhood: "Praia Brava",
+        city: "Florianópolis",
+        state: "SC",
+        postal_code: "88888-888",
+        inn_id: inn.id
+      )
+      room = Room.create!(
+        name: "Quarto",
+        size: 10,
+        max_guests: 1,
+        price: 150,
+        bathroom: false,
+        porch: false,
+        air_conditioner: false,
+        tv: false,
+        wardrobe: false,
+        safe: false,
+        wifi: false,
+        accessibility: false,
+        inn: inn
+      )
+      params = {
+        name: "paradouro",
+        city: "",
+        pet_friendly: false,
+        accessibility: false,
+        wifi: false,
+        bathroom: false,
+        air_conditioner: false,
+        wardrobe: false,
+        tv: false,
+        porch: false,
+        safe: false
+      }
+
+      result = Inn.advanced_search(params)
+
+      expect(result.count).to eq 0
+    end
+
     it "encontra uma pousada por cidade" do
       owner = Owner.create!(
         email: "owner@email.com",
@@ -363,6 +424,59 @@ RSpec.describe Inn, type: :model do
 
       expect(result.count).to eq 1
       expect(result).to include inn
+    end
+
+    it "e não encontra pousada por cidade" do
+      owner = Owner.create!(
+        email: "owner@email.com",
+        password: "123456"
+      )
+      inn = Inn.create!(
+        name: "Pousada",
+        corporate_name: "Pousada Teste",
+        registration_number: "1234567890",
+        phone: "999999999",
+        email: "teste@teste.com",
+        description: "Descrição teste",
+        pay_methods: "Teste",
+        user_policies: "Teste",
+        check_in_time: Time.new(2000, 1, 1, 9, 0, 0, 'UTC'),
+        check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
+        owner_id: owner.id
+      )
+      Address.create!(
+        street: "Rua da Praia",
+        number: "160",
+        neighborhood: "Praia Brava",
+        city: "Florianópolis",
+        state: "SC",
+        postal_code: "88888-888",
+        inn_id: inn.id
+      )
+      room = Room.create!(
+        name: "Quarto",
+        size: 10,
+        max_guests: 1,
+        price: 150,
+        inn: inn
+      )
+      params = {
+        name: "",
+        city: "Gramado",
+        pet_friendly: false,
+        accessibility: false,
+        wifi: false,
+        bathroom: false,
+        air_conditioner: false,
+        wardrobe: false,
+        tv: false,
+        porch: false,
+        safe: false
+      }
+
+      result = Inn.advanced_search(params)
+
+      expect(result.count).to eq 0
     end
 
     it "encontra uma pousada por aceita pets" do
@@ -420,6 +534,60 @@ RSpec.describe Inn, type: :model do
       expect(result).to include inn
     end
 
+    it "e não encontra uma pousada por aceita pets" do
+      owner = Owner.create!(
+        email: "owner@email.com",
+        password: "123456"
+      )
+      inn = Inn.create!(
+        name: "Pousada",
+        corporate_name: "Pousada Teste",
+        registration_number: "1234567890",
+        phone: "999999999",
+        email: "teste@teste.com",
+        description: "Descrição teste",
+        pay_methods: "Teste",
+        user_policies: "Teste",
+        pet_friendly: false,
+        check_in_time: Time.new(2000, 1, 1, 9, 0, 0, 'UTC'),
+        check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
+        owner_id: owner.id
+      )
+      Address.create!(
+        street: "Rua da Praia",
+        number: "160",
+        neighborhood: "Praia Brava",
+        city: "Florianópolis",
+        state: "SC",
+        postal_code: "88888-888",
+        inn_id: inn.id
+      )
+      room = Room.create!(
+        name: "Quarto",
+        size: 10,
+        max_guests: 1,
+        price: 150,
+        inn: inn
+      )
+      params = {
+        name: "",
+        city: "",
+        pet_friendly: true,
+        accessibility: false,
+        wifi: false,
+        bathroom: false,
+        air_conditioner: false,
+        wardrobe: false,
+        tv: false,
+        porch: false,
+        safe: false
+      }
+
+      result = Inn.advanced_search(params)
+
+      expect(result.count).to eq 0
+    end
+
     it "encontra uma pousada por acessibilidade" do
       owner = Owner.create!(
         email: "owner@email.com",
@@ -473,6 +641,60 @@ RSpec.describe Inn, type: :model do
 
       expect(result.count).to eq 1
       expect(result).to include inn
+    end
+
+    it "e não encontra pousada por acessibilidade" do
+      owner = Owner.create!(
+        email: "owner@email.com",
+        password: "123456"
+      )
+      inn = Inn.create!(
+        name: "Pousada",
+        corporate_name: "Pousada Teste",
+        registration_number: "1234567890",
+        phone: "999999999",
+        email: "teste@teste.com",
+        description: "Descrição teste",
+        pay_methods: "Teste",
+        user_policies: "Teste",
+        check_in_time: Time.new(2000, 1, 1, 9, 0, 0, 'UTC'),
+        check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
+        owner_id: owner.id
+      )
+      Address.create!(
+        street: "Rua da Praia",
+        number: "160",
+        neighborhood: "Praia Brava",
+        city: "Florianópolis",
+        state: "SC",
+        postal_code: "88888-888",
+        inn_id: inn.id
+      )
+      room = Room.create!(
+        name: "Quarto",
+        size: 10,
+        max_guests: 1,
+        price: 150,
+        accessibility: false,
+        inn: inn
+      )
+      params = {
+        name: "",
+        city: "",
+        pet_friendly: false,
+        accessibility: true,
+        wifi: false,
+        bathroom: false,
+        air_conditioner: false,
+        wardrobe: false,
+        tv: false,
+        porch: false,
+        safe: false
+      }
+
+      result = Inn.advanced_search(params)
+
+      expect(result.count).to eq 0
     end
 
     it "encontra uma pousada por wifi" do
@@ -530,6 +752,60 @@ RSpec.describe Inn, type: :model do
       expect(result).to include inn
     end
 
+    it "e não encontra pousada por wi-fi" do
+      owner = Owner.create!(
+        email: "owner@email.com",
+        password: "123456"
+      )
+      inn = Inn.create!(
+        name: "Pousada",
+        corporate_name: "Pousada Teste",
+        registration_number: "1234567890",
+        phone: "999999999",
+        email: "teste@teste.com",
+        description: "Descrição teste",
+        pay_methods: "Teste",
+        user_policies: "Teste",
+        check_in_time: Time.new(2000, 1, 1, 9, 0, 0, 'UTC'),
+        check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
+        owner_id: owner.id
+      )
+      Address.create!(
+        street: "Rua da Praia",
+        number: "160",
+        neighborhood: "Praia Brava",
+        city: "Florianópolis",
+        state: "SC",
+        postal_code: "88888-888",
+        inn_id: inn.id
+      )
+      room = Room.create!(
+        name: "Quarto",
+        size: 10,
+        max_guests: 1,
+        price: 150,
+        wifi: false,
+        inn: inn
+      )
+      params = {
+        name: "",
+        city: "",
+        pet_friendly: false,
+        accessibility: false,
+        wifi: true,
+        bathroom: false,
+        air_conditioner: false,
+        wardrobe: false,
+        tv: false,
+        porch: false,
+        safe: false
+      }
+
+      result = Inn.advanced_search(params)
+
+      expect(result.count).to eq 0
+    end
+
     it "encontra uma pousada por banheiro privativo" do
       owner = Owner.create!(
         email: "owner@email.com",
@@ -583,6 +859,60 @@ RSpec.describe Inn, type: :model do
 
       expect(result.count).to eq 1
       expect(result).to include inn
+    end
+
+    it "e não encontra pousada por banheiro privativo" do
+      owner = Owner.create!(
+        email: "owner@email.com",
+        password: "123456"
+      )
+      inn = Inn.create!(
+        name: "Pousada",
+        corporate_name: "Pousada Teste",
+        registration_number: "1234567890",
+        phone: "999999999",
+        email: "teste@teste.com",
+        description: "Descrição teste",
+        pay_methods: "Teste",
+        user_policies: "Teste",
+        check_in_time: Time.new(2000, 1, 1, 9, 0, 0, 'UTC'),
+        check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
+        owner_id: owner.id
+      )
+      Address.create!(
+        street: "Rua da Praia",
+        number: "160",
+        neighborhood: "Praia Brava",
+        city: "Florianópolis",
+        state: "SC",
+        postal_code: "88888-888",
+        inn_id: inn.id
+      )
+      room = Room.create!(
+        name: "Quarto",
+        size: 10,
+        max_guests: 1,
+        price: 150,
+        bathroom: false,
+        inn: inn
+      )
+      params = {
+        name: "",
+        city: "",
+        pet_friendly: false,
+        accessibility: false,
+        wifi: false,
+        bathroom: true,
+        air_conditioner: false,
+        wardrobe: false,
+        tv: false,
+        porch: false,
+        safe: false
+      }
+
+      result = Inn.advanced_search(params)
+
+      expect(result.count).to eq 0
     end
 
     it "encontra uma pousada por ar condicionado" do
@@ -640,6 +970,60 @@ RSpec.describe Inn, type: :model do
       expect(result).to include inn
     end
 
+    it "e não encontra pousada por ar-condicionado" do
+      owner = Owner.create!(
+        email: "owner@email.com",
+        password: "123456"
+      )
+      inn = Inn.create!(
+        name: "Pousada",
+        corporate_name: "Pousada Teste",
+        registration_number: "1234567890",
+        phone: "999999999",
+        email: "teste@teste.com",
+        description: "Descrição teste",
+        pay_methods: "Teste",
+        user_policies: "Teste",
+        check_in_time: Time.new(2000, 1, 1, 9, 0, 0, 'UTC'),
+        check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
+        owner_id: owner.id
+      )
+      Address.create!(
+        street: "Rua da Praia",
+        number: "160",
+        neighborhood: "Praia Brava",
+        city: "Florianópolis",
+        state: "SC",
+        postal_code: "88888-888",
+        inn_id: inn.id
+      )
+      room = Room.create!(
+        name: "Quarto",
+        size: 10,
+        max_guests: 1,
+        price: 150,
+        air_conditioner: false,
+        inn: inn
+      )
+      params = {
+        name: "",
+        city: "",
+        pet_friendly: false,
+        accessibility: false,
+        wifi: false,
+        bathroom: false,
+        air_conditioner: true,
+        wardrobe: false,
+        tv: false,
+        porch: false,
+        safe: false
+      }
+
+      result = Inn.advanced_search(params)
+
+      expect(result.count).to eq 0
+    end
+
     it "encontra uma pousada por guarda-roupas" do
       owner = Owner.create!(
         email: "owner@email.com",
@@ -693,6 +1077,60 @@ RSpec.describe Inn, type: :model do
 
       expect(result.count).to eq 1
       expect(result).to include inn
+    end
+
+    it "e não encontra pousada por guarda-roupas" do
+      owner = Owner.create!(
+        email: "owner@email.com",
+        password: "123456"
+      )
+      inn = Inn.create!(
+        name: "Pousada",
+        corporate_name: "Pousada Teste",
+        registration_number: "1234567890",
+        phone: "999999999",
+        email: "teste@teste.com",
+        description: "Descrição teste",
+        pay_methods: "Teste",
+        user_policies: "Teste",
+        check_in_time: Time.new(2000, 1, 1, 9, 0, 0, 'UTC'),
+        check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
+        owner_id: owner.id
+      )
+      Address.create!(
+        street: "Rua da Praia",
+        number: "160",
+        neighborhood: "Praia Brava",
+        city: "Florianópolis",
+        state: "SC",
+        postal_code: "88888-888",
+        inn_id: inn.id
+      )
+      room = Room.create!(
+        name: "Quarto",
+        size: 10,
+        max_guests: 1,
+        price: 150,
+        wardrobe: false,
+        inn: inn
+      )
+      params = {
+        name: "",
+        city: "",
+        pet_friendly: false,
+        accessibility: false,
+        wifi: false,
+        bathroom: false,
+        air_conditioner: false,
+        wardrobe: true,
+        tv: false,
+        porch: false,
+        safe: false
+      }
+
+      result = Inn.advanced_search(params)
+
+      expect(result.count).to eq 0
     end
 
     it "encontra uma pousada por tv" do
@@ -750,6 +1188,60 @@ RSpec.describe Inn, type: :model do
       expect(result).to include inn
     end
 
+    it "e não encontra pousada por tv" do
+      owner = Owner.create!(
+        email: "owner@email.com",
+        password: "123456"
+      )
+      inn = Inn.create!(
+        name: "Pousada",
+        corporate_name: "Pousada Teste",
+        registration_number: "1234567890",
+        phone: "999999999",
+        email: "teste@teste.com",
+        description: "Descrição teste",
+        pay_methods: "Teste",
+        user_policies: "Teste",
+        check_in_time: Time.new(2000, 1, 1, 9, 0, 0, 'UTC'),
+        check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
+        owner_id: owner.id
+      )
+      Address.create!(
+        street: "Rua da Praia",
+        number: "160",
+        neighborhood: "Praia Brava",
+        city: "Florianópolis",
+        state: "SC",
+        postal_code: "88888-888",
+        inn_id: inn.id
+      )
+      room = Room.create!(
+        name: "Quarto",
+        size: 10,
+        max_guests: 1,
+        price: 150,
+        tv: false,
+        inn: inn
+      )
+      params = {
+        name: "",
+        city: "",
+        pet_friendly: false,
+        accessibility: false,
+        wifi: false,
+        bathroom: false,
+        air_conditioner: false,
+        wardrobe: false,
+        tv: true,
+        porch: false,
+        safe: false
+      }
+
+      result = Inn.advanced_search(params)
+
+      expect(result.count).to eq 0
+    end
+
     it "encontra uma pousada por varanda" do
       owner = Owner.create!(
         email: "owner@email.com",
@@ -803,6 +1295,60 @@ RSpec.describe Inn, type: :model do
 
       expect(result.count).to eq 1
       expect(result).to include inn
+    end
+
+    it "e não encontra pousada por varanda" do
+      owner = Owner.create!(
+        email: "owner@email.com",
+        password: "123456"
+      )
+      inn = Inn.create!(
+        name: "Pousada",
+        corporate_name: "Pousada Teste",
+        registration_number: "1234567890",
+        phone: "999999999",
+        email: "teste@teste.com",
+        description: "Descrição teste",
+        pay_methods: "Teste",
+        user_policies: "Teste",
+        check_in_time: Time.new(2000, 1, 1, 9, 0, 0, 'UTC'),
+        check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
+        owner_id: owner.id
+      )
+      Address.create!(
+        street: "Rua da Praia",
+        number: "160",
+        neighborhood: "Praia Brava",
+        city: "Florianópolis",
+        state: "SC",
+        postal_code: "88888-888",
+        inn_id: inn.id
+      )
+      room = Room.create!(
+        name: "Quarto",
+        size: 10,
+        max_guests: 1,
+        price: 150,
+        porch: false,
+        inn: inn
+      )
+      params = {
+        name: "",
+        city: "",
+        pet_friendly: false,
+        accessibility: false,
+        wifi: false,
+        bathroom: false,
+        air_conditioner: false,
+        wardrobe: false,
+        tv: false,
+        porch: true,
+        safe: false
+      }
+
+      result = Inn.advanced_search(params)
+
+      expect(result.count).to eq 0
     end
 
     it "encontra uma pousada por cofre" do
@@ -860,6 +1406,235 @@ RSpec.describe Inn, type: :model do
       expect(result).to include inn
     end
 
-    
+    it "e não encontra pousada por cofre" do
+      owner = Owner.create!(
+        email: "owner@email.com",
+        password: "123456"
+      )
+      inn = Inn.create!(
+        name: "Pousada",
+        corporate_name: "Pousada Teste",
+        registration_number: "1234567890",
+        phone: "999999999",
+        email: "teste@teste.com",
+        description: "Descrição teste",
+        pay_methods: "Teste",
+        user_policies: "Teste",
+        check_in_time: Time.new(2000, 1, 1, 9, 0, 0, 'UTC'),
+        check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
+        owner_id: owner.id
+      )
+      Address.create!(
+        street: "Rua da Praia",
+        number: "160",
+        neighborhood: "Praia Brava",
+        city: "Florianópolis",
+        state: "SC",
+        postal_code: "88888-888",
+        inn_id: inn.id
+      )
+      room = Room.create!(
+        name: "Quarto",
+        size: 10,
+        max_guests: 1,
+        price: 150,
+        safe: false,
+        inn: inn
+      )
+      params = {
+        name: "",
+        city: "",
+        pet_friendly: false,
+        accessibility: false,
+        wifi: false,
+        bathroom: false,
+        air_conditioner: false,
+        wardrobe: false,
+        tv: false,
+        porch: false,
+        safe: true
+      }
+
+      result = Inn.advanced_search(params)
+
+      expect(result.count).to eq 0
+    end
+
+    it "e encontra uma pousada por múltiplos parâmetros" do
+      first_owner = Owner.create!(
+        email: "owner@email.com",
+        password: "123456"
+      )
+      first_inn = Inn.create!(
+        name: "Pousada",
+        corporate_name: "Pousada Teste",
+        registration_number: "1234567890",
+        phone: "999999999",
+        email: "teste@teste.com",
+        description: "Descrição teste",
+        pay_methods: "Teste",
+        user_policies: "Teste",
+        check_in_time: Time.new(2000, 1, 1, 9, 0, 0, 'UTC'),
+        check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
+        owner_id: first_owner.id
+      )
+      Address.create!(
+        street: "Rua da Praia",
+        number: "160",
+        neighborhood: "Praia Brava",
+        city: "Florianópolis",
+        state: "SC",
+        postal_code: "88888-888",
+        inn_id: first_inn.id
+      )
+      first_room = Room.create!(
+        name: "Quarto",
+        size: 10,
+        max_guests: 1,
+        price: 150,
+        inn: first_inn,
+        bathroom: true,
+        safe: true,
+        wifi: true
+      )
+      second_owner = Owner.create!(
+        email: "secondowner@email.com",
+        password: "654321"
+      )
+      second_inn = Inn.create!(
+        name: "Paradouro",
+        corporate_name: "Paradouro Teste",
+        registration_number: "728374628",
+        phone: "888888888",
+        email: "email@email.com",
+        description: "Descrição teste",
+        pay_methods: "Teste",
+        user_policies: "Teste",
+        check_in_time: Time.new(2000, 1, 1, 9, 0, 0, 'UTC'),
+        check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
+        owner_id: second_owner.id
+      )
+      Address.create!(
+        street: "Rua da Montanha",
+        number: "200",
+        neighborhood: "Mata Verde",
+        city: "Gramado",
+        state: "SC",
+        postal_code: "33333-333",
+        inn_id: second_inn.id
+      )
+      second_room = Room.create!(
+        name: "Segundo Quarto",
+        size: 20,
+        max_guests: 2,
+        price: 200,
+        inn: second_inn
+      )
+
+      params = {
+        name: "",
+        city: "",
+        pet_friendly: false,
+        accessibility: false,
+        wifi: true,
+        bathroom: true,
+        air_conditioner: false,
+        wardrobe: false,
+        tv: false,
+        porch: false,
+        safe: true
+      }
+
+      expect(Inn.advanced_search(params).count).to eq 1
+      expect(Inn.advanced_search(params)).to include first_inn
+    end
+
+    it "e não encontra pousada por múltiplos parâmetros" do
+      first_owner = Owner.create!(
+        email: "owner@email.com",
+        password: "123456"
+      )
+      first_inn = Inn.create!(
+        name: "Pousada",
+        corporate_name: "Pousada Teste",
+        registration_number: "1234567890",
+        phone: "999999999",
+        email: "teste@teste.com",
+        description: "Descrição teste",
+        pay_methods: "Teste",
+        user_policies: "Teste",
+        check_in_time: Time.new(2000, 1, 1, 9, 0, 0, 'UTC'),
+        check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
+        owner_id: first_owner.id
+      )
+      Address.create!(
+        street: "Rua da Praia",
+        number: "160",
+        neighborhood: "Praia Brava",
+        city: "Florianópolis",
+        state: "SC",
+        postal_code: "88888-888",
+        inn_id: first_inn.id
+      )
+      first_room = Room.create!(
+        name: "Quarto",
+        size: 10,
+        max_guests: 1,
+        price: 150,
+        inn: first_inn,
+        wardrobe: true,
+        wifi: true
+      )
+      second_owner = Owner.create!(
+        email: "secondowner@email.com",
+        password: "654321"
+      )
+      second_inn = Inn.create!(
+        name: "Paradouro",
+        corporate_name: "Paradouro Teste",
+        registration_number: "728374628",
+        phone: "888888888",
+        email: "email@email.com",
+        description: "Descrição teste",
+        pay_methods: "Teste",
+        user_policies: "Teste",
+        check_in_time: Time.new(2000, 1, 1, 9, 0, 0, 'UTC'),
+        check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
+        owner_id: second_owner.id
+      )
+      Address.create!(
+        street: "Rua da Montanha",
+        number: "200",
+        neighborhood: "Mata Verde",
+        city: "Gramado",
+        state: "SC",
+        postal_code: "33333-333",
+        inn_id: second_inn.id
+      )
+      second_room = Room.create!(
+        name: "Segundo Quarto",
+        size: 20,
+        max_guests: 2,
+        price: 200,
+        inn: second_inn,
+        safe: true
+      )
+
+      params = {
+        name: "",
+        city: "",
+        pet_friendly: false,
+        accessibility: false,
+        wifi: true,
+        bathroom: true,
+        air_conditioner: false,
+        wardrobe: false,
+        tv: false,
+        porch: false,
+        safe: true
+      }
+
+      expect(Inn.advanced_search(params).count).to eq 0
+    end
   end
 end
