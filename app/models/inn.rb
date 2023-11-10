@@ -24,21 +24,19 @@ class Inn < ApplicationRecord
   def self.advanced_search(params)
     Inn.joins(:address, :rooms)
        .where("inns.name LIKE ?", "%#{params[:name]}%")
-       .where(
-          inns: {
-            active: true,
-            pet_friendly: params[:pet_friendly]
-          },
-          rooms: {
-            bathroom: params[:bathroom],
-            porch: params[:porch],
-            air_conditioner: params[:air_conditioner],
-            tv: params[:tv],
-            wardrobe: params[:wardrobe],
-            safe: params[:safe],
-            wifi: params[:wifi],
-            accessibility: params[:accessibility]
-          })
-        .where("addresses.city LIKE ?", "%#{params[:city]}%")
+       .where("addresses.city LIKE ?", "%#{params[:city]}%")
+       .where(inns: {
+                active: true,
+                pet_friendly: params[:pet_friendly]},
+              rooms: {
+                bathroom: params[:bathroom],
+                porch: params[:porch],
+                air_conditioner: params[:air_conditioner],
+                tv: params[:tv],
+                wardrobe: params[:wardrobe],
+                safe: params[:safe],
+                wifi: params[:wifi],
+                accessibility: params[:accessibility]
+              })
   end
 end
