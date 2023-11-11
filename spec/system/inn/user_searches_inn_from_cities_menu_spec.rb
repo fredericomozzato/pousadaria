@@ -117,7 +117,7 @@ describe "Usuário clica em um link no menu de cidades" do
     fifth_inn = Inn.create!(
       name: "Inativa",
       corporate_name: "Inativa",
-      registration_number: "00000000000",
+      registration_number: "02.752.145/0001-74",
       phone: "000000000000",
       email: "inativa@inativa.com",
       description: "Pousada inativa.",
@@ -268,7 +268,7 @@ describe "Usuário clica em um link no menu de cidades" do
     fifth_inn = Inn.create!(
       name: "Inativa",
       corporate_name: "Inativa",
-      registration_number: "00000000000",
+      registration_number: "02.752.145/0001-74",
       phone: "000000000000",
       email: "inativa@inativa.com",
       description: "Pousada inativa.",

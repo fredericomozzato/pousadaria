@@ -340,7 +340,7 @@ describe "Proprietário acessa página de quartos" do
     different_inn = Inn.create!(
       name: "Parador da Montanha",
       corporate_name: "Pousada Montanha/RS",
-      registration_number: "54.235.764/0001-84",
+      registration_number: "07.789.009/0001-72",
       phone: "5499999-9999",
       email: "paradordamontanha@gmail.com",
       description: "Pousada de frente para montanha.",

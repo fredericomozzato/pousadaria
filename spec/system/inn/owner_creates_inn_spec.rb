@@ -87,7 +87,7 @@ describe "Proprietário visita a página de cadastro de pousada" do
     inn = Inn.create!(
       name: "Pousada",
       corporate_name: "Pousada Teste",
-      registration_number: "1234567890",
+      registration_number: "20.591.600/0001-89",
       phone: "999999999",
       email: "teste@teste.com",
       description: "Descrição teste",

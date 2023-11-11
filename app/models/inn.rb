@@ -1,3 +1,5 @@
+require "br_documents"
+
 class Inn < ApplicationRecord
   has_one :address
   belongs_to :owner
@@ -12,6 +14,7 @@ class Inn < ApplicationRecord
             :email,
             :pay_methods,
             presence: true
+  validate :validates_registration_number
 
   def self.search_inns(query)
     Inn.joins(:address)
@@ -38,5 +41,12 @@ class Inn < ApplicationRecord
                 wifi: params[:wifi],
                 accessibility: params[:accessibility]
               })
+  end
+
+  private
+
+  def validates_registration_number
+    cnpj = BrDocuments::CnpjCpf::Cnpj.new(registration_number)
+    errors.add(:registration_number, "CNPJ inválido") unless cnpj.valid?
   end
 end

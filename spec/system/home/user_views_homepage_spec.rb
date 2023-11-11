@@ -130,7 +130,7 @@ describe "Usuário visita a página inicial" do
       fifth_inn = Inn.create!(
         name: "Inativa",
         corporate_name: "Inativa",
-        registration_number: "00000000000",
+        registration_number: "72.153.926/0001-28",
         phone: "000000000000",
         email: "inativa@inativa.com",
         description: "Pousada inativa.",
@@ -290,7 +290,7 @@ describe "Usuário visita a página inicial" do
       fifth_inn = Inn.create!(
         name: "Inativa",
         corporate_name: "Inativa",
-        registration_number: "00000000000",
+        registration_number: "72.153.926/0001-28",
         phone: "000000000000",
         email: "inativa@inativa.com",
         description: "Pousada inativa.",

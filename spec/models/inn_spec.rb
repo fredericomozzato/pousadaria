@@ -43,6 +43,20 @@ RSpec.describe Inn, type: :model do
       expect(inn.valid?).to be false
       expect(inn.errors.include?(:pay_methods)).to be true
     end
+
+    it "CNPJ inválido" do
+      inn = Inn.new(registration_number: "1234567890")
+
+      expect(inn.valid?).to be false
+      expect(inn.errors.include?(:registration_number)).to be true
+    end
+
+    it "CNPJ válido" do
+      inn = Inn.new(registration_number: "51.136.627/0001-05")
+      inn.valid?
+
+      expect(inn.errors.include?(:registration_number)).to be false
+    end
   end
 
   describe ".search_inns" do
@@ -54,7 +68,7 @@ RSpec.describe Inn, type: :model do
       inn = Inn.create!(
         name: "Pousada",
         corporate_name: "Pousada Teste",
-        registration_number: "1234567890",
+        registration_number: "62.958.428/0001-07",
         phone: "999999999",
         email: "teste@teste.com",
         description: "Descrição teste",
@@ -88,7 +102,7 @@ RSpec.describe Inn, type: :model do
       inn = Inn.create!(
         name: "Pousada",
         corporate_name: "Pousada Teste",
-        registration_number: "1234567890",
+        registration_number: "62.958.428/0001-07",
         phone: "999999999",
         email: "teste@teste.com",
         description: "Descrição teste",
@@ -122,7 +136,7 @@ RSpec.describe Inn, type: :model do
       inn = Inn.create!(
         name: "Pousada",
         corporate_name: "Pousada Teste",
-        registration_number: "1234567890",
+        registration_number: "62.958.428/0001-07",
         phone: "999999999",
         email: "teste@teste.com",
         description: "Descrição teste",
@@ -156,7 +170,7 @@ RSpec.describe Inn, type: :model do
       inn = Inn.create!(
         name: "Pousada",
         corporate_name: "Pousada Teste",
-        registration_number: "1234567890",
+        registration_number: "62.958.428/0001-07",
         phone: "999999999",
         email: "teste@teste.com",
         description: "Descrição teste",
@@ -189,7 +203,7 @@ RSpec.describe Inn, type: :model do
       inn = Inn.create!(
         name: "Pousada",
         corporate_name: "Pousada Teste",
-        registration_number: "1234567890",
+        registration_number: "62.958.428/0001-07",
         phone: "999999999",
         email: "teste@teste.com",
         description: "Descrição teste",
@@ -222,7 +236,7 @@ RSpec.describe Inn, type: :model do
       inn = Inn.create!(
         name: "Pousada",
         corporate_name: "Pousada Teste",
-        registration_number: "1234567890",
+        registration_number: "62.958.428/0001-07",
         phone: "999999999",
         email: "teste@teste.com",
         description: "Descrição teste",
@@ -257,7 +271,7 @@ RSpec.describe Inn, type: :model do
       inn = Inn.create!(
         name: "Pousada",
         corporate_name: "Pousada Teste",
-        registration_number: "1234567890",
+        registration_number: "62.958.428/0001-07",
         phone: "999999999",
         email: "teste@teste.com",
         description: "Descrição teste",
@@ -319,7 +333,7 @@ RSpec.describe Inn, type: :model do
       inn = Inn.create!(
         name: "Pousada",
         corporate_name: "Pousada Teste",
-        registration_number: "1234567890",
+        registration_number: "62.958.428/0001-07",
         phone: "999999999",
         email: "teste@teste.com",
         description: "Descrição teste",
@@ -380,7 +394,7 @@ RSpec.describe Inn, type: :model do
       inn = Inn.create!(
         name: "Pousada",
         corporate_name: "Pousada Teste",
-        registration_number: "1234567890",
+        registration_number: "62.958.428/0001-07",
         phone: "999999999",
         email: "teste@teste.com",
         description: "Descrição teste",
@@ -434,7 +448,7 @@ RSpec.describe Inn, type: :model do
       inn = Inn.create!(
         name: "Pousada",
         corporate_name: "Pousada Teste",
-        registration_number: "1234567890",
+        registration_number: "62.958.428/0001-07",
         phone: "999999999",
         email: "teste@teste.com",
         description: "Descrição teste",
@@ -487,7 +501,7 @@ RSpec.describe Inn, type: :model do
       inn = Inn.create!(
         name: "Pousada",
         corporate_name: "Pousada Teste",
-        registration_number: "1234567890",
+        registration_number: "62.958.428/0001-07",
         phone: "999999999",
         email: "teste@teste.com",
         description: "Descrição teste",
@@ -542,7 +556,7 @@ RSpec.describe Inn, type: :model do
       inn = Inn.create!(
         name: "Pousada",
         corporate_name: "Pousada Teste",
-        registration_number: "1234567890",
+        registration_number: "62.958.428/0001-07",
         phone: "999999999",
         email: "teste@teste.com",
         description: "Descrição teste",
@@ -596,7 +610,7 @@ RSpec.describe Inn, type: :model do
       inn = Inn.create!(
         name: "Pousada",
         corporate_name: "Pousada Teste",
-        registration_number: "1234567890",
+        registration_number: "62.958.428/0001-07",
         phone: "999999999",
         email: "teste@teste.com",
         description: "Descrição teste",
@@ -651,7 +665,7 @@ RSpec.describe Inn, type: :model do
       inn = Inn.create!(
         name: "Pousada",
         corporate_name: "Pousada Teste",
-        registration_number: "1234567890",
+        registration_number: "62.958.428/0001-07",
         phone: "999999999",
         email: "teste@teste.com",
         description: "Descrição teste",
@@ -705,7 +719,7 @@ RSpec.describe Inn, type: :model do
       inn = Inn.create!(
         name: "Pousada",
         corporate_name: "Pousada Teste",
-        registration_number: "1234567890",
+        registration_number: "62.958.428/0001-07",
         phone: "999999999",
         email: "teste@teste.com",
         description: "Descrição teste",
@@ -760,7 +774,7 @@ RSpec.describe Inn, type: :model do
       inn = Inn.create!(
         name: "Pousada",
         corporate_name: "Pousada Teste",
-        registration_number: "1234567890",
+        registration_number: "62.958.428/0001-07",
         phone: "999999999",
         email: "teste@teste.com",
         description: "Descrição teste",
@@ -814,7 +828,7 @@ RSpec.describe Inn, type: :model do
       inn = Inn.create!(
         name: "Pousada",
         corporate_name: "Pousada Teste",
-        registration_number: "1234567890",
+        registration_number: "62.958.428/0001-07",
         phone: "999999999",
         email: "teste@teste.com",
         description: "Descrição teste",
@@ -869,7 +883,7 @@ RSpec.describe Inn, type: :model do
       inn = Inn.create!(
         name: "Pousada",
         corporate_name: "Pousada Teste",
-        registration_number: "1234567890",
+        registration_number: "62.958.428/0001-07",
         phone: "999999999",
         email: "teste@teste.com",
         description: "Descrição teste",
@@ -923,7 +937,7 @@ RSpec.describe Inn, type: :model do
       inn = Inn.create!(
         name: "Pousada",
         corporate_name: "Pousada Teste",
-        registration_number: "1234567890",
+        registration_number: "62.958.428/0001-07",
         phone: "999999999",
         email: "teste@teste.com",
         description: "Descrição teste",
@@ -978,7 +992,7 @@ RSpec.describe Inn, type: :model do
       inn = Inn.create!(
         name: "Pousada",
         corporate_name: "Pousada Teste",
-        registration_number: "1234567890",
+        registration_number: "62.958.428/0001-07",
         phone: "999999999",
         email: "teste@teste.com",
         description: "Descrição teste",
@@ -1032,7 +1046,7 @@ RSpec.describe Inn, type: :model do
       inn = Inn.create!(
         name: "Pousada",
         corporate_name: "Pousada Teste",
-        registration_number: "1234567890",
+        registration_number: "62.958.428/0001-07",
         phone: "999999999",
         email: "teste@teste.com",
         description: "Descrição teste",
@@ -1087,7 +1101,7 @@ RSpec.describe Inn, type: :model do
       inn = Inn.create!(
         name: "Pousada",
         corporate_name: "Pousada Teste",
-        registration_number: "1234567890",
+        registration_number: "62.958.428/0001-07",
         phone: "999999999",
         email: "teste@teste.com",
         description: "Descrição teste",
@@ -1141,7 +1155,7 @@ RSpec.describe Inn, type: :model do
       inn = Inn.create!(
         name: "Pousada",
         corporate_name: "Pousada Teste",
-        registration_number: "1234567890",
+        registration_number: "62.958.428/0001-07",
         phone: "999999999",
         email: "teste@teste.com",
         description: "Descrição teste",
@@ -1196,7 +1210,7 @@ RSpec.describe Inn, type: :model do
       inn = Inn.create!(
         name: "Pousada",
         corporate_name: "Pousada Teste",
-        registration_number: "1234567890",
+        registration_number: "62.958.428/0001-07",
         phone: "999999999",
         email: "teste@teste.com",
         description: "Descrição teste",
@@ -1250,7 +1264,7 @@ RSpec.describe Inn, type: :model do
       inn = Inn.create!(
         name: "Pousada",
         corporate_name: "Pousada Teste",
-        registration_number: "1234567890",
+        registration_number: "62.958.428/0001-07",
         phone: "999999999",
         email: "teste@teste.com",
         description: "Descrição teste",
@@ -1305,7 +1319,7 @@ RSpec.describe Inn, type: :model do
       inn = Inn.create!(
         name: "Pousada",
         corporate_name: "Pousada Teste",
-        registration_number: "1234567890",
+        registration_number: "62.958.428/0001-07",
         phone: "999999999",
         email: "teste@teste.com",
         description: "Descrição teste",
@@ -1359,7 +1373,7 @@ RSpec.describe Inn, type: :model do
       inn = Inn.create!(
         name: "Pousada",
         corporate_name: "Pousada Teste",
-        registration_number: "1234567890",
+        registration_number: "62.958.428/0001-07",
         phone: "999999999",
         email: "teste@teste.com",
         description: "Descrição teste",
@@ -1414,7 +1428,7 @@ RSpec.describe Inn, type: :model do
       inn = Inn.create!(
         name: "Pousada",
         corporate_name: "Pousada Teste",
-        registration_number: "1234567890",
+        registration_number: "62.958.428/0001-07",
         phone: "999999999",
         email: "teste@teste.com",
         description: "Descrição teste",
@@ -1468,7 +1482,7 @@ RSpec.describe Inn, type: :model do
       first_inn = Inn.create!(
         name: "Pousada",
         corporate_name: "Pousada Teste",
-        registration_number: "1234567890",
+        registration_number: "62.958.428/0001-07",
         phone: "999999999",
         email: "teste@teste.com",
         description: "Descrição teste",
@@ -1504,7 +1518,7 @@ RSpec.describe Inn, type: :model do
       second_inn = Inn.create!(
         name: "Paradouro",
         corporate_name: "Paradouro Teste",
-        registration_number: "728374628",
+        registration_number: "27.054.751/0001-47",
         phone: "888888888",
         email: "email@email.com",
         description: "Descrição teste",
@@ -1557,7 +1571,7 @@ RSpec.describe Inn, type: :model do
       first_inn = Inn.create!(
         name: "Pousada",
         corporate_name: "Pousada Teste",
-        registration_number: "1234567890",
+        registration_number: "62.958.428/0001-07",
         phone: "999999999",
         email: "teste@teste.com",
         description: "Descrição teste",
@@ -1592,7 +1606,7 @@ RSpec.describe Inn, type: :model do
       second_inn = Inn.create!(
         name: "Paradouro",
         corporate_name: "Paradouro Teste",
-        registration_number: "728374628",
+        registration_number: "27.054.751/0001-47",
         phone: "888888888",
         email: "email@email.com",
         description: "Descrição teste",

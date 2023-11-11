@@ -64,7 +64,7 @@ describe "Proprietário acessa a página de sua pousada" do
     inn = Inn.create!(
       name: "Pousada",
       corporate_name: "Pousada Teste",
-      registration_number: "1234567890",
+      registration_number: "92.115.828/0001-03",
       phone: "999999999",
       email: "teste@teste.com",
       description: "Descrição teste",
@@ -135,7 +135,7 @@ describe "Proprietário acessa a página de sua pousada" do
     inn = Inn.create!(
       name: "Pousada",
       corporate_name: "Pousada Teste",
-      registration_number: "1234567890",
+      registration_number: "92.115.828/0001-03",
       phone: "999999999",
       email: "teste@teste.com",
       description: "Descrição teste",
@@ -195,7 +195,7 @@ describe "Proprietário acessa a página de sua pousada" do
     inn = Inn.create!(
       name: "Pousada",
       corporate_name: "Pousada Teste",
-      registration_number: "1234567890",
+      registration_number: "92.115.828/0001-03",
       phone: "999999999",
       email: "teste@teste.com",
       description: "Descrição teste",
@@ -233,7 +233,7 @@ describe "Proprietário acessa a página de sua pousada" do
     inn = Inn.create!(
       name: "Pousada",
       corporate_name: "Pousada Teste",
-      registration_number: "1234567890",
+      registration_number: "92.115.828/0001-03",
       phone: "999999999",
       email: "teste@teste.com",
       description: "Descrição teste",
@@ -271,7 +271,7 @@ describe "Proprietário acessa a página de sua pousada" do
     first_inn = Inn.create!(
       name: "Pousada",
       corporate_name: "Pousada Teste",
-      registration_number: "1234567890",
+      registration_number: "92.115.828/0001-03",
       phone: "999999999",
       email: "teste@teste.com",
       description: "Descrição teste",
@@ -297,7 +297,7 @@ describe "Proprietário acessa a página de sua pousada" do
     second_inn = Inn.create!(
       name: "Paradouro",
       corporate_name: "Paradouro Teste",
-      registration_number: "0987654321",
+      registration_number: "02.450.415/0001-92",
       phone: "888888888",
       email: "paradouro@teste.com",
       description: "Descrição paradouro",

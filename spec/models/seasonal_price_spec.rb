@@ -45,7 +45,7 @@ RSpec.describe SeasonalPrice, type: :model do
     it "inválido com data de início entre datas de outro preço sazonal" do
       owner = Owner.create!(email: "owner@email.com", password: "123456")
       inn = Inn.create!(name: "Pousada", corporate_name: "Pousada S/A",
-                    registration_number: "123445566799", phone: "999999999",
+                    registration_number: "62.958.428/0001-07", phone: "999999999",
                     email: "pousada@email.com", pay_methods: "Dinheiro",
                     owner_id: owner.id)
       room = Room.create!(name: "Quarto", size: 20, max_guests: 2, inn_id: inn.id,
@@ -61,7 +61,7 @@ RSpec.describe SeasonalPrice, type: :model do
     it "inválido com data de término entre datas de outro preço sazonal" do
       owner = Owner.create!(email: "owner@email.com", password: "123456")
       inn = Inn.create!(name: "Pousada", corporate_name: "Pousada S/A",
-                    registration_number: "123445566799", phone: "999999999",
+                    registration_number: "62.958.428/0001-07", phone: "999999999",
                     email: "pousada@email.com", pay_methods: "Dinheiro",
                     owner_id: owner.id)
       room = Room.create!(name: "Quarto", size: 20, max_guests: 2, inn_id: inn.id,
@@ -77,7 +77,7 @@ RSpec.describe SeasonalPrice, type: :model do
     it "inválido com data de início igual a data de início de outro preço sazonal" do
       owner = Owner.create!(email: "owner@email.com", password: "123456")
       inn = Inn.create!(name: "Pousada", corporate_name: "Pousada S/A",
-                    registration_number: "123445566799", phone: "999999999",
+                    registration_number: "62.958.428/0001-07", phone: "999999999",
                     email: "pousada@email.com", pay_methods: "Dinheiro",
                     owner_id: owner.id)
       room = Room.create!(name: "Quarto", size: 20, max_guests: 2, inn_id: inn.id,
@@ -93,7 +93,7 @@ RSpec.describe SeasonalPrice, type: :model do
     it "inválido com data de início igual a data de término de outro preço sazonal" do
       owner = Owner.create!(email: "owner@email.com", password: "123456")
       inn = Inn.create!(name: "Pousada", corporate_name: "Pousada S/A",
-                    registration_number: "123445566799", phone: "999999999",
+                    registration_number: "62.958.428/0001-07", phone: "999999999",
                     email: "pousada@email.com", pay_methods: "Dinheiro",
                     owner_id: owner.id)
       room = Room.create!(name: "Quarto", size: 20, max_guests: 2, inn_id: inn.id,
@@ -109,7 +109,7 @@ RSpec.describe SeasonalPrice, type: :model do
     it "inválido com data de término igual a data de início de outro preço sazonal" do
       owner = Owner.create!(email: "owner@email.com", password: "123456")
       inn = Inn.create!(name: "Pousada", corporate_name: "Pousada S/A",
-                    registration_number: "123445566799", phone: "999999999",
+                    registration_number: "62.958.428/0001-07", phone: "999999999",
                     email: "pousada@email.com", pay_methods: "Dinheiro",
                     owner_id: owner.id)
       room = Room.create!(name: "Quarto", size: 20, max_guests: 2, inn_id: inn.id,
@@ -125,7 +125,7 @@ RSpec.describe SeasonalPrice, type: :model do
     it "inválido com data de término igual a data de término de outro preço sazonal" do
       owner = Owner.create!(email: "owner@email.com", password: "123456")
       inn = Inn.create!(name: "Pousada", corporate_name: "Pousada S/A",
-                    registration_number: "123445566799", phone: "999999999",
+                    registration_number: "62.958.428/0001-07", phone: "999999999",
                     email: "pousada@email.com", pay_methods: "Dinheiro",
                     owner_id: owner.id)
       room = Room.create!(name: "Quarto", size: 20, max_guests: 2, inn_id: inn.id,
