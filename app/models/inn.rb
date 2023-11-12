@@ -47,6 +47,6 @@ class Inn < ApplicationRecord
 
   def validates_registration_number
     cnpj = BrDocuments::CnpjCpf::Cnpj.new(registration_number)
-    errors.add(:registration_number, "CNPJ inválido") unless cnpj.valid?
+    errors.add(:registration_number, " inválido") unless cnpj.valid?
   end
 end
