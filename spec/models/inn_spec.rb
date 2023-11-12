@@ -44,15 +44,29 @@ RSpec.describe Inn, type: :model do
       expect(inn.errors.include?(:pay_methods)).to be true
     end
 
-    it "CNPJ inválido" do
-      inn = Inn.new(registration_number: "1234567890")
+    it "CNPJ inválido sem formatação" do
+      inn = Inn.new(registration_number: "00000000000000")
 
       expect(inn.valid?).to be false
       expect(inn.errors.include?(:registration_number)).to be true
     end
 
-    it "CNPJ válido" do
+    it "CNPJ inválido com formatação" do
+    inn = Inn.new(registration_number: "00.000.000/0000-00")
+
+    expect(inn.valid?).to be false
+    expect(inn.errors.include?(:registration_number)).to be true
+    end
+
+    it "CNPJ válido com formatação" do
       inn = Inn.new(registration_number: "51.136.627/0001-05")
+      inn.valid?
+
+      expect(inn.errors.include?(:registration_number)).to be false
+    end
+
+    it "CNPJ válido sem formatação" do
+      inn = Inn.new(registration_number: "51136627000105")
       inn.valid?
 
       expect(inn.errors.include?(:registration_number)).to be false
