@@ -29,7 +29,11 @@ inn_1_room_1 = Room.create!(
   size: 30,
   max_guests: 2,
   price: 200.00,
-  inn: inn_1
+  inn: inn_1,
+  bathroom: true,
+  wifi: true,
+  wardrobe: true,
+  accessibility: true
 )
 inn_1_room_2 = Room.create!(
   name: "Pacífico",
@@ -37,7 +41,11 @@ inn_1_room_2 = Room.create!(
   size: 50,
   max_guests: 4,
   price: 350.00,
-  inn: inn_1
+  inn: inn_1,
+  bathroom: true,
+  wifi: true,
+  wardrobe: true,
+  accessibility: true
 )
 inn_1_room_3 = Room.create!(
   name: "Índico",
@@ -45,7 +53,11 @@ inn_1_room_3 = Room.create!(
   size: 40,
   max_guests: 3,
   price: 250.00,
-  inn: inn_1
+  inn: inn_1,
+  bathroom: true,
+  wifi: true,
+  wardrobe: true,
+  accessibility: true
 )
 
 # Morro Azul
@@ -79,7 +91,11 @@ inn_2_room_1 = Room.create!(
   size: 30,
   max_guests: 2,
   price: 150.00,
-  inn: inn_2
+  inn: inn_2,
+  bathroom: true,
+  wifi: true,
+  tv: true,
+  porch: true
 )
 inn_2_room_2 = Room.create!(
   name: "Gralha Azul",
@@ -87,7 +103,11 @@ inn_2_room_2 = Room.create!(
   size: 50,
   max_guests: 4,
   price: 300.00,
-  inn: inn_2
+  inn: inn_2,
+  bathroom: true,
+  wifi: true,
+  tv: true,
+  porch: true
 )
 inn_2_room_3 = Room.create!(
   name: "Papagaio",
@@ -95,7 +115,11 @@ inn_2_room_3 = Room.create!(
   size: 45,
   max_guests: 3,
   price: 200.00,
-  inn: inn_2
+  inn: inn_2,
+  bathroom: true,
+  wifi: true,
+  tv: true,
+  porch: true
 )
 
 # Ilha da Magia
@@ -129,7 +153,12 @@ inn_3_room_1 = Room.create!(
   size: 20,
   max_guests: 2,
   price: 200.00,
-  inn: inn_3
+  inn: inn_3,
+  bathroom: true,
+  porch: true,
+  wardrobe: true,
+  air_conditioner: true,
+  accessibility: true
 )
 inn_3_room_2 = Room.create!(
   name: "Campeche",
@@ -137,7 +166,12 @@ inn_3_room_2 = Room.create!(
   size: 50,
   max_guests: 4,
   price: 350.00,
-  inn: inn_3
+  inn: inn_3,
+  bathroom: true,
+  porch: true,
+  wardrobe: true,
+  air_conditioner: true,
+  accessibility: true
 )
 inn_3_room_3 = Room.create!(
   name: "Sambaqui",
@@ -145,7 +179,12 @@ inn_3_room_3 = Room.create!(
   size: 60,
   max_guests: 5,
   price: 500.00,
-  inn: inn_3
+  inn: inn_3,
+  bathroom: true,
+  porch: true,
+  wardrobe: true,
+  air_conditioner: true,
+  accessibility: true
 )
 
 
@@ -180,7 +219,12 @@ inn_4_room_1 = Room.create!(
   size: 50,
   max_guests: 4,
   price: 300.00,
-  inn: inn_4
+  inn: inn_4,
+  bathroom: true,
+  tv: true,
+  wifi: true,
+  accessibility: true,
+  wardrobe: true
 )
 inn_4_room_2 = Room.create!(
   name: "Quartzo",
@@ -188,7 +232,12 @@ inn_4_room_2 = Room.create!(
   size: 35,
   max_guests: 3,
   price: 200.00,
-  inn: inn_4
+  inn: inn_4,
+  bathroom: true,
+  tv: true,
+  wifi: true,
+  accessibility: true,
+  wardrobe: true
 )
 inn_4_room_3 = Room.create!(
   name: "Diamante",
@@ -196,7 +245,13 @@ inn_4_room_3 = Room.create!(
   size: 60,
   max_guests: 4,
   price: 450.00,
-  inn: inn_4
+  inn: inn_4,
+  bathroom: true,
+  tv: true,
+  wifi: true,
+  accessibility: true,
+  wardrobe: true,
+  safe: true
 )
 
 # Vento Sul
@@ -230,7 +285,11 @@ inn_5_room_1 = Room.create!(
   size: 20,
   max_guests: 2,
   price: 125.00,
-  inn: inn_5
+  inn: inn_5,
+  porch: true,
+  air_conditioner: true,
+  wifi: true,
+  safe: true
 )
 inn_5_room_2 = Room.create!(
   name: "Ventania",
@@ -238,7 +297,12 @@ inn_5_room_2 = Room.create!(
   size: 35,
   max_guests: 3,
   price: 300.00,
-  inn: inn_5
+  inn: inn_5,
+  bathroom: true,
+  porch: true,
+  air_conditioner: true,
+  wifi: true,
+  safe: true
 )
 inn_5_room_3 = Room.create!(
   name: "Maral",
@@ -246,7 +310,11 @@ inn_5_room_3 = Room.create!(
   size: 40,
   max_guests: 2,
   price: 250.00,
-  inn: inn_5
+  inn: inn_5,
+  porch: true,
+  air_conditioner: true,
+  wifi: true,
+  safe: true
 )
 
 # Chalés da Roça
@@ -272,7 +340,7 @@ Address.create!(
   city: "Barão Geraldo",
   state: "SP",
   postal_code: "11000-900",
-  inn: inn_6
+  inn: inn_6,
 )
 inn_6_room_1 = Room.create!(
   name: "Quartinho",
@@ -280,7 +348,10 @@ inn_6_room_1 = Room.create!(
   size: 15,
   max_guests: 2,
   price: 100.00,
-  inn: inn_6
+  inn: inn_6,
+  porch: true,
+  wifi: true,
+  accessibility: true
 )
 inn_6_room_2 = Room.create!(
   name: "Quartão",
@@ -288,7 +359,10 @@ inn_6_room_2 = Room.create!(
   size: 50,
   max_guests: 4,
   price: 300.00,
-  inn: inn_6
+  inn: inn_6,
+  porch: true,
+  wifi: true,
+  accessibility: true
 )
 inn_6_room_2 = Room.create!(
   name: "Junto e misturado",
@@ -296,5 +370,8 @@ inn_6_room_2 = Room.create!(
   size: 70,
   max_guests: 7,
   price: 300.00,
-  inn: inn_6
+  inn: inn_6,
+  porch: true,
+  wifi: true,
+  accessibility: true
 )

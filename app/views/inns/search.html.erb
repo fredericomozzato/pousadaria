@@ -2,6 +2,10 @@
 
 <p>Resultados: <%= @inns.count %></p>
 
-<ul>
-  <li><%= render @inns %></li>
-</ul>
+<% if @inns.empty? %>
+  <p>Nenhuma pousada encontrada</p>
+<% else %>
+  <ul>
+    <li><%= render @inns %></li>
+  </ul>
+<% end %>

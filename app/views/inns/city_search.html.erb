@@ -1,5 +1,7 @@
 <h1>Pousadas em: <%= params[:city] %></h1>
 
-<% @found_inns.each do |inn| %>
-  <%= link_to inn.name, inn %>
-<% end %>
+<ul>
+  <% @found_inns.each do |inn| %>
+    <li><%= link_to inn.name, inn %></li>
+  <% end %>
+</ul>
