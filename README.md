@@ -17,3 +17,8 @@ Projeto em desenvolvimento para o curso TreinaDev 11 com Ruby on Rails.
 ### Gems externas:
 
 - br_documents [https://github.com/asseinfo/br_documents]
+
+
+### Observações de design
+
+- A busca avançada usa o operador AND para encontrar pousadas com quartos que tenham correspondência ***exata*** com os atributos pesquisados.
