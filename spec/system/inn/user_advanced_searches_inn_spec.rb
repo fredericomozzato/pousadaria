@@ -66,6 +66,18 @@ describe "Usuário acessa o formulário de busca avançada" do
       wifi: true,
       porch: true
     )
+    room_ocean = Room.create!(
+      name: "Mar",
+      description: "Quarto com vista para o mar",
+      size: 40,
+      max_guests: 3,
+      price: 300.00,
+      inn_id: inn.id,
+      bathroom: true,
+      wifi: true,
+      porch: true
+    )
+
     second_owner = Owner.create!(
       email: "fourthowner@example.com",
       password: "xyzpqr"
@@ -115,6 +127,6 @@ describe "Usuário acessa o formulário de busca avançada" do
     end
 
     expect(page).to have_content "Resultados: 1"
-    expect(page).to have_link "Mar Aberto"
+    expect(page).to have_link "Mar Aberto", count: 1
   end
 end
