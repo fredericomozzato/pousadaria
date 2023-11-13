@@ -7,18 +7,20 @@
 </nav>
 
 <section>
-  <h2>Novidades</h2>
-  <div id="recent">
-    <div>
-      <%= render @recent_inns %>
+  <% if @recent_inns.empty? %>
+    <p>Nenhuma pousada cadastrada</p>
+  <% else %>
+    <h2>Novidades</h2>
+    <div id="recent">
+      <div>
+        <%= render @recent_inns %>
+      </div>
     </div>
-  </div>
 
-  <div id="inns-list">
-    <div>
-      <%= render @inns %>
+    <div id="inns-list">
+      <div>
+        <%= render @inns %>
+      </div>
     </div>
-  </div>
-
-  <p>Nenhuma pousada cadastrada</p>
+  <% end %>
 </section>

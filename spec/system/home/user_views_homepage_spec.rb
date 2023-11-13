@@ -153,6 +153,7 @@ describe "Usuário visita a página inicial" do
       )
 
       visit root_path
+      expect(page).not_to have_content "Nenhuma pousada cadastrada"
       within "#recent" do
       expect(page).not_to have_content "Inativa"
       expect(page).not_to have_content "Sem cidade - XX"
