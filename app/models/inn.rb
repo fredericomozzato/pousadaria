@@ -40,7 +40,7 @@ class Inn < ApplicationRecord
                 safe: params[:safe],
                 wifi: params[:wifi],
                 accessibility: params[:accessibility]
-              })
+              }).uniq
   end
 
   private
