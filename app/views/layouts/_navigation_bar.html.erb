@@ -4,7 +4,7 @@
   <li><%= link_to "Busca avançada", advanced_search_inns_path %></li>
 
   <% if owner_signed_in? %>
-    <li><%= link_to "Minha Pousada", minha_pousada_path %></li>
+    <li><%= link_to "Minha Pousada", my_inn_path %></li>
     <li><%= current_owner.email %></li>
     <li><%= button_to "Sair", destroy_owner_session_path, method: :delete %></li>
   <% else %>

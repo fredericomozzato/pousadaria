@@ -58,7 +58,6 @@ describe "Proprietário visita a página de criação de preços sazonais" do
     login_as owner
     visit root_path
     click_on "Minha Pousada"
-    click_on "Quartos"
     click_on "Oceano"
     click_on "Novo Preço Sazonal"
 
@@ -115,7 +114,7 @@ describe "Proprietário visita a página de criação de preços sazonais" do
     )
 
     login_as owner
-    visit rooms_path
+    visit my_inn_path
     click_on "Pacífico"
     click_on "Novo Preço Sazonal"
     fill_in "Data de início", with: 1.week.from_now
@@ -150,6 +149,15 @@ describe "Proprietário visita a página de criação de preços sazonais" do
       check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
       owner_id: owner.id
     )
+    Address.create!(
+      street: "Rua Teste",
+      number: "0",
+      neighborhood: "Bairro Teste",
+      city: "Teste",
+      state: "SC",
+      postal_code: "88888888",
+      inn: inn
+    )
     room_ocean = Room.create!(
       name: "Oceano",
       description: "Quarto com vista para o mar",
@@ -176,7 +184,7 @@ describe "Proprietário visita a página de criação de preços sazonais" do
     )
 
     login_as owner
-    visit rooms_path
+    visit my_inn_path
     click_on "Oceano"
     click_on "Novo Preço Sazonal"
     fill_in "Data de início", with: "2023-12-25"
@@ -245,7 +253,7 @@ describe "Proprietário visita a página de criação de preços sazonais" do
     )
 
     login_as owner
-    visit rooms_path
+    visit my_inn_path
     click_on "Montanha"
     click_on "Novo Preço Sazonal"
     fill_in "Data de início", with: 1.week.ago
@@ -326,7 +334,7 @@ describe "Proprietário visita a página de criação de preços sazonais" do
     )
 
     login_as owner
-    visit rooms_path
+    visit my_inn_path
     click_on "Montanha"
     click_on "Novo Preço Sazonal"
     fill_in "Data de início", with: 2.weeks.from_now
@@ -404,7 +412,7 @@ describe "Proprietário visita a página de criação de preços sazonais" do
     )
 
     login_as owner
-    visit rooms_path
+    visit my_inn_path
     click_on "Montanha"
     click_on "Novo Preço Sazonal"
     fill_in "Data de início", with: 1.day.from_now

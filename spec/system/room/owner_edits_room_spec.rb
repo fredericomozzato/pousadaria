@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe "Proprietário acessa página de quartos" do
+describe "Proprietário acessa página minha pousada" do
   it "e acessa o formulário de edição de um quarto" do
     owner = Owner.create!(
         email: "owner@email.com",
@@ -56,7 +56,7 @@ describe "Proprietário acessa página de quartos" do
     )
 
     login_as(owner)
-    visit rooms_path
+    visit my_inn_path
     click_on "Oceano"
     click_on "Editar Quarto"
 
@@ -129,7 +129,7 @@ describe "Proprietário acessa página de quartos" do
     )
 
     login_as(owner)
-    visit rooms_path
+    visit my_inn_path
     click_on "Montanha"
     click_on "Editar Quarto"
 
@@ -182,7 +182,7 @@ describe "Proprietário acessa página de quartos" do
     )
 
     login_as owner
-    visit rooms_path
+    visit my_inn_path
     click_on "Oceano"
     click_on "Editar Quarto"
     fill_in "Nome", with: ""
@@ -236,7 +236,7 @@ describe "Proprietário acessa página de quartos" do
     )
 
     login_as owner
-    visit rooms_path
+    visit my_inn_path
     click_on "Oceano"
     click_on "Editar Quarto"
     uncheck "Disponível para reservas"
@@ -286,7 +286,7 @@ describe "Proprietário acessa página de quartos" do
     )
 
     login_as owner
-    visit rooms_path
+    visit my_inn_path
     click_on "Montanha"
     click_on "Editar Quarto"
     check "Disponível para reservas"

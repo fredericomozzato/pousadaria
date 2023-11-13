@@ -10,9 +10,9 @@ class SeasonalPricesController < ApplicationController
 
   def create
     @seasonal_price = @room.seasonal_prices.build(seasonal_params)
+
     if @seasonal_price.save
-      redirect_to room_path(@room),
-                            notice: "Preço Sazonal criado com sucesso"
+      redirect_to room_path(@room), notice: "Preço Sazonal criado com sucesso"
     else
       flash.now[:alert] = "Erro ao criar Preço Sazonal"
       render :new

@@ -47,7 +47,6 @@ describe "Proprietário acessa a página de um Preço Sazonal" do
     login_as owner
     visit root_path
     click_on "Minha Pousada"
-    click_on "Quartos"
     click_on "Oceano"
     within "#seasonal-prices" do
       click_on seasonal_price.date_pretty_print

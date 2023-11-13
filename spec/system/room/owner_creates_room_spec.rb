@@ -34,7 +34,6 @@ describe "Proprietário acessa formulário de cadastro de quarto" do
       login_as(owner)
       visit root_path
       click_on "Minha Pousada"
-      click_on "Quartos"
       click_on "Novo Quarto"
 
       expect(page).to have_content "Novo Quarto"

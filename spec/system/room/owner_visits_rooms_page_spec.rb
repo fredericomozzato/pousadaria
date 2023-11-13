@@ -34,9 +34,7 @@ describe "Proprietário acessa página de quartos" do
       login_as(owner)
       visit root_path
       click_on "Minha Pousada"
-      click_on "Quartos"
 
-      expect(page).to have_content "Quartos: Mar Aberto"
       expect(page).to have_content "Nenhum quarto cadastrado"
       expect(page).to have_link "Novo Quarto"
     end
@@ -96,9 +94,8 @@ describe "Proprietário acessa página de quartos" do
       )
 
       login_as(owner)
-      visit rooms_path
+      visit my_inn_path
 
-      expect(page).to have_content "Quartos: Mar Aberto"
       within ".room-preview:nth-child(1)" do
         expect(page).to have_content "Quarto"
         expect(page).to have_content "Oceano"
@@ -182,7 +179,7 @@ describe "Proprietário acessa página de quartos" do
       )
 
       login_as(owner)
-      visit rooms_path
+      visit my_inn_path
       click_on "Oceano"
 
       expect(page).to have_content "Quarto: Oceano"

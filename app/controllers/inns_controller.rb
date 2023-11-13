@@ -21,7 +21,7 @@ class InnsController < ApplicationController
     @inn.check_out_time = get_time(:checkout_hour, :checkout_minute)
 
     if @inn.save
-      redirect_to minha_pousada_path, notice: "Pousada criada com sucesso"
+      redirect_to my_inn_path, notice: "Pousada criada com sucesso"
     else
       @address = @inn.address
       flash.now[:alert] = "Erro ao cadastrar Pousada"
@@ -44,7 +44,7 @@ class InnsController < ApplicationController
     @inn.address.update(inn_params[:address_attributes])
 
     if @inn.update(inn_params.except(:address_attributes))
-      redirect_to minha_pousada_path, notice: "Pousada atualizada com sucesso"
+      redirect_to my_inn_path, notice: "Pousada atualizada com sucesso"
     else
       @address = @inn.address
       flash.now[:alert] = "Erro ao atualizar Pousada"
@@ -54,15 +54,16 @@ class InnsController < ApplicationController
 
   def my_inn
     @inn = Inn.find_by(owner_id: current_owner.id)
+    @rooms = @inn.rooms
   end
 
   def change_status
     @inn.active = !@inn.active
 
     if @inn.save
-      redirect_to minha_pousada_path, notice: "Pousada editada com sucesso"
+      redirect_to my_inn_path, notice: "Pousada editada com sucesso"
     else
-      redirect_to minha_pousada_path, alert: "Erro ao editar Pousada"
+      redirect_to my_inn_path, alert: "Erro ao editar Pousada"
     end
   end
 

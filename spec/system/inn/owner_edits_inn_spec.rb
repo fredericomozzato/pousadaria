@@ -85,7 +85,7 @@ describe "Proprietário acessa a página de sua pousada" do
     )
 
     login_as(owner)
-    visit minha_pousada_path
+    visit my_inn_path
     click_on "Editar"
 
     fill_in "Nome", with: "Mar Aberto"
@@ -156,7 +156,7 @@ describe "Proprietário acessa a página de sua pousada" do
     )
 
     login_as(owner)
-    visit minha_pousada_path
+    visit my_inn_path
     click_on "Editar"
 
     fill_in "Nome", with: "Mar Aberto"
@@ -216,7 +216,7 @@ describe "Proprietário acessa a página de sua pousada" do
     )
 
     login_as(owner)
-    visit minha_pousada_path
+    visit my_inn_path
     click_on "Editar"
 
     click_on "Desativar Pousada"
@@ -255,7 +255,7 @@ describe "Proprietário acessa a página de sua pousada" do
     )
 
     login_as(owner)
-    visit minha_pousada_path
+    visit my_inn_path
     click_on "Editar"
     click_on "Ativar Pousada"
 
