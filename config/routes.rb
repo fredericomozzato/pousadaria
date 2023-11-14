@@ -7,11 +7,20 @@ Rails.application.routes.draw do
     unlocks: "owner/unlocks"
   }
 
+  devise_for :users, path: "users", controllers: {
+    sesions: "users/sessions",
+    registrations: "users/registrations",
+    passwords: "users/passwords",
+    confirmations: "users/confirmations",
+    unlocks: "users/unlocks"
+  }
+
+
   root "home#index"
   get "logins", to: "home#logins"
+  get "minha_pousada", to: "inns#my_inn", as: "my_inn"
 
   resources :addresses, only: [:new, :create]
-  get "minha_pousada", to: "inns#my_inn", as: "my_inn"
   resources :inns, only: [:new, :create, :show, :edit, :update] do
     patch "change_status", on: :member
     get "search", on: :collection
@@ -21,7 +30,9 @@ Rails.application.routes.draw do
   resources :rooms, only: [:index, :new, :create, :show, :edit, :update] do
     patch "change_status", on: :member
     resources :seasonal_prices, only: [:new, :create]
-    resources :bookings, only: [:new, :create]
+    resources :bookings, only: [:new, :create] do
+      get "check_availability", on: :collection
+    end
   end
   resources :seasonal_prices, only: [:show, :edit, :update, :destroy]
 end
