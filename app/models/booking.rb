@@ -14,12 +14,12 @@ class Booking < ApplicationRecord
   end
 
   def dates_conflict?
-    self.room.bookings.where(status: :confirmed).any? do |booking|
-      (self.start_date..self.end_date).overlaps?(booking.start_date..booking.end_date)
+    room.bookings.where(status: :confirmed).any? do |booking|
+      (start_date..end_date).overlaps?(booking.start_date..booking.end_date)
     end
   end
 
   def too_many_guests?
-
+    room.max_guests <= number_of_guests
   end
 end
