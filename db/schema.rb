@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_08_191531) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_14_183724) do
   create_table "addresses", force: :cascade do |t|
     t.string "street"
     t.string "number"
@@ -22,6 +22,22 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_08_191531) do
     t.datetime "updated_at", null: false
     t.integer "inn_id"
     t.index ["inn_id"], name: "index_addresses_on_inn_id"
+  end
+
+  create_table "bookings", force: :cascade do |t|
+    t.integer "room_id", null: false
+    t.integer "user_id", null: false
+    t.date "start_date", null: false
+    t.date "end_date", null: false
+    t.datetime "check_in"
+    t.datetime "check_out"
+    t.decimal "bill"
+    t.integer "status", default: 0, null: false
+    t.integer "number_of_guests", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["room_id"], name: "index_bookings_on_room_id"
+    t.index ["user_id"], name: "index_bookings_on_user_id"
   end
 
   create_table "inns", force: :cascade do |t|
@@ -103,6 +119,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_08_191531) do
 
   add_foreign_key "addresses", "inns"
   add_foreign_key "addresses", "inns"
+  add_foreign_key "bookings", "rooms"
+  add_foreign_key "bookings", "users"
   add_foreign_key "inns", "owners"
   add_foreign_key "rooms", "inns"
   add_foreign_key "seasonal_prices", "rooms"

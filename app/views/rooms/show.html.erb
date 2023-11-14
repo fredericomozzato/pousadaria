@@ -1,40 +1,19 @@
-<h1>Quarto: <%= @room.name %></h1>
+<%= render @room %>
 
-<dl>
-  <dt>Descrição: </dt>
-  <dd><%= @room.description %></dd>
-  <dt>Tamanho:</dt>
-  <dd><%= @room.size %> m²</dd>
-  <dt>Número máximo de hóspedes:</dt>
-  <dd><%= @room.max_guests %></dd>
-  <dt>Valor da diária:</dt>
-  <dd><%= number_to_currency @room.price, unit: "R$", separator: ",", delimiter: "." %></dd>
-  <dt>Comodidades:</dt>
-  <dd>
-    <ul class="ammenities">
-      <li>Banheiro privativo: <%= @room.bathroom ? "sim" : "não" %></li>
-      <li>Varanda: <%= @room.porch ? "sim" : "não" %></li>
-      <li>Ar-condicionado: <%= @room.air_conditioner ? "sim" : "não" %></li>
-      <li>Televisão: <%= @room.tv ? "sim" : "não" %></li>
-      <li>Guarda-roupas: <%= @room.wardrobe ? "sim" : "não" %></li>
-      <li>Cofre: <%= @room.safe ? "sim" : "não" %></li>
-      <li>Acessibilidade: <%= @room.accessibility ? "sim" : "não" %></li>
-      <li>Wi-fi: <%= @room.wifi ? "sim" : "não" %></li>
-    </ul>
-  </dd>
-  <dt>Disponível para reservas:</dt>
-  <dd><%= @room.active? ? "sim" : "não" %></dd>
-</dl>
-
-<div>
-  <% if owner_signed_in? %>
+<% if owner_signed_in? %>
+  <div>
     <%= link_to "Editar Quarto", edit_room_path(@room) %>
-  <% end %>
-</div>
+  </div>
+<% end %>
+
+<%= button_to "Reservar", new_room_booking_path(@room), method: :get %>
 
 <div>
   <h3>Preços Sazonais</h3>
-  <%= link_to "Novo Preço Sazonal", new_room_seasonal_price_path(@room) %>
+  <% if @seasonal_prices.empty? %>
+    <p>Nenhum Preço Sazonal Cadastrado</p>
+  <% end %>
+
   <ul id="seasonal-prices">
     <% @seasonal_prices.each do |price| %>
       <li>
@@ -43,5 +22,8 @@
       </li>
     <% end %>
   </ul>
+  <% if owner_signed_in? %>
+    <%= link_to "Novo Preço Sazonal", new_room_seasonal_price_path(@room) %>
+  <% end %>
 </div>
 
