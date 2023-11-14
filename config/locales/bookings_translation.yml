@@ -1,0 +1,3 @@
+pt-BR:
+  date_conflict: "Já existe uma reserva para este quarto no período selecionado"
+  too_many_guests: "Número de hóspedes maior que o permitido para o quarto"

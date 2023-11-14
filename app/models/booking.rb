@@ -20,6 +20,6 @@ class Booking < ApplicationRecord
   end
 
   def too_many_guests?
-    room.max_guests <= number_of_guests
+    number_of_guests > room.max_guests
   end
 end
