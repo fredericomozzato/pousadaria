@@ -8,6 +8,10 @@ class BookingsController < ApplicationController
 
   def confirmation
     @pre_booking = Booking.new(pre_booking_params)
+
+    if @pre_booking.dates_conflict?
+      redirect_to new_room_booking_path(@room), alert: "Já existe uma reserva para este quarto no período selecionado"
+    end
   end
 
   private

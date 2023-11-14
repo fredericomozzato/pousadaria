@@ -1,6 +1,7 @@
 class Room < ApplicationRecord
   belongs_to :inn
   has_many :seasonal_prices
+  has_many :bookings
 
   validates :name,
             :size,
