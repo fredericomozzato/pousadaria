@@ -1,8 +1,8 @@
 require "rails_helper"
 
-describe "Usuário visita a página de uma pousada" do
+describe "Usuário visita a página de reservas" do
   context "desautenticado" do
-    it "e vê a página de detalhes de reserva" do
+    it "e vê o formulário" do
       owner = Owner.create!(
           email: "owner@email.com",
           password: "123456"
@@ -54,7 +54,7 @@ describe "Usuário visita a página de uma pousada" do
       expect(page).to have_link "Voltar"
     end
 
-    it "e é redirecionado para página de login ao tentar fazer reserva" do
+    it "e é redirecionado para página de confirmação de reserva" do
       owner = Owner.create!(
           email: "owner@email.com",
           password: "123456"
@@ -95,12 +95,22 @@ describe "Usuário visita a página de uma pousada" do
       click_on "Mar Aberto"
       click_on "Oceano"
       click_on "Reservar"
-      fill_in "Data de Check-in", with: 4.weeks.from_now
-      fill_in "Data de Check-out", with: 5.weeks.from_now
+      fill_in "Data de Check-in", with: 10.days.from_now
+      fill_in "Data de Check-out", with: 14.days.from_now
       fill_in "Número de hóspedes", with: 2
       click_on "Avançar"
 
-      expect(current_path).to eq new_user_session_path
+      expect(page).to have_content "Dados da Reserva"
+      expect(page).to have_content "Quarto: Oceano"
+      expect(page).to have_content "Data de entrada: #{I18n.l(10.days.from_now.to_date)}"
+      expect(page).to have_content "Data de saída: #{I18n.l(14.days.from_now.to_date)}"
+      expect(page).to have_content "Número de hóspedes: 2"
+      expect(page).to have_content "Valor da reserva: R$ 800,00"
+      expect(page).to have_button "Confirmar reserva"
+    end
+
+    it "e preenche dados incompletos" do
+
     end
   end
 end

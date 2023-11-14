@@ -31,7 +31,7 @@ Rails.application.routes.draw do
     patch "change_status", on: :member
     resources :seasonal_prices, only: [:new, :create]
     resources :bookings, only: [:new, :create] do
-      get "check_availability", on: :collection
+      get "confirmation", on: :collection
     end
   end
   resources :seasonal_prices, only: [:show, :edit, :update, :destroy]

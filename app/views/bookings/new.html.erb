@@ -3,7 +3,7 @@
 <h4>Pousada: <%= @inn.name %></h4>
 <h4>Quarto: <%= @room.name %></h4>
 
-<%= form_with(url: check_availability_room_bookings_path, method: :get) do |f| %>
+<%= form_with(url: confirmation_room_bookings_path, method: :get) do |f| %>
   <div>
     <%= f.label :start_date, "Data de Check-in" %>
     <%= f.date_field :start_date %>

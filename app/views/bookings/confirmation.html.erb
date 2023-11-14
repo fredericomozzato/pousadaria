@@ -1,0 +1,21 @@
+<h1>Dados da Reserva</h1>
+
+<dl>
+  <dt>Quarto:</dt>
+  <dd> <%= @room.name %></dd>
+
+  <dt>Data de entrada:</dt>
+  <dd><%= I18n.l(@pre_booking.start_date) %></dd>
+
+  <dt>Data de saída:</dt>
+  <dd><%= I18n.l(@pre_booking.end_date) %></dd>
+
+  <dt>Número de hóspedes:</dt>
+  <dd><%= @pre_booking.number_of_guests %></dd>
+
+  <dt>Valor da reserva:</dt>
+  <dd><%= number_to_currency @pre_booking.calculate_bill, unit: "R$", separator: ",", delimiter: "." %></dd>
+
+  <%= button_to "Confirmar reserva" %>
+</dl>
+
