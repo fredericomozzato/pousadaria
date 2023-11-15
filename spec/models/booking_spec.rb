@@ -35,7 +35,7 @@ RSpec.describe Booking, type: :model do
         price: 100.00,
         inn: inn
       )
-      seasonal_price = SeasonalPrice.create!(
+      SeasonalPrice.create!(
         start: 2.days.from_now,
         end: 5.days.from_now,
         price: 200.00,
@@ -72,7 +72,7 @@ RSpec.describe Booking, type: :model do
         price: 100.00,
         inn: inn
       )
-      seasonal_price = SeasonalPrice.create!(
+      SeasonalPrice.create!(
         start: 2.days.from_now,
         end: 5.days.from_now,
         price: 200.00,
@@ -109,7 +109,7 @@ RSpec.describe Booking, type: :model do
         price: 100.00,
         inn: inn
       )
-      seasonal_price = SeasonalPrice.create!(
+      SeasonalPrice.create!(
         start: 2.days.from_now,
         end: 5.days.from_now,
         price: 200.00,
@@ -146,7 +146,7 @@ RSpec.describe Booking, type: :model do
         price: 100.00,
         inn: inn
       )
-      seasonal_price = SeasonalPrice.create!(
+      SeasonalPrice.create!(
         start: 1.days.from_now,
         end: 7.days.from_now,
         price: 200.00,
@@ -159,6 +159,49 @@ RSpec.describe Booking, type: :model do
       allow(Room).to receive(:find).with(booking.room_id).and_return(room)
 
       expect(booking.calculate_bill).to eq 600.00
+    end
+
+    it "englobando 2 períodos de preços sazonais" do
+      owner = Owner.create!(
+        email: "owner@email.com",
+        password: "123456"
+      )
+      inn = Inn.create!(
+        name: "Mar Aberto",
+        corporate_name: "Pousada Mar Aberto/SC",
+        registration_number: "84.485.218/0001-73",
+        phone: "4899999-9999",
+        email: "maraberto@email.com",
+        description: "Pousada na beira do mar com suítes e café da manhã incluso.",
+        pay_methods: "Crédito, débito, dinheiro ou pix",
+        owner: owner
+      )
+      room = Room.create!(
+        name: "Quarto",
+        size: 30,
+        max_guests: 2,
+        price: 200.00,
+        inn: inn
+      )
+      seasonal_price_1 = SeasonalPrice.create!(
+        start: 3.days.from_now,
+        end: 5.days.from_now,
+        price: 300.00,
+        room: room
+      )
+      seasonal_price_1 = SeasonalPrice.create!(
+        start: 7.days.from_now,
+        end: 10.days.from_now,
+        price: 100.00,
+        room: room
+      )
+      booking = Booking.new(
+        start_date: 4.days.from_now,
+        end_date: 8.days.from_now
+      )
+      allow(Room).to receive(:find).with(booking.room_id).and_return(room)
+
+      expect(booking.calculate_bill).to eq 900.00
     end
   end
 

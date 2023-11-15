@@ -9,23 +9,15 @@ class Booking < ApplicationRecord
   def calculate_bill
     room = Room.find(room_id)
     booking_range = start_date...end_date
-    total_booking_days = booking_range.count
-    total_bill = total_booking_days * room.price
-    overlapping_days = 0
+    total_bill = booking_range.count * room.price
 
     room.seasonal_prices.each do |price|
       price_range = price.start..price.end
-
       if booking_range.overlaps? price_range
-        intersection = (
-          [booking_range.begin, price_range.begin].max...[booking_range.end, price_range.end].min
-        )
-        intersecting_days = intersection.count
-        intersecting_days += 1 if booking_range.count > price_range.count
-        total_bill -= intersecting_days * room.price
-        total_bill += intersecting_days * price.price
+        total_bill += count_intersecting_days(booking_range, price_range) * (price.price - room.price)
       end
     end
+
     total_bill
   end
 
@@ -37,5 +29,13 @@ class Booking < ApplicationRecord
 
   def too_many_guests?
     number_of_guests > room.max_guests
+  end
+
+  private
+
+  def count_intersecting_days(booking_range, price_range)
+    days = ([booking_range.begin, price_range.begin].max...[booking_range.end, price_range.end].min).count
+    return days += 1 if booking_range.count > price_range.count
+    days
   end
 end
