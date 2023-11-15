@@ -1,3 +1,16 @@
 pt-BR:
   date_conflict: "Já existe uma reserva para este quarto no período selecionado"
   too_many_guests: "Número de hóspedes maior que o permitido para o quarto"
+  activerecord:
+    models:
+      booking:
+        one: "Reserva"
+        other: "Reservas"
+    attributes:
+      booking:
+        start_date: "Data de Check-in"
+        end_date: "Data de Check-out"
+        number_of_guests: "Número de hóspedes"
+        check_in: "Check-in"
+        check_out: "Check-out"
+        bill: "Valor total"

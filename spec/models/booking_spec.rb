@@ -205,7 +205,7 @@ RSpec.describe Booking, type: :model do
     end
   end
 
-  describe "#dates_conflict?" do
+  describe "#date_conflict" do
     it "retorna true se a reserva conflita com outra reserva" do
       owner = Owner.create!(
         email: "owner@email.com",
@@ -245,7 +245,8 @@ RSpec.describe Booking, type: :model do
         number_of_guests: 2
       )
 
-      expect(new_booking.dates_conflict?).to eq true
+      expect(new_booking.valid?).to eq false
+      expect(new_booking.errors.include?(:start_date)).to be true
     end
 
     it "retorna false se a reserva não conflita com outra reserva" do
@@ -287,11 +288,13 @@ RSpec.describe Booking, type: :model do
         number_of_guests: 2
       )
 
-      expect(new_booking.dates_conflict?).to eq false
+      new_booking.valid?
+
+      expect(new_booking.errors.include?(:start_date)).to be false
     end
   end
 
-  describe "#too_many_guests?" do
+  describe "#too_many_guests" do
     it "retorna true se número de hóspedes é maior que o máximo permitido" do
       owner = Owner.create!(
         email: "owner@email.com",
@@ -321,7 +324,8 @@ RSpec.describe Booking, type: :model do
         number_of_guests: 3
       )
 
-      expect(booking.too_many_guests?).to eq true
+      expect(booking.valid?).to be false
+      expect(booking.errors.include?(:number_of_guests)).to be true
     end
   end
 end
