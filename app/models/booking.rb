@@ -3,8 +3,9 @@ class Booking < ApplicationRecord
   belongs_to :user, optional: true
 
   validates :start_date, :end_date, :number_of_guests, presence: true
+  validates :number_of_guests, numericality: {greater_than: 0}
 
-  validate :date_conflict, :too_many_guests
+  validate :past_dates, :date_conflict, :too_many_guests
 
   enum status: {confirmed: 0, active: 5, closed: 10, canceled: 15}
 
@@ -33,7 +34,7 @@ class Booking < ApplicationRecord
   def date_conflict
     return if start_date.nil? || end_date.nil?
 
-    conflict =  room.bookings.where(status: :confirmed).any? do |booking|
+    conflict = room.bookings.where(status: :confirmed).any? do |booking|
       (start_date..end_date).overlaps?(booking.start_date..booking.end_date)
     end
 
@@ -44,5 +45,13 @@ class Booking < ApplicationRecord
     return if number_of_guests.nil?
 
     errors.add(:number_of_guests, I18n.t("too_many_guests")) if number_of_guests > room.max_guests
+  end
+
+  def past_dates
+    return if start_date.nil? || end_date.nil?
+
+    errors.add(:start_date, "Data de Check-in não pode ser no passado") if start_date < Date.today
+    errors.add(:end_date, "Data de Check-out não pode ser no passado") if end_date < Date.today
+    errors.add(:end_date, "Data de Check-out não pode ser antes da Data de Check-in") if end_date < start_date
   end
 end
