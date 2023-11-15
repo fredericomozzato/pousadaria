@@ -50,7 +50,116 @@ RSpec.describe Booking, type: :model do
       expect(booking.calculate_bill).to eq 300.00
     end
 
-    
+    it "com início entre e fim depois de um preço sazonal" do
+      owner = Owner.create!(
+        email: "owner@email.com",
+        password: "123456"
+      )
+      inn = Inn.create!(
+        name: "Mar Aberto",
+        corporate_name: "Pousada Mar Aberto/SC",
+        registration_number: "84.485.218/0001-73",
+        phone: "4899999-9999",
+        email: "maraberto@email.com",
+        description: "Pousada na beira do mar com suítes e café da manhã incluso.",
+        pay_methods: "Crédito, débito, dinheiro ou pix",
+        owner: owner
+      )
+      room = Room.create!(
+        name: "Quarto",
+        size: 30,
+        max_guests: 2,
+        price: 100.00,
+        inn: inn
+      )
+      seasonal_price = SeasonalPrice.create!(
+        start: 2.days.from_now,
+        end: 5.days.from_now,
+        price: 200.00,
+        room: room
+      )
+      booking = Booking.new(
+        start_date: 3.day.from_now,
+        end_date: 6.days.from_now
+      )
+      allow(Room).to receive(:find).with(booking.room_id).and_return(room)
+
+      expect(booking.calculate_bill).to eq 500.00
+    end
+
+    it "com início antes e fim depois de um preço sazonal" do
+      owner = Owner.create!(
+        email: "owner@email.com",
+        password: "123456"
+      )
+      inn = Inn.create!(
+        name: "Mar Aberto",
+        corporate_name: "Pousada Mar Aberto/SC",
+        registration_number: "84.485.218/0001-73",
+        phone: "4899999-9999",
+        email: "maraberto@email.com",
+        description: "Pousada na beira do mar com suítes e café da manhã incluso.",
+        pay_methods: "Crédito, débito, dinheiro ou pix",
+        owner: owner
+      )
+      room = Room.create!(
+        name: "Quarto",
+        size: 30,
+        max_guests: 2,
+        price: 100.00,
+        inn: inn
+      )
+      seasonal_price = SeasonalPrice.create!(
+        start: 2.days.from_now,
+        end: 5.days.from_now,
+        price: 200.00,
+        room: room
+      )
+      booking = Booking.new(
+        start_date: 1.day.from_now,
+        end_date: 7.days.from_now
+      )
+      allow(Room).to receive(:find).with(booking.room_id).and_return(room)
+
+      expect(booking.calculate_bill).to eq 1000
+    end
+
+    it "com início e fim entre um preço sazonal" do
+      owner = Owner.create!(
+        email: "owner@email.com",
+        password: "123456"
+      )
+      inn = Inn.create!(
+        name: "Mar Aberto",
+        corporate_name: "Pousada Mar Aberto/SC",
+        registration_number: "84.485.218/0001-73",
+        phone: "4899999-9999",
+        email: "maraberto@email.com",
+        description: "Pousada na beira do mar com suítes e café da manhã incluso.",
+        pay_methods: "Crédito, débito, dinheiro ou pix",
+        owner: owner
+      )
+      room = Room.create!(
+        name: "Quarto",
+        size: 30,
+        max_guests: 2,
+        price: 100.00,
+        inn: inn
+      )
+      seasonal_price = SeasonalPrice.create!(
+        start: 1.days.from_now,
+        end: 7.days.from_now,
+        price: 200.00,
+        room: room
+      )
+      booking = Booking.new(
+        start_date: 2.day.from_now,
+        end_date: 5.days.from_now
+      )
+      allow(Room).to receive(:find).with(booking.room_id).and_return(room)
+
+      expect(booking.calculate_bill).to eq 600.00
+    end
   end
 
   describe "#dates_conflict?" do

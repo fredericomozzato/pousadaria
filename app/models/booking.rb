@@ -10,21 +10,23 @@ class Booking < ApplicationRecord
     room = Room.find(room_id)
     booking_range = start_date...end_date
     total_booking_days = booking_range.count
-    total_bill = 0
+    total_bill = total_booking_days * room.price
     overlapping_days = 0
 
     room.seasonal_prices.each do |price|
       price_range = price.start..price.end
+
       if booking_range.overlaps? price_range
         intersection = (
           [booking_range.begin, price_range.begin].max...[booking_range.end, price_range.end].min
         )
-        total_bill += intersection.count * price.price
-        overlapping_days += intersection.count
+        intersecting_days = intersection.count
+        intersecting_days += 1 if booking_range.count > price_range.count
+        total_bill -= intersecting_days * room.price
+        total_bill += intersecting_days * price.price
       end
     end
-
-    total_bill += (total_booking_days - overlapping_days) * room.price
+    total_bill
   end
 
   def dates_conflict?
