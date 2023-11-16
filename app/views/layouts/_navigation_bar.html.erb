@@ -9,7 +9,7 @@
     <li><%= button_to "Sair", destroy_owner_session_path, method: :delete %></li>
   <% elsif user_signed_in? %>
     <li><%= current_user.email %></li>
-    <li><%= button_to "Sair" %></li>
+    <li><%= button_to "Sair", destroy_user_session_path, method: :delete %></li>
   <% else %>
     <li><%= link_to "Entrar", logins_path %></li>
   <% end %>

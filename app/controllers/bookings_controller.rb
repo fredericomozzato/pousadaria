@@ -8,11 +8,13 @@ class BookingsController < ApplicationController
 
   def confirmation
     @pre_booking = Booking.new(pre_booking_params)
-
     render "new" unless @pre_booking.valid?
+  end
 
-    # return redirect_to new_room_booking_path(@room), alert: I18n.t("date_conflict") if @pre_booking.dates_conflict?
-    # return redirect_to new_room_booking_path(@room), alert: I18n.t("too_many_guests") if @pre_booking.too_many_guests?
+  def create
+    redirect_to new_user_session_path unless user_signed_in?
+
+
   end
 
   private

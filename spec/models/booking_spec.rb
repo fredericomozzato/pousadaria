@@ -183,7 +183,12 @@ RSpec.describe Booking, type: :model do
         price: 100.00,
         inn: inn
       )
-      user_1 = User.create!(email: "user1@email.com", password: "123456")
+      user_1 = User.create!(
+        email: "user1@email.com",
+        password: "123456",
+        name: "User 1",
+        cpf: "859.125.819-34"
+      )
       confirmed_booking = Booking.create!(
         room: room,
         user: user_1,
@@ -191,7 +196,12 @@ RSpec.describe Booking, type: :model do
         end_date: 3.days.from_now,
         number_of_guests: 2
       )
-      user_2 = User.create!(email: "user2@email.com", password: "123456")
+      user_2 = User.create!(
+        email: "user2@email.com",
+        password: "123456",
+        name: "User 2",
+        cpf: "353.940.620-48"
+      )
       new_booking = Booking.new(
         room: room,
         user: user_2,
@@ -226,7 +236,12 @@ RSpec.describe Booking, type: :model do
         price: 100.00,
         inn: inn
       )
-      user_1 = User.create!(email: "user1@email.com", password: "123456")
+      user_1 = User.create!(
+        email: "user1@email.com",
+        password: "123456",
+        name: "User 1",
+        cpf: "709.508.180-89"
+        )
       confirmed_booking = Booking.create!(
         room: room,
         user: user_1,
@@ -234,7 +249,12 @@ RSpec.describe Booking, type: :model do
         end_date: 3.days.from_now,
         number_of_guests: 2
       )
-      user_2 = User.create!(email: "user2@email.com", password: "123456")
+      user_2 = User.create!(
+        email: "user2@email.com",
+        password: "123456",
+        name: "User 2",
+        cpf: "623.099.110-11"
+      )
       new_booking = Booking.new(
         room: room,
         user: user_2,

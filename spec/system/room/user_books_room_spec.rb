@@ -102,10 +102,11 @@ describe "Usuário visita a página de reservas" do
 
       expect(page).to have_content "Dados da Reserva"
       expect(page).to have_content "Quarto: Oceano"
-      expect(page).to have_content "Data de entrada: #{I18n.l(10.days.from_now.to_date)}"
-      expect(page).to have_content "Data de saída: #{I18n.l(14.days.from_now.to_date)}"
+      expect(page).to have_content "Data de entrada: #{I18n.l(10.days.from_now.to_date)} a partir das #{inn.check_in_time.strftime("%H:%M")} horas"
+      expect(page).to have_content "Data de saída: #{I18n.l(14.days.from_now.to_date)} até as #{inn.check_out_time.strftime("%H:%M")} horas"
       expect(page).to have_content "Número de hóspedes: 2"
       expect(page).to have_content "Valor da reserva: R$ 800,00"
+      expect(page).to have_content "Métodos de pagamento: Crédito, débito, dinheiro ou pix"
       expect(page).to have_button "Confirmar reserva"
       expect(page).to have_link "Voltar"
     end
@@ -146,7 +147,12 @@ describe "Usuário visita a página de reservas" do
         price: 200.00,
         inn_id: inn.id
       )
-      user = User.create!(email: "user@email.com", password: "123456")
+      user = User.create!(
+        email: "user@email.com",
+        password: "123456",
+        name: "User",
+        cpf: "561.473.820-71"
+      )
       booking = Booking.create!(
         room: room_ocean,
         start_date: 10.days.from_now,
@@ -204,7 +210,12 @@ describe "Usuário visita a página de reservas" do
         price: 200.00,
         inn_id: inn.id
       )
-      user = User.create!(email: "user@email.com", password: "123456")
+      user = User.create!(
+        email: "user@email.com",
+        password: "123456",
+        name: "User",
+        cpf: "368.224.240-67"
+      )
 
       visit root_path
       click_on "Mar Aberto"
@@ -264,6 +275,124 @@ describe "Usuário visita a página de reservas" do
       expect(page).to have_content "Data de Check-in não pode ficar em branco"
       expect(page).to have_content "Data de Check-out não pode ficar em branco"
       expect(page).to have_content "Número de hóspedes não pode ficar em branco"
+    end
+
+    it "e é redirecionado para página de login" do
+      owner = Owner.create!(
+          email: "owner@email.com",
+          password: "123456"
+      )
+      inn = Inn.create!(
+        name: "Mar Aberto",
+        corporate_name: "Pousada Mar Aberto/SC",
+        registration_number: "84.485.218/0001-73",
+        phone: "4899999-9999",
+        email: "pousadamaraberto@gmail.com",
+        description: "Pousada na beira do mar com suítes e café da manhã incluso.",
+        pay_methods: "Crédito, débito, dinheiro ou pix",
+        user_policies: "A pousada conta com lei do silêncio das 22h às 8h",
+        pet_friendly: true,
+        check_in_time: Time.new(2000, 1, 1, 9, 0, 0, 'UTC'),
+        check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
+        owner_id: owner.id
+      )
+      Address.create!(
+        street: "Rua das Flores",
+        number: 300,
+        neighborhood: "Canasvieiras",
+        city: "Florianópolis",
+        state: "SC",
+        postal_code: "88000-000",
+        inn_id: inn.id
+      )
+      room_ocean = Room.create!(
+        name: "Oceano",
+        description: "Quarto com vista para o mar",
+        size: 30,
+        max_guests: 2,
+        price: 200.00,
+        inn_id: inn.id
+      )
+
+      visit root_path
+      click_on "Mar Aberto"
+      click_on "Oceano"
+      click_on "Reservar"
+      fill_in "Data de Check-in", with: 10.days.from_now
+      fill_in "Data de Check-out", with: 14.days.from_now
+      fill_in "Número de hóspedes", with: 2
+      click_on "Avançar"
+      click_on "Confirmar reserva"
+
+      expect(current_path).to eq new_user_session_path
+    end
+  end
+
+  context "autenticado" do
+    it "e reserva um quarto com sucesso" do
+      owner = Owner.create!(
+          email: "owner@email.com",
+          password: "123456"
+      )
+      inn = Inn.create!(
+        name: "Mar Aberto",
+        corporate_name: "Pousada Mar Aberto/SC",
+        registration_number: "84.485.218/0001-73",
+        phone: "4899999-9999",
+        email: "pousadamaraberto@gmail.com",
+        description: "Pousada na beira do mar com suítes e café da manhã incluso.",
+        pay_methods: "Crédito, débito, dinheiro ou pix",
+        user_policies: "A pousada conta com lei do silêncio das 22h às 8h",
+        pet_friendly: true,
+        check_in_time: Time.new(2000, 1, 1, 9, 0, 0, 'UTC'),
+        check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
+        owner_id: owner.id
+      )
+      Address.create!(
+        street: "Rua das Flores",
+        number: 300,
+        neighborhood: "Canasvieiras",
+        city: "Florianópolis",
+        state: "SC",
+        postal_code: "88000-000",
+        inn_id: inn.id
+      )
+      room_ocean = Room.create!(
+        name: "Oceano",
+        description: "Quarto com vista para o mar",
+        size: 30,
+        max_guests: 2,
+        price: 200.00,
+        inn_id: inn.id
+      )
+      user = User.create!(
+        name: "User",
+        cpf: "820.628.780-95",
+        email: "user@email.com",
+        password: "123456"
+      )
+
+      login_as user, scope: :user
+      visit root_path
+      click_on "Mar Aberto"
+      click_on "Oceano"
+      click_on "Reservar"
+      fill_in "Data de Check-in", with: 10.days.from_now
+      fill_in "Data de Check-out", with: 14.days.from_now
+      fill_in "Número de hóspedes", with: 2
+      click_on "Avançar"
+      click_on "Confirmar reserva"
+
+      expect(page).to have_content "Reserva confirmada"
+      expect(page).to have_content "Detalhes de sua reserva"
+      expect(page).to have_content "Mar Aberto"
+      expect(page).to have_content "Quarto: Oceano"
+      expect(page).to have_content "Check-in: #{I18n.l(10.days.from_now.to_date)} a partir das 9:00 horas"
+      expect(page).to have_content "Data de Check-out: #{I18n.l(14.days.from_now.to_date)} até as 15:00 horas"
+      expect(page).to have_content "Número de hóspedes: 2"
+      expect(page).to have_content "Código da reserva: STRINGALEATORIA"
+      expect(page).to have_content "Você pode cancelar sua reserva até #{10.days.from_now - 7.days}"
+      expect(page).to have_button "Cancelar reserva"
     end
   end
 end

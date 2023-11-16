@@ -343,6 +343,29 @@ describe "Usuário visita a página inicial" do
       expect(current_path).to eq new_inn_path
       expect(page).to have_content "Cadastre sua Pousada!"
     end
+
+    it "e faz login como usuário" do
+      User.create!(
+        name: "User",
+        email: "user@email.com",
+        cpf: "906.111.800-06",
+        password: "123456"
+      )
+
+      visit root_path
+      click_on "Entrar"
+      click_on "Hóspede"
+      fill_in "E-mail", with: "user@email.com"
+      fill_in "Senha", with: "123456"
+      within "#new_user" do
+        click_on "Entrar"
+      end
+
+      within "#navigation-bar" do
+        expect(page).to have_content "user@email.com"
+        expect(page).to have_button "Sair"
+      end
+    end
   end
 
   context "autenticado como Proprietário" do
