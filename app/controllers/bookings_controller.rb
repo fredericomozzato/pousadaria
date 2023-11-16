@@ -10,11 +10,21 @@ class BookingsController < ApplicationController
 
   def confirmation
     @pre_booking = Booking.new(pre_booking_params)
-    render "new" unless @pre_booking.valid?
+
+    if @pre_booking.valid?
+      session["pre_booking"] = pre_booking_params
+    else
+      render "new"
+    end
   end
 
   def create
-    @booking = @room.bookings.build(booking_params)
+    @booking = @room.bookings.build()
+
+    if session["pre_booking"]
+      @booking.assign_attributes(session_params)
+    end
+
     @booking.user = current_user
 
     if @booking.save
@@ -61,5 +71,11 @@ class BookingsController < ApplicationController
   def booking_params
     params.require(:booking)
           .permit(:start_date, :end_date, :number_of_guests, :room_id)
+  end
+
+  def session_params
+    { start_date: Date.parse(session.dig("pre_booking", "start_date")),
+      end_date: Date.parse(session.dig("pre_booking", "end_date")),
+      number_of_guests: session.dig("pre_booking", "number_of_guests").to_i }
   end
 end
