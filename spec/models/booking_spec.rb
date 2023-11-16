@@ -532,4 +532,12 @@ RSpec.describe Booking, type: :model do
       expect(booking.code).to eq code
     end
   end
+
+  describe "#cancel_date" do
+    it "retorna data de cancelamento 7 dias antes do check-in" do
+      booking = Booking.new(start_date: 8.days.from_now.to_date)
+
+      expect(booking.cancel_date).to eq 1.day.from_now.to_date
+    end
+  end
 end

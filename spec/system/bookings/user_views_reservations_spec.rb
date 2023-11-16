@@ -164,8 +164,8 @@ describe "Usuário visita a página inicial" do
       booking = Booking.create!(
         room: room_ocean,
         user: user,
-        start_date: 1.week.from_now,
-        end_date: 2.weeks.from_now,
+        start_date: 2.week.from_now,
+        end_date: 3.weeks.from_now,
         number_of_guests: 2,
       )
 
@@ -181,8 +181,8 @@ describe "Usuário visita a página inicial" do
       expect(page).to have_content "Detalhes da Reserva"
       expect(page).to have_content "Mar Aberto"
       expect(page).to have_content "Quarto: Oceano"
-      expect(page).to have_content "Check-in: #{I18n.l(1.week.from_now.to_date)} a partir das 09:00 horas"
-      expect(page).to have_content "Check-out: #{I18n.l(2.weeks.from_now.to_date)} até as 15:00 horas"
+      expect(page).to have_content "Check-in: #{I18n.l(2.week.from_now.to_date)} a partir das 09:00 horas"
+      expect(page).to have_content "Check-out: #{I18n.l(3.weeks.from_now.to_date)} até as 15:00 horas"
       expect(page).to have_content "Número de hóspedes: #{booking.number_of_guests}"
       expect(page).to have_content "Valor: R$ 1.400,00"
       expect(page).to have_content "Código: #{booking.code}"

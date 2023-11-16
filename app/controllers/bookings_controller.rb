@@ -2,7 +2,7 @@ class BookingsController < ApplicationController
   before_action :set_booking, only: [:show, :cancel]
   before_action :set_room, only: [:new, :create, :confirmation]
   before_action :set_inn, only: [:new, :confirmation]
-  before_action :authenticate_user!, only: [:my_bookings, :create, :show]
+  before_action :authenticate_user!, only: [:my_bookings, :create, :show, :cancel]
 
   def new
     @pre_booking = Booking.new
@@ -34,9 +34,10 @@ class BookingsController < ApplicationController
   end
 
   def cancel
-    @booking.canceled!
-
-    redirect_to booking_path(@booking), notice: "Reserva cancelada"
+    if current_user&.== @booking.user
+      @booking.canceled! if @booking.confirmed? && @booking.cancel_date > Date.today
+      redirect_to booking_path(@booking), notice: "Reserva cancelada"
+    end
   end
 
   private
