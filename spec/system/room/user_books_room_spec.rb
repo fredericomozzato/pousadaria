@@ -381,6 +381,7 @@ describe "Usuário visita a página de reservas" do
       fill_in "Data de Check-out", with: 14.days.from_now
       fill_in "Número de hóspedes", with: 2
       click_on "Avançar"
+      allow(SecureRandom).to receive(:alphanumeric).with(8).and_return("ABCD1234")
       click_on "Confirmar reserva"
 
       expect(page).to have_content "Reserva confirmada"
@@ -391,7 +392,7 @@ describe "Usuário visita a página de reservas" do
       expect(page).to have_content "Check-out: #{I18n.l(14.days.from_now.to_date)} até as 15:00 horas"
       expect(page).to have_content "Número de hóspedes: 2"
       expect(page).to have_content "Valor da reserva: R$ 800,00"
-      expect(page).to have_content "Código da reserva: STRINGALEATORIA"
+      expect(page).to have_content "Código da reserva: ABCD1234"
       expect(page).to have_content "Você pode cancelar sua reserva até #{I18n.l(10.days.from_now.to_date - 7.days)}"
       expect(page).to have_button "CANCELAR RESERVA"
     end

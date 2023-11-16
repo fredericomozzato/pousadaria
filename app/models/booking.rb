@@ -4,10 +4,13 @@ class Booking < ApplicationRecord
 
   validates :start_date, :end_date, :number_of_guests, presence: true
   validates :number_of_guests, numericality: {greater_than: 0}
+  validates :code, uniqueness: true
 
   validate :past_dates, :date_conflict, :too_many_guests
 
-  enum status: {confirmed: 0, active: 5, closed: 10, canceled: 15}
+  before_validation :generate_code, on: :create
+
+  enum status: {confirmed: 0, active: 10, closed: 20, canceled: 30}
 
   def calculate_bill
     room = Room.find(room_id)
@@ -57,5 +60,9 @@ class Booking < ApplicationRecord
     errors.add(:start_date, "Data de Check-in não pode ser no passado") if start_date < Date.today
     errors.add(:end_date, "Data de Check-out não pode ser no passado") if end_date < Date.today
     errors.add(:end_date, "Data de Check-out não pode ser antes da Data de Check-in") if end_date < start_date
+  end
+
+  def generate_code
+    self.code = SecureRandom.alphanumeric(8).upcase if self.code.nil?
   end
 end

@@ -507,4 +507,29 @@ RSpec.describe Booking, type: :model do
       expect(booking.calculate_bill).to eq 900.00
     end
   end
+
+  describe "código da reserva" do
+    it "gera código de 8 caracteres ao criar reserva" do
+      booking = Booking.create()
+
+      expect(booking.code).not_to be_nil
+      expect(booking.code.length).to eq 8
+    end
+
+    it "gera um código único" do
+      booking_1 = Booking.create()
+      booking_2 = Booking.create()
+
+      expect(booking_1.code).not_to eq booking_2.code
+    end
+
+    it "não modifica o código ao atualizar reserva" do
+      booking = Booking.create()
+      code = booking.code
+
+      booking.update(status: :active)
+
+      expect(booking.code).to eq code
+    end
+  end
 end

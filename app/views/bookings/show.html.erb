@@ -17,7 +17,7 @@
   <dd><%= number_to_currency @booking.calculate_bill, unit: "R$", delimiter: ".", separator: "," %></dd>
 
   <dt>Código da reserva:</dt>
-  <dd>STRINGALEATORIA</dd>
+  <dd><%= @booking.code %></dd>
 </dl>
 
 <p>Você pode cancelar sua reserva até <strong><%= I18n.l(@booking.cancel_date) %></strong></p>
