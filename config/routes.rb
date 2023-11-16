@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   root "home#index"
   get "logins", to: "home#logins"
   get "minha_pousada", to: "inns#my_inn", as: "my_inn"
+  get "minhas_reservas", to: "bookings#my_bookings", as: "my_bookings"
 
   resources :addresses, only: [:new, :create]
 
@@ -36,10 +37,12 @@ Rails.application.routes.draw do
 
     resources :bookings, only: [:new, :create] do
       get "confirmation", on: :collection
+      post "cancel", on: :member
     end
   end
 
-  resources :bookings, only: [:show]
+  resources :bookings, only: [:show] do
+  end
 
   resources :seasonal_prices, only: [:show, :edit, :update, :destroy]
 end

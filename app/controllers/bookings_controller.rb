@@ -1,6 +1,7 @@
 class BookingsController < ApplicationController
   before_action :set_room, only: [:new, :create, :confirmation]
   before_action :set_inn, only: [:new, :confirmation]
+  before_action :authenticate_user!, only: [:my_bookings, :create, :show]
 
   def new
     @pre_booking = Booking.new
@@ -12,8 +13,6 @@ class BookingsController < ApplicationController
   end
 
   def create
-    return redirect_to new_user_session_path unless user_signed_in?
-
     @booking = @room.bookings.build(booking_params)
     @booking.user = current_user
 
@@ -28,6 +27,10 @@ class BookingsController < ApplicationController
     @booking = Booking.find(params[:id])
     @room = @booking.room
     @inn = @room.inn
+  end
+
+  def my_bookings
+    @bookings = current_user.bookings
   end
 
   private

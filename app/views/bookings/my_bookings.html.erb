@@ -1,0 +1,25 @@
+<h1>Reservas</h1>
+
+<% if @bookings.empty? %>
+  <p>Você não possui reservas</p>
+<% end %>
+
+<section id="bookings-list">
+  <ul>
+    <% @bookings.each do |booking| %>
+      <li>
+        <%= link_to booking.code, booking %>
+        <dl>
+          <dt>Pousada:</dt>
+          <dd><%= booking.room.inn.name %></dd>
+          <dt>Quarto:</dt>
+          <dd><%= booking.room.name %></dd>
+          <dt>Período:</dt>
+          <dd><%= I18n.l(booking.start_date) %> - <%= I18n.l(booking.end_date) %></dd>
+        </dl>
+      </li>
+    <% end %>
+  </ul>
+</section>
+
+<%= link_to "Voltar para início", root_path %>
