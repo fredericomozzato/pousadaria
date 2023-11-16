@@ -41,7 +41,8 @@ class Booking < ApplicationRecord
   def date_conflict
     return if start_date.nil? || end_date.nil?
 
-    conflict = room.bookings.where(status: :confirmed).any? do |booking|
+    conflict =
+      room.bookings.where(status: :confirmed).where.not(id: self.id).any? do |booking|
       (start_date..end_date).overlaps?(booking.start_date..booking.end_date)
     end
 

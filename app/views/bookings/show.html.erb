@@ -1,25 +1,28 @@
-<h1>Detalhes da reserva</h1>
+<h1>Detalhes da Reserva</h1>
 
 <h2><%= @inn.name %></h2>
 <h3>Quarto: <%= @room.name %></h3>
 
 <dl>
   <dt>Check-in:</dt>
-  <dd><%= I18n.l(@booking.start_date) %> a partir das <%= @inn.check_in_time.strftime("%H:%M") %> horas</dd>
+  <dd><%= l(@booking.start_date) %> a partir das <%= @inn.check_in_time.strftime("%H:%M") %> horas</dd>
 
   <dt>Check-out:</dt>
-  <dd><%= I18n.l(@booking.end_date) %> até as <%= @inn.check_out_time.strftime("%H:%M") %> horas</dd>
+  <dd><%= l(@booking.end_date) %> até as <%= @inn.check_out_time.strftime("%H:%M") %> horas</dd>
 
   <dt>Número de hóspedes:</dt>
   <dd><%= @booking.number_of_guests %></dd>
 
-  <dt>Valor da reserva:</dt>
+  <dt>Valor:</dt>
   <dd><%= number_to_currency @booking.calculate_bill, unit: "R$", delimiter: ".", separator: "," %></dd>
 
-  <dt>Código da reserva:</dt>
+  <dt>Código:</dt>
   <dd><%= @booking.code %></dd>
+
+  <dt>Status:</dt>
+  <dd><%= t(@booking.status) %></dd>
 </dl>
 
-<p>Você pode cancelar sua reserva até <strong><%= I18n.l(@booking.cancel_date) %></strong></p>
+<p>Você pode cancelar sua reserva até <strong><%= l(@booking.cancel_date) %></strong></p>
 
-<%= button_to "CANCELAR RESERVA" %>
+<%= button_to "CANCELAR RESERVA", cancel_room_booking_path(@room.id) %>

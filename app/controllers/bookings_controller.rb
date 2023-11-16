@@ -1,4 +1,5 @@
 class BookingsController < ApplicationController
+  before_action :set_booking, only: [:show, :cancel]
   before_action :set_room, only: [:new, :create, :confirmation]
   before_action :set_inn, only: [:new, :confirmation]
   before_action :authenticate_user!, only: [:my_bookings, :create, :show]
@@ -24,7 +25,6 @@ class BookingsController < ApplicationController
   end
 
   def show
-    @booking = Booking.find(params[:id])
     @room = @booking.room
     @inn = @room.inn
   end
@@ -33,7 +33,17 @@ class BookingsController < ApplicationController
     @bookings = current_user.bookings
   end
 
+  def cancel
+    @booking.canceled!
+
+    redirect_to booking_path(@booking), notice: "Reserva cancelada"
+  end
+
   private
+
+  def set_booking
+    @booking = Booking.find(params[:id])
+  end
 
   def set_room
     @room = Room.find(params[:room_id])

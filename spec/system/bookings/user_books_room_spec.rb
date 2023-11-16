@@ -385,14 +385,14 @@ describe "Usuário visita a página de reservas" do
       click_on "Confirmar reserva"
 
       expect(page).to have_content "Reserva confirmada"
-      expect(page).to have_content "Detalhes da reserva"
+      expect(page).to have_content "Detalhes da Reserva"
       expect(page).to have_content "Mar Aberto"
       expect(page).to have_content "Quarto: Oceano"
       expect(page).to have_content "Check-in: #{I18n.l(10.days.from_now.to_date)} a partir das 09:00 horas"
       expect(page).to have_content "Check-out: #{I18n.l(14.days.from_now.to_date)} até as 15:00 horas"
       expect(page).to have_content "Número de hóspedes: 2"
-      expect(page).to have_content "Valor da reserva: R$ 800,00"
-      expect(page).to have_content "Código da reserva: ABCD1234"
+      expect(page).to have_content "Valor: R$ 800,00"
+      expect(page).to have_content "Código: ABCD1234"
       expect(page).to have_content "Você pode cancelar sua reserva até #{I18n.l(10.days.from_now.to_date - 7.days)}"
       expect(page).to have_button "CANCELAR RESERVA"
     end
