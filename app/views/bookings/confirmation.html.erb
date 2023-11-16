@@ -19,7 +19,12 @@
   <dt>Métodos de pagamento:</dt>
   <dd><%= @inn.pay_methods %></dd>
 
-  <%= button_to "Confirmar reserva", room_bookings_path, method: :post %>
+  <%= form_with model: [@room, @pre_booking] do |f| %>
+    <%= f.hidden_field :start_date %>
+    <%= f.hidden_field :end_date %>
+    <%= f.hidden_field :number_of_guests %>
+    <%= f.submit "Confirmar reserva" %>
+  <% end %>
 </dl>
 
 <%= link_to "Voltar", new_room_booking_path(params[:room_id]) %>

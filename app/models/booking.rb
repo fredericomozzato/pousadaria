@@ -23,6 +23,10 @@ class Booking < ApplicationRecord
     total_bill
   end
 
+  def cancel_date
+    start_date - 7.days
+  end
+
   private
 
   def count_intersecting_days(booking_range, price_range)

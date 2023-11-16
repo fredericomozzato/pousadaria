@@ -1,0 +1,25 @@
+<h1>Detalhes da reserva</h1>
+
+<h2><%= @inn.name %></h2>
+<h3>Quarto: <%= @room.name %></h3>
+
+<dl>
+  <dt>Check-in:</dt>
+  <dd><%= I18n.l(@booking.start_date) %> a partir das <%= @inn.check_in_time.strftime("%H:%M") %> horas</dd>
+
+  <dt>Check-out:</dt>
+  <dd><%= I18n.l(@booking.end_date) %> até as <%= @inn.check_out_time.strftime("%H:%M") %> horas</dd>
+
+  <dt>Número de hóspedes:</dt>
+  <dd><%= @booking.number_of_guests %></dd>
+
+  <dt>Valor da reserva:</dt>
+  <dd><%= number_to_currency @booking.calculate_bill, unit: "R$", delimiter: ".", separator: "," %></dd>
+
+  <dt>Código da reserva:</dt>
+  <dd>STRINGALEATORIA</dd>
+</dl>
+
+<p>Você pode cancelar sua reserva até <strong><%= I18n.l(@booking.cancel_date) %></strong></p>
+
+<%= button_to "CANCELAR RESERVA" %>
