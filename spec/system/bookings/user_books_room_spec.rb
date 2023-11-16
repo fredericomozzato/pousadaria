@@ -326,6 +326,143 @@ describe "Usuário visita a página de reservas" do
 
       expect(current_path).to eq new_user_session_path
     end
+
+    it "e tem acesso aos dados da reserva após criar conta" do
+      owner = Owner.create!(
+          email: "owner@email.com",
+          password: "123456"
+      )
+      inn = Inn.create!(
+        name: "Mar Aberto",
+        corporate_name: "Pousada Mar Aberto/SC",
+        registration_number: "84.485.218/0001-73",
+        phone: "4899999-9999",
+        email: "pousadamaraberto@gmail.com",
+        description: "Pousada na beira do mar com suítes e café da manhã incluso.",
+        pay_methods: "Crédito, débito, dinheiro ou pix",
+        user_policies: "A pousada conta com lei do silêncio das 22h às 8h",
+        pet_friendly: true,
+        check_in_time: Time.new(2000, 1, 1, 9, 0, 0, 'UTC'),
+        check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
+        owner_id: owner.id
+      )
+      Address.create!(
+        street: "Rua das Flores",
+        number: 300,
+        neighborhood: "Canasvieiras",
+        city: "Florianópolis",
+        state: "SC",
+        postal_code: "88000-000",
+        inn_id: inn.id
+      )
+      room_ocean = Room.create!(
+        name: "Oceano",
+        description: "Quarto com vista para o mar",
+        size: 30,
+        max_guests: 2,
+        price: 200.00,
+        inn_id: inn.id
+      )
+
+      visit root_path
+      click_on "Mar Aberto"
+      click_on "Oceano"
+      click_on "Reservar"
+      fill_in "Data de Check-in", with: 10.days.from_now
+      fill_in "Data de Check-out", with: 14.days.from_now
+      fill_in "Número de hóspedes", with: 2
+      click_on "Avançar"
+      click_on "Confirmar reserva"
+      allow(SecureRandom).to receive(:alphanumeric).with(8).and_return("ABCD1234")
+      click_on "Criar conta"
+      fill_in "Nome", with: "User"
+      fill_in "CPF", with: "561.473.820-71"
+      fill_in "E-mail", with: "user@email.com"
+      fill_in "Senha", with: "123456"
+      fill_in "Confirmar senha", with: "123456"
+      click_on "Criar conta"
+
+      expect(page).to have_content "Finalize sua Reserva!"
+      expect(page).to have_content "Dados da Reserva"
+      expect(page).to have_content "Quarto: Oceano"
+      expect(page).to have_content "Data de entrada: #{I18n.l(10.days.from_now.to_date)} a partir das #{inn.check_in_time.strftime("%H:%M")} horas"
+      expect(page).to have_content "Data de saída: #{I18n.l(14.days.from_now.to_date)} até as #{inn.check_out_time.strftime("%H:%M")} horas"
+      expect(page).to have_content "Número de hóspedes: 2"
+      expect(page).to have_content "Valor da reserva: R$ 800,00"
+      expect(page).to have_content "Métodos de pagamento: Crédito, débito, dinheiro ou pix"
+      expect(page).to have_button "Confirmar reserva"
+    end
+
+    it "e tem acesso aos dados da reserva após fazer login" do
+      user = User.create!(
+        name: "User",
+        cpf: "820.628.780-95",
+        email: "user@email.com",
+        password: "123456"
+      )
+      owner = Owner.create!(
+          email: "owner@email.com",
+          password: "123456"
+      )
+      inn = Inn.create!(
+        name: "Mar Aberto",
+        corporate_name: "Pousada Mar Aberto/SC",
+        registration_number: "84.485.218/0001-73",
+        phone: "4899999-9999",
+        email: "pousadamaraberto@gmail.com",
+        description: "Pousada na beira do mar com suítes e café da manhã incluso.",
+        pay_methods: "Crédito, débito, dinheiro ou pix",
+        user_policies: "A pousada conta com lei do silêncio das 22h às 8h",
+        pet_friendly: true,
+        check_in_time: Time.new(2000, 1, 1, 9, 0, 0, 'UTC'),
+        check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
+        owner_id: owner.id
+      )
+      Address.create!(
+        street: "Rua das Flores",
+        number: 300,
+        neighborhood: "Canasvieiras",
+        city: "Florianópolis",
+        state: "SC",
+        postal_code: "88000-000",
+        inn_id: inn.id
+      )
+      room_ocean = Room.create!(
+        name: "Oceano",
+        description: "Quarto com vista para o mar",
+        size: 30,
+        max_guests: 2,
+        price: 200.00,
+        inn_id: inn.id
+      )
+
+      visit root_path
+      click_on "Mar Aberto"
+      click_on "Oceano"
+      click_on "Reservar"
+      fill_in "Data de Check-in", with: 10.days.from_now
+      fill_in "Data de Check-out", with: 14.days.from_now
+      fill_in "Número de hóspedes", with: 2
+      click_on "Avançar"
+      click_on "Confirmar reserva"
+      allow(SecureRandom).to receive(:alphanumeric).with(8).and_return("ABCD1234")
+      within "#new_user" do
+        fill_in "E-mail", with: user.email
+        fill_in "Senha", with: user.password
+        click_on "Entrar"
+      end
+      click_on "Confirmar reserva"
+
+      expect(page).to have_content "Reserva confirmada"
+      expect(page).to have_content "Detalhes da Reserva"
+      expect(page).to have_content "Mar Aberto"
+      expect(page).to have_content "Quarto: Oceano"
+      expect(page).to have_content "Check-in: #{I18n.l(10.days.from_now.to_date)} a partir das 09:00 horas"
+      expect(page).to have_content "Check-out: #{I18n.l(14.days.from_now.to_date)} até as 15:00 horas"
+      expect(page).to have_content "Número de hóspedes: 2"
+      expect(page).to have_content "Valor: R$ 800,00"
+      expect(page).to have_content "Código: ABCD1234"
+    end
   end
 
   context "autenticado" do

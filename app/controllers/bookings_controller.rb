@@ -9,10 +9,16 @@ class BookingsController < ApplicationController
   end
 
   def confirmation
-    @pre_booking = Booking.new(pre_booking_params)
+    @pre_booking = Booking.new
+
+    if session["pre_booking"]
+      @pre_booking.assign_attributes(session_params)
+    else
+      @pre_booking = Booking.new(pre_booking_params)
+    end
 
     if @pre_booking.valid?
-      session["pre_booking"] = pre_booking_params
+      session["pre_booking"] ||= pre_booking_params
     else
       render "new"
     end
@@ -22,12 +28,14 @@ class BookingsController < ApplicationController
     @booking = @room.bookings.build()
 
     if session["pre_booking"]
+      # debugger
       @booking.assign_attributes(session_params)
     end
 
     @booking.user = current_user
 
     if @booking.save
+      session.delete("pre_booking")
       redirect_to booking_path(@booking), notice: "Reserva confirmada"
     else
       render "confirmation"
@@ -74,8 +82,10 @@ class BookingsController < ApplicationController
   end
 
   def session_params
+    # debugger
     { start_date: Date.parse(session.dig("pre_booking", "start_date")),
       end_date: Date.parse(session.dig("pre_booking", "end_date")),
-      number_of_guests: session.dig("pre_booking", "number_of_guests").to_i }
+      number_of_guests: session.dig("pre_booking", "number_of_guests").to_i,
+      room_id: session.dig("pre_booking", "room_id").to_i }
   end
 end

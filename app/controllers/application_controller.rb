@@ -13,4 +13,14 @@ class ApplicationController < ActionController::Base
       redirect_to new_inn_path, notice: "Cadastre sua Pousada!"
     end
   end
+
+  def after_sign_in_path_for(resource)
+    if session["pre_booking"]
+      room_id = session["pre_booking"]["room_id"]&.to_i
+      flash[:notice] = "Finalize sua Reserva!"
+      return confirmation_room_bookings_path(room_id)
+    else
+      root_path
+    end
+  end
 end
