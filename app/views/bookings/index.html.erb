@@ -1,7 +1,9 @@
 <h1>Reservas - <%= @inn.name %></h1>
 
 <% if @bookings.empty? %>
-  <p>Nenhuma reserva encontrada</p>
+  <div>
+    <p>Nenhuma reserva encontrada</p>
+  </div>
 <% end %>
 
 <section id="bookings-list">

@@ -43,6 +43,7 @@ Rails.application.routes.draw do
   end
 
   resources :bookings, only: [:index, :show] do
+    get "active", on: :collection
   end
 
   resources :seasonal_prices, only: [:show, :edit, :update, :destroy]

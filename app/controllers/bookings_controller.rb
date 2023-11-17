@@ -35,7 +35,6 @@ class BookingsController < ApplicationController
     @booking = @room.bookings.build()
 
     if session["pre_booking"]
-      # debugger
       @booking.assign_attributes(session_params)
     end
 
@@ -56,6 +55,10 @@ class BookingsController < ApplicationController
 
   def my_bookings
     @bookings = current_user.bookings
+  end
+
+  def active
+    @active_bookings = current_owner.inn.bookings.where(status: :active)
   end
 
   def cancel

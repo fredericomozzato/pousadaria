@@ -379,6 +379,7 @@ describe "Usuário visita a página inicial" do
         expect(page).to have_content "owner@example.com"
         expect(page).to have_link "Minha Pousada"
         expect(page).to have_link "Reservas"
+        expect(page).to have_link "Estadias ativas"
         expect(page).to have_button "Sair"
         expect(page).not_to have_link "Entrar"
       end
