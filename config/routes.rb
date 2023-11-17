@@ -15,7 +15,6 @@ Rails.application.routes.draw do
     unlocks: "users/unlocks"
   }
 
-
   root "home#index"
   get "logins", to: "home#logins"
   get "minha_pousada", to: "inns#my_inn", as: "my_inn"
@@ -39,6 +38,7 @@ Rails.application.routes.draw do
       get "confirmation", on: :collection
       post "cancel", on: :member
       post "check_in", on: :member
+      post "check_out", on: :member
     end
   end
 

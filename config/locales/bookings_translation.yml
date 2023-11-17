@@ -3,7 +3,7 @@ pt-BR:
   too_many_guests: "Número de hóspedes maior que o permitido para o quarto"
   confirmed: "Confirmada"
   active: "Ativa"
-  closed: "Fechada"
+  closed: "Finalizada"
   canceled: "Cancelada"
   activerecord:
     models:
