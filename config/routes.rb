@@ -41,7 +41,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :bookings, only: [:show] do
+  resources :bookings, only: [:index, :show] do
   end
 
   resources :seasonal_prices, only: [:show, :edit, :update, :destroy]

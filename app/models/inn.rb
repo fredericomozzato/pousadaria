@@ -1,9 +1,8 @@
-require "br_documents"
-
 class Inn < ApplicationRecord
   has_one :address
   belongs_to :owner
   has_many :rooms
+  has_many :bookings, through: :rooms
 
   accepts_nested_attributes_for :address
 

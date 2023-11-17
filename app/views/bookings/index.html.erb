@@ -1,0 +1,26 @@
+<h1>Reservas - <%= @inn.name %></h1>
+
+<% if @bookings.empty? %>
+  <p>Nenhuma reserva encontrada</p>
+<% end %>
+
+<ul>
+  <% @bookings.each do |booking| %>
+    <li>
+      <div>
+        <dl>
+          <dt>Reserva:</dt>
+          <dd><%= link_to booking.code %></dd>
+          <dt>Quarto:</dt>
+          <dd><%= booking.room.name %></dd>
+          <dt>Data de check-in:</dt>
+          <dd><%= l(booking.start_date) %></dd>
+          <dt>Data de check-out:</dt>
+          <dd><%= l(booking.end_date) %></dd>
+          <dt>Número de hóspedes:</dt>
+          <dd><%= booking.number_of_guests %></dd>
+        </dl>
+      </div>
+    </li>
+  <% end %>
+</ul>

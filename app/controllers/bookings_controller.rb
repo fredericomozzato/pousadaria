@@ -3,6 +3,12 @@ class BookingsController < ApplicationController
   before_action :set_room, only: [:new, :create, :confirmation]
   before_action :set_inn, only: [:new, :confirmation]
   before_action :authenticate_user!, only: [:my_bookings, :create, :show, :cancel]
+  before_action :authenticate_owner!, only: [:index]
+
+  def index
+    @inn = current_owner.inn
+    @bookings = @inn.bookings
+  end
 
   def new
     @pre_booking = Booking.new
