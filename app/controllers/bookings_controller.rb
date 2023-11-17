@@ -2,8 +2,9 @@ class BookingsController < ApplicationController
   before_action :set_booking, only: [:show, :cancel]
   before_action :set_room, only: [:new, :create, :confirmation]
   before_action :set_inn, only: [:new, :confirmation]
-  before_action :authenticate_user!, only: [:my_bookings, :create, :show, :cancel]
+  before_action :authenticate_user!, only: [:my_bookings, :create, :cancel]
   before_action :authenticate_owner!, only: [:index]
+  before_action :authenticate_user_or_owner, only: [:show]
 
   def index
     @inn = current_owner.inn
@@ -66,6 +67,12 @@ class BookingsController < ApplicationController
 
   private
 
+  def authenticate_user_or_owner
+    unless user_signed_in? || owner_signed_in?
+      redirect_to login_path, notice: "Faça log-in para continuar"
+    end
+  end
+
   def set_booking
     @booking = Booking.find(params[:id])
   end
@@ -88,7 +95,6 @@ class BookingsController < ApplicationController
   end
 
   def session_params
-    # debugger
     { start_date: Date.parse(session.dig("pre_booking", "start_date")),
       end_date: Date.parse(session.dig("pre_booking", "end_date")),
       number_of_guests: session.dig("pre_booking", "number_of_guests").to_i,

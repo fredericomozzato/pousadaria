@@ -1,36 +1,35 @@
 <h1>Detalhes da Reserva</h1>
 
-<h2><%= @inn.name %></h2>
-<h3>Quarto: <%= @room.name %></h3>
+<section id="booking-details">
+  <h2><%= @inn.name %></h2>
+  <h3>Quarto: <%= @room.name %></h3>
 
-<dl>
-  <dt>Check-in:</dt>
-  <dd><%= l(@booking.start_date) %> a partir das <%= @inn.check_in_time.strftime("%H:%M") %> horas</dd>
+  <dl>
+    <dt>Check-in:</dt>
+    <dd><%= l(@booking.start_date) %> a partir das <%= @inn.check_in_time.strftime("%H:%M") %> horas</dd>
 
-  <dt>Check-out:</dt>
-  <dd><%= l(@booking.end_date) %> até as <%= @inn.check_out_time.strftime("%H:%M") %> horas</dd>
+    <dt>Check-out:</dt>
+    <dd><%= l(@booking.end_date) %> até as <%= @inn.check_out_time.strftime("%H:%M") %> horas</dd>
 
-  <dt>Número de hóspedes:</dt>
-  <dd><%= @booking.number_of_guests %></dd>
+    <dt>Número de hóspedes:</dt>
+    <dd><%= @booking.number_of_guests %></dd>
 
-  <dt>Valor:</dt>
-  <dd><%= number_to_currency @booking.calculate_bill, unit: "R$", delimiter: ".", separator: "," %></dd>
+    <dt>Valor:</dt>
+    <dd><%= number_to_currency @booking.calculate_bill, unit: "R$", delimiter: ".", separator: "," %></dd>
 
-  <dt>Código:</dt>
-  <dd><%= @booking.code %></dd>
+    <dt>Código:</dt>
+    <dd><%= @booking.code %></dd>
 
-  <dt>Status:</dt>
-  <dd><%= t(@booking.status) %></dd>
-</dl>
+    <dt>Status:</dt>
+    <dd><%= t(@booking.status) %></dd>
+  </dl>
+</section>
 
+<section id="booking-options">
+  <% if current_user %>
+    <%= render partial: "user_canceling" %>
+  <% elsif current_owner %>
+    <%= render partial: "owner_options" %>
+  <% end %>
+</section>
 
-<% if @booking.confirmed? && @booking.cancel_date > Date.today %>
-  <div>
-    <p>Você pode cancelar sua reserva até <strong><%= l(@booking.cancel_date) %></strong></p>
-    <%= button_to "CANCELAR RESERVA", cancel_room_booking_path(@room.id) %>
-  </div>
-<% elsif @booking.confirmed? && @booking.cancel_date <= Date.today %>
-  <div>
-    <p>Esta reserva não pode mais ser cancelada. Entre em contato com a pousada para mais informações</p>
-  </div>
-<% end %>
