@@ -88,6 +88,7 @@ class BookingsController < ApplicationController
 
   def check_out
     if @booking.active?
+
       @booking.update(
         check_out: Time.current,
         status: :closed,

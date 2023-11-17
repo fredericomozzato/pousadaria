@@ -506,6 +506,48 @@ RSpec.describe Booking, type: :model do
 
       expect(booking.calculate_bill).to eq 900.00
     end
+
+    it "com valor proporcional em caso de early check-out sem diária adicional" do
+      owner = Owner.create!(
+        email: "owner@email.com",
+        password: "123456"
+      )
+      inn = Inn.create!(
+        name: "Mar Aberto",
+        corporate_name: "Pousada Mar Aberto/SC",
+        registration_number: "84.485.218/0001-73",
+        phone: "4899999-9999",
+        email: "pousadamaraberto@gmail.com",
+        description: "Pousada na beira do mar com suítes e café da manhã incluso.",
+        pay_methods: "Crédito, débito, dinheiro ou pix",
+        user_policies: "A pousada conta com lei do silêncio das 22h às 8h",
+        pet_friendly: true,
+        check_in_time: Time.new(2000, 1, 1, 9, 0, 0, 'UTC'),
+        check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
+        owner_id: owner.id
+      )
+      Address.create!(
+        street: "Rua das Flores",
+        number: 300,
+        neighborhood: "Canasvieiras",
+        city: "Florianópolis",
+        state: "SC",
+        postal_code: "88000-000",
+        inn_id: inn.id
+      )
+      room = Room.new(price: 100.00, inn: inn)
+      booking = Booking.new(
+        start_date: Date.today,
+        end_date: 5.days.from_now,
+      )
+
+      booking.check_in = Date.today
+      booking.check_out = 3.days.from_now.change(hour:11, min: 59)
+
+      allow(Room).to receive(:find).with(booking.room_id).and_return(room)
+
+      expect(booking.calculate_bill).to eq 200.00
+    end
   end
 
   describe "código da reserva" do

@@ -15,6 +15,12 @@ class Booking < ApplicationRecord
   def calculate_bill
     room = Room.find(room_id)
     booking_range = start_date...end_date
+
+    debugger
+    if early_check_out?
+      booking_range = start_date...check_out.to_date if check_out.hour < room.inn.check_out_time.hour && check_out.min < room.inn.check_out_time.min
+    end
+
     total_bill = booking_range.count * room.price
 
     room.seasonal_prices.each do |price|
@@ -65,5 +71,9 @@ class Booking < ApplicationRecord
 
   def generate_code
     self.code = SecureRandom.alphanumeric(8).upcase if self.code.nil?
+  end
+
+  def early_check_out?
+    check_out < end_date
   end
 end
