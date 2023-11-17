@@ -375,3 +375,68 @@ inn_6_room_2 = Room.create!(
   wifi: true,
   accessibility: true
 )
+
+# users
+user_1 = User.create!(
+  name: "João Silva",
+  cpf: "899.924.320-63",
+  email: "joao@email.com",
+  password: "123456"
+)
+user_2 = User.create!(
+  name: "Leila Mattos",
+  cpf: "627.201.780-47",
+  email: "leila@email.com",
+  password: "123456"
+)
+user_3 = User.create!(
+  name: "Frederico Mozzato",
+  cpf: "890.619.700-40",
+  email: "frederico@email.com",
+  password: "123456"
+)
+user_4 = User.create!(
+  name: "Luciana Rodrigues",
+  cpf: "595.315.930-78",
+  email: "luciana@email.com",
+  password: "123456"
+)
+
+# bookings
+booking_1 = Booking.create!(
+  room: inn_1_room_1,
+  user: user_1,
+  start_date: Date.today,
+  end_date: 5.days.from_now,
+  number_of_guests: 2,
+  status: :active
+)
+booking_2 = Booking.create!(
+  room: inn_2_room_2,
+  user: user_2,
+  start_date: 1.week.from_now,
+  end_date: 2.weeks.from_now,
+  number_of_guests: 2
+)
+booking_3 = Booking.create!(
+  room: inn_3_room_3,
+  user: user_3,
+  start_date: 2.days.from_now,
+  end_date: 5.days.from_now,
+  number_of_guests: 2
+)
+booking_4 = Booking.create!(
+  room: inn_1_room_2,
+  user: user_4,
+  start_date: 2.weeks.from_now,
+  end_date: 3.weeks.from_now,
+  number_of_guests: 2
+)
+booking_5 = Booking.create!(
+  room: inn_3_room_1,
+  user: user_1,
+  start_date: Date.today,
+  end_date: 2.weeks.from_now,
+  number_of_guests: 2,
+  status: :active
+)
