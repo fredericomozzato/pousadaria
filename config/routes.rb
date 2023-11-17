@@ -38,6 +38,7 @@ Rails.application.routes.draw do
     resources :bookings, only: [:new, :create] do
       get "confirmation", on: :collection
       post "cancel", on: :member
+      post "check_in", on: :member
     end
   end
 

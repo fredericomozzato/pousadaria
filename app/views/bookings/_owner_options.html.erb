@@ -1,9 +1,9 @@
 <% if @booking.start_date > Date.today %>
   <p>Check-in disponível a partir de <%= l(@booking.start_date) %></p>
 <% elsif @booking.confirmed? %>
-  <%= button_to "REALIZAR CHECK-IN" %>
+  <%= button_to "REALIZAR CHECK-IN", check_in_room_booking_path(@room.id) %>
 <% end %>
 
 <% if Date.today >= @booking.start_date + 2.days %>
-  <%= button_to "CANCELAR RESERVA" %>
+  <%= button_to "CANCELAR RESERVA", cancel_room_booking_path(@room) %>
 <% end %>

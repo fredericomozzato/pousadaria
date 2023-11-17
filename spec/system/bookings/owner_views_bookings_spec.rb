@@ -1,4 +1,5 @@
 require "rails_helper"
+
 include ActiveSupport::Testing::TimeHelpers
 
 describe "Proprietário acessa a página de reservas da pousada" do

@@ -6,7 +6,7 @@ class Booking < ApplicationRecord
   validates :number_of_guests, numericality: {greater_than: 0}
   validates :code, uniqueness: true
 
-  validate :past_dates, :date_conflict, :too_many_guests
+  validate :past_dates, :date_conflict, :too_many_guests, on: :create
 
   before_validation :generate_code, on: :create
 

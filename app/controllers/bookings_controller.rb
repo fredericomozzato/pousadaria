@@ -1,10 +1,10 @@
 class BookingsController < ApplicationController
-  before_action :set_booking, only: [:show, :cancel]
+  before_action :set_booking, only: [:show, :cancel, :check_in]
   before_action :set_room, only: [:new, :create, :confirmation]
   before_action :set_inn, only: [:new, :confirmation]
-  before_action :authenticate_user!, only: [:my_bookings, :create, :cancel]
-  before_action :authenticate_owner!, only: [:index]
-  before_action :authenticate_user_or_owner, only: [:show]
+  before_action :authenticate_user!, only: [:my_bookings, :create]
+  before_action :authenticate_owner!, only: [:index, :check_in]
+  before_action :authenticate_user_or_owner, only: [:show, :cancel]
 
   def index
     @inn = current_owner.inn
@@ -62,6 +62,24 @@ class BookingsController < ApplicationController
     if current_user&.== @booking.user
       @booking.canceled! if @booking.confirmed? && @booking.cancel_date > Date.today
       redirect_to booking_path(@booking), notice: "Reserva cancelada"
+    elsif current_owner&.== @booking.room.inn.owner
+      @booking.canceled! if @booking.confirmed? && Date.today >= @booking.start_date + 2.days
+      return redirect_to booking_path(@booking), alert: "Não foi possível cancelar a reserva" unless @booking.canceled?
+      redirect_to booking_path(@booking), notice: "Reserva cancelada"
+    else
+      redirect_to booking_path(@booking), alert: "Não foi possível cancelar a reserva"
+    end
+  end
+
+  def check_in
+    if @booking.start_date <= Date.today
+      @booking.update!(
+        check_in: Time.current.in_time_zone("Brasilia"),
+        status: :active
+      )
+      redirect_to @booking, notice: "Check-in realizado com sucesso"
+    else
+      redirect_to @booking, alert: "Não foi possível realizar o check-in"
     end
   end
 
