@@ -15,25 +15,14 @@ class Booking < ApplicationRecord
   def calculate_bill
     room = Room.find(room_id)
     booking_range = start_date...end_date
+    booking_range = early_checkout_range(room.inn.check_out_time) if check_out&.before?(end_date)
 
-    if check_out&.before? end_date
-      limit = room.inn.check_out_time
-      if check_out.hour >= limit.hour || (check_out.hour == limit.hour) && check_out.min >= limit.min
-        booking_range = start_date..check_out.to_date
-      else
-        booking_range = start_date...check_out.to_date
-      end
-    end
-
-    total_bill = booking_range.count * room.price
-
-    room.seasonal_prices.each do |price|
+    return room.seasonal_prices.reduce(booking_range.count * room.price) do |total, price|
       price_range = price.start..price.end
-      if booking_range.overlaps? price_range
-        total_bill += count_intersecting_days(booking_range, price_range) * (price.price - room.price)
+      if booking_range.overlaps?(price_range)
+        total += count_intersecting_days(booking_range, price_range) * (price.price - room.price)
       end
     end
-    total_bill
   end
 
   def cancel_date
@@ -75,5 +64,13 @@ class Booking < ApplicationRecord
 
   def generate_code
     self.code = SecureRandom.alphanumeric(8).upcase if self.code.nil?
+  end
+
+  def early_checkout_range(limit)
+    if check_out.hour >= limit.hour || (check_out.hour == limit.hour) && check_out.min >= limit.min
+      start_date..check_out.to_date
+    else
+      start_date...check_out.to_date
+    end
   end
 end
