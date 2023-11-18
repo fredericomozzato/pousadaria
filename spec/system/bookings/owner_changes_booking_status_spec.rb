@@ -129,6 +129,7 @@ describe "Proprietário acessa uma reserva" do
   end
 
   it "e faz o check-out com sucesso" do
+    travel_to Time.now.beginning_of_day + 12.hours
     owner = Owner.create!(
           email: "owner@email.com",
           password: "123456"
@@ -143,8 +144,8 @@ describe "Proprietário acessa uma reserva" do
       pay_methods: "Crédito, débito, dinheiro ou pix",
       user_policies: "A pousada conta com lei do silêncio das 22h às 8h",
       pet_friendly: true,
-      check_in_time: Time.new(2000, 1, 1, 9, 0, 0, 'UTC'),
-      check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
+      check_in_time: Time.new(2000, 1, 1, 14, 0, 0, 'UTC'),
+      check_out_time: Time.new(2000, 1, 1, 12, 0, 0, 'UTC'),
       owner_id: owner.id
     )
     Address.create!(
@@ -195,6 +196,6 @@ describe "Proprietário acessa uma reserva" do
     expect(booking.closed?).to be true
     expect(booking.pay_method).to eq "Cartão de crédito"
     expect(booking.bill).to eq 1000.00
+    travel_back
   end
-
 end

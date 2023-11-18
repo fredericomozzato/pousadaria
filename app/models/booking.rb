@@ -18,7 +18,7 @@ class Booking < ApplicationRecord
 
     if check_out&.before? end_date
       limit = room.inn.check_out_time
-      if check_out.hour == limit.hour && check_out.min >= limit.min || check_out.hour >= limit.hour
+      if check_out.hour >= limit.hour || (check_out.hour == limit.hour) && check_out.min >= limit.min
         booking_range = start_date..check_out.to_date
       else
         booking_range = start_date...check_out.to_date

@@ -1,5 +1,7 @@
 require "rails_helper"
 
+include ActiveSupport::Testing::TimeHelpers
+
 RSpec.describe Booking, type: :model do
   describe "#valid" do
     it "inválido sem data de check-in" do
@@ -508,6 +510,7 @@ RSpec.describe Booking, type: :model do
     end
 
     it "valor proporcional em caso de early check-out sem diária adicional" do
+      travel_to Time.now.beginning_of_day + 12.hours
       owner = Owner.create!(
         email: "owner@email.com",
         password: "123456"
@@ -540,15 +543,18 @@ RSpec.describe Booking, type: :model do
         start_date: Date.today,
         end_date: 5.days.from_now,
       )
+
       booking.check_in = Date.today
       booking.check_out = 3.days.from_now.change(hour:11, min: 59)
 
       allow(Room).to receive(:find).with(booking.room_id).and_return(room)
 
       expect(booking.calculate_bill).to eq 300.00
+      travel_back
     end
 
     it "valor proporcional em caso de early check-out com diária adicional" do
+      travel_to Time.now.beginning_of_day + 12.hours
       owner = Owner.create!(
         email: "owner@email.com",
         password: "123456"
@@ -587,6 +593,7 @@ RSpec.describe Booking, type: :model do
       allow(Room).to receive(:find).with(booking.room_id).and_return(room)
 
       expect(booking.calculate_bill).to eq 400.00
+      travel_back
     end
   end
 
