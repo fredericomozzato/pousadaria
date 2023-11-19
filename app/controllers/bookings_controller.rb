@@ -5,6 +5,7 @@ class BookingsController < ApplicationController
   before_action :set_booking, only: [:show, :cancel, :check_in, :check_out]
   before_action :set_room, only: [:new, :create, :confirmation]
   before_action :set_inn, only: [:new, :confirmation]
+  before_action -> { authorize_access(@booking) }, only: [:show, :check_out, :check_in, :cancel]
 
   def index
     @inn = current_owner.inn
@@ -49,7 +50,6 @@ class BookingsController < ApplicationController
   end
 
   def show
-    return redirect_to root_path, alert: "Página não encontrada" unless authorize_access(@booking)
     @room = @booking.room
     @inn = @room.inn
   end
@@ -63,8 +63,6 @@ class BookingsController < ApplicationController
   end
 
   def cancel
-    return redirect_to root_path, alert: "Página não encontrada" unless authorize_access(@booking)
-
     if current_user
       @booking.canceled! if @booking.confirmed? && Date.today.before?(@booking.cancel_date)
       return redirect_to booking_path(@booking), alert: "Não foi possível cancelar a reserva" unless @booking.canceled?
@@ -81,8 +79,6 @@ class BookingsController < ApplicationController
   end
 
   def check_in
-    return redirect_to root_path, alert: "Página não encontrada" unless authorize_access(@booking)
-
     if @booking.start_date <= Date.today
       @booking.update!(
         check_in: Time.current,
@@ -96,7 +92,6 @@ class BookingsController < ApplicationController
 
   def check_out
     if @booking.active?
-
       @booking.update(
         check_out: Time.current,
         status: :closed,
@@ -116,8 +111,9 @@ class BookingsController < ApplicationController
   end
 
   def authorize_access(booking)
-    # debugger
-    (current_owner&. == booking.room.inn.owner) || (current_user&. == booking.user)
+    if (current_owner&. != booking.room.inn.owner) || (current_user&. != booking.user)
+      return redirect_to root_path, alert: "Página não encontrada"
+    end
   end
 
   def set_booking
