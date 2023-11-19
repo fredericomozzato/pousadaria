@@ -180,7 +180,7 @@ describe "Cancelamento de reserva", type: :request do
     post cancel_room_booking_path(inn_1_room_1, booking_1)
 
     expect(response).to redirect_to root_path
-    expect(flash[:alert]).to eq "Página não encontrada"
+    expect(flash[:alert]).to eq "Não foi possível completar a requisição"
     expect(booking_1.canceled?).to be false
   end
 
@@ -362,7 +362,7 @@ describe "Cancelamento de reserva", type: :request do
     post cancel_room_booking_path(inn_1_room_1, booking_1)
 
     expect(response).to redirect_to root_path
-    expect(flash[:alert]).to eq "Página não encontrada"
+    expect(flash[:alert]).to eq "Não foi possível completar a requisição"
     expect(booking_1.canceled?).to be false
   end
 end

@@ -23,3 +23,4 @@ Projeto em desenvolvimento para o curso TreinaDev 11 com Ruby on Rails.
 
 - A busca avançada usa o operador AND para encontrar pousadas com quartos que tenham correspondência ***exata*** com os atributos pesquisados.
 - A cobrança de diárias no sistema é por noite na pousada. Ou seja, a data de check-out não conta como uma diária cobrada, a não ser que o hóspede faça check-out *após* o horário limite determiado pela pousada.
+- Em casos de um user/owner tentar acessar uma página a qual não tem autorização, a mensagem de resposta não indica o erro de forma exata, com a intenção de não revelar a usuários não autorizadoas a existência ou não de uma página.

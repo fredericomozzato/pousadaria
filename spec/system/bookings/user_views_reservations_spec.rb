@@ -343,7 +343,7 @@ describe "Usuário visita a página inicial" do
     visit booking_path(booking_1)
 
     expect(current_path).to eq(root_path)
-    expect(page).to have_content "Página não encontrada"
+    expect(page).to have_content "Não foi possível completar a requisição"
     end
   end
 end
