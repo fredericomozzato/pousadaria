@@ -81,6 +81,8 @@ class BookingsController < ApplicationController
   end
 
   def check_in
+    return redirect_to root_path, alert: "Página não encontrada" unless authorize_access(@booking)
+
     if @booking.start_date <= Date.today
       @booking.update!(
         check_in: Time.current,
