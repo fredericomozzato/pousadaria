@@ -91,6 +91,7 @@ class BookingsController < ApplicationController
   end
 
   def check_out
+    # debugger
     if @booking.active?
       @booking.update(
         check_out: Time.current,
@@ -99,6 +100,8 @@ class BookingsController < ApplicationController
         bill: @booking.calculate_bill
       )
       redirect_to @booking, notice: "Check-out realizado com sucesso"
+    else
+      redirect_to @booking, alert: "Não foi possível realizar o check-out"
     end
   end
 
@@ -112,7 +115,7 @@ class BookingsController < ApplicationController
 
   def authorize_access(booking)
     if (current_owner&. != booking.room.inn.owner) || (current_user&. != booking.user)
-      return redirect_to root_path, alert: "Página não encontrada"
+      return redirect_to root_path, alert: "Não foi possível completar a requisição"
     end
   end
 
