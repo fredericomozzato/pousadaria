@@ -49,7 +49,7 @@ class BookingsController < ApplicationController
   end
 
   def show
-    authorize_access(@booking)
+    return redirect_to root_path, alert: "Página não encontrada" unless authorize_access(@booking)
     @room = @booking.room
     @inn = @room.inn
   end
@@ -63,13 +63,18 @@ class BookingsController < ApplicationController
   end
 
   def cancel
-    if current_user&.== @booking.user
-      @booking.canceled! if @booking.confirmed? && @booking.cancel_date > Date.today
+    return redirect_to root_path, alert: "Página não encontrada" unless authorize_access(@booking)
+
+    if current_user
+      @booking.canceled! if @booking.confirmed? && Date.today.before?(@booking.cancel_date)
+      return redirect_to booking_path(@booking), alert: "Não foi possível cancelar a reserva" unless @booking.canceled?
       redirect_to booking_path(@booking), notice: "Reserva cancelada"
-    elsif current_owner&.== @booking.room.inn.owner
+
+    elsif current_owner
       @booking.canceled! if @booking.confirmed? && Date.today >= @booking.start_date + 2.days
       return redirect_to booking_path(@booking), alert: "Não foi possível cancelar a reserva" unless @booking.canceled?
       redirect_to booking_path(@booking), notice: "Reserva cancelada"
+
     else
       redirect_to booking_path(@booking), alert: "Não foi possível cancelar a reserva"
     end
@@ -109,8 +114,8 @@ class BookingsController < ApplicationController
   end
 
   def authorize_access(booking)
-    return redirect_to root_path, alert: "Página não encontrada" if current_owner&. != booking.room.inn.owner
-    return redirect_to root_path, alert: "Página não encontrada" if current_user&. != booking.user
+    # debugger
+    (current_owner&. == booking.room.inn.owner) || (current_user&. == booking.user)
   end
 
   def set_booking
