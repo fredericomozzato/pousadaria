@@ -49,6 +49,7 @@ class BookingsController < ApplicationController
   end
 
   def show
+    authorize_access(@booking)
     @room = @booking.room
     @inn = @room.inn
   end
@@ -105,6 +106,11 @@ class BookingsController < ApplicationController
     unless user_signed_in? || owner_signed_in?
       redirect_to login_path, notice: "Faça log-in para continuar"
     end
+  end
+
+  def authorize_access(booking)
+    return redirect_to root_path, alert: "Página não encontrada" if current_owner&. != booking.room.inn.owner
+    return redirect_to root_path, alert: "Página não encontrada" if current_user&. != booking.user
   end
 
   def set_booking
