@@ -37,6 +37,4 @@ describe "Usuário acessa a página de cadastro" do
     expect(User.last.name).to eq "Fulano de Tal"
     expect(User.last.cpf).to eq "159.163.070-39"
   end
-
-  
 end

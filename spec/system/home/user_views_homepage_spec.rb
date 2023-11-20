@@ -375,7 +375,7 @@ describe "Usuário visita a página inicial" do
       login_as owner
       visit root_path
 
-      within "nav" do
+      within "#navigation-bar" do
         expect(page).to have_content "owner@example.com"
         expect(page).to have_link "Minha Pousada"
         expect(page).to have_link "Reservas"
@@ -403,6 +403,48 @@ describe "Usuário visita a página inicial" do
 
   context "autenticado como Usuário" do
     it "e vê o menu" do
+      user = User.create!(
+        name: "João Silva",
+        cpf: "899.924.320-63",
+        email: "joao@email.com",
+        password: "123456"
+      )
+
+      login_as user, scope: :user
+      visit root_path
+
+      within "#navigation-bar" do
+        expect(page).to have_content "joao@email.com"
+        expect(page).to have_link "Minhas Reservas"
+        expect(page).to have_button "Sair"
+        expect(page).not_to have_link "Entrar"
+        expect(page).not_to have_link "Minha Pousada"
+        expect(page).not_to have_link "Reservas", exact: true
+        expect(page).not_to have_link "Estadias ativas"
+      end
+
+    end
+
+    it "e faz logout" do
+      user = User.create!(
+        name: "João Silva",
+        cpf: "899.924.320-63",
+        email: "joao@email.com",
+        password: "123456"
+      )
+
+      login_as user, scope: :user
+      visit root_path
+      within "#navigation-bar" do
+        click_on "Sair"
+      end
+
+      within "#navigation-bar" do
+        expect(page).to have_link "Entrar"
+        expect(page).not_to have_button "Sair"
+        expect(page).not_to have_link "Minhas Reservas"
+        expect(page).not_to have_content "joao@email.com"
+      end
     end
   end
 end
