@@ -596,6 +596,66 @@ RSpec.describe Booking, type: :model do
       expect(booking.calculate_bill).to eq 900.00
     end
 
+    it "com late check-out" do
+      travel_to Time.now.beginning_of_day + 12.hours
+      owner = Owner.create!(email: "dono_1@email.com", password: "123456")
+      inn = Inn.create!(
+        name: "Mar Aberto",
+        corporate_name: "Pousada Mar Aberto/SC",
+        registration_number: "84.485.218/0001-73",
+        phone: "4899999-9999",
+        email: "pousadamaraberto@hotmail.com",
+        description: "Pousada na beira do mar com suítes e café da manhã incluso.",
+        pay_methods: "Crédito, débito, dinheiro ou pix",
+        pet_friendly: true,
+        user_policies: "A pousada conta com lei do silêncio das 22h às 8h",
+        check_in_time: Time.new(2000, 1, 1, 9, 0, 0, "UTC"),
+        check_out_time: Time.new(2000, 1, 1, 15, 30, 0, "UTC"),
+        owner: owner
+      )
+      Address.create!(
+        street: "Rua das Flores",
+        number: 300,
+        neighborhood: "Canasvieiras",
+        city: "Florianópolis",
+        state: "SC",
+        postal_code: "88000-000",
+        inn: inn
+      )
+      room = Room.create!(
+        name: "Atlântico",
+        description: "Quarto com vista para o mar",
+        size: 30,
+        max_guests: 2,
+        price: 100.00,
+        inn: inn,
+        bathroom: true,
+        wifi: true,
+        wardrobe: true,
+        accessibility: true
+      )
+      user = User.create!(
+        name: "João Silva",
+        cpf: "899.924.320-63",
+        email: "joao@email.com",
+        password: "123456"
+      )
+      booking = Booking.create!(
+        room: room,
+        user: user,
+        start_date: Date.today,
+        end_date: 3.days.from_now,
+        number_of_guests: 2,
+        check_in: Time.now,
+        status: :active
+      )
+
+      booking.check_out = 3.days.from_now.change(hour: 16, min: 0)
+
+      expect(booking.calculate_bill).to eq 400.00
+      travel_back
+    end
+
     it "valor proporcional em caso de early check-out sem diária adicional" do
       travel_to Time.now.beginning_of_day + 12.hours
       owner = Owner.create!(
@@ -643,10 +703,11 @@ RSpec.describe Booking, type: :model do
         user: user,
         start_date: Date.today,
         end_date: 5.days.from_now,
+        check_in: Time.now,
         number_of_guests: 2,
+        status: :active
       )
 
-      booking.check_in = Date.today
       booking.check_out = 3.days.from_now.change(hour:11, min: 59)
 
       expect(booking.calculate_bill).to eq 300.00
