@@ -13,10 +13,7 @@ class Booking < ApplicationRecord
   enum status: {confirmed: 0, active: 10, closed: 20, canceled: 30}
 
   def calculate_bill
-    room = Room.find(room_id)
-    booking_range = get_booking_range(room)
-
-    return booking_range.reduce(0) do |bill, date|
+    return get_booking_range.reduce(0) do |bill, date|
       if room.seasonal_prices.any? { |price| date.between?(price.start, price.end) }
         room.seasonal_prices.each do |price|
           bill += price.price if date.between?(price.start, price.end)
@@ -34,17 +31,17 @@ class Booking < ApplicationRecord
 
   private
 
+  def get_booking_range
+    return early_checkout_range(room.inn.check_out_time) if check_out&.before?(end_date)
+    start_date...end_date
+  end
+
   def early_checkout_range(limit)
     if check_out.hour >= limit.hour || (check_out.hour == limit.hour) && check_out.min >= limit.min
       start_date..check_out.to_date
     else
       start_date...check_out.to_date
     end
-  end
-
-  def get_booking_range(room)
-    return early_checkout_range(room.inn.check_out_time) if check_out&.before?(end_date)
-    start_date...end_date
   end
 
   def date_conflict
