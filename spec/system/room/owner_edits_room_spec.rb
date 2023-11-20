@@ -353,7 +353,7 @@ describe "Proprietário acessa página minha pousada" do
     )
     Address.create!(
       street: "Estrada da montanha",
-      number: nil,
+      number: "90",
       neighborhood: "Nova Petrópolis",
       city: "Canela",
       state: "RS",
