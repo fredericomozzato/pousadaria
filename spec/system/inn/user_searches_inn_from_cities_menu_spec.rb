@@ -131,7 +131,7 @@ describe "Usuário clica em um link no menu de cidades" do
     )
     Address.create!(
       street: "Enderço Inativo",
-      number: 0,
+      number: 10,
       neighborhood: "Sem bairro",
       city: "Sem cidade",
       state: "XX",
@@ -282,7 +282,7 @@ describe "Usuário clica em um link no menu de cidades" do
     )
     Address.create!(
       street: "Enderço Inativo",
-      number: 0,
+      number: 10,
       neighborhood: "Sem bairro",
       city: "Sem cidade",
       state: "XX",

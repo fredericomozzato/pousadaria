@@ -151,7 +151,7 @@ describe "Proprietário visita a página de criação de preços sazonais" do
     )
     Address.create!(
       street: "Rua Teste",
-      number: "0",
+      number: "10",
       neighborhood: "Bairro Teste",
       city: "Teste",
       state: "SC",
