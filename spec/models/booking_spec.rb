@@ -4,7 +4,7 @@ include ActiveSupport::Testing::TimeHelpers
 
 RSpec.describe Booking, type: :model do
   describe "#valid" do
-    it "inválido sem data de check-in" do
+    it "inválido sem data de entrada" do
       booking = Booking.new(
         start_date: nil,
       )
@@ -13,7 +13,7 @@ RSpec.describe Booking, type: :model do
       expect(booking.errors.include?(:start_date)).to be true
     end
 
-    it "inválido sem data de check-out" do
+    it "inválido sem data de saída" do
       booking = Booking.new(
         end_date: nil,
       )
