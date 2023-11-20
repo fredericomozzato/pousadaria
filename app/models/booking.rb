@@ -40,8 +40,10 @@ class Booking < ApplicationRecord
   def date_conflict
     return if start_date.nil? || end_date.nil?
 
-    conflict =
-      room.bookings.where(status: :confirmed).where.not(id: self.id).any? do |booking|
+    conflict = room.bookings
+                   .where(status: [:confirmed, :active])
+                   .where.not(id: self.id)
+                   .any? do |booking|
       (start_date..end_date).overlaps?(booking.start_date..booking.end_date)
     end
 
@@ -63,7 +65,7 @@ class Booking < ApplicationRecord
   end
 
   def generate_code
-    self.code = SecureRandom.alphanumeric(8).upcase if self.code.nil?
+    self.code ||= SecureRandom.alphanumeric(8).upcase
   end
 
   def early_checkout_range(limit)
