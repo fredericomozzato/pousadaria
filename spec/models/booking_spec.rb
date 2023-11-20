@@ -389,7 +389,7 @@ RSpec.describe Booking, type: :model do
       )
       allow(Room).to receive(:find).with(booking.room_id).and_return(room)
 
-      expect(booking.calculate_bill).to eq 500.00
+      expect(booking.calculate_bill).to eq 600.00
     end
 
     it "com início antes e fim depois de um preço sazonal" do
@@ -494,7 +494,7 @@ RSpec.describe Booking, type: :model do
         price: 300.00,
         room: room
       )
-      seasonal_price_1 = SeasonalPrice.create!(
+      seasonal_price_2 = SeasonalPrice.create!(
         start: 7.days.from_now,
         end: 10.days.from_now,
         price: 100.00,
