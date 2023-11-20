@@ -107,7 +107,7 @@ describe "Proprietário acessa a página de reservas da pousada" do
       )
     user_2 = User.create!(
       name: "User 2",
-        cpf: "820.628.780-96",
+        cpf: "432.065.910-40",
         email: "user2@email.com",
         password: "654321"
     )
@@ -495,7 +495,7 @@ describe "Proprietário acessa a página de reservas da pousada" do
     )
     user_2 = User.create!(
       name: "User 2",
-      cpf: "820.628.780-96",
+      cpf: "432.065.910-40",
       email: "user_2@email.com",
       password: "123456"
     )
