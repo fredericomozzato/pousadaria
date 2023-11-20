@@ -12,29 +12,37 @@ class Booking < ApplicationRecord
 
   enum status: {confirmed: 0, active: 10, closed: 20, canceled: 30}
 
-  def calculate_bill
-    room = Room.find(room_id)
-    booking_range = start_date...end_date
-    booking_range = early_checkout_range(room.inn.check_out_time) if check_out&.before?(end_date)
-
-    return room.seasonal_prices.reduce(booking_range.count * room.price) do |total, price|
-      price_range = price.start..price.end
-      if booking_range.overlaps?(price_range)
-        total += count_intersecting_days(booking_range, price_range) * (price.price - room.price)
-      end
-    end
-  end
-
   def cancel_date
     start_date - 7.days
   end
 
+  def calculate_bill
+    return get_booking_range.reduce(0) do |bill, date|
+      if room.seasonal_prices.any? { |price| date.between?(price.start, price.end) }
+        room.seasonal_prices.each do |price|
+          bill += price.price if date.between?(price.start, price.end)
+        end
+      else
+        bill += room.price
+      end
+      bill
+    end
+  end
+
   private
 
-  def count_intersecting_days(booking_range, price_range)
-    days = ([booking_range.begin, price_range.begin].max...[booking_range.end, price_range.end].min).count
-    return days += 1 if booking_range.count > price_range.count
-    days
+  def get_booking_range
+    return checkout_range if check_out
+    start_date...end_date
+  end
+
+  def checkout_range
+    limit = room.inn.check_out_time
+    if check_out.hour >= limit.hour || (check_out.hour == limit.hour) && check_out.min >= limit.min
+      start_date..check_out.to_date
+    else
+      start_date...check_out.to_date
+    end
   end
 
   def date_conflict
@@ -66,13 +74,5 @@ class Booking < ApplicationRecord
 
   def generate_code
     self.code ||= SecureRandom.alphanumeric(8).upcase
-  end
-
-  def early_checkout_range(limit)
-    if check_out.hour >= limit.hour || (check_out.hour == limit.hour) && check_out.min >= limit.min
-      start_date..check_out.to_date
-    else
-      start_date...check_out.to_date
-    end
   end
 end
