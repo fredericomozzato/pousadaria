@@ -144,7 +144,7 @@ describe "Usuário visita a página inicial" do
       )
       Address.create!(
         street: "Enderço Inativo",
-        number: 0,
+        number: 10,
         neighborhood: "Sem bairro",
         city: "Sem cidade",
         state: "XX",
@@ -305,7 +305,7 @@ describe "Usuário visita a página inicial" do
       )
       Address.create!(
         street: "Enderço Inativo",
-        number: 0,
+        number: 10,
         neighborhood: "Sem bairro",
         city: "Sem cidade",
         state: "XX",

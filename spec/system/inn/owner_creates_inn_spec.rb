@@ -99,10 +99,10 @@ describe "Proprietário visita a página de cadastro de pousada" do
     )
     Address.create!(
       street: "Teste",
-      number: 0,
+      number: 10,
       neighborhood: "Teste",
       city: "Teste",
-      state: "Teste",
+      state: "TS",
       postal_code: "0123456789",
       inn_id: inn.id
     )

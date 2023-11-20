@@ -76,10 +76,10 @@ describe "Proprietário acessa a página de sua pousada" do
     )
     Address.create!(
       street: "Teste",
-      number: 0,
+      number: 10,
       neighborhood: "Teste",
       city: "Teste",
-      state: "Teste",
+      state: "TS",
       postal_code: "0123456789",
       inn_id: inn.id
     )
@@ -147,10 +147,10 @@ describe "Proprietário acessa a página de sua pousada" do
     )
     Address.create!(
       street: "Teste",
-      number: 0,
+      number: 10,
       neighborhood: "Teste",
       city: "Teste",
-      state: "Teste",
+      state: "TS",
       postal_code: "0123456789",
       inn_id: inn.id
     )
@@ -207,10 +207,10 @@ describe "Proprietário acessa a página de sua pousada" do
     )
     Address.create!(
       street: "Teste",
-      number: 0,
+      number: 10,
       neighborhood: "Teste",
       city: "Teste",
-      state: "Teste",
+      state: "TS",
       postal_code: "0123456789",
       inn_id: inn.id
     )
@@ -246,10 +246,10 @@ describe "Proprietário acessa a página de sua pousada" do
     )
     Address.create!(
       street: "Teste",
-      number: 0,
+      number: 10,
       neighborhood: "Teste",
       city: "Teste",
-      state: "Teste",
+      state: "TS",
       postal_code: "0123456789",
       inn_id: inn.id
     )
@@ -283,10 +283,10 @@ describe "Proprietário acessa a página de sua pousada" do
     )
     Address.create!(
       street: "Teste",
-      number: 0,
+      number: 10,
       neighborhood: "Teste",
       city: "Teste",
-      state: "Teste",
+      state: "TS",
       postal_code: "0123456789",
       inn_id: first_inn.id
     )
@@ -309,10 +309,10 @@ describe "Proprietário acessa a página de sua pousada" do
     )
     Address.create!(
       street: "Rua teste",
-      number: 0,
+      number: 10,
       neighborhood: "Bairro teste",
       city: "Cidade teste",
-      state: "Estado Teste",
+      state: "TS",
       postal_code: "9876543210",
       inn_id: second_inn.id
     )

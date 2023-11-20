@@ -2,11 +2,14 @@ class Address < ApplicationRecord
   belongs_to :inn
 
   validates :street,
+            :number,
             :neighborhood,
             :city,
             :state,
             :postal_code,
             presence: true
+  validates :number, numericality: { greater_than: 0 }
+  validates :state, length: { is: 2}
 
   enum states: {
     AC: 1,
