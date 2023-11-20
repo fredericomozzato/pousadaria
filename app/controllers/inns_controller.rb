@@ -5,9 +5,8 @@ class InnsController < ApplicationController
 
 
   def new
-    @inn = Inn.find_by(owner_id: current_owner.id)
-    if @inn
-      redirect_to inn_path(@inn), notice: "Você já tem uma pousada cadastrada"
+    if current_owner.inn
+      redirect_to inn_path(current_owner.inn), notice: "Você já tem uma pousada cadastrada"
     else
       @inn = Inn.new
       @inn.build_address
@@ -15,8 +14,7 @@ class InnsController < ApplicationController
   end
 
   def create
-    @owner = current_owner
-    @inn = @owner.build_inn(inn_params)
+    @inn = current_owner.build_inn(inn_params)
     @inn.check_in_time = get_time(:checkin_hour, :checkin_minute)
     @inn.check_out_time = get_time(:checkout_hour, :checkout_minute)
 
@@ -25,7 +23,7 @@ class InnsController < ApplicationController
     else
       @address = @inn.address
       flash.now[:alert] = "Erro ao cadastrar Pousada"
-      render :new, status: :unprocessable_entity
+      render :new
     end
   end
 
@@ -34,13 +32,12 @@ class InnsController < ApplicationController
   end
 
   def edit
-    @address = Address.find_by(inn_id: @inn.id)
+    @address = @inn.address
   end
 
   def update
     @inn.check_in_time = get_time(:checkin_hour, :checkin_minute)
     @inn.check_out_time = get_time(:checkout_hour, :checkout_minute)
-
     @inn.address.update(inn_params[:address_attributes])
 
     if @inn.update(inn_params.except(:address_attributes))
@@ -48,12 +45,12 @@ class InnsController < ApplicationController
     else
       @address = @inn.address
       flash.now[:alert] = "Erro ao atualizar Pousada"
-      render :edit, status: :unprocessable_entity
+      render :edit
     end
   end
 
   def my_inn
-    @inn = Inn.find_by(owner_id: current_owner.id)
+    @inn = current_owner.inn
     @rooms = @inn.rooms
   end
 
