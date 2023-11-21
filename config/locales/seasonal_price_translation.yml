@@ -7,3 +7,7 @@ pt-BR:
         start: "Data de início"
         end: "Data de término"
         price: "Valor da diária"
+
+  # views texts
+  edit_seasonal_price: "Editar Preço Sazonal"
+  seasonal_price_details: "Detalhes de Preço Sazonal"
