@@ -36,8 +36,9 @@ pt-BR:
   no_bookings_found: "Nenhuma reserva encontrada"
   no_bookings_found_for_user: "Você não possui reservas"
   booking_period: "Período"
-  
   payment_methods: "Métodos de pagamento"
+  active_bookings: "Estadias ativas"
+  my_bookings: "Minhas Reservas"
 
   # buttons and confirmation messages
   confirm_booking_button: "Confirmar reserva"

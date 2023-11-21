@@ -22,11 +22,11 @@ pt-BR:
   # views texts
   advanced_search: "Busca avançada"
   search_for: "Busca por"
+  search_inn: "Buscar Pousada"
   results: "Resultados"
   no_inn_found: "Nenhuma pousada encontrada"
   inn_status_text: "Status na plataforma"
   inn_registration: "Cadastro de Pousada"
-
+  my_inn: "Minha Pousada"
 
   # buttons
-  search_button: "Buscar"
