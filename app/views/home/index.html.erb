@@ -8,16 +8,16 @@
 
 <section>
   <% if @recent_inns.empty? %>
-    <p>Nenhuma pousada cadastrada</p>
+    <p><%= t("no_inns_yet") %></p>
   <% else %>
-    <h2>Novidades</h2>
+    <h2><%= t("new_inns") %></h2>
     <div id="recent">
       <div>
         <%= render @recent_inns %>
       </div>
     </div>
     <hr/>
-    <h2>Pousadas</h2>
+    <h2><%= Inn.model_name.human(count: 2) %></h2>
     <div id="inns-list">
       <div>
         <%= render @inns %>

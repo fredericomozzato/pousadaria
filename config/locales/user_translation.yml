@@ -1,0 +1,12 @@
+pt-BR:
+  activerecord:
+    models:
+      user: "Hóspede"
+    attributes:
+      user:
+        name: "Nome"
+        cpf: "CPF"
+        email: "E-mail"
+        password: "Senha"
+
+  full_name: "Nome completo"

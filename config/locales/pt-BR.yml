@@ -8,6 +8,9 @@ pt-BR:
   enter_as: "Entrar como"
   enter_button: "Entrar"
   remember_me: "Lembre-se de mim"
+  confirm_password: "Confirmar senha"
+  no_inns_yet: "Nenhuma pousada cadastrada"
+  new_inns: "Novidades"
 
   activerecord:
     errors:
