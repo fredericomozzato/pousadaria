@@ -17,5 +17,5 @@
 <% end %>
 
 <% if Date.today >= @booking.start_date + 2.days && @booking.confirmed? %>
-  <%= button_to "CANCELAR RESERVA", cancel_room_booking_path(@room) %>
+  <%= button_to "CANCELAR RESERVA", cancel_room_booking_path(@room), data: { turbo_confirm: "Cancelar reserva?" } %>
 <% end %>
