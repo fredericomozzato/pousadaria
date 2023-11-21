@@ -1,7 +1,7 @@
 <% if @booking.confirmed? && @booking.cancel_date > Date.today %>
   <div>
     <p>Você pode cancelar sua reserva até <strong><%= l(@booking.cancel_date) %></strong></p>
-    <%= button_to "CANCELAR RESERVA", cancel_room_booking_path(@room.id) %>
+    <%= button_to "CANCELAR RESERVA", cancel_room_booking_path(@room.id), data: { turbo_confirm: "Cancelar a reserva?" } %>
   </div>
 <% elsif @booking.confirmed? && @booking.cancel_date <= Date.today %>
   <div>
