@@ -7,6 +7,7 @@ describe "Proprietário acessa a página de cadastro" do
     click_on "Proprietário"
     click_on "Criar conta"
 
+    expect(page).to have_content "Nova conta - Proprietário"
     expect(page).to have_field "E-mail"
     expect(page).to have_field "Senha"
     expect(page).to have_field "Confirmar senha"

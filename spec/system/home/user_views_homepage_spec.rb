@@ -323,6 +323,17 @@ describe "Usuário visita a página inicial" do
       end
     end
 
+    it "e vê a tela de login de Proprietário" do
+      visit root_path
+      click_on "Entrar"
+      click_on "Proprietário"
+
+      expect(page).to have_content "Entrar - Proprietário"
+      expect(page).to have_field "E-mail"
+      expect(page).to have_field "Senha"
+      expect(page).to have_button "Entrar"
+    end
+
     it "e faz login como Proprietário" do
       Owner.create!(email: "owner@example.com", password: "123456")
 

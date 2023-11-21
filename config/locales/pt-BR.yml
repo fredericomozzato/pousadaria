@@ -1,6 +1,13 @@
 pt-BR:
+  # shared texts
   back_link: "Voltar"
   back_to_beginning_link: "Voltar ao início"
+  new_account: "Nova conta"
+  create_account: "Criar conta"
+  enter: "Entrar"
+  enter_as: "Entrar como"
+  enter_button: "Entrar"
+  remember_me: "Lembre-se de mim"
 
   activerecord:
     errors:

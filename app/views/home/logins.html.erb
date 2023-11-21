@@ -1,7 +1,7 @@
-<h1>Entrar como</h1>
+<h1><%= t("enter_as")%></h1>
 
 <div>
-  <%= link_to "Proprietário", new_owner_session_path %>
+  <%= link_to Owner.model_name.human, new_owner_session_path %>
 </div>
 <div>
   <%= link_to "Hóspede", new_user_session_path %>
