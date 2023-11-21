@@ -1,4 +1,4 @@
-<h1>Editar Pousada</h1>
+<h1>Editar <%= Inn.model_name.human(count: 1) %></h1>
 
 <%= render partial: "shared/form_errors", locals: { model: @inn }%>
 
@@ -10,4 +10,4 @@
     <%= button_to "Ativar Pousada", change_status_inn_path, { method: "patch" } %>
 <% end %>
 
-<%= link_to "Voltar", my_inn_path %>
+<%= link_to t("back_link"), my_inn_path %>

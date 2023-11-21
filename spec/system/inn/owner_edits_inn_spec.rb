@@ -35,6 +35,7 @@ describe "Proprietário acessa a página de sua pousada" do
     click_on "Minha Pousada"
     click_on "Editar"
 
+    expect(page).to have_content "Editar Pousada"
     expect(page).to have_field "Nome", with: "Mar Aberto"
     expect(page).to have_field "Razão social", with: "Pousada Mar Aberto/SC"
     expect(page).to have_field "Telefone", with: "4899999-9999"
@@ -54,6 +55,7 @@ describe "Proprietário acessa a página de sua pousada" do
     expect(page).to have_select "inn_address_attributes_state", selected: "SC"
     expect(page).to have_field "CEP", with: "88000-000"
     expect(page).to have_button "Atualizar Pousada"
+    expect(page).to have_link "Voltar"
   end
 
   it "e edita a pousada com sucesso" do
@@ -110,7 +112,7 @@ describe "Proprietário acessa a página de sua pousada" do
     click_on "Atualizar Pousada"
 
     expect(page).to have_content "Pousada atualizada com sucesso"
-    expect(page).to have_content "Nome público: Mar Aberto"
+    expect(page).to have_content "Nome: Mar Aberto"
     expect(page).to have_content "Razão social: Pousada Mar Aberto/SC"
     expect(page).to have_content "CNPJ: 84.485.218/0001-73"
     expect(page).to have_content "Telefone: 4899999-9999"

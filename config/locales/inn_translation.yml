@@ -1,7 +1,9 @@
 pt-BR:
   activerecord:
     models:
-      inn: "Pousada"
+      inn: 
+        one: "Pousada"
+        other: "Pousadas"
     attributes:
       inn:
         name: "Nome"
@@ -16,3 +18,15 @@ pt-BR:
         check_in_time: "Horário de check-in"
         check_out_time: "Horário de check-out"
         active: "Ativa"
+
+  # views texts
+  advanced_search: "Busca avançada"
+  search_for: "Busca por"
+  results: "Resultados"
+  no_inn_found: "Nenhuma pousada encontrada"
+  inn_status_text: "Status na plataforma"
+  inn_registration: "Cadastro de Pousada"
+
+
+  # buttons
+  search_button: "Buscar"

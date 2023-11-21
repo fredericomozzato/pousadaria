@@ -1,5 +1,5 @@
 pt-BR:
-  back_button: "Voltar"
+  back_link: "Voltar"
   back_to_beginning_link: "Voltar ao início"
 
   activerecord:
