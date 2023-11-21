@@ -1,26 +1,26 @@
-<h1>Detalhes da Reserva</h1>
+<h1><%= I18n.t("booking_details") %></h1>
 
 <section id="booking-details">
   <h2><%= @inn.name %></h2>
-  <h3>Quarto: <%= @room.name %></h3>
+  <h3><%= Room.model_name.human(count: 1) %>: <%= @room.name %></h3>
 
   <dl>
-    <dt>Check-in:</dt>
+    <dt><%= Booking.human_attribute_name(:check_in) %>:</dt>
     <dd><%= l(@booking.start_date) %> a partir das <%= @inn.check_in_time.strftime("%H:%M") %> horas</dd>
 
-    <dt>Check-out:</dt>
+    <dt><%= Booking.human_attribute_name(:check_out) %>:</dt>
     <dd><%= l(@booking.end_date) %> até as <%= @inn.check_out_time.strftime("%H:%M") %> horas</dd>
 
-    <dt>Número de hóspedes:</dt>
+    <dt><%= Booking.human_attribute_name(:number_of_guests) %>:</dt>
     <dd><%= @booking.number_of_guests %></dd>
 
-    <dt>Valor:</dt>
+    <dt><%= Booking.human_attribute_name(:bill) %>:</dt>
     <dd><%= number_to_currency @booking.calculate_bill, unit: "R$", delimiter: ".", separator: "," %></dd>
 
-    <dt>Código:</dt>
+    <dt><%= Booking.human_attribute_name(:code) %>:</dt>
     <dd><%= @booking.code %></dd>
 
-    <dt>Status:</dt>
+    <dt><%= Booking.human_attribute_name(:status) %>:</dt>
     <dd><%= t(@booking.status) %></dd>
   </dl>
 </section>

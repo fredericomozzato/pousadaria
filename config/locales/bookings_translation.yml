@@ -1,10 +1,4 @@
 pt-BR:
-  date_conflict: "Já existe uma reserva para este quarto no período selecionado"
-  too_many_guests: "Número de hóspedes maior que o permitido para o quarto"
-  confirmed: "Confirmada"
-  active: "Ativa"
-  closed: "Finalizada"
-  canceled: "Cancelada"
   activerecord:
     models:
       booking:
@@ -17,4 +11,45 @@ pt-BR:
         number_of_guests: "Número de hóspedes"
         check_in: "Check-in"
         check_out: "Check-out"
-        bill: "Valor total"
+        bill: "Valor"
+        code: "Código"
+        status: "Status"
+        payment_method: "Forma de pagamento"
+
+  # error messages
+  date_conflict: "Já existe uma reserva para este quarto no período selecionado"
+  too_many_guests: "Número de hóspedes maior que o permitido para o quarto"
+
+  # booking status
+  confirmed: "Confirmada"
+  active: "Ativa"
+  closed: "Finalizada"
+  canceled: "Cancelada"
+
+  # views texts
+  booking_details: "Detalhes da Reserva"
+  cancel_booking_until: "Você pode cancelar sua reserva até"
+  booking_cant_be_canceled: "Esta reserva não pode mais ser cancelada. Entre em contato com a pousada para mais informações"
+  check_in_available_from: "Check-in disponível a partir de"
+  active_bookings: "Estadias ativas"
+  no_active_booking: "Nenhuma estadia ativa no momento"
+  no_bookings_found: "Nenhuma reserva encontrada"
+  no_bookings_found_for_user: "Você não possui reservas"
+  booking_period: "Período"
+  
+  payment_methods: "Métodos de pagamento"
+
+  # buttons and confirmation messages
+  confirm_booking_button: "Confirmar reserva"
+  cancel_booking_button: "CANCELAR RESERVA"
+  cancel_booking_confirm: "Cancelar a reserva?"
+  check_in_button: "REALIZAR CHECK-IN"
+  check_in_confirm: "Confirmar CHECK-IN?"
+  check_out_button: "REALIZAR CHECK-OUT"
+  check_out_confirm: "Confirmar CHECK-OUT?"
+  advance_button: "Avançar"
+  
+
+
+
+

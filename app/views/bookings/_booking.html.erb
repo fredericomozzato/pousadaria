@@ -1,21 +1,21 @@
 <div>
   <dl>
-    <dt>Reserva:</dt>
+    <dt><%= Booking.model_name.human(count: 1) %>:</dt>
     <dd><%= link_to booking.code, booking_path(booking) %></dd>
 
-    <dt>Quarto:</dt>
+    <dt><%= Room.model_name.human(count: 1) %>:</dt>
     <dd><%= booking.room.name %></dd>
 
-    <dt>Data de check-in:</dt>
+    <dt><%= Booking.human_attribute_name(:start_date) %>:</dt>
     <dd><%= l(booking.start_date) %></dd>
 
-    <dt>Data de check-out:</dt>
+    <dt><%= Booking.human_attribute_name(:end_date) %>:</dt>
     <dd><%= l(booking.end_date) %></dd>
 
-    <dt>Número de hóspedes:</dt>
+    <dt><%= Booking.human_attribute_name(:number_of_guests) %>:</dt>
     <dd><%= booking.number_of_guests %></dd>
 
-    <dt>Status:</dt>
+    <dt><%= Booking.human_attribute_name(:status) %>:</dt>
     <dd><%= t(booking.status) %></dd>
   </dl>
 </div>

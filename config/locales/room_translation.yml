@@ -1,7 +1,9 @@
 pt-BR:
   activerecord:
     models:
-      room: "Quarto"
+      room: 
+        one: "Quarto"
+        other: "Quartos"
     attributes:
       room:
         name: "Nome"

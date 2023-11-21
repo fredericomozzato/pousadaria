@@ -135,14 +135,14 @@ describe "Proprietário acessa a página de reservas da pousada" do
       expect(page).to have_content "Reserva:"
       expect(page).to have_link booking_1.code
       expect(page).to have_content "Quarto: Oceano"
-      expect(page).to have_content "Data de check-in: #{I18n.l(booking_1.start_date)}"
-      expect(page).to have_content "Data de check-out: #{I18n.l(booking_1.end_date)}"
+      expect(page).to have_content "Data de Check-in: #{I18n.l(booking_1.start_date)}"
+      expect(page).to have_content "Data de Check-out: #{I18n.l(booking_1.end_date)}"
       expect(page).to have_content "Número de hóspedes: #{booking_1.number_of_guests}"
       expect(page).to have_content "Status: Confirmada"
       expect(page).to have_link booking_2.code
       expect(page).to have_content "Quarto: Mar"
-      expect(page).to have_content "Data de check-in: #{I18n.l(booking_2.start_date)}"
-      expect(page).to have_content "Data de check-out: #{I18n.l(booking_2.end_date)}"
+      expect(page).to have_content "Data de Check-in: #{I18n.l(booking_2.start_date)}"
+      expect(page).to have_content "Data de Check-out: #{I18n.l(booking_2.end_date)}"
       expect(page).to have_content "Número de hóspedes: #{booking_2.number_of_guests}"
       expect(page).to have_content "Status: Ativa"
     end
@@ -447,8 +447,12 @@ describe "Proprietário acessa a página de reservas da pousada" do
       click_on "Estadias ativas"
     end
 
-    expect(page).to have_content "Nenhuma estadia ativa no momento"
-    expect(page).not_to have_link booking.code
+    within "section#active-bookings" do
+      expect(page).to have_content "Estadias ativas"
+      expect(page).to have_content "Nenhuma estadia ativa no momento"
+      expect(page).not_to have_link booking.code
+    end
+    expect(page).to have_link "Voltar"
   end
 
   it "e vê lista de estadias ativas" do
@@ -526,8 +530,8 @@ describe "Proprietário acessa a página de reservas da pousada" do
       expect(page).to have_content "Reserva:"
       expect(page).to have_link active_booking.code
       expect(page).to have_content "Quarto: Oceano"
-      expect(page).to have_content "Data de check-in: #{I18n.l(Date.today)}"
-      expect(page).to have_content "Data de check-out: #{I18n.l(5.days.from_now.to_date)}"
+      expect(page).to have_content "Data de Check-in: #{I18n.l(Date.today)}"
+      expect(page).to have_content "Data de Check-out: #{I18n.l(5.days.from_now.to_date)}"
       expect(page).to have_content "Número de hóspedes: 2"
       expect(page).not_to have_link confirmed_booking.code
     end

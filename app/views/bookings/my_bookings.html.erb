@@ -1,7 +1,7 @@
-<h1>Reservas</h1>
+<h1><%= Booking.model_name.human count: 2 %></h1>
 
 <% if @bookings.empty? %>
-  <p>Você não possui reservas</p>
+  <p><%= t("no_bookings_found_for_user") %></p>
 <% end %>
 
 <section id="bookings-list">
@@ -10,11 +10,11 @@
       <li>
         <%= link_to booking.code, booking %>
         <dl>
-          <dt>Pousada:</dt>
+          <dt><%= Inn.model_name.human count: 1 %>:</dt>
           <dd><%= booking.room.inn.name %></dd>
-          <dt>Quarto:</dt>
+          <dt><%= Room.model_name.human count: 1 %>:</dt>
           <dd><%= booking.room.name %></dd>
-          <dt>Período:</dt>
+          <dt><%= t("booking_period") %>:</dt>
           <dd><%= I18n.l(booking.start_date) %> - <%= I18n.l(booking.end_date) %></dd>
         </dl>
       </li>
@@ -22,4 +22,4 @@
   </ul>
 </section>
 
-<%= link_to "Voltar para início", root_path %>
+<%= link_to t("back_to_beginning_link"), root_path %>

@@ -1,26 +1,26 @@
-<h1>Dados da Reserva</h1>
+<h1><%= t("booking_details") %></h1>
 
 <dl>
-  <dt>Quarto:</dt>
+  <dt><%= Room.model_name.human(count: 1) %>:</dt>
   <dd> <%= @room.name %></dd>
 
-  <dt>Data de entrada:</dt>
+  <dt><%= Booking.human_attribute_name(:start_date) %>:</dt>
   <dd><%= I18n.l(@pre_booking.start_date) %> a partir das <%= @inn.check_in_time.strftime("%H:%M") %> horas</dd>
 
-  <dt>Data de saída:</dt>
+  <dt><%= Booking.human_attribute_name(:end_date) %>:</dt>
   <dd><%= I18n.l(@pre_booking.end_date) %> até as <%= @inn.check_out_time.strftime("%H:%M") %> horas</dd>
 
-  <dt>Número de hóspedes:</dt>
+  <dt><%= Booking.human_attribute_name(:number_of_guests) %>:</dt>
   <dd><%= @pre_booking.number_of_guests %></dd>
 
-  <dt>Valor da reserva:</dt>
+  <dt><%= Booking.human_attribute_name(:bill) %>:</dt>
   <dd><%= number_to_currency @pre_booking.calculate_bill, unit: "R$", separator: ",", delimiter: "." %></dd>
 
-  <dt>Métodos de pagamento:</dt>
+  <dt><%= t("payment_methods") %>:</dt>
   <dd><%= @inn.pay_methods %></dd>
 
 </dl>
 
-<%= button_to "Confirmar reserva", room_bookings_path %>
-<%= link_to "Voltar", new_room_booking_path(params[:room_id]) %>
+<%= button_to t("confirm_booking_button"), room_bookings_path %>
+<%= link_to t("back_button"), new_room_booking_path(params[:room_id]) %>
 

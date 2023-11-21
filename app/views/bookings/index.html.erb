@@ -1,8 +1,8 @@
-<h1>Reservas - <%= @inn.name %></h1>
+<h1><%= Booking.model_name.human count: 2 %> - <%= @inn.name %></h1>
 
 <% if @bookings.empty? %>
   <div>
-    <p>Nenhuma reserva encontrada</p>
+    <p><%= t("no_bookings_found") %></p>
   </div>
 <% end %>
 

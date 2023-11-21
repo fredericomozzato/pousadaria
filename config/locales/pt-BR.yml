@@ -1,4 +1,7 @@
 pt-BR:
+  back_button: "Voltar"
+  back_to_beginning_link: "Voltar ao início"
+
   activerecord:
     errors:
       messages:
