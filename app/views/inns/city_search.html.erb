@@ -1,4 +1,4 @@
-<h1>Pousadas em: <%= params[:city] %></h1>
+<h1><%= Inn.model_name.human(count: 2) %> em: <%= params[:city] %></h1>
 
 <ul>
   <% @found_inns.each do |inn| %>

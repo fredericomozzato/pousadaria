@@ -60,7 +60,7 @@ describe "Proprietário visita a página de cadastro de pousada" do
     click_on "Criar Pousada"
 
     expect(page).to have_content "Pousada criada com sucesso"
-    expect(page).to have_content "Nome público: Mar Aberto"
+    expect(page).to have_content "Nome: Mar Aberto"
     expect(page).to have_content "Razão social: Pousada Mar Aberto/SC"
     expect(page).to have_content "CNPJ: 84.485.218/0001-73"
     expect(page).to have_content "Telefone: 4899999-9999"

@@ -1,10 +1,10 @@
 <% if @booking.confirmed? && @booking.cancel_date > Date.today %>
   <div>
-    <p>Você pode cancelar sua reserva até <strong><%= l(@booking.cancel_date) %></strong></p>
-    <%= button_to "CANCELAR RESERVA", cancel_room_booking_path(@room.id), data: { turbo_confirm: "Cancelar a reserva?" } %>
+    <p><%= t("cancel_booking_until") %> <strong><%= l(@booking.cancel_date) %></strong></p>
+    <%= button_to t("cancel_booking_button"), cancel_room_booking_path(@room.id), data: { turbo_confirm: t("cancel_booking_confirm") } %>
   </div>
 <% elsif @booking.confirmed? && @booking.cancel_date <= Date.today %>
   <div>
-    <p>Esta reserva não pode mais ser cancelada. Entre em contato com a pousada para mais informações</p>
+    <p><%= t("booking_cant_be_canceled") %></p>
   </div>
 <% end %>

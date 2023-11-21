@@ -154,6 +154,8 @@ describe "Usuário visita a página inicial" do
 
       visit root_path
       expect(page).not_to have_content "Nenhuma pousada cadastrada"
+      expect(page).to have_content "Novidades"
+      expect(page).to have_content "Pousadas"
       within "#recent" do
       expect(page).not_to have_content "Inativa"
       expect(page).not_to have_content "Sem cidade - XX"
@@ -321,6 +323,37 @@ describe "Usuário visita a página inicial" do
         expect(page).to have_link "Uberlândia", count: 1
         expect(page).not_to have_link "Inativa"
       end
+    end
+
+    it "e vê a tela de redirecionamento para login" do
+      visit root_path
+      click_on "Entrar"
+
+      expect(page).to have_content "Entrar como"
+      expect(page).to have_link "Proprietário"
+      expect(page).to have_link "Hóspede"
+    end
+
+    it "e vê a tela de login de Proprietário" do
+      visit root_path
+      click_on "Entrar"
+      click_on "Proprietário"
+
+      expect(page).to have_content "Entrar - Proprietário"
+      expect(page).to have_field "E-mail"
+      expect(page).to have_field "Senha"
+      expect(page).to have_button "Entrar"
+    end
+
+    it "e vê a tela de login de Hóspede" do
+      visit root_path
+      click_on "Entrar"
+      click_on "Hóspede"
+
+      expect(page).to have_content "Entrar - Hóspede"
+      expect(page).to have_field "E-mail"
+      expect(page).to have_field "Senha"
+      expect(page).to have_button "Entrar"
     end
 
     it "e faz login como Proprietário" do

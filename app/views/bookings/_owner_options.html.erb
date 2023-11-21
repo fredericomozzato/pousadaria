@@ -1,21 +1,21 @@
 <% if @booking.start_date > Date.today %>
 
-  <p>Check-in disponível a partir de <%= l(@booking.start_date) %></p>
+  <p><%= t("check_in_available_from") %> <%= l(@booking.start_date) %></p>
 
 <% elsif @booking.confirmed? %>
 
-  <%= button_to "REALIZAR CHECK-IN", check_in_room_booking_path(@room), data: { turbo_confirm: "Confirmar CHECK-IN?" } %>
+  <%= button_to t("check_in_button"), check_in_room_booking_path(@room), data: { turbo_confirm: t("check_in_confirm") } %>
 
 <% elsif @booking.active? %>
 
   <%= form_with url: check_out_room_booking_path(@room) do |f| %>
     <%= f.label :pay_method, "Método de pagamento" %>
     <%= f.text_field :pay_method %>
-    <%= f.submit "REALIZAR CHECK-OUT", data: { turbo_confirm: "Confirmar CHECK-OUT?" } %>
+    <%= f.submit t("check_out_button"), data: { turbo_confirm: t("confirm_check_out") } %>
   <% end %>
 
 <% end %>
 
 <% if Date.today >= @booking.start_date + 2.days && @booking.confirmed? %>
-  <%= button_to "CANCELAR RESERVA", cancel_room_booking_path(@room), data: { turbo_confirm: "Cancelar reserva?" } %>
+  <%= button_to t("cancel_booking_button"), cancel_room_booking_path(@room), data: { turbo_confirm: t("cancel_booking_confirm") } %>
 <% end %>

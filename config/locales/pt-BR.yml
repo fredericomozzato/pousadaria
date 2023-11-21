@@ -1,4 +1,20 @@
 pt-BR:
+  # shared texts
+  back_link: "Voltar"
+  back_to_beginning_link: "Voltar ao início"
+  new_account: "Nova conta"
+  create_account: "Criar conta"
+  enter: "Entrar"
+  exit: "Sair"
+  enter_as: "Entrar como"
+  enter_button: "Entrar"
+  remember_me: "Lembre-se de mim"
+  confirm_password: "Confirmar senha"
+  no_inns_yet: "Nenhuma pousada cadastrada"
+  new_inns: "Novidades"
+  search_button: "Buscar"
+  search_bar_placeholder: "Nome, cidade ou bairro"
+
   activerecord:
     errors:
       messages:

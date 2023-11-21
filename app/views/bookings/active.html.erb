@@ -1,19 +1,21 @@
-<h1>Estadias ativas</h1>
+<section id="active-bookings">
+  <h1><%= t("active_bookings") %></h1>
 
-<% if @active_bookings.empty? %>
-  <div>
-    <p>Nenhuma estadia ativa no momento</p>
-  </div>
-<% end %>
+  <% if @active_bookings.empty? %>
+    <div>
+      <p><%= t("no_active_booking") %></p>
+    </div>
+  <% end %>
 
-<section id="active-bookings-list">
-  <ul>
-    <% @active_bookings.each do |booking| %>
-      <li>
-        <%= render booking %>
-      </li>
-    <% end %>
-  </ul>
+  <section id="active-bookings-list">
+    <ul>
+      <% @active_bookings.each do |booking| %>
+        <li>
+          <%= render booking %>
+        </li>
+      <% end %>
+    </ul>
+  </section>
+
 </section>
-
-<%= link_to "Voltar", root_path %>
+  <%= link_to t("back_link"), root_path %>

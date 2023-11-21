@@ -50,7 +50,7 @@ describe "Usuário visita a página inicial" do
 
       expect(page).to have_content "Reservas"
       expect(page).to have_content "Você não possui reservas"
-      expect(page).to have_link "Voltar para início"
+      expect(page).to have_link "Voltar ao início"
     end
 
     it "e acessa a página Minhas Reservas e vê suas reservas" do

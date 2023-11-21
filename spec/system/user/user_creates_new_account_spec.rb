@@ -7,6 +7,7 @@ describe "Usuário acessa a página de cadastro" do
     click_on "Hóspede"
     click_on "Criar conta"
 
+    expect(page).to have_content "Nova conta - Hóspede"
     expect(page).to have_field "Nome completo"
     expect(page).to have_field "CPF"
     expect(page).to have_field "E-mail"

@@ -44,7 +44,7 @@ describe "Usuário visita a página de reservas" do
       click_on "Oceano"
       click_on "Reservar"
 
-      expect(page).to have_content "Detalhes da reserva"
+      expect(page).to have_content "Detalhes da Reserva"
       expect(page).to have_content "Pousada: Mar Aberto"
       expect(page).to have_content "Quarto: Oceano"
       expect(page).to have_field "Data de Check-in", type: "date"
@@ -100,12 +100,12 @@ describe "Usuário visita a página de reservas" do
       fill_in "Número de hóspedes", with: 2
       click_on "Avançar"
 
-      expect(page).to have_content "Dados da Reserva"
+      expect(page).to have_content "Detalhes da Reserva"
       expect(page).to have_content "Quarto: Oceano"
-      expect(page).to have_content "Data de entrada: #{I18n.l(10.days.from_now.to_date)} a partir das #{inn.check_in_time.strftime("%H:%M")} horas"
-      expect(page).to have_content "Data de saída: #{I18n.l(14.days.from_now.to_date)} até as #{inn.check_out_time.strftime("%H:%M")} horas"
+      expect(page).to have_content "Data de Check-in: #{I18n.l(10.days.from_now.to_date)} a partir das #{inn.check_in_time.strftime("%H:%M")} horas"
+      expect(page).to have_content "Data de Check-out: #{I18n.l(14.days.from_now.to_date)} até as #{inn.check_out_time.strftime("%H:%M")} horas"
       expect(page).to have_content "Número de hóspedes: 2"
-      expect(page).to have_content "Valor da reserva: R$ 800,00"
+      expect(page).to have_content "Valor: R$ 800,00"
       expect(page).to have_content "Métodos de pagamento: Crédito, débito, dinheiro ou pix"
       expect(page).to have_button "Confirmar reserva"
       expect(page).to have_link "Voltar"
@@ -383,12 +383,12 @@ describe "Usuário visita a página de reservas" do
       click_on "Criar conta"
 
       expect(page).to have_content "Finalize sua Reserva!"
-      expect(page).to have_content "Dados da Reserva"
+      expect(page).to have_content "Detalhes da Reserva"
       expect(page).to have_content "Quarto: Oceano"
-      expect(page).to have_content "Data de entrada: #{I18n.l(10.days.from_now.to_date)} a partir das #{inn.check_in_time.strftime("%H:%M")} horas"
-      expect(page).to have_content "Data de saída: #{I18n.l(14.days.from_now.to_date)} até as #{inn.check_out_time.strftime("%H:%M")} horas"
+      expect(page).to have_content "Data de Check-in: #{I18n.l(10.days.from_now.to_date)} a partir das #{inn.check_in_time.strftime("%H:%M")} horas"
+      expect(page).to have_content "Data de Check-out: #{I18n.l(14.days.from_now.to_date)} até as #{inn.check_out_time.strftime("%H:%M")} horas"
       expect(page).to have_content "Número de hóspedes: 2"
-      expect(page).to have_content "Valor da reserva: R$ 800,00"
+      expect(page).to have_content "Valor: R$ 800,00"
       expect(page).to have_content "Métodos de pagamento: Crédito, débito, dinheiro ou pix"
       expect(page).to have_button "Confirmar reserva"
     end

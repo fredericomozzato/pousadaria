@@ -1,10 +1,10 @@
 <%= render partial: "shared/form_errors", locals: { model: @pre_booking } %>
 
-<h1>Detalhes da reserva</h1>
+<h1><%= t "booking_details" %></h1>
 
-<h4>Pousada: <%= @inn.name %></h4>
-<h4>Quarto: <%= @room.name %></h4>
+<h4><%= Inn.model_name.human(count: 1) %>: <%= @inn.name %></h4>
+<h4><%= Room.model_name.human(count: 1) %>: <%= @room.name %></h4>
 
-<%= render partial: "booking_form" %>
+<%= render partial:("booking_form") %>
 
-<%= link_to "Voltar", @room %>
+<%= link_to t("back_link"), @room %>

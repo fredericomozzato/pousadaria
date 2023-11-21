@@ -1,4 +1,4 @@
-<h1>Busca avançada</h1>
+<h1><%= t("advanced_search") %></h1>
 
 <div id="advanced-search-form">
   <%= form_with(url: search_inns_path, method: :get) do |f| %>
@@ -48,7 +48,7 @@
     </div>
     <%= f.hidden_field :advanced, { value: true } %>
     <div>
-      <%= f.submit "Buscar" %>
+      <%= f.submit t("search_button") %>
     </div>
   <% end %>
 </div>

@@ -1,9 +1,9 @@
-<h1>Busca por: <%= params[:query] %></h1>
+<h1><%= t("search_for") %>: <%= params[:query] %></h1>
 
-<p>Resultados: <%= @inns.count %></p>
+<p><%= t("results") %>: <%= @inns.count %></p>
 
 <% if @inns.empty? %>
-  <p>Nenhuma pousada encontrada</p>
+  <p><%= t("no_inn_found") %></p>
 <% else %>
   <ul>
     <li><%= render @inns %></li>
