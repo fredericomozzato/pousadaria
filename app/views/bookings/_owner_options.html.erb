@@ -4,14 +4,14 @@
 
 <% elsif @booking.confirmed? %>
 
-  <%= button_to "REALIZAR CHECK-IN", check_in_room_booking_path(@room) %>
+  <%= button_to "REALIZAR CHECK-IN", check_in_room_booking_path(@room), data: { turbo_confirm: "Confirmar CHECK-IN?" } %>
 
 <% elsif @booking.active? %>
 
   <%= form_with url: check_out_room_booking_path(@room) do |f| %>
     <%= f.label :pay_method, "Método de pagamento" %>
     <%= f.text_field :pay_method %>
-    <%= f.submit "REALIZAR CHECK-OUT" %>
+    <%= f.submit "REALIZAR CHECK-OUT", data: { turbo_confirm: "Confirmar CHECK-OUT?" } %>
   <% end %>
 
 <% end %>
