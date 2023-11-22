@@ -9,6 +9,6 @@
   </div>
 <% elsif @booking.closed? %>
   <div>
-    <%= link_to "Avaliar", new_review_path %>
+    <%= link_to "Avaliar", new_booking_review_path(@booking) %>
   </div>
 <% end %>

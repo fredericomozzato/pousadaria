@@ -1,0 +1,19 @@
+<h1>Avalie sua estadia</h1>
+
+<h2><%= @inn.name %></h2>
+
+<%= form_with model: [@booking, @review] do |f| %>
+  <div>
+    <%= f.label :score, "Nota" %>
+    <%= f.collection_radio_buttons :score, Review.scores, :last, :first %>
+  </div>
+  <div>
+    <%= f.label :message, "Mensagem" %>
+    <%= f.text_area :message %>
+  </div>
+  <div>
+    <%= f.submit "Enviar" %>
+  </div>
+<% end %>
+
+<%= link_to "Voltar", my_bookings_path %>
