@@ -55,7 +55,8 @@ class BookingsController < ApplicationController
   end
 
   def my_bookings
-    @bookings = current_user.bookings
+    @bookings = current_user.bookings.where.not(status: :closed)
+    @closed_bookings = current_user.bookings.where(status: :closed)
   end
 
   def active
@@ -91,7 +92,6 @@ class BookingsController < ApplicationController
   end
 
   def check_out
-    # debugger
     if @booking.active?
       @booking.update(
         check_out: Time.current,

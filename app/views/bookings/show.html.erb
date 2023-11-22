@@ -27,7 +27,7 @@
 
 <section id="booking-options">
   <% if current_user %>
-    <%= render partial: "user_canceling" %>
+    <%= render partial: "user_options" %>
   <% elsif current_owner %>
     <%= render partial: "owner_options" %>
   <% end %>

@@ -22,4 +22,24 @@
   </ul>
 </section>
 
+
+<section id="closed-bookings">
+  <h2><%= t("closed_bookings") %></h2>
+  <ul>
+    <% @closed_bookings.each do |closed_booking| %>
+      <li>
+        <%= link_to closed_booking.code, closed_booking %>
+        <dl>
+          <dt><%= Inn.model_name.human count: 1 %>:</dt>
+          <dd><%= closed_booking.room.inn.name %></dd>
+          <dt><%= Room.model_name.human count: 1 %>:</dt>
+          <dd><%= closed_booking.room.name %></dd>
+          <dt><%= t("booking_period") %>:</dt>
+          <dd><%= I18n.l(closed_booking.start_date) %> - <%= I18n.l(closed_booking.end_date) %></dd>
+        </dl>
+      </li>
+    <% end %>
+  </ul>
+</section>
+
 <%= link_to t("back_to_beginning_link"), root_path %>
