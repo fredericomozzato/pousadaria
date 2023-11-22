@@ -63,6 +63,7 @@ describe "Usuário visita uma pousada" do
     end
 
     expect(current_path).to eq inn_path(first_inn)
+    expect(page).to have_content "Avaliação: Nenhuma avaliação até o momento"
     expect(page).to have_content "Nome: Mar Aberto"
     expect(page).not_to have_content "Razão social: Pousada Mar Aberto/SC"
     expect(page).not_to have_content "CNPJ: 84.485.218/0001-73"
@@ -174,6 +175,6 @@ describe "Usuário visita uma pousada" do
 
     visit inn_path(inn)
 
-    expect(page).to have_content "Avaliação média: 3.3"
+    expect(page).to have_content "Avaliação: 3.3"
   end
 end

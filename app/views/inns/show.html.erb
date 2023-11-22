@@ -1,9 +1,14 @@
 <h1><%= @inn.name %></h1>
-<h3>Avaliação média: <%= @inn.average_score.round(1) %></h3>
 
 <section>
   <div>
     <dl>
+      <dt>Avaliação:</dt>
+      <% if @average_score.nil? %>
+        <dd>Nenhuma avaliação até o momento</dd>
+      <% else %>
+        <dd><%= @average_score %></dd>
+      <% end %>
       <dt><%= Inn.human_attribute_name(:name) %>:</dt>
       <dd><%= @inn.name %></dd>
 

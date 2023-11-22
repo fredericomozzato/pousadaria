@@ -29,6 +29,7 @@ class InnsController < ApplicationController
 
   def show
     @rooms = @inn.rooms.where(active: true)
+    @average_score = @inn.average_score
   end
 
   def edit
