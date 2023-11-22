@@ -54,5 +54,23 @@
     <% end %>
   </div>
 
+  <section id="recent-reviews">
+    <h3>Avaliações recentes</h3>
+    <% @recent_reviews.each do |review| %>
+      <div>
+        <dl>
+          <dt>Hóspede:</dt>
+          <dd><%= review.booking.user.name %></dd>
+          <dt>Nota:</dt>
+          <dd><%= review.score %></dd>
+          <dt>Mensagem:</dt>
+          <dd><%= review.message %></dd>
+          <dt>Resposta do proprietário:</dt>
+          <dd><%= review.answer %></dd>
+        </dl>
+      </div>
+    <% end %>
+  </section>
+
   <%= link_to "Voltar", root_path %>
 </section>
