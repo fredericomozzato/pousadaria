@@ -26,26 +26,34 @@
 </section>
 
 <% if @review %>
-<section id="review">
-  <h3>Avaliação</h3>
-  <dl>
-    <dt>Nota:</dt>
-    <dd><%= @review.score %></dd>
-    <dt>Mensagem:</dt>
-    <dd><%= @review.message %></dd>
-  </dl>
+  <section id="review">
+    <h3>Avaliação</h3>
+    <dl>
+      <dt>Nota:</dt>
+      <dd><%= @review.score %></dd>
+      <dt>Mensagem:</dt>
+      <dd><%= @review.message %></dd>
+    </dl>
 
-  <div id="answer-form">
-    <h3>Deixe uma resposta para a avaliação</h3>
-    <%= form_with(url: root_path) do |f| %>
-      <%= f.label :answer, "Resposta" %>
-      <%= f.text_area :answer %>
-      <%= f.submit "Enviar" %>
+    <% if @review.answer.nil? %>
+      <% if current_user %>
+        <p>Nenhuma resposta</p>
+      <% end %>
+
+      <% if current_owner %>
+        <h4>Deixe uma resposta para a avaliação</h4>
+        <div id="answer-form">
+          <%= form_with(url: answer_booking_review_path(@booking, @review)) do |f| %>
+            <%= f.label :answer, "Resposta" %>
+            <%= f.text_area :answer %>
+            <%= f.submit "Enviar" %>
+          <% end %>
+        </div>
+      <% end %>
+    <% else %>
+      <p>Resposta: <%= @review.answer %></p>
     <% end %>
-  </div>
-
-  <p>Nenhuma resposta</p>
-</section>
+  </section>
 <% end %>
 
 <section id="booking-options">

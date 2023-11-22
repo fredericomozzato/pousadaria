@@ -45,7 +45,9 @@ Rails.application.routes.draw do
   resources :bookings, only: [:index, :show] do
     get "active", on: :collection
 
-    resources :reviews, only: [:new, :create]
+    resources :reviews, only: [:new, :create] do
+      post "answer", on: :member
+    end
   end
 
   resources :seasonal_prices, only: [:show, :edit, :update, :destroy]

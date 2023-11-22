@@ -1,7 +1,7 @@
 class ReviewsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create]
   before_action :authenticate_owner!, only: [:index]
-  before_action :set_booking, only: [:new, :create]
+  before_action :set_booking, only: [:new, :create, :answer]
   before_action :authorize_access, only: [:new, :create]
 
   def index
@@ -25,6 +25,13 @@ class ReviewsController < ApplicationController
       flash.now[:alert] = "Erro ao criar avaliação"
       render "new"
     end
+  end
+
+  def answer
+    review = @booking.review
+    review.update(answer: params[:answer])
+
+    redirect_to @booking, notice: "Resposta salva com sucesso"
   end
 
   private
