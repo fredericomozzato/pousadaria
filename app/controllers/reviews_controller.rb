@@ -1,15 +1,14 @@
 class ReviewsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_booking, only: [:new, :create]
 
   def new
     @review = Review.new
-    @booking = Booking.find(params[:booking_id])
     @room = @booking.room
     @inn = @room.inn
   end
 
   def create
-    @booking = Booking.find(params[:booking_id])
     @review = @booking.build_review(review_params)
 
     if @review.save
@@ -25,5 +24,9 @@ class ReviewsController < ApplicationController
 
   def review_params
     params.require(:review).permit(:score, :message)
+  end
+
+  def set_booking
+    @booking = Booking.find(params[:booking_id])
   end
 end

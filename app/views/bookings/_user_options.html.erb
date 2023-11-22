@@ -7,7 +7,7 @@
   <div>
     <p><%= t("booking_cant_be_canceled") %></p>
   </div>
-<% elsif @booking.closed? %>
+<% elsif @booking.closed? && @review.nil? %>
   <div>
     <%= link_to "Avaliar", new_booking_review_path(@booking) %>
   </div>
