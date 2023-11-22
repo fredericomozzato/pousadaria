@@ -217,7 +217,7 @@ describe "Usuário acessa a página de avaliação" do
     click_on "Enviar"
 
     expect(page).to have_content "Erro ao criar avaliação"
-    expect(page).to have_content "Score não pode ficar em branco"
+    expect(page).to have_content "Nota não pode ficar em branco"
     expect(page).to have_content "Nota"
     expect(page).to have_field "Mensagem", with: "Excelente estadia, muito aconchegante"
     expect(Review.all.count).to eq 0

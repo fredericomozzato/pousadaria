@@ -9,7 +9,6 @@ class ReviewsController < ApplicationController
   end
 
   def create
-    # debugger
     @booking = Booking.find(params[:booking_id])
     @review = @booking.build_review(review_params)
 
