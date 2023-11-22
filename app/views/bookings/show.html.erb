@@ -34,10 +34,19 @@
     <dt>Mensagem:</dt>
     <dd><%= @review.message %></dd>
   </dl>
+
+  <div id="answer-form">
+    <h3>Deixe uma resposta para a avaliação</h3>
+    <%= form_with(url: root_path) do |f| %>
+      <%= f.label :answer, "Resposta" %>
+      <%= f.text_area :answer %>
+      <%= f.submit "Enviar" %>
+    <% end %>
+  </div>
+
   <p>Nenhuma resposta</p>
 </section>
 <% end %>
-
 
 <section id="booking-options">
   <% if current_user %>

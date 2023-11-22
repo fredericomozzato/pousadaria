@@ -14,13 +14,6 @@
           <dt>Mensagem:</dt>
           <dd><%= review.message %></dd>
         </dl>
-        <div class="review-answer">
-          <%= form_with(url: root_path) do |f| %>
-            <%= f.label :answer, "Responder" %>
-            <%= f.text_area :answer %>
-            <%= f.submit "Enviar" %>
-          <% end %>
-        </div>
       </li>
     <% end %>
   </ul>
