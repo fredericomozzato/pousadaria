@@ -145,6 +145,7 @@ describe "Usuário acessa a página de avaliação" do
     click_on "Enviar"
 
     expect(current_path).to eq booking_path(booking)
+    expect(page).to have_content "Avaliação salva com sucesso"
     expect(page).to have_content "Avaliação"
     expect(page).to have_content "Nota: 5"
     expect(page).to have_content "Mensagem: Excelente estadia, muito aconchegante"

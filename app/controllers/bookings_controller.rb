@@ -52,6 +52,7 @@ class BookingsController < ApplicationController
   def show
     @room = @booking.room
     @inn = @room.inn
+    @review = @booking.review
   end
 
   def my_bookings
