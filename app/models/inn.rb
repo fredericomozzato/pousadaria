@@ -43,6 +43,14 @@ class Inn < ApplicationRecord
               }).uniq
   end
 
+  def average_score
+    scores = bookings.map do |booking|
+      booking.review.score
+    end
+
+    scores.sum.to_f / scores.count
+  end
+
   private
 
   def validates_registration_number
