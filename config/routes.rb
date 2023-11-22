@@ -49,4 +49,6 @@ Rails.application.routes.draw do
   end
 
   resources :seasonal_prices, only: [:show, :edit, :update, :destroy]
+
+  resources :reviews, only: [:index]
 end

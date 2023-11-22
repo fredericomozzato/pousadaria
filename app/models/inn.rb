@@ -3,6 +3,7 @@ class Inn < ApplicationRecord
   belongs_to :owner
   has_many :rooms
   has_many :bookings, through: :rooms
+  has_many :reviews, through: :bookings
 
   accepts_nested_attributes_for :address
 

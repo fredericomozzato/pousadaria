@@ -1,7 +1,13 @@
 class ReviewsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: [:new, :create]
+  before_action :authenticate_owner!, only: [:index]
   before_action :set_booking, only: [:new, :create]
   before_action :authorize_access, only: [:new, :create]
+
+  def index
+    @inn = current_owner.inn
+    @reviews = @inn.reviews
+  end
 
   def new
     @review = Review.new

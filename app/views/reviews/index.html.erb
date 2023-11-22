@@ -1,0 +1,29 @@
+<h1><%= Review.model_name.human(count: 2) %> - <%= @inn.name %></h1>
+
+<section id="reviews-list">
+  <ul>
+    <% @reviews.each do |review| %>
+      <li>
+        <dl>
+          <dt>Reserva:</dt>
+          <dd><%= link_to review.booking.code, booking_path(review.booking) %></dd>
+          <dt>Hóspede:</dt>
+          <dd><%= review.booking.user.name %></dd>
+          <dt>Nota:</dt>
+          <dd><%= review.score %></dd>
+          <dt>Mensagem:</dt>
+          <dd><%= review.message %></dd>
+        </dl>
+        <div class="review-answer">
+          <%= form_with(url: root_path) do |f| %>
+            <%= f.label :answer, "Responder" %>
+            <%= f.text_area :answer %>
+            <%= f.submit "Enviar" %>
+          <% end %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</section>
+
+<%= link_to "Voltar", root_path %>

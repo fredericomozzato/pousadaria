@@ -14,7 +14,7 @@
     <%= f.text_area :message %>
   </div>
   <div>
-    <%= f.submit "Enviar" %>
+    <%= f.submit "Enviar", data: { turbo_confirm: "Enviar avaliação?" } %>
   </div>
 <% end %>
 
