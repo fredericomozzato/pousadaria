@@ -14,7 +14,11 @@
           <dt>Mensagem:</dt>
           <dd><%= review.message %></dd>
         </dl>
-        <p>Sem resposta</p>
+        <% if review.answer.nil? %>
+          <p>Sem resposta</p>
+        <% else %>
+          <p>Respondida</p>
+        <% end %>
       </li>
     <% end %>
   </ul>

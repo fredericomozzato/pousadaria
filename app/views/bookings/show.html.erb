@@ -25,35 +25,14 @@
   </dl>
 </section>
 
-<% if @review %>
+<% if @review.present? %>
   <section id="review">
-    <h3>Avaliação</h3>
-    <dl>
-      <dt>Nota:</dt>
-      <dd><%= @review.score %></dd>
-      <dt>Mensagem:</dt>
-      <dd><%= @review.message %></dd>
-    </dl>
-
-    <% if @review.answer.nil? %>
-      <% if current_user %>
-        <p>Nenhuma resposta</p>
-      <% end %>
-
-      <% if current_owner %>
-        <h4>Deixe uma resposta para a avaliação</h4>
-        <div id="answer-form">
-          <%= form_with(url: answer_booking_review_path(@booking, @review)) do |f| %>
-            <%= f.label :answer, "Resposta" %>
-            <%= f.text_area :answer %>
-            <%= f.submit "Enviar" %>
-          <% end %>
-        </div>
-      <% end %>
-    <% else %>
-      <p>Resposta: <%= @review.answer %></p>
-    <% end %>
+    <%= render @review %>
   </section>
+
+  <section id="review-answer">
+    <%= render partial: "reviews/review_answer" %>
+  </section> 
 <% end %>
 
 <section id="booking-options">
