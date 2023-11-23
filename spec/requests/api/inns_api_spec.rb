@@ -536,7 +536,7 @@ RSpec.describe "Inns API", type: :request do
 
       get "/api/v1/inns/#{inn.id}/rooms"
       json_response = JSON.parse(response.body)
-          debugger
+
       expect(response).to have_http_status 200
       expect(response.content_type).to include "application/json"
       expect(json_response.count).to eq 2

@@ -11,21 +11,22 @@ Projeto em desenvolvimento para o curso TreinaDev 11 com Ruby on Rails.
 
 ### Descrição do projeto
 
-*O projeto se chama Pousadaria e a ideia principal é facilitar que as pessoas encontrem quartos aconhegantes em pousadas de todo o país. Para isto, a plataforma vai permitir que donos de pousadas cadastrem seus estabelecimentos e quartos disponíveis e gerenciem suas reservas. Os visitantes do site devem ser capazes de localizar as pousadas, visualizar suas informações e fazer reservas de quartos.*
+*O projeto se chama Pousadaria e a ideia principal é facilitar que as pessoas encontrem quartos aconhegantes em pousadas de todo o país. Para isto, a plataforma vai permitir que donos de pousadas cadastrem seus estabelecimentos, quartos disponíveis e gerenciem suas reservas. Os visitantes do site devem ser capazes de localizar as pousadas, visualizar suas informações e fazer reservas de quartos.*
 
 
 ### Gems externas:
 
-- br_documents [https://github.com/asseinfo/br_documents]
+- [br_documents](https://github.com/asseinfo/br_documents) - Validação de CPF e CNPJ
 
 
 ### Observações de design
 
-- A busca avançada usa o operador AND para encontrar pousadas com quartos que tenham correspondência ***exata*** com os atributos pesquisados.
-- A cobrança de diárias no sistema é por noite na pousada. Ou seja, a data de check-out não conta como uma diária cobrada, a não ser que o hóspede faça check-out *após* o horário limite determiado pela pousada.
-- Em casos de um user/owner tentar acessar uma página a qual não tem autorização, a mensagem de resposta não indica o erro de forma exata, com a intenção de não revelar a usuários não autorizadoas a existência ou não de uma página.
+- A busca avançada usa o operador `AND` para encontrar pousadas com quartos que tenham correspondência ***exata*** com os atributos pesquisados.
+- A cobrança de diárias no sistema é por noite na pousada. Ou seja, a data de *check-out* não conta como uma diária cobrada, a não ser que o hóspede faça *check-out* após o horário limite determiado pela pousada.
+- Em casos onde um user/owner tenta acessar uma página a qual não tem autorização, a mensagem de resposta é pouco explícita com a intenção de não revelar a usuários não autorizados a existência ou não de uma página.
 
----
+
+
 
 ## API
 
