@@ -15,11 +15,12 @@ pt-BR:
         code: "Código"
         status: "Status"
         payment_method: "Forma de pagamento"
+        room: Quarto
     errors:
       models:
         booking:
           attributes:
-            start_date:
+            date_conflict:
               format: "%{message}"
 
   # error messages

@@ -1,6 +1,7 @@
 class Api::V1::ApiController < ActionController::API
   rescue_from ActiveRecord::ActiveRecordError, with: :return_500
   rescue_from ActiveRecord::RecordNotFound, with: :return_404
+  rescue_from NoMethodError, with: :return_404
 
   protected
 
@@ -16,5 +17,9 @@ class Api::V1::ApiController < ActionController::API
 
   def return_500
     head 500
+  end
+
+  def return_400
+    head 400
   end
 end

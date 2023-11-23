@@ -577,7 +577,7 @@ RSpec.describe "Inns API", type: :request do
       expect(response.body).not_to include inactive_room.name
     end
 
-    it "retorna 404 caso pousada não exista ou esteja inativa" do
+    it "retorna 404 NOT FOUND se pousada não existe ou está inativa" do
       get "/api/v1/inns/99/rooms"
 
       expect(response).to have_http_status 404
@@ -587,7 +587,7 @@ RSpec.describe "Inns API", type: :request do
   end
 
   context "GET /api/v1/bookings/pre-booking" do
-    it "retorna valor da reserva se período está disponível" do
+    it "retorna valor da reserva se período disponível" do
       owner = Owner.create!(email: "dono_1@email.com", password: "123456")
       inn = Inn.create!(
         name: "Mar Aberto",
@@ -639,7 +639,7 @@ RSpec.describe "Inns API", type: :request do
       expect(json_response["valor"]).to eq "800.0"
     end
 
-    it "retorna 409 CONFLICT e mensagens de erro se período indisponível" do
+    it "retorna 409 CONFLICT se período indisponível" do
       owner = Owner.create!(email: "dono_1@email.com", password: "123456")
       inn = Inn.create!(
         name: "Mar Aberto",
@@ -703,6 +703,67 @@ RSpec.describe "Inns API", type: :request do
       expect(response.content_type).to include "application/json"
       expect(json_response["erro"]).to include "Já existe uma reserva para este quarto no período selecionado"
       expect(json_response["erro"]).to include "Número de hóspedes maior que o permitido para o quarto"
+    end
+
+    it "retorna 404 NOT FOUND se quarto não existe" do
+      params = {
+        room_id: 99,
+        start_date: 1.day.from_now,
+        end_date: 5.days.from_now,
+        number_of_guests: 2
+      }
+
+      get "/api/v1/bookings/pre-booking", params: params
+
+      expect(response).to have_http_status 404
+    end
+
+    it "retorna 409 CONFLICT se quarto está inativo" do
+      owner = Owner.create!(email: "dono_1@email.com", password: "123456")
+      inn = Inn.create!(
+        name: "Mar Aberto",
+        corporate_name: "Pousada Mar Aberto/SC",
+        registration_number: "84.485.218/0001-73",
+        phone: "4899999-9999",
+        email: "pousadamaraberto@hotmail.com",
+        description: "Pousada na beira do mar com suítes e café da manhã incluso.",
+        pay_methods: "Crédito, débito, dinheiro ou pix",
+        pet_friendly: true,
+        user_policies: "A pousada conta com lei do silêncio das 22h às 8h",
+        check_in_time: Time.new(2000, 1, 1, 9, 0, 0, "UTC"),
+        check_out_time: Time.new(2000, 1, 1, 15, 30, 0, "UTC"),
+        owner: owner
+      )
+      Address.create!(
+        street: "Rua das Flores",
+        number: 300,
+        neighborhood: "Canasvieiras",
+        city: "Florianópolis",
+        state: "SC",
+        postal_code: "88000-000",
+        inn: inn
+      )
+      room = Room.create!(
+        name: "Atlântico",
+        description: "Quarto com vista para o mar",
+        size: 30,
+        max_guests: 2,
+        price: 200.00,
+        inn: inn,
+        active: false
+      )
+      params = {
+        room_id: room.id,
+        start_date: 1.day.from_now,
+        end_date: 5.days.from_now,
+        number_of_guests: 2
+      }
+
+      get "/api/v1/bookings/pre-booking", params: params
+      json_response = JSON.parse(response.body)
+
+      expect(response).to have_http_status 409
+      expect(json_response["erro"]).to include "Quarto indisponível"
     end
   end
 end
