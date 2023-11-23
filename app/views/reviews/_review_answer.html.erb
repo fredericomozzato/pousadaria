@@ -1,7 +1,7 @@
 <% if @review.answer.present? %>
-  <p>Resposta: <%= @review.answer %></p>
+  <p><%= Review.human_attribute_name(:answer) %>: <%= @review.answer %></p>
 <% elsif current_user %>
-  <p>Nenhuma resposta</p>
+  <p><%= t("no_answers") %></p>
 <% elsif current_owner %>
   <%= render partial: "reviews/review_answer_form" %>
 <% end %>

@@ -9,3 +9,12 @@ pt-BR:
         score: "Nota"
         message: "Mensagem"
         answer: "Resposta"
+
+  owner_answer: "Resposta do proprietário"
+  no_answers: "Nenhuma resposta"
+  no_reviews: "Nenhuma avaliação até o momento"
+  recent_reviews: "Avaliações recentes"
+  view_all_reviews: "Ver todas as avaliações"
+  leave_an_answer: "Deixe uma resposta para a avaliação"
+  review_your_stay: "Avalie sua estadia"
+  confirm_review: "Enviar avaliação?"

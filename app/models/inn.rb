@@ -44,13 +44,6 @@ class Inn < ApplicationRecord
   end
 
   def average_score
-    # return nil if bookings.empty?
-
-    # scores = bookings.map { |booking| booking.review&.score }.compact
-
-    # return nil if scores.empty?
-    # scores.sum.to_f / scores.count
-
     bookings.joins(:review).average("score")
   end
 
