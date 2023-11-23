@@ -33,9 +33,28 @@ Lista dos endpoints expostos pela API v1
 - ### `GET /api/v1/inns`
   Retorna listagem de pousadas ativas na plataforma. O detalhes incluem todos os atributos da pousada *exceto* CNPJ (`registration_number`), razão social (`corporate_name`) e ativa (`active`), já que uma pousada na lista pode ser considerada ativa implicitamente.
 
-  Aceita parâmetro `name` na URL para pesquisar pousadas por nome. A pesquisa é feita usando o operador `LIKE`, retornando todas as pousadas em que o nome contém o parâmetro, seja um match exato ou parcial.
+  #### Ex.:
+
+  `{ TODO }`
+
+  Aceita parâmetro `name` na URL para pesquisar pousadas por nome. A pesquisa é feita usando o operador `LIKE`, retornando todas as pousadas em que o nome contém o parâmetro, seja um match exato ou parcial. **Retorna um array mesmo se apenas um resultado for encontrado**.
 
   #### `GET /api/v1/inns?name=foo`
 
+  #### Ex.:
 
+  `[{ TODO }]`
+
+- ### `GET /api/v1/inns/:id`
+  Retorna detalhes de uma pousada por ID seguindo o mesmo padrão da listagem. Nesse caso retorna somente um objeto.
+
+  #### Ex.:
+
+  `{ TODO }`
+
+  **Retorna apenas pousadas ativas na plataforma**. No caso de uma requisição para um ID não existente ou para um ID de uma pousada marcada como inativa, retorna `404`.
+
+  #### Ex.:
+
+  `{"erro": "Pousada não encontrada"}`
 
