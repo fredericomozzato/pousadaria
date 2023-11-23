@@ -15,10 +15,16 @@ pt-BR:
         code: "Código"
         status: "Status"
         payment_method: "Forma de pagamento"
+    errors:
+      models:
+        booking:
+          attributes:
+            start_date:
+              format: "%{message}"
 
   # error messages
   date_conflict: "Já existe uma reserva para este quarto no período selecionado"
-  too_many_guests: "Número de hóspedes maior que o permitido para o quarto"
+  too_many_guests: "maior que o permitido para o quarto"
 
   # booking status
   confirmed: "Confirmada"
