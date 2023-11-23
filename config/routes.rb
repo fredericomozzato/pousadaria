@@ -55,4 +55,10 @@ Rails.application.routes.draw do
   resources :seasonal_prices, only: [:show, :edit, :update, :destroy]
 
   resources :reviews, only: [:index]
+
+  namespace :api do
+    namespace :v1 do
+      resources :inns, only: [:index]
+    end
+  end
 end

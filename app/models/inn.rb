@@ -44,7 +44,15 @@ class Inn < ApplicationRecord
   end
 
   def average_score
-    bookings.joins(:review).average("score")
+    bookings.joins(:review).average("score")&.round(1) || ""
+  end
+
+  def formatted_check_in_time
+    check_in_time.strftime("%H:%M")
+  end
+
+  def formatted_check_out_time
+    check_out_time.strftime("%H:%M")
   end
 
   private

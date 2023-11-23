@@ -1667,7 +1667,7 @@ RSpec.describe Inn, type: :model do
   end
 
   describe "#average_score" do
-    it "retorna nil se não existem quartos" do
+    it "retorna string vazia se não existem quartos" do
       owner = Owner.create!(email: "dono_1@email.com", password: "123456")
       inn = Inn.create!(
         name: "Mar Aberto",
@@ -1693,7 +1693,7 @@ RSpec.describe Inn, type: :model do
         inn: inn
       )
 
-      expect(inn.average_score).to be_nil
+      expect(inn.average_score).to be_empty
     end
 
     it "retorna nil se não existem reservas" do
@@ -1730,7 +1730,7 @@ RSpec.describe Inn, type: :model do
         inn: inn
       )
 
-      expect(inn.average_score).to be_nil
+      expect(inn.average_score).to be_empty
     end
 
     it "retorna nil se não existem avaliações" do
@@ -1781,7 +1781,7 @@ RSpec.describe Inn, type: :model do
         status: :closed
       )
 
-      expect(inn.average_score).to be_nil
+      expect(inn.average_score).to be_empty
     end
 
     it "retorna a média das avaliações" do

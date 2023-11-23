@@ -4,10 +4,10 @@
   <div>
     <dl>
       <dt><%= Review.model_name.human(count: 1) %>:</dt>
-      <% if @average_score.nil? %>
+      <% if @average_score.blank? %>
         <dd><%= t("no_reviews") %></dd>
       <% else %>
-        <dd><%= @average_score.round(1) %></dd>
+        <dd><%= @average_score %></dd>
       <% end %>
       <dt><%= Inn.human_attribute_name(:name) %>:</dt>
       <dd><%= @inn.name %></dd>
