@@ -362,11 +362,10 @@ RSpec.describe "Inns API", type: :request do
 
     it "retorna 404 se id não existe" do
       get "/api/v1/inns/1"
-      json_response = JSON.parse(response.body)
 
       expect(response).to have_http_status 404
       expect(response.content_type).to include "application/json"
-      expect(json_response["erro"]).to eq "Pousada não encontrada"
+      expect(response.body).to include "Pousada não encontrada"
     end
 
     it "retorna 404 se pousada está inativa" do
@@ -434,6 +433,156 @@ RSpec.describe "Inns API", type: :request do
       get "/api/v1/inns/#{inn.id}"
 
       expect(response).to have_http_status 500
+    end
+  end
+
+  context "GET /api/v1/inn/:inns_id/rooms" do
+    it "retorna lista vazia e status 200 se não existem quartos" do
+      owner = Owner.create!(email: "dono_1@email.com", password: "123456")
+      inn = Inn.create!(
+        name: "Mar Aberto",
+        corporate_name: "Pousada Mar Aberto/SC",
+        registration_number: "84.485.218/0001-73",
+        phone: "4899999-9999",
+        email: "pousadamaraberto@hotmail.com",
+        description: "Pousada na beira do mar com suítes e café da manhã incluso.",
+        pay_methods: "Crédito, débito, dinheiro ou pix",
+        pet_friendly: true,
+        user_policies: "A pousada conta com lei do silêncio das 22h às 8h",
+        check_in_time: Time.new(2000, 1, 1, 9, 0, 0, "UTC"),
+        check_out_time: Time.new(2000, 1, 1, 15, 30, 0, "UTC"),
+        owner: owner
+      )
+      Address.create!(
+        street: "Rua das Flores",
+        number: 300,
+        neighborhood: "Canasvieiras",
+        city: "Florianópolis",
+        state: "SC",
+        postal_code: "88000-000",
+        inn: inn
+      )
+
+      get "/api/v1/inns/#{inn.id}/rooms"
+      json_response = JSON.parse(response.body)
+
+      expect(response).to have_http_status 200
+      expect(response.content_type).to include "application/json"
+      expect(json_response).to be_empty
+    end
+
+    it "retorna lista com todos os quartos ativos de uma pousada" do
+      owner = Owner.create!(email: "dono_1@email.com", password: "123456")
+      inn = Inn.create!(
+        name: "Mar Aberto",
+        corporate_name: "Pousada Mar Aberto/SC",
+        registration_number: "84.485.218/0001-73",
+        phone: "4899999-9999",
+        email: "pousadamaraberto@hotmail.com",
+        description: "Pousada na beira do mar com suítes e café da manhã incluso.",
+        pay_methods: "Crédito, débito, dinheiro ou pix",
+        pet_friendly: true,
+        user_policies: "A pousada conta com lei do silêncio das 22h às 8h",
+        check_in_time: Time.new(2000, 1, 1, 9, 0, 0, "UTC"),
+        check_out_time: Time.new(2000, 1, 1, 15, 30, 0, "UTC"),
+        owner: owner
+      )
+      Address.create!(
+        street: "Rua das Flores",
+        number: 300,
+        neighborhood: "Canasvieiras",
+        city: "Florianópolis",
+        state: "SC",
+        postal_code: "88000-000",
+        inn: inn
+      )
+      room_1 = Room.create!(
+        name: "Atlântico",
+        description: "Quarto com vista para o mar",
+        size: 30,
+        max_guests: 2,
+        price: 200.00,
+        inn: inn,
+        bathroom: true,
+        wifi: true,
+        wardrobe: true,
+        accessibility: true
+      )
+      room_2 = Room.create!(
+        name: "Pacífico",
+        description: "Quarto com vista para o mar",
+        size: 50,
+        max_guests: 4,
+        price: 350.00,
+        inn: inn,
+        bathroom: true,
+        wifi: true,
+        wardrobe: true,
+        accessibility: true
+      )
+      inactive_room = Room.create!(
+        name: "Índico",
+        description: "Quarto com vista para o mar",
+        size: 40,
+        max_guests: 3,
+        price: 250.00,
+        inn: inn,
+        bathroom: true,
+        wifi: true,
+        wardrobe: true,
+        accessibility: true,
+        active: false
+      )
+
+      get "/api/v1/inns/#{inn.id}/rooms"
+      json_response = JSON.parse(response.body)
+
+      expect(response).to have_http_status 200
+      expect(response.content_type).to include "application/json"
+      expect(json_response.count).to eq 2
+      expect(json_response.first["id"]).to eq room_1.id
+      expect(json_response.first["name"]).to eq room_1.name
+      expect(json_response.first["description"]).to eq room_1.description
+      expect(json_response.first["size"]).to eq room_1.size
+      expect(json_response.first["max_guests"]).to eq room_1.max_guests
+      expect(json_response.first["price"]).to eq room_1.price.to_s
+      expect(json_response.first["bathroom"]).to eq room_1.bathroom
+      expect(json_response.first["porch"]).to eq room_1.porch
+      expect(json_response.first["air_conditioner"]).to eq room_1.air_conditioner
+      expect(json_response.first["tv"]).to eq room_1.tv
+      expect(json_response.first["wardrobe"]).to eq room_1.wardrobe
+      expect(json_response.first["safe"]).to eq room_1.safe
+      expect(json_response.first["wifi"]).to eq room_1.wifi
+      expect(json_response.first["accessibility"]).to eq room_1.accessibility
+      expect(json_response.first).not_to include room_1.created_at
+      expect(json_response.first).not_to include room_1.updated_at
+      expect(json_response.first).not_to include room_1.inn_id
+      expect(json_response.second["id"]).to eq room_2.id
+      expect(json_response.second["name"]).to eq room_2.name
+      expect(json_response.second["description"]).to eq room_2.description
+      expect(json_response.second["size"]).to eq room_2.size
+      expect(json_response.second["max_guests"]).to eq room_2.max_guests
+      expect(json_response.second["price"]).to eq room_2.price.to_s
+      expect(json_response.second["bathroom"]).to eq room_2.bathroom
+      expect(json_response.second["porch"]).to eq room_2.porch
+      expect(json_response.second["air_conditioner"]).to eq room_2.air_conditioner
+      expect(json_response.second["tv"]).to eq room_2.tv
+      expect(json_response.second["wardrobe"]).to eq room_2.wardrobe
+      expect(json_response.second["safe"]).to eq room_2.safe
+      expect(json_response.second["wifi"]).to eq room_2.wifi
+      expect(json_response.second["accessibility"]).to eq room_2.accessibility
+      expect(json_response.second).not_to include room_2.created_at
+      expect(json_response.second).not_to include room_2.updated_at
+      expect(json_response.second).not_to include room_2.inn_id
+      expect(response.body).not_to include inactive_room.name
+    end
+
+    it "retorna 404 caso pousada não exista ou esteja inativa" do
+      get "/api/v1/inns/99/rooms"
+
+      expect(response).to have_http_status 404
+      expect(response.content_type).to include "application/json"
+      expect(response.body).to include "Pousada não encontrada"
     end
   end
 end

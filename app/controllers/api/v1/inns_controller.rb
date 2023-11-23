@@ -1,6 +1,8 @@
 class Api::V1::InnsController < Api::V1::ApiController
   def index
-    inns = Inn.joins(:address).where(active: true).where("name LIKE ?", "%#{params[:name]}%")
+    inns = Inn.joins(:address)
+              .where(active: true)
+              .where("name LIKE ?", "%#{params[:name]}%")
 
     render status: 200, json: inns.as_json(
       except: inn_filtered_attributes,
@@ -12,7 +14,8 @@ class Api::V1::InnsController < Api::V1::ApiController
   def show
     inn = Inn.find_by(id: params[:id], active: true)
 
-    return render status: 404, json: {"erro": "Pousada não encontrada"} if inn.nil?
+    return inn_not_found if inn.nil?
+
     render status: 200, json: inn.as_json(
       except: inn_filtered_attributes,
       methods: json_method_calls,

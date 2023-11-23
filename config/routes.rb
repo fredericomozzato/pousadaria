@@ -58,7 +58,9 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :inns, only: [:index, :show]
+      resources :inns, only: [:index, :show] do
+        resources :rooms, only: [:index]
+      end
     end
   end
 end
