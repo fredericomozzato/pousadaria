@@ -25,6 +25,7 @@ Projeto em desenvolvimento para o curso TreinaDev 11 com Ruby on Rails.
 - A cobrança de diárias no sistema é por noite na pousada. Ou seja, a data de check-out não conta como uma diária cobrada, a não ser que o hóspede faça check-out *após* o horário limite determiado pela pousada.
 - Em casos de um user/owner tentar acessar uma página a qual não tem autorização, a mensagem de resposta não indica o erro de forma exata, com a intenção de não revelar a usuários não autorizadoas a existência ou não de uma página.
 
+---
 
 ## API
 
@@ -45,6 +46,8 @@ Lista dos endpoints expostos pela API v1
 
   `[{ TODO }]`
 
+  ---
+
 - ### `GET /api/v1/inns/:id`
   Retorna detalhes de uma pousada por ID seguindo o mesmo padrão da listagem. Nesse caso retorna somente um objeto.
 
@@ -58,3 +61,20 @@ Lista dos endpoints expostos pela API v1
 
   `{"erro": "Pousada não encontrada"}`
 
+  ---
+
+  ### `GET /api/v1/inns/:inn_id/rooms`
+
+  Retorna lista de quartos para uma pousada ativa. Sempre retorna um array, mesmo quando apenas um resultado é encontrado.
+
+  #### Ex.:
+
+  `{ TODO }`
+
+  Em casos onde a pousada não exista ou está inativa, retorna `404`
+
+  #### Ex.:
+
+  `{"erro": "Pousada não encontrada"}`
+
+  ---
