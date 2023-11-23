@@ -536,7 +536,7 @@ RSpec.describe "Inns API", type: :request do
 
       get "/api/v1/inns/#{inn.id}/rooms"
       json_response = JSON.parse(response.body)
-
+          debugger
       expect(response).to have_http_status 200
       expect(response.content_type).to include "application/json"
       expect(json_response.count).to eq 2
@@ -636,7 +636,7 @@ RSpec.describe "Inns API", type: :request do
 
       expect(response).to have_http_status 200
       expect(response.content_type).to include "application/json"
-      expect(json_response["valor"]).to eq "800.0"
+      expect(json_response["valor"]).to eq 800.0
     end
 
     it "retorna 409 CONFLICT se período indisponível" do

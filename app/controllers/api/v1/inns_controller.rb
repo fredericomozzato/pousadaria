@@ -35,12 +35,14 @@ class Api::V1::InnsController < Api::V1::ApiController
       :registration_number,
       :active, :created_at,
       :updated_at,
-      :owner_id
+      :owner_id,
+      :check_in_time,
+      :check_out_time
     ]
   end
 
   def address_filtered_attributes
-    [:created_at, :updated_at, :inn_id]
+    [:created_at, :updated_at, :inn_id, :states]
   end
 
   def json_method_calls

@@ -3,7 +3,7 @@ class Api::V1::BookingsController < Api::V1::ApiController
     pre_booking = Booking.new(pre_booking_params)
 
     if pre_booking.valid?
-      render status: 200, json: {"valor": pre_booking.calculate_bill}
+      render status: 200, json: {"valor": pre_booking.calculate_bill.to_f}
     else
       render status: 409, json: {"erro": pre_booking.errors.full_messages}
     end
