@@ -1,6 +1,7 @@
 class Booking < ApplicationRecord
   belongs_to :room
   belongs_to :user, optional: true
+  has_one :review
 
   validates :start_date, :end_date, :number_of_guests, presence: true
   validates :number_of_guests, numericality: {greater_than: 0}

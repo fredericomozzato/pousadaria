@@ -27,6 +27,8 @@ Rails.application.routes.draw do
     get "search", on: :collection
     get "city_search", on: :collection
     get "advanced_search", on: :collection
+
+    resources :reviews, only: [:index]
   end
 
   resources :rooms, only: [:index, :new, :create, :show, :edit, :update] do
@@ -44,7 +46,13 @@ Rails.application.routes.draw do
 
   resources :bookings, only: [:index, :show] do
     get "active", on: :collection
+
+    resources :reviews, only: [:new, :create] do
+      post "answer", on: :member
+    end
   end
 
   resources :seasonal_prices, only: [:show, :edit, :update, :destroy]
+
+  resources :reviews, only: [:index]
 end

@@ -28,5 +28,4 @@ pt-BR:
   inn_status_text: "Status na plataforma"
   inn_registration: "Cadastro de Pousada"
   my_inn: "Minha Pousada"
-
-  # buttons
+  closed_bookings: "Reservas finalizadas"

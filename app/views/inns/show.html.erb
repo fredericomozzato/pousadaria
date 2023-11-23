@@ -3,6 +3,12 @@
 <section>
   <div>
     <dl>
+      <dt><%= Review.model_name.human(count: 1) %>:</dt>
+      <% if @average_score.nil? %>
+        <dd><%= t("no_reviews") %></dd>
+      <% else %>
+        <dd><%= @average_score.round(1) %></dd>
+      <% end %>
       <dt><%= Inn.human_attribute_name(:name) %>:</dt>
       <dd><%= @inn.name %></dd>
 
@@ -48,5 +54,17 @@
     <% end %>
   </div>
 
-  <%= link_to "Voltar", root_path %>
+  <section id="recent-reviews">
+    <h3><%= t("recent_reviews") %></h3>
+    <% @recent_reviews.each do |review| %>
+      <div>
+        <%= render review %>
+      </div>
+    <% end %>
+    <div>
+      <%= link_to t("view_all_reviews"), inn_reviews_path(@inn) %>
+    </div>
+  </section>
+
+  <%= link_to t("back_link"), root_path %>
 </section>

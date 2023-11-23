@@ -7,6 +7,7 @@
     <li><%= link_to t("my_inn"), my_inn_path %></li>
     <li><%= link_to Booking.model_name.human(count: 2), bookings_path %></li>
     <li><%= link_to t("active_bookings"), active_bookings_path %></li>
+    <li><%= link_to Review.model_name.human(count: 2), reviews_path %></li>
     <li><%= current_owner.email %></li>
     <li><%= button_to t("exit"), destroy_owner_session_path, method: :delete %></li>
 

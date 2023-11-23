@@ -25,9 +25,25 @@
   </dl>
 </section>
 
+<% if @review.present? %>
+  <section id="review">
+    <h3>Avaliação</h3>
+    <dl>
+      <dt>Nota:</dt>
+      <dd><%= @review.score %></dd>
+      <dt>Mensagem:</dt>
+      <dd><%= @review.message %></dd>
+    </dl>
+  </section>
+
+  <section id="review-answer">
+    <%= render partial: "reviews/review_answer" %>
+  </section> 
+<% end %>
+
 <section id="booking-options">
   <% if current_user %>
-    <%= render partial: "user_canceling" %>
+    <%= render partial: "user_options" %>
   <% elsif current_owner %>
     <%= render partial: "owner_options" %>
   <% end %>

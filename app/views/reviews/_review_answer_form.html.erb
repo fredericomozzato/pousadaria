@@ -1,0 +1,9 @@
+<div id="answer-form">
+  <h4><%= t("leave_an_answer") %></h4>
+  
+  <%= form_with(url: answer_booking_review_path(@booking, @review)) do |f| %>
+    <%= f.label :answer, Review.human_attribute_name(:answer) %>
+    <%= f.text_area :answer %>
+    <%= f.submit t("send_button") %>
+  <% end %>
+</div>

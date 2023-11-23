@@ -1,0 +1,21 @@
+<%= render partial: "shared/form_errors", locals: { model: @review } %>
+
+<h1><%= t("review_your_stay") %></h1>
+
+<h2><%= @inn.name %></h2>
+
+<%= form_with model: [@booking, @review] do |f| %>
+  <div>
+    <%= f.label :score, Review.human_attribute_name(:score) %>
+    <%= f.collection_radio_buttons :score, Review.scores, :last, :first %>
+  </div>
+  <div>
+    <%= f.label :message, Review.human_attribute_name(:message) %>
+    <%= f.text_area :message %>
+  </div>
+  <div>
+    <%= f.submit t("send_button"), data: { turbo_confirm: t("confirm_review") } %>
+  </div>
+<% end %>
+
+<%= link_to t("back_link"), my_bookings_path %>

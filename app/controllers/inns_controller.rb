@@ -29,6 +29,8 @@ class InnsController < ApplicationController
 
   def show
     @rooms = @inn.rooms.where(active: true)
+    @average_score = @inn.average_score
+    @recent_reviews = @inn.reviews.order(created_at: :desc).limit(3)
   end
 
   def edit

@@ -1,0 +1,10 @@
+<dl>
+  <dt><%= User.model_name.human(count: 1) %>:</dt>
+  <dd><%= review.booking.user.name %></dd>
+  <dt><%= Review.human_attribute_name(:score) %>:</dt>
+  <dd><%= review.score %></dd>
+  <dt><%= Review.human_attribute_name(:message) %>:</dt>
+  <dd><%= review.message %></dd>
+  <dt><%= t("owner_answer") %>:</dt>
+  <dd><%= review.answer %></dd>
+</dl>

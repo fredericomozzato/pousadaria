@@ -435,7 +435,7 @@ booking_4 = Booking.create!(
 booking_5 = Booking.create!(
   room: inn_3_room_1,
   user: user_1,
-  start_date: Date.today,
+  start_date: 1.week.from_now,
   end_date: 2.weeks.from_now,
   number_of_guests: 2,
   status: :active

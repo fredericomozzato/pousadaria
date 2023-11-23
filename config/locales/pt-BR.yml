@@ -14,6 +14,7 @@ pt-BR:
   new_inns: "Novidades"
   search_button: "Buscar"
   search_bar_placeholder: "Nome, cidade ou bairro"
+  send_button: "Enviar"
 
   activerecord:
     errors:
