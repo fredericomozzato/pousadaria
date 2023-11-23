@@ -7,7 +7,7 @@ class Booking < ApplicationRecord
   validates :number_of_guests, numericality: {greater_than: 0}
   validates :code, uniqueness: true
 
-  validate :past_dates, :date_conflict, :too_many_guests, on: :create
+  validate :past_dates, :date_conflict, :too_many_guests, :active_room, on: :create
 
   before_validation :generate_code, on: :create
 
@@ -56,7 +56,7 @@ class Booking < ApplicationRecord
       (start_date..end_date).overlaps?(booking.start_date..booking.end_date)
     end
 
-    errors.add(:start_date, I18n.t("date_conflict")) if conflict
+    errors.add(:date_conflict, I18n.t("date_conflict")) if conflict
   end
 
   def too_many_guests
@@ -68,9 +68,15 @@ class Booking < ApplicationRecord
   def past_dates
     return if start_date.nil? || end_date.nil?
 
-    errors.add(:start_date, "Data de Check-in não pode ser no passado") if start_date < Date.today
-    errors.add(:end_date, "Data de Check-out não pode ser no passado") if end_date < Date.today
-    errors.add(:end_date, "Data de Check-out não pode ser antes da Data de Check-in") if end_date < start_date
+    errors.add(:start_date, I18n.t("cant_be_past")) if start_date < Date.today
+    errors.add(:end_date, I18n.t("cant_be_past")) if end_date < Date.today
+    errors.add(:end_date, I18n.t("cant_be_before_checkin")) if end_date < start_date
+  end
+
+  def active_room
+    room = Room.find_by(id: room_id)
+
+    errors.add(:room, I18n.t("room_unavailable")) unless room&.active?
   end
 
   def generate_code

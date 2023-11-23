@@ -213,7 +213,7 @@ RSpec.describe Booking, type: :model do
       )
 
       expect(new_booking.valid?).to eq false
-      expect(new_booking.errors.include?(:start_date)).to be true
+      expect(new_booking.errors.include?(:date_conflict)).to be true
     end
 
     it "válido se reserva não conflita com outra reserva" do
