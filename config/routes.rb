@@ -61,6 +61,10 @@ Rails.application.routes.draw do
       resources :inns, only: [:index, :show] do
         resources :rooms, only: [:index]
       end
+
+      resources :bookings, only: [] do
+        get "pre-booking", on: :collection
+      end
     end
   end
 end

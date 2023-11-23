@@ -23,6 +23,10 @@ class Api::V1::InnsController < Api::V1::ApiController
     )
   end
 
+  def availability
+
+  end
+
   private
 
   def inn_filtered_attributes
