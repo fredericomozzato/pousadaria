@@ -26,6 +26,9 @@ pt-BR:
   # error messages
   date_conflict: "Já existe uma reserva para este quarto no período selecionado"
   too_many_guests: "maior que o permitido para o quarto"
+  cant_be_past: "não pode ser no passado"
+  cant_be_before_checkin: "não pode ser antes da Data de Check-in"
+  room_unavailable: "indisponível"
 
   # booking status
   confirmed: "Confirmada"
