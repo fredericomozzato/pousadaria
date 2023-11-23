@@ -1,11 +1,10 @@
 class ReviewsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create]
-  before_action :authenticate_owner!, only: [:index]
   before_action :set_booking, only: [:new, :create, :answer]
+  before_action :set_inn, only: [:index]
   before_action :authorize_access, only: [:new, :create]
 
   def index
-    @inn = current_owner.inn
     @reviews = @inn.reviews
   end
 
@@ -42,6 +41,14 @@ class ReviewsController < ApplicationController
 
   def set_booking
     @booking = Booking.find(params[:booking_id])
+  end
+
+  def set_inn
+    if owner_signed_in?
+      @inn = current_owner.inn
+    else
+      @inn = Inn.find_by(params[:inn_id])
+    end
   end
 
   def authorize_access

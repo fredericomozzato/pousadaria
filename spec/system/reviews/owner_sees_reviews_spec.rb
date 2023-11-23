@@ -69,7 +69,7 @@ describe "Proprietário acessa página de avaliações de sua pousada" do
       expect(page).to have_content "Hóspede: João Silva"
       expect(page).to have_content "Nota: 5"
       expect(page).to have_content "Mensagem: Ótima pousada"
-      expect(page).to have_content "Sem resposta"
+      expect(page).to have_content "Resposta do proprietário:"
     end
     expect(page).to have_link "Voltar"
   end

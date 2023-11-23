@@ -5,20 +5,19 @@
     <% @reviews.each do |review| %>
       <li>
         <dl>
-          <dt>Reserva:</dt>
-          <dd><%= link_to review.booking.code, booking_path(review.booking) %></dd>
+          <% if current_owner %>
+            <dt>Reserva:</dt>
+            <dd><%= link_to review.booking.code, booking_path(review.booking) %></dd>
+          <% end %>
           <dt>Hóspede:</dt>
           <dd><%= review.booking.user.name %></dd>
           <dt>Nota:</dt>
           <dd><%= review.score %></dd>
           <dt>Mensagem:</dt>
           <dd><%= review.message %></dd>
+          <dt>Resposta do proprietário:</dt>
+          <dd><%= review.answer %></dd>
         </dl>
-        <% if review.answer.nil? %>
-          <p>Sem resposta</p>
-        <% else %>
-          <p>Respondida</p>
-        <% end %>
       </li>
     <% end %>
   </ul>
