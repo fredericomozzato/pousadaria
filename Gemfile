@@ -53,9 +53,15 @@ gem "devise"
 # br_documents to validate CPF/CNPJ [https://github.com/asseinfo/br_documents]
 gem "br_documents"
 
+gem "rack-cors"
+
 group :development, :test do
-  # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
-  gem "debug", platforms: %i[ mri mingw x64_mingw ]
+# See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
+gem "debug", platforms: %i[ mri mingw x64_mingw ]
+
+
+
+
 end
 
 group :development do
