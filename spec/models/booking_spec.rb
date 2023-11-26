@@ -597,7 +597,7 @@ RSpec.describe Booking, type: :model do
     end
 
     it "com late check-out" do
-      travel_to Time.now.beginning_of_day + 12.hours
+      travel_to Time.now.midday
       owner = Owner.create!(email: "dono_1@email.com", password: "123456")
       inn = Inn.create!(
         name: "Mar Aberto",
@@ -657,7 +657,7 @@ RSpec.describe Booking, type: :model do
     end
 
     it "valor proporcional em caso de early check-out sem diária adicional" do
-      travel_to Time.now.beginning_of_day + 12.hours
+      travel_to Time.now.midday
       owner = Owner.create!(
         email: "owner@email.com",
         password: "123456"
@@ -715,7 +715,7 @@ RSpec.describe Booking, type: :model do
     end
 
     it "valor proporcional em caso de early check-out com diária adicional" do
-      travel_to Time.now.beginning_of_day + 12.hours
+      travel_to Time.now.midday
       owner = Owner.create!(
         email: "owner@email.com",
         password: "123456"
@@ -771,6 +771,7 @@ RSpec.describe Booking, type: :model do
     end
 
     it "com preço sazonal e early check-out sem diária adicional" do
+      travel_to Time.now.midday
       owner = Owner.create!(
         email: "owner@email.com",
         password: "123456"
@@ -829,9 +830,11 @@ RSpec.describe Booking, type: :model do
       booking.check_out = 3.days.from_now.change(hour:11, min: 59)
 
       expect(booking.calculate_bill).to eq 250.00
+      travel_back
     end
 
     it "com preço sazonal e early check-out com diária adicional" do
+      travel_to Time.now.midday
       owner = Owner.create!(
         email: "owner@email.com",
         password: "123456"
@@ -889,6 +892,7 @@ RSpec.describe Booking, type: :model do
       booking.check_out = 3.days.from_now.change(hour:12, min: 00)
 
       expect(booking.calculate_bill).to eq 325.00
+      travel_back
     end
   end
 
