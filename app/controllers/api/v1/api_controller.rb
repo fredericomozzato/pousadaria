@@ -13,10 +13,10 @@ class Api::V1::ApiController < ActionController::API
   private
 
   def return_404
-    render status: 404
+    render status: 404, json: {"erro": "Recurso não encontrado"}
   end
 
   def return_500
-    render status: 500
+    render status: 500, json: {"erro": "Tente novamente mais tarde"}
   end
 end

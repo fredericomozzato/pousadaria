@@ -433,6 +433,7 @@ RSpec.describe "Inns API", type: :request do
       get "/api/v1/inns/#{inn.id}"
 
       expect(response).to have_http_status 500
+      expect(response.body).to include "Tente novamente mais tarde"
     end
   end
 
