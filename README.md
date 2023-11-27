@@ -127,21 +127,17 @@ Lista dos endpoints expostos pela API v1
 
   ---
 
-  ### `GET api/v1/bookings/pre-booking`
+  ### `GET api/v1/bookings/pre-booking?room_id=[]&start_date=[]&end_date=[]&number_of_guests=[]`
 
   Recebe como parâmetros a o ID de um quarto (`room_id`), data de entrada(`start_date`), saída (`end_date`) e quantidade de hóspedes (`number_of_guests`). Retorna o valor da reserva ou mensagens de erro caso o período desejado não esteja disponível, o número de hóspedes seja maior do que o quarto suporta ou caso o quarto não exista no sistema.
 
+  Seguindo os padrões REST os parâmetros são enviados pela URL.
+
   #### Ex.:
   ```
-  # request body
+  # URL
 
-  {
-    "room_id": 1, 
-    "start_date": "2023-12-01",
-    "end_date": "2023-12-05",
-    "number_of_guests": 2
-  }
-
+  GET /api/v1/bookings/pre-booking?room_id=1&start_date=2023-12-01&end_date=2023-12-05&number_of_guests=2
 
   # status 200
 

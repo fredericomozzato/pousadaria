@@ -625,14 +625,9 @@ RSpec.describe "Inns API", type: :request do
         wardrobe: true,
         accessibility: true
       )
-      params = {
-        room_id: room.id,
-        start_date: 1.day.from_now,
-        end_date: 5.days.from_now,
-        number_of_guests: 2
-      }
 
-      get "/api/v1/bookings/pre-booking", params: params
+      get "/api/v1/bookings/pre-booking?room_id=#{room.id}&start_date=#{1.day.from_now}
+                                       &end_date=#{5.days.from_now}&number_of_guests=2"
       json_response = JSON.parse(response.body)
 
       expect(response).to have_http_status 200
@@ -690,14 +685,8 @@ RSpec.describe "Inns API", type: :request do
         end_date: 5.days.from_now,
         number_of_guests: 2
       )
-      params = {
-        room_id: room.id,
-        start_date: 2.days.from_now,
-        end_date: 5.days.from_now,
-        number_of_guests: 3
-      }
 
-      get "/api/v1/bookings/pre-booking", params: params
+      get "/api/v1/bookings/pre-booking?room_id=#{room.id}&start_date=#{2.days.from_now}&end_date=#{5.days.from_now}&number_of_guests=3"
       json_response = JSON.parse(response.body)
 
       expect(response).to have_http_status 409
@@ -707,14 +696,8 @@ RSpec.describe "Inns API", type: :request do
     end
 
     it "retorna 404 NOT FOUND se quarto não existe" do
-      params = {
-        room_id: 99,
-        start_date: 1.day.from_now,
-        end_date: 5.days.from_now,
-        number_of_guests: 2
-      }
 
-      get "/api/v1/bookings/pre-booking", params: params
+      get "/api/v1/bookings/pre-booking?room_id=99&start_date=#{1.day.from_now}&end_date=#{5.days.from_now}&number_of_guests=2"
 
       expect(response).to have_http_status 404
     end
@@ -753,14 +736,8 @@ RSpec.describe "Inns API", type: :request do
         inn: inn,
         active: false
       )
-      params = {
-        room_id: room.id,
-        start_date: 1.day.from_now,
-        end_date: 5.days.from_now,
-        number_of_guests: 2
-      }
 
-      get "/api/v1/bookings/pre-booking", params: params
+      get "/api/v1/bookings/pre-booking?room_id=#{room.id}&start_date=#{1.day.from_now}&end_date=#{5.days.from_now}&number_of_guests=2"
       json_response = JSON.parse(response.body)
 
       expect(response).to have_http_status 409
