@@ -24,10 +24,18 @@ class Api::V1::InnsController < Api::V1::ApiController
   end
 
   def cities
-    cities = Inn.joins(:address).where(active: true).pluck(:city).sort
-
-    render status: 200, json: {"cidades": cities}
+    if params[:name].present?
+      debugger
+      inns = Inn.joins(:address)
+                .where(active: true)
+                .where("city LIKE ?", "%#{params[:name]}%")
+    else
+      cities = Inn.joins(:address).where(active: true).pluck(:city).sort
+      render status: 200, json: {"cidades": cities}
+    end
   end
+
+
 
   private
 
