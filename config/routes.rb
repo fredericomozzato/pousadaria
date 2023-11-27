@@ -65,6 +65,8 @@ Rails.application.routes.draw do
       resources :bookings, only: [] do
         get "pre-booking", on: :collection
       end
+
+      resources :cities, only: [:index]
     end
   end
 end

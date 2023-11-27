@@ -139,6 +139,7 @@ Lista dos endpoints expostos pela API v1
 
   GET /api/v1/bookings/pre-booking?room_id=1&start_date=2023-12-01&end_date=2023-12-05&number_of_guests=2
 
+
   # status 200
 
   {"valor": 800.0}
@@ -155,4 +156,18 @@ Lista dos endpoints expostos pela API v1
 
   Caso o quarto esteja inativo ou não exista no sistema retorna `404 NOT FOUND`
 
+  ### `GET /api/v1/cities`
 
+  Retorna uma lista de todas as cidade que tem pousadas cadastradas e ativas na plataforma.
+
+
+  Ex.:
+  ```
+  # status 200
+
+  {"cidades": ["Florianópolis", "Rio de Janeiro", "São Paulo"]}
+  ```
+
+  Retorna um array vazio e status 200 caso não existam cidades cadastradas.
+
+  
