@@ -11,6 +11,12 @@ class Address < ApplicationRecord
   validates :number, numericality: { greater_than: 0 }
   validates :state, length: { is: 2}
 
+  before_save do
+    self.street_ascii = I18n.transliterate(self.street)
+    self.neighborhood_ascii = I18n.transliterate(self.neighborhood)
+    self.city_ascii = I18n.transliterate(self.city)
+  end
+
   enum states: {
     AC: 1,
     AL: 2,

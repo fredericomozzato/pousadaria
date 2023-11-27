@@ -73,6 +73,7 @@ class InnsController < ApplicationController
 
   def city_search
     @found_inns = Inn.joins(:address)
+                     .where(active: true)
                      .where(address: { city: params[:city] })
                      .order(:name)
   end

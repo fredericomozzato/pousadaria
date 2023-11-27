@@ -744,4 +744,266 @@ RSpec.describe "Inns API", type: :request do
       expect(json_response["erro"]).to include "Quarto indisponível"
     end
   end
+
+  context "GET /api/v1/inns/cities" do
+    it "retorna lista de cidades com pousadas ativas" do
+      owner_1 = Owner.create!(email: "dono_1@email.com", password: "123456")
+      inn_1 = Inn.create!(
+        name: "Mar Aberto",
+        corporate_name: "Pousada Mar Aberto/SC",
+        registration_number: "84.485.218/0001-73",
+        phone: "4899999-9999",
+        email: "pousadamaraberto@hotmail.com",
+        description: "Pousada na beira do mar com suítes e café da manhã incluso.",
+        pay_methods: "Crédito, débito, dinheiro ou pix",
+        pet_friendly: true,
+        user_policies: "A pousada conta com lei do silêncio das 22h às 8h",
+        check_in_time: Time.new(2000, 1, 1, 9, 0, 0, "UTC"),
+        check_out_time: Time.new(2000, 1, 1, 15, 30, 0, "UTC"),
+        owner: owner_1
+      )
+      Address.create!(
+        street: "Rua das Flores",
+        number: 300,
+        neighborhood: "Canasvieiras",
+        city: "Florianópolis",
+        state: "SC",
+        postal_code: "88000-000",
+        inn: inn_1
+      )
+      owner_2 = Owner.create!(email: "dono_2@email.com", password: "654321")
+      inn_2 = Inn.create!(
+        name: "Morro Azul",
+        corporate_name: "Pousada Da Montanha/RS",
+        registration_number: "59.457.495/0001-25",
+        phone: "5499999-9999",
+        email: "pousadamorroazul@gmail.com",
+        description: "Pousada com vista pra montanha.",
+        pay_methods: "Crédito, débito, dinheiro ou pix",
+        user_policies: "A pousada conta com lei do silêncio das 22h às 8h",
+        pet_friendly: true,
+        check_in_time: Time.new(2000, 1, 1, 9, 0, 0, 'UTC'),
+        check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
+        owner: owner_2
+      )
+      Address.create!(
+        street: "Rua da Cachoeira",
+        number: 560,
+        neighborhood: "Zona Rual",
+        city: "Cambará do Sul",
+        state: "RS",
+        postal_code: "77000-000",
+        inn: inn_2
+      )
+      owner_3 = Owner.create!(email: "dono_3@email.com", password: "fedcba")
+      inn_3 = Inn.create!(
+        name: "Lage da Pedra",
+        corporate_name: "Pousada Lage da Pedra",
+        registration_number: "09.167.769/0001-73",
+        phone: "3499999-9999",
+        email: "lagedapedra@gmail.com",
+        description: "Pousada com cachoeiras.",
+        pay_methods: "Crédito, débito, dinheiro ou pix",
+        user_policies: "A pousada conta com lei do silêncio das 22h às 8h",
+        pet_friendly: false,
+        check_in_time: Time.new(2000, 1, 1, 9, 0, 0, 'UTC'),
+        check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
+        owner: owner_3
+      )
+      Address.create!(
+        street: "Servidão da Cachoeira",
+        number: 32,
+        neighborhood: "Morro da Pedra",
+        city: "Uberlândia",
+        state: "MG",
+        postal_code: "33000-000",
+        inn: inn_3
+      )
+      owner_4 = Owner.create!(email: "dono_4@email.com", password: "zyxwvu")
+      inn_4 = Inn.create!(
+        name: "Chalés da Roça",
+        corporate_name: "Pousada Chalés",
+        registration_number: "06.849.772/0001-89",
+        phone: "1999987656",
+        email: "chalésdaroça@email.com",
+        description: "Pousada de campo com café colonial.",
+        pay_methods: "Dinheiro, cartão e pix",
+        user_policies: "",
+        pet_friendly: false,
+        check_in_time: Time.new(2000, 1, 1, 9, 0, 0, 'UTC'),
+        check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
+        owner: owner_4,
+        active: false
+      )
+      Address.create!(
+        street: "Estrada da Roça",
+        number: 1800,
+        neighborhood: "São Luiz",
+        city: "Campinas",
+        state: "SP",
+        postal_code: "11000-900",
+        inn: inn_4,
+      )
+
+      get "http://localhost:3000/api/v1/inns/cities"
+      json_response = JSON.parse(response.body)
+
+      expect(response).to have_http_status 200
+      expect(response.content_type).to include "application/json"
+      expect(json_response["cidades"]).to eq ["Cambará do Sul", "Florianópolis", "Uberlândia"]
+    end
+
+    it "retorna status 200 e array vazio se não existem pousadas" do
+      get "http://localhost:3000/api/v1/inns/cities"
+      json_response = JSON.parse(response.body)
+
+      expect(response).to have_http_status 200
+      expect(response.content_type).to include "application/json"
+      expect(json_response["cidades"].count).to eq 0
+    end
+  end
+
+  context "GET /api/v1/inns/cities?name=" do
+    it "retorna pousadas cadastradas e ativas na cidade passada como parâmetro" do
+      owner_1 = Owner.create!(email: "dono_1@email.com", password: "123456")
+      inn_1 = Inn.create!(
+        name: "Mar Aberto",
+        corporate_name: "Pousada Mar Aberto/SC",
+        registration_number: "84.485.218/0001-73",
+        phone: "4899999-9999",
+        email: "pousadamaraberto@hotmail.com",
+        description: "Pousada na beira do mar com suítes e café da manhã incluso.",
+        pay_methods: "Crédito, débito, dinheiro ou pix",
+        pet_friendly: true,
+        user_policies: "A pousada conta com lei do silêncio das 22h às 8h",
+        check_in_time: Time.new(2000, 1, 1, 9, 0, 0, "UTC"),
+        check_out_time: Time.new(2000, 1, 1, 15, 30, 0, "UTC"),
+        owner: owner_1
+      )
+      Address.create!(
+        street: "Rua das Flores",
+        number: 300,
+        neighborhood: "Canasvieiras",
+        city: "Florianópolis",
+        state: "SC",
+        postal_code: "88000-000",
+        inn: inn_1
+      )
+      owner_2 = Owner.create!(email: "dono_2@email.com", password: "654321")
+      inn_2 = Inn.create!(
+        name: "Morro Azul",
+        corporate_name: "Pousada Da Montanha/RS",
+        registration_number: "59.457.495/0001-25",
+        phone: "5499999-9999",
+        email: "pousadamorroazul@gmail.com",
+        description: "Pousada com vista pra montanha.",
+        pay_methods: "Crédito, débito, dinheiro ou pix",
+        user_policies: "A pousada conta com lei do silêncio das 22h às 8h",
+        pet_friendly: true,
+        check_in_time: Time.new(2000, 1, 1, 9, 0, 0, 'UTC'),
+        check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
+        owner: owner_2
+      )
+      Address.create!(
+        street: "Rua da Cachoeira",
+        number: 560,
+        neighborhood: "Zona Rual",
+        city: "Cambará do Sul",
+        state: "RS",
+        postal_code: "77000-000",
+        inn: inn_2
+      )
+      owner_3 = Owner.create!(email: "dono_3@email.com", password: "abcdef")
+      inn_3 = Inn.create!(
+        name: "Ilha da Magia",
+        corporate_name: "Pousada Ilha da Magia Floripa",
+        registration_number: "81.289.700/0001-40",
+        phone: "48829999-9999",
+        email: "pousadailhadamagia@gmail.com",
+        description: "Pousada na Ilha da Magia.",
+        pay_methods: "Crédito, débito, dinheiro ou pix",
+        user_policies: "A pousada conta com lei do silêncio das 22h às 8h",
+        pet_friendly: false,
+        check_in_time: Time.new(2000, 1, 1, 9, 0, 0, 'UTC'),
+        check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
+        owner: owner_3
+      )
+      Address.create!(
+        street: "Rua da Praia",
+        number: 190,
+        neighborhood: "Campeche",
+        city: "Florianópolis",
+        state: "SC",
+        postal_code: "88800-000",
+        inn: inn_3
+      )
+      owner_4 = Owner.create!(email: "dono_4@email.com", password: "zyxwvu")
+      inn_4 = Inn.create!(
+        name: "Vento Sul",
+        corporate_name: "PVS Pousada",
+        registration_number: "72.153.926/0001-28",
+        phone: "48989998998",
+        email: "pousadaventosul@email.com",
+        description: "Pousada na beira da praia.",
+        pay_methods: "Dinheiro, cartão e pix",
+        user_policies: "",
+        pet_friendly: false,
+        check_in_time: Time.new(2000, 1, 1, 9, 0, 0, 'UTC'),
+        check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
+        owner: owner_4,
+        active: false
+      )
+      Address.create!(
+        street: "Servidão Ventania",
+        number: 100,
+        neighborhood: "Pântano do Sul",
+        city: "Florianópolis",
+        state: "SC",
+        postal_code: "88000-800",
+        inn: inn_4
+      )
+      param = "florianopolis"
+
+      get "http://localhost:3000/api/v1/inns/cities?city=#{param}"
+      json_response = JSON.parse(response.body)
+
+      expect(response).to have_http_status 200
+      expect(json_response.count).to eq 2
+      expect(json_response.first["name"]).to eq inn_1.name
+      expect(json_response.last["name"]).to eq inn_3.name
+    end
+
+    it "retorna status 200 e array vazio se não existem pousadas na cidade" do
+      owner_1 = Owner.create!(email: "dono_1@email.com", password: "123456")
+      inn_1 = Inn.create!(
+        name: "Mar Aberto",
+        corporate_name: "Pousada Mar Aberto/SC",
+        registration_number: "84.485.218/0001-73",
+        phone: "4899999-9999",
+        email: "pousadamaraberto@hotmail.com",
+        description: "Pousada na beira do mar com suítes e café da manhã incluso.",
+        pay_methods: "Crédito, débito, dinheiro ou pix",
+        pet_friendly: true,
+        user_policies: "A pousada conta com lei do silêncio das 22h às 8h",
+        check_in_time: Time.new(2000, 1, 1, 9, 0, 0, "UTC"),
+        check_out_time: Time.new(2000, 1, 1, 15, 30, 0, "UTC"),
+        owner: owner_1
+      )
+      Address.create!(
+        street: "Rua das Flores",
+        number: 300,
+        neighborhood: "Canasvieiras",
+        city: "Florianópolis",
+        state: "SC",
+        postal_code: "88000-000",
+        inn: inn_1
+      )
+      param = "sao paulo"
+
+      get "http://localhost:3000/api/v1/inns/cities?city=#{param}"
+
+      expect(response).to have_http_status 200
+      expect(response.body).to eq "[]"
+    end
+  end
 end

@@ -1,6 +1,5 @@
 class Api::V1::BookingsController < Api::V1::ApiController
   def pre_booking
-    # debugger
     pre_booking = Booking.new(pre_booking_params)
 
     if pre_booking.valid?

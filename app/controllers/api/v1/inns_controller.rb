@@ -5,9 +5,9 @@ class Api::V1::InnsController < Api::V1::ApiController
               .where("name LIKE ?", "%#{params[:name]}%")
 
     render status: 200, json: inns.as_json(
-      except: inn_filtered_attributes,
+      only: inn_permitted_attributes,
       methods: json_method_calls,
-      include: { address: { except: address_filtered_attributes } }
+      include: { address: { only: address_permitted_attributes } }
     )
   end
 
@@ -17,28 +17,48 @@ class Api::V1::InnsController < Api::V1::ApiController
     return inn_not_found if inn.nil?
 
     render status: 200, json: inn.as_json(
-      except: inn_filtered_attributes,
+      only: inn_permitted_attributes,
       methods: json_method_calls,
-      include: { address: { except: address_filtered_attributes } }
+      include: { address: { only: address_permitted_attributes } }
     )
+  end
+
+  def cities
+    if params[:city].present?
+      inns = Inn.from_city(params[:city])
+
+      render status: 200, json: inns.as_json(
+        only: inn_permitted_attributes,
+        include: {address: { only: address_permitted_attributes } }
+      )
+    else
+      render status: 200, json: {"cidades": Inn.all_cities}
+    end
   end
 
   private
 
-  def inn_filtered_attributes
+  def inn_permitted_attributes
     [
-      :corporate_name,
-      :registration_number,
-      :active, :created_at,
-      :updated_at,
-      :owner_id,
-      :check_in_time,
-      :check_out_time
+      :id,
+      :name,
+      :phone,
+      :email,
+      :description,
+      :pay_methods,
+      :pet_friendly,
+      :user_policies
     ]
   end
 
-  def address_filtered_attributes
-    [:created_at, :updated_at, :inn_id, :states]
+  def address_permitted_attributes
+    [
+      :street,
+      :number,
+      :neighborhood,
+      :city, :state,
+      :postal_code
+    ]
   end
 
   def json_method_calls
