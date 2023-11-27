@@ -44,7 +44,7 @@ class Inn < ApplicationRecord
   end
 
   def self.all_cities
-    Inn.joins(:address).where(active: true).pluck(:city).sort
+    Inn.joins(:address).where(active: true).pluck(:city).uniq.sort
   end
 
   def self.from_city(city)
