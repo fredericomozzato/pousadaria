@@ -60,13 +60,12 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :inns, only: [:index, :show] do
         resources :rooms, only: [:index]
+        get "cities", on: :collection
       end
 
       resources :bookings, only: [] do
         get "pre-booking", on: :collection
       end
-
-      resources :cities, only: [:index]
     end
   end
 end

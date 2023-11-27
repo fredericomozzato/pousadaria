@@ -745,7 +745,7 @@ RSpec.describe "Inns API", type: :request do
     end
   end
 
-  context "GET /api/v1/cities" do
+  context "GET /api/v1/inns/cities" do
     it "retorna lista de cidades com pousadas ativas" do
       owner_1 = Owner.create!(email: "dono_1@email.com", password: "123456")
       inn_1 = Inn.create!(
@@ -845,7 +845,7 @@ RSpec.describe "Inns API", type: :request do
         inn: inn_4,
       )
 
-      get "http://localhost:3000/api/v1/cities"
+      get "http://localhost:3000/api/v1/inns/cities"
       json_response = JSON.parse(response.body)
 
       expect(response).to have_http_status 200
@@ -854,7 +854,7 @@ RSpec.describe "Inns API", type: :request do
     end
 
     it "retorna status 200 e array vazio se não existem pousadas" do
-      get "http://localhost:3000/api/v1/cities"
+      get "http://localhost:3000/api/v1/inns/cities"
       json_response = JSON.parse(response.body)
 
       expect(response).to have_http_status 200

@@ -23,6 +23,12 @@ class Api::V1::InnsController < Api::V1::ApiController
     )
   end
 
+  def cities
+    cities = Inn.joins(:address).where(active: true).pluck(:city).sort
+
+    render status: 200, json: {"cidades": cities}
+  end
+
   private
 
   def inn_filtered_attributes
