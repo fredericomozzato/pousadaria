@@ -962,15 +962,48 @@ RSpec.describe "Inns API", type: :request do
         postal_code: "88000-800",
         inn: inn_4
       )
+      param = "florianopolis"
 
-      get "http://localhost:3000/api/v1/inns/cities?name=florianopolis"
+      get "http://localhost:3000/api/v1/inns/cities?city=#{param}"
       json_response = JSON.parse(response.body)
 
       expect(response).to have_http_status 200
-      expect(json_response["Florianópolis"].count).to eq 2
-      expect(json_response["Florianópolis"]).to include inn_1
-      expect(json_response["Florianópolis"]).to include inn_3
-      expect(json_response["Florianópolis"]).not_to include inn_4
+      expect(json_response.count).to eq 2
+      expect(json_response.first["name"]).to eq inn_1.name
+      expect(json_response.last["name"]).to eq inn_3.name
+    end
+
+    it "retorna status 200 e array vazio se não existem pousadas na cidade" do
+      owner_1 = Owner.create!(email: "dono_1@email.com", password: "123456")
+      inn_1 = Inn.create!(
+        name: "Mar Aberto",
+        corporate_name: "Pousada Mar Aberto/SC",
+        registration_number: "84.485.218/0001-73",
+        phone: "4899999-9999",
+        email: "pousadamaraberto@hotmail.com",
+        description: "Pousada na beira do mar com suítes e café da manhã incluso.",
+        pay_methods: "Crédito, débito, dinheiro ou pix",
+        pet_friendly: true,
+        user_policies: "A pousada conta com lei do silêncio das 22h às 8h",
+        check_in_time: Time.new(2000, 1, 1, 9, 0, 0, "UTC"),
+        check_out_time: Time.new(2000, 1, 1, 15, 30, 0, "UTC"),
+        owner: owner_1
+      )
+      Address.create!(
+        street: "Rua das Flores",
+        number: 300,
+        neighborhood: "Canasvieiras",
+        city: "Florianópolis",
+        state: "SC",
+        postal_code: "88000-000",
+        inn: inn_1
+      )
+      param = "sao paulo"
+
+      get "http://localhost:3000/api/v1/inns/cities?city=#{param}"
+
+      expect(response).to have_http_status 200
+      expect(response.body).to eq "[]"
     end
   end
 end

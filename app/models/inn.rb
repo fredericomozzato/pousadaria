@@ -43,6 +43,16 @@ class Inn < ApplicationRecord
               }).uniq
   end
 
+  def self.all_cities
+    Inn.joins(:address).where(active: true).pluck(:city).sort
+  end
+
+  def self.from_city(city)
+    Inn.joins(:address)
+       .where(active: true)
+       .where("city_ascii LIKE ?", "%#{city}%")
+  end
+
   def average_score
     bookings.joins(:review).average("score")&.round(1) || ""
   end

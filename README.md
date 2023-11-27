@@ -73,7 +73,7 @@ Lista dos endpoints expostos pela API v1
 - ### `GET /api/v1/inns/:id`
   Retorna detalhes de uma pousada por ID seguindo o mesmo padrão da listagem. Nesse caso retorna somente um objeto.
 
-  **Retorna apenas pousadas ativas na plataforma**. No caso de uma requisição para um ID não existente ou para um ID de uma pousada marcada como inativa, retorna `404`.
+  **Retorna apenas pousadas ativas na plataforma**. No caso de uma requisição para um ID não existente ou para um ID de uma pousada marcada como inativa, retorna `404 NOT FOUND`.
 
   #### Ex.:
 
@@ -115,7 +115,7 @@ Lista dos endpoints expostos pela API v1
   ]
   ```
 
-  Em casos onde a pousada não exista ou está inativa, retorna `404`
+  Em casos onde a pousada não exista ou está inativa, retorna `404 NOT FOUND`
 
   #### Ex.:
 
@@ -156,7 +156,7 @@ Lista dos endpoints expostos pela API v1
 
   Caso o quarto esteja inativo ou não exista no sistema retorna `404 NOT FOUND`
 
-  ### `GET /api/v1/cities`
+  ### `GET /api/v1/inns/cities`
 
   Retorna uma lista de todas as cidade que tem pousadas cadastradas e ativas na plataforma.
 
@@ -168,6 +168,39 @@ Lista dos endpoints expostos pela API v1
   {"cidades": ["Florianópolis", "Rio de Janeiro", "São Paulo"]}
   ```
 
-  Retorna um array vazio e status 200 caso não existam cidades cadastradas.
+  Retorna `200 OK` e um array vazio caso não existam cidades cadastradas.
 
-  
+  ### `GET /api/v1/inns/cities?city=`
+
+  Retorna uma lista de pousadas cadastradas e ativas na cidade passada como parâmetro:
+
+  ```
+  # status 200
+
+  [
+    {
+      "id": 1,
+      "name": "Mar Aberto",
+      "phone": "4899999-9999",
+      "email": "pousadamaraberto@hotmail.com",
+      "description": "Pousada na beira do mar com suítes e café da manhã incluso.",
+      "pay_methods": "Crédito, débito, dinheiro ou pix",
+      "pet_friendly": true,
+      "user_policies": "A pousada conta com lei do silêncio das 22h às 8h",
+      "formatted_check_in_time": "09:00",
+      "formatted_check_out_time": "15:30",
+      "average_score": "3.7",
+      "address": {
+        "street": "Rua das Flores",
+        "number": "300",
+        "neighborhood": "Canasvieiras",
+        "city": "Florianópolis",
+        "state": "SC",
+        "postal_code": "88000-000"
+      }
+    },
+    ...
+  ]
+  ```
+
+  Retorna `200 OK` e um array vazio caso não sejam encontradas pousadas.
