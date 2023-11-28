@@ -15,6 +15,10 @@ class Inn < ApplicationRecord
             :email,
             :pay_methods,
             presence: true
+  validates :photos, content_type: {
+    in: ["image/jpg", "image/jpeg", "image/png"],
+    message: "somente nos formatos JPG, JPEG ou PNG"
+  }
   validate :validates_registration_number
 
   def self.search_inns(query)

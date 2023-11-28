@@ -71,6 +71,21 @@ RSpec.describe Inn, type: :model do
 
       expect(inn.errors.include?(:registration_number)).to be false
     end
+
+    it "válido com arquivos de imagem jpeg/png" do
+      inn = Inn.new()
+    end
+
+    it "inválido com arquivo de imagem diferente de jpeg/png" do
+      inn = Inn.new()
+      inn.photos.attach(io: File.open(Rails.root.join("spec/fixtures/images/wrong_type_file.txt")), filename: "wrong_type_file.txt")
+
+      # debugger
+
+      expect(inn.valid?).to be false
+      expect(inn.errors.include?(:photos)).to be true
+      expect(inn.errors[:photos]).to include "somente nos formatos JPG, JPEG ou PNG"
+    end
   end
 
   describe ".search_inns" do

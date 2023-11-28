@@ -23,7 +23,7 @@ class InnsController < ApplicationController
     else
       @address = @inn.address
       flash.now[:alert] = "Erro ao cadastrar Pousada"
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -47,7 +47,7 @@ class InnsController < ApplicationController
     else
       @address = @inn.address
       flash.now[:alert] = "Erro ao atualizar Pousada"
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
