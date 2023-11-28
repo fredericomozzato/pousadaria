@@ -42,6 +42,15 @@
 
       <dt><%= t("inn_status_text") %>:</dt>
       <dd><%= @inn.active ? "Ativa" : "Desativada" %></dd>
+
+      <dt>Fotos:</dt>
+      <dd>
+        <ul id="photos-list">
+          <% @inn.photos.each do |photo| %>
+            <li><%= image_tag(photo.variant(resize_to_limit: [200, 200]).processed) %></li>
+          <% end %>
+        </ul>
+      </dd>
     </dl>
 
   <div>

@@ -27,5 +27,8 @@
   <% end %>
 </div>
 
-<%= link_to "Voltar", inn_path(@room.inn) %>
-
+<% if user_signed_in? %>
+  <%= link_to "Voltar", inn_path(@room.inn) %>
+<% elsif owner_signed_in? %>
+  <%= link_to "Voltar", my_inn_path %>
+<% end %>
