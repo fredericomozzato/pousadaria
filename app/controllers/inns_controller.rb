@@ -81,9 +81,7 @@ class InnsController < ApplicationController
   def remove_photo
     return redirect_to root_path unless current_owner == @inn.owner
 
-    photo = @inn.photos.find(params[:photo_id])
-    photo.purge
-
+    @inn.photos.find(params[:photo_id]).purge
     redirect_to my_inn_path
   end
 

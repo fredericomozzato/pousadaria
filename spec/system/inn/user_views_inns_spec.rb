@@ -36,6 +36,14 @@ describe "Usuário visita uma pousada" do
         {io: File.open(Rails.root.join("spec/fixtures/images/inn_img_3.jpg")), filename: "inn_img_3.jpg"}
       ]
     )
+    room_ocean = Room.create!(
+      name: "Oceano",
+      description: "Quarto com vista para o mar",
+      size: 30,
+      max_guests: 2,
+      price: 200.00,
+      inn_id: first_inn.id
+    )
     second_owner = Owner.create!(
       email: "secondowner@example.com",
       password: "654321"

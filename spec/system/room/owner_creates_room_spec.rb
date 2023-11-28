@@ -120,7 +120,6 @@ describe "Proprietário acessa formulário de cadastro de quarto" do
         expect(page).to have_content "Wi-fi: sim"
       end
       expect(page).to have_content "Disponível para reservas: sim"
-      expect(page).to have_content "Galeria de fotos"
       expect(page).to have_selector "img[src$='room_img_1.jpg']"
       expect(page).to have_selector "img[src$='room_img_2.jpg']"
       expect(page).to have_link "Editar Quarto"

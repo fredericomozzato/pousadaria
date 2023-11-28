@@ -34,6 +34,7 @@ Rails.application.routes.draw do
 
   resources :rooms, only: [:index, :new, :create, :show, :edit, :update] do
     patch "change_status", on: :member
+    delete "remove_photo", on: :member
 
     resources :seasonal_prices, only: [:new, :create]
 

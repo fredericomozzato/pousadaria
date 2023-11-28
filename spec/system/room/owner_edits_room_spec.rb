@@ -71,7 +71,9 @@ describe "Proprietário acessa página minha pousada" do
     expect(page).to have_unchecked_field "Guarda-roupas"
     expect(page).to have_unchecked_field "Acessibilidade"
     expect(page).to have_unchecked_field "Wi-fi"
+    expect(page).to have_field "Fotos"
     expect(page).to have_button "Salvar Quarto"
+    expect(page).to have_link "Voltar"
   end
 
   it "e edita um quarto com sucesso" do
@@ -411,6 +413,58 @@ describe "Proprietário acessa página minha pousada" do
     visit edit_room_path(room_ocean)
 
     expect(current_path).to eq logins_path
+  end
+
+  it "e remove uma foto do quarto" do
+    owner = Owner.create!(
+      email: "owner@email.com",
+      password: "123456"
+    )
+    inn = Inn.create!(
+      name: "Mar Aberto",
+      corporate_name: "Pousada Mar Aberto/SC",
+      registration_number: "84.485.218/0001-73",
+      phone: "9999999994899999-9999",
+      email: "pousadamaraberto@gmail.com",
+      description: "Pousada na beira do mar com suítes e café da manhã incluso.",
+      pay_methods: "Crédito, débito, dinheiro ou pix",
+      user_policies: "A pousada conta com lei do silêncio das 22h às 8h",
+      pet_friendly: true,
+      check_in_time: Time.new(2000, 1, 1, 9, 0, 0, 'UTC'),
+      check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
+      owner_id: owner.id
+    )
+    Address.create!(
+      street: "Rua das Flores",
+      number: 300,
+      neighborhood: "Canasvieiras",
+      city: "Florianópolis",
+      state: "SC",
+      postal_code: "88000-000",
+      inn_id: inn.id
+    )
+    room_ocean = Room.create!(
+      name: "Oceano",
+      description: "Quarto com vista para o mar",
+      size: 30,
+      max_guests: 2,
+      price: 200.00,
+      inn_id: inn.id
+    )
+    room_ocean.photos.attach(
+      io: File.open(Rails.root.join("spec/fixtures/images/room_img_1.jpg")),
+      filename: "room_img_1.jpg"
+    )
+
+    login_as owner, scope: :owner
+    visit room_path(room_ocean)
+    within ".photo-gallery" do
+      click_on "Remover"
+    end
+
+    expect(page).not_to have_selector "img[src$='room_img_1.jpg']"
+    room_ocean.reload
+    expect(room_ocean.photos.attached?).to be false
   end
 
 end

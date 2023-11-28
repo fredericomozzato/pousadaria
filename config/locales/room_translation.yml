@@ -21,6 +21,12 @@ pt-BR:
         accessibility: "Acessibilidade"
         active: "Disponível para reservas"
         photos: "Fotos"
+    errors:
+      models:
+        room:
+          attributes:
+            photos:
+              format: "%{message}"
 
   # views texts
   available_rooms: "Quartos disponíveis"
