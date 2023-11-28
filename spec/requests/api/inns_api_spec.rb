@@ -84,7 +84,7 @@ RSpec.describe "Inns API", type: :request do
         inn: inn_3
       )
 
-      get "/api/v1/inns"
+      get api_v1_inns_path
       json_response = JSON.parse(response.body)
 
       expect(response).to have_http_status 200
@@ -203,9 +203,10 @@ RSpec.describe "Inns API", type: :request do
         postal_code: "88800-000",
         inn: inn_3
       )
-
       query = "mar"
-      get "/api/v1/inns?name=#{query}"
+
+      # /api/v1/inns?name=mar
+      get api_v1_inns_path(name: query)
       json_response = JSON.parse(response.body)
 
       expect(response).to have_http_status 200
@@ -219,7 +220,7 @@ RSpec.describe "Inns API", type: :request do
 
     it "retorna 200 e um array vazio se não encontrar pousadas com o parâmetro de busca" do
       query = "mar"
-      get "/api/v1/inns?name=#{query}"
+      get api_v1_inns_path(name: query)
 
       expect(response).to have_http_status 200
       expect(response.content_type).to include "application/json"
@@ -333,7 +334,7 @@ RSpec.describe "Inns API", type: :request do
         booking: booking_3
       )
 
-      get "/api/v1/inns/#{inn_1.id}"
+      get api_v1_inn_path(inn_1.id)
       json_response = JSON.parse(response.body)
 
       expect(response).to have_http_status 200
@@ -361,7 +362,7 @@ RSpec.describe "Inns API", type: :request do
     end
 
     it "retorna 404 se id não existe" do
-      get "/api/v1/inns/1"
+      get api_v1_inn_path(999)
 
       expect(response).to have_http_status 404
       expect(response.content_type).to include "application/json"
@@ -395,7 +396,7 @@ RSpec.describe "Inns API", type: :request do
         inn: inn
       )
 
-      get "/api/v1/inns/#{inn.id}"
+      get api_v1_inn_path(inn.id)
       json_response = JSON.parse(response.body)
 
       expect(response).to have_http_status 404
@@ -430,7 +431,7 @@ RSpec.describe "Inns API", type: :request do
       )
 
       allow(Inn).to receive(:find_by).and_raise(ActiveRecord::ActiveRecordError)
-      get "/api/v1/inns/#{inn.id}"
+      get api_v1_inn_path(inn.id)
 
       expect(response).to have_http_status 500
       expect(response.body).to include "Tente novamente mais tarde"
@@ -464,7 +465,7 @@ RSpec.describe "Inns API", type: :request do
         inn: inn
       )
 
-      get "/api/v1/inns/#{inn.id}/rooms"
+      get api_v1_inn_rooms_path(inn.id)
       json_response = JSON.parse(response.body)
 
       expect(response).to have_http_status 200
@@ -535,7 +536,7 @@ RSpec.describe "Inns API", type: :request do
         active: false
       )
 
-      get "/api/v1/inns/#{inn.id}/rooms"
+      get api_v1_inn_rooms_path(inn.id)
       json_response = JSON.parse(response.body)
 
       expect(response).to have_http_status 200
@@ -579,7 +580,7 @@ RSpec.describe "Inns API", type: :request do
     end
 
     it "retorna 404 NOT FOUND se pousada não existe ou está inativa" do
-      get "/api/v1/inns/99/rooms"
+      get api_v1_inn_rooms_path(999)
 
       expect(response).to have_http_status 404
       expect(response.content_type).to include "application/json"
@@ -626,8 +627,14 @@ RSpec.describe "Inns API", type: :request do
         accessibility: true
       )
 
-      get "/api/v1/bookings/pre-booking?room_id=#{room.id}&start_date=#{1.day.from_now}
-                                       &end_date=#{5.days.from_now}&number_of_guests=2"
+      # get "/api/v1/bookings/pre-booking?room_id=#{room.id}&start_date=#{1.day.from_now}
+      #                                  &end_date=#{5.days.from_now}&number_of_guests=2"
+      get pre_booking_api_v1_bookings_path(
+        room_id: room.id,
+        start_date: 1.day.from_now,
+        end_date: 5.days.from_now,
+        number_of_guests: 2
+      )
       json_response = JSON.parse(response.body)
 
       expect(response).to have_http_status 200
@@ -686,7 +693,12 @@ RSpec.describe "Inns API", type: :request do
         number_of_guests: 2
       )
 
-      get "/api/v1/bookings/pre-booking?room_id=#{room.id}&start_date=#{2.days.from_now}&end_date=#{5.days.from_now}&number_of_guests=3"
+      get pre_booking_api_v1_bookings_path(
+        room_id: room.id,
+        start_date: 2.days.from_now,
+        end_date: 5.days.from_now,
+        number_of_guests: 3
+      )
       json_response = JSON.parse(response.body)
 
       expect(response).to have_http_status 409
@@ -696,8 +708,12 @@ RSpec.describe "Inns API", type: :request do
     end
 
     it "retorna 404 NOT FOUND se quarto não existe" do
-
-      get "/api/v1/bookings/pre-booking?room_id=99&start_date=#{1.day.from_now}&end_date=#{5.days.from_now}&number_of_guests=2"
+      get pre_booking_api_v1_bookings_path(
+        room_id: 999,
+        start_date: 1.day.from_now,
+        end_date: 5.days.from_now,
+        number_of_guests: 2
+      )
 
       expect(response).to have_http_status 404
     end
@@ -737,7 +753,12 @@ RSpec.describe "Inns API", type: :request do
         active: false
       )
 
-      get "/api/v1/bookings/pre-booking?room_id=#{room.id}&start_date=#{1.day.from_now}&end_date=#{5.days.from_now}&number_of_guests=2"
+      get pre_booking_api_v1_bookings_path(
+        room_id: room.id,
+        start_date: 1.day.from_now,
+        end_date: 5.days.from_now,
+        number_of_guests: 2
+      )
       json_response = JSON.parse(response.body)
 
       expect(response).to have_http_status 409
@@ -845,7 +866,7 @@ RSpec.describe "Inns API", type: :request do
         inn: inn_4,
       )
 
-      get "http://localhost:3000/api/v1/inns/cities"
+      get cities_api_v1_inns_path
       json_response = JSON.parse(response.body)
 
       expect(response).to have_http_status 200
@@ -854,7 +875,7 @@ RSpec.describe "Inns API", type: :request do
     end
 
     it "retorna status 200 e array vazio se não existem pousadas" do
-      get "http://localhost:3000/api/v1/inns/cities"
+      get cities_api_v1_inns_path
       json_response = JSON.parse(response.body)
 
       expect(response).to have_http_status 200
@@ -964,7 +985,7 @@ RSpec.describe "Inns API", type: :request do
       )
       param = "florianopolis"
 
-      get "http://localhost:3000/api/v1/inns/cities?city=#{param}"
+      get cities_api_v1_inns_path(city: param)
       json_response = JSON.parse(response.body)
 
       expect(response).to have_http_status 200
@@ -1000,7 +1021,7 @@ RSpec.describe "Inns API", type: :request do
       )
       param = "sao paulo"
 
-      get "http://localhost:3000/api/v1/inns/cities?city=#{param}"
+      get cities_api_v1_inns_path(city: param)
 
       expect(response).to have_http_status 200
       expect(response.body).to eq "[]"
