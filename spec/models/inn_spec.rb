@@ -81,7 +81,7 @@ RSpec.describe Inn, type: :model do
         ]
       )
 
-    inn.valid?
+      inn.valid?
 
       expect(inn.errors.include?(:photos)).to be false
     end

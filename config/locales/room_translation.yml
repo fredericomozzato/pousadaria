@@ -20,6 +20,7 @@ pt-BR:
         wifi: "Wi-fi"
         accessibility: "Acessibilidade"
         active: "Disponível para reservas"
+        photos: "Fotos"
 
   # views texts
   available_rooms: "Quartos disponíveis"

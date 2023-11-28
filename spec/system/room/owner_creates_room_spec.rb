@@ -52,6 +52,7 @@ describe "Proprietário acessa formulário de cadastro de quarto" do
       expect(page).to have_field "Acessibilidade", type: "checkbox"
       expect(page).to have_field "Wi-fi", type: "checkbox"
       expect(page).to have_field "Disponível para reservas", type: "checkbox"
+      expect(page).to have_field "Fotos"
       expect(page).to have_button "Salvar Quarto"
     end
 
@@ -97,6 +98,10 @@ describe "Proprietário acessa formulário de cadastro de quarto" do
       check "Guarda-roupas"
       check "Acessibilidade"
       check "Wi-fi"
+      attach_file "Fotos", [
+        Rails.root.join("spec/fixtures/images/room_img_1.jpg"),
+        Rails.root.join("spec/fixtures/images/room_img_2.jpg")
+      ]
       click_on "Salvar Quarto"
 
       expect(page).to have_content "Quarto cadastrado com sucesso"
@@ -115,6 +120,9 @@ describe "Proprietário acessa formulário de cadastro de quarto" do
         expect(page).to have_content "Wi-fi: sim"
       end
       expect(page).to have_content "Disponível para reservas: sim"
+      expect(page).to have_content "Galeria de fotos"
+      expect(page).to have_selector "img[src$='room_img_1.jpg']"
+      expect(page).to have_selector "img[src$='room_img_2.jpg']"
       expect(page).to have_link "Editar Quarto"
       expect(Room.last.inn).to eq(inn)
     end

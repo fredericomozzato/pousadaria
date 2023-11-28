@@ -63,7 +63,8 @@ class RoomsController < ApplicationController
       :safe,
       :wifi,
       :accessibility,
-      :active
+      :active,
+      photos: []
     )
   end
 
