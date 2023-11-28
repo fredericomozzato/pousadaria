@@ -29,7 +29,7 @@ class Api::V1::InnsController < Api::V1::ApiController
 
       render status: 200, json: inns.as_json(
         only: inn_permitted_attributes,
-        include: {address: { only: address_permitted_attributes } }
+        include: { address: { only: address_permitted_attributes } }
       )
     else
       render status: 200, json: {"cidades": Inn.all_cities}
