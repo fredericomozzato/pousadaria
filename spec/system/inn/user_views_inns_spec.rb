@@ -29,6 +29,13 @@ describe "Usuário visita uma pousada" do
       postal_code: "88000-000",
       inn_id: first_inn.id
     )
+    first_inn.photos.attach(
+      [
+        {io: File.open(Rails.root.join("spec/fixtures/images/inn_img_1.jpg")), filename: "inn_img_1.jpg"},
+        {io: File.open(Rails.root.join("spec/fixtures/images/inn_img_2.jpg")), filename: "inn_img_2.jpg"},
+        {io: File.open(Rails.root.join("spec/fixtures/images/inn_img_3.jpg")), filename: "inn_img_3.jpg"}
+      ]
+    )
     second_owner = Owner.create!(
       email: "secondowner@example.com",
       password: "654321"
@@ -79,6 +86,10 @@ describe "Usuário visita uma pousada" do
     expect(page).to have_content "Endereço: Rua das Flores, 300"
     expect(page).to have_content "Canasvieiras - Florianópolis, SC"
     expect(page).to have_content "CEP: 88000-000"
+    expect(page).to have_content "Galeria de fotos"
+    expect(page).to have_selector "img[src$='inn_img_1.jpg']"
+    expect(page).to have_selector "img[src$='inn_img_2.jpg']"
+    expect(page).to have_selector "img[src$='inn_img_3.jpg']"
   end
 
   it "e vê a nota média de avaliações" do

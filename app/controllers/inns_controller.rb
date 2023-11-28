@@ -1,5 +1,5 @@
 class InnsController < ApplicationController
-  before_action :authenticate_owner!, only: [:new, :create, :edit, :update, :change_status]
+  before_action :authenticate_owner!, only: [:new, :create, :edit, :update, :change_status, :remove_photo]
   before_action :redirect_to_new_if_no_inn, only: [:show, :my_inn]
   before_action :set_inn, only: [:show, :edit, :update, :change_status, :remove_photo]
 
@@ -79,6 +79,8 @@ class InnsController < ApplicationController
   end
 
   def remove_photo
+    return redirect_to root_path unless current_owner == @inn.owner
+
     photo = @inn.photos.find(params[:photo_id])
     photo.purge
 
