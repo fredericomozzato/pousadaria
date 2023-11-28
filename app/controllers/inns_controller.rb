@@ -105,7 +105,8 @@ class InnsController < ApplicationController
         :chekin_minute,
         :checkout_hour,
         :checkout_minute
-      ]
+      ],
+      photos: []
     )
   end
 

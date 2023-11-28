@@ -76,6 +76,10 @@
     <%= select_minute Time.new, field_name: "checkout_minute", minute_step: 15 %> horas
   </div>
   <div>
+    <%= f.label :photos, "Fotos" %>
+    <%= f.file_field :photos, multiple: true %>
+  </div>
+  <div>
     <%= f.submit %>
   </div>
 <% end %>

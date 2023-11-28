@@ -4,6 +4,7 @@ class Inn < ApplicationRecord
   has_many :rooms
   has_many :bookings, through: :rooms
   has_many :reviews, through: :bookings
+  has_many_attached :photos
 
   accepts_nested_attributes_for :address
 
