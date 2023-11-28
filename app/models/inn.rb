@@ -50,7 +50,7 @@ class Inn < ApplicationRecord
   def self.from_city(city)
     Inn.joins(:address)
        .where(active: true)
-       .where("city_ascii LIKE ?", "%#{city}%")
+       .where("city_ascii LIKE ?", "%#{I18n.transliterate(city)}%")
   end
 
   def average_score
