@@ -71,6 +71,56 @@ RSpec.describe Inn, type: :model do
 
       expect(inn.errors.include?(:registration_number)).to be false
     end
+
+    it "válido com arquivos de imagem jpeg/png" do
+      inn = Inn.new()
+      inn.photos.attach(
+        [
+          { io: File.open(Rails.root.join("spec/fixtures/images/png_img.png")), filename: "png_img.png" },
+          { io: File.open(Rails.root.join("spec/fixtures/images/inn_img_1.jpg")), filename: "inn_img_1.jpg" }
+        ]
+      )
+
+      inn.valid?
+
+      expect(inn.errors.include?(:photos)).to be false
+    end
+
+    it "inválido com arquivo de imagem diferente de jpeg/png" do
+      inn = Inn.new()
+      inn.photos.attach(io: File.open(Rails.root.join("spec/fixtures/images/wrong_type_file.txt")), filename: "wrong_type_file.txt")
+
+      expect(inn.valid?).to be false
+      expect(inn.errors.include?(:photos)).to be true
+      expect(inn.errors[:photos]).to include "somente nos formatos JPG, JPEG ou PNG"
+    end
+
+    it "inválido com mais de 5 fotos adicionadas" do
+      inn = Inn.new()
+      inn.photos.attach(
+        [
+          { io: File.open(Rails.root.join("spec/fixtures/images/inn_img_1.jpg")), filename: "inn_img_1.jpg" },
+          { io: File.open(Rails.root.join("spec/fixtures/images/inn_img_2.jpg")), filename: "inn_img_2.jpg" },
+          { io: File.open(Rails.root.join("spec/fixtures/images/inn_img_3.jpg")), filename: "inn_img_3.jpg" },
+          { io: File.open(Rails.root.join("spec/fixtures/images/inn_img_4.jpg")), filename: "inn_img_4.jpg" },
+          { io: File.open(Rails.root.join("spec/fixtures/images/inn_img_5.jpg")), filename: "inn_img_5.jpg" },
+          { io: File.open(Rails.root.join("spec/fixtures/images/inn_img_6.jpg")), filename: "inn_img_6.jpg" }
+        ]
+      )
+
+      expect(inn.valid?).to be false
+      expect(inn.errors.include?(:photos)).to be true
+      expect(inn.errors[:photos]).to include "Número máximo de fotos: 5"
+    end
+
+    it "inválido com arquivo maior que 5mb" do
+      inn = Inn.new()
+      inn.photos.attach(io: File.open(Rails.root.join("spec/fixtures/images/5_mb_img.jpg")), filename: "5_mb_img.jpg")
+
+      expect(inn.valid?).to be false
+      expect(inn.errors.include?(:photos)).to be true
+      expect(inn.errors[:photos]).to include "não pode ser maior que 5 mb"
+    end
   end
 
   describe ".search_inns" do

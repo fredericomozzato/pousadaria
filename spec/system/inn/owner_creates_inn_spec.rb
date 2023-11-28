@@ -29,6 +29,7 @@ describe "Proprietário visita a página de cadastro de pousada" do
     expect(page).to have_field "Cidade"
     expect(page).to have_select "Estado"
     expect(page).to have_field "CEP"
+    expect(page).to have_field "Fotos"
     expect(page).to have_button "Criar Pousada"
   end
 
@@ -57,6 +58,10 @@ describe "Proprietário visita a página de cadastro de pousada" do
     fill_in "Cidade", with: "Florianópolis"
     select "SC", from: "inn_address_attributes_state"
     fill_in "CEP", with: "88000-000"
+    attach_file("Fotos", [
+      Rails.root.join("spec/fixtures/images/inn_img_1.jpg"),
+      Rails.root.join("spec/fixtures/images/room_img_2.jpg")
+      ])
     click_on "Criar Pousada"
 
     expect(page).to have_content "Pousada criada com sucesso"
@@ -75,7 +80,11 @@ describe "Proprietário visita a página de cadastro de pousada" do
     expect(page).to have_content "Canasvieiras - Florianópolis, SC"
     expect(page).to have_content "CEP: 88000-000"
     expect(page).to have_content "Status na plataforma: Ativa"
+    expect(page).to have_content "Fotos:"
+    expect(page).to have_selector "img[src$='inn_img_1.jpg']"
+    expect(page).to have_selector "img[src$='room_img_2.jpg']"
     expect(page).to have_link "Editar"
+    expect(Inn.last.photos.attached?).to eq true
     expect(Inn.last.owner_id).to eq(owner.id)
   end
 

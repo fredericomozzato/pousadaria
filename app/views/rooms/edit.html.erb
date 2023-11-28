@@ -1,5 +1,11 @@
-<h1>Editar quarto</h1>
-
 <%= render partial: "shared/form_errors", locals: { model: @room } %>
 
+<h1>Editar quarto</h1>
+
 <%= render partial: "room_form" %>
+
+<% if owner_signed_in? %>
+	<%= link_to t("back_link"), my_inn_path %>
+<% else %>
+	<%= link_to inn_path(@room.inn) %>
+<% end %>

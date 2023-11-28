@@ -11,7 +11,7 @@
   <%= form_with url: check_out_room_booking_path(@room) do |f| %>
     <%= f.label :pay_method, "Método de pagamento" %>
     <%= f.text_field :pay_method %>
-    <%= f.submit t("check_out_button"), data: { turbo_confirm: t("confirm_check_out") } %>
+    <%= f.submit t("check_out_button"), data: { turbo_confirm: t("check_out_confirm") } %>
   <% end %>
 
 <% end %>

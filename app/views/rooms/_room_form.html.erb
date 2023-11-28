@@ -59,6 +59,10 @@
     <%= f.check_box :active %>
   </div>
   <div>
+    <%= f.label :photos, "Fotos" %>
+    <%= f.file_field :photos, multiple: true %>
+  </div>
+  <div>
     <%= f.submit "Salvar Quarto" %>
   </div>
 <% end %>

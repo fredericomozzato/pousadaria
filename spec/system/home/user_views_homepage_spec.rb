@@ -33,6 +33,10 @@ describe "Usuário visita a página inicial" do
         check_out_time: Time.new(2000, 1, 1, 15, 30, 0, "UTC"),
         owner_id: first_owner.id
       )
+      first_inn.photos.attach(
+        io: File.open(Rails.root.join("spec/fixtures/images/inn_img_1.jpg")),
+        filename: "inn_img_1.jpg"
+      )
       Address.create!(
         street: "Rua das Flores",
         number: 300,
@@ -59,6 +63,10 @@ describe "Usuário visita a página inicial" do
         check_in_time: Time.new(2000, 1, 1, 9, 0, 0, 'UTC'),
         check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
         owner_id: second_owner.id
+      )
+      second_inn.photos.attach(
+        io: File.open(Rails.root.join("spec/fixtures/images/inn_img_2.jpg")),
+        filename: "inn_img_2.jpg"
       )
       Address.create!(
         street: "Rua da Cachoeira",
@@ -87,6 +95,10 @@ describe "Usuário visita a página inicial" do
         check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
         owner_id: third_owner.id
       )
+      third_inn.photos.attach(
+        io: File.open(Rails.root.join("spec/fixtures/images/inn_img_3.jpg")),
+        filename: "inn_img_3.jpg"
+      )
       Address.create!(
         street: "Rua Bela",
         number: 190,
@@ -113,6 +125,10 @@ describe "Usuário visita a página inicial" do
         check_in_time: Time.new(2000, 1, 1, 9, 0, 0, 'UTC'),
         check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
         owner_id: fourth_owner.id
+      )
+      fourth_inn.photos.attach(
+        io: File.open(Rails.root.join("spec/fixtures/images/inn_img_4.jpg")),
+        filename: "inn_img_4.jpg"
       )
       Address.create!(
         street: "Servidão da Cachoeira",
@@ -142,6 +158,10 @@ describe "Usuário visita a página inicial" do
         owner_id: fifth_owner.id,
         active: false
       )
+      fifth_inn.photos.attach(
+        io: File.open(Rails.root.join("spec/fixtures/images/inn_img_5.jpg")),
+        filename: "inn_img_5.jpg"
+      )
       Address.create!(
         street: "Enderço Inativo",
         number: 10,
@@ -157,18 +177,23 @@ describe "Usuário visita a página inicial" do
       expect(page).to have_content "Novidades"
       expect(page).to have_content "Pousadas"
       within "#recent" do
-      expect(page).not_to have_content "Inativa"
-      expect(page).not_to have_content "Sem cidade - XX"
+        expect(page).not_to have_content "Inativa"
+        expect(page).not_to have_content "Sem cidade - XX"
+        expect(page).not_to have_selector "img[src$='inn_img_5.jpg']"
         expect(page).to have_content "Lage da Pedra"
         expect(page).to have_content "Uberlândia - MG"
+        expect(page).to have_selector "img[src$='inn_img_4.jpg']"
         expect(page).to have_content "Ilha Bela"
         expect(page).to have_content "Ilha Bela - RJ"
+        expect(page).to have_selector "img[src$='inn_img_3.jpg']"
         expect(page).to have_content "Morro Azul"
         expect(page).to have_content "Cambará do Sul - RS"
+        expect(page).to have_selector "img[src$='inn_img_2.jpg']"
       end
       within "#inns-list" do
         expect(page).to have_content "Mar Aberto"
         expect(page).to have_content "Florianópolis - SC"
+        expect(page).to have_selector "img[src$='inn_img_1.jpg']"
         expect(page).not_to have_content "Lage da Pedra"
         expect(page).not_to have_content "Ilha Bela"
         expect(page).not_to have_content "Morro Azul"

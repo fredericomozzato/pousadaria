@@ -1,7 +1,7 @@
 class InnsController < ApplicationController
-  before_action :authenticate_owner!, only: [:new, :create, :edit, :update, :change_status]
+  before_action :authenticate_owner!, only: [:new, :create, :edit, :update, :change_status, :remove_photo]
   before_action :redirect_to_new_if_no_inn, only: [:show, :my_inn]
-  before_action :set_inn, only: [:show, :edit, :update, :change_status]
+  before_action :set_inn, only: [:show, :edit, :update, :change_status, :remove_photo]
 
 
   def new
@@ -23,7 +23,7 @@ class InnsController < ApplicationController
     else
       @address = @inn.address
       flash.now[:alert] = "Erro ao cadastrar Pousada"
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -47,7 +47,7 @@ class InnsController < ApplicationController
     else
       @address = @inn.address
       flash.now[:alert] = "Erro ao atualizar Pousada"
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -78,6 +78,13 @@ class InnsController < ApplicationController
                      .order(:name)
   end
 
+  def remove_photo
+    return redirect_to root_path unless current_owner == @inn.owner
+
+    @inn.photos.find(params[:photo_id]).purge
+    redirect_to my_inn_path
+  end
+
   private
 
   def inn_params
@@ -105,7 +112,8 @@ class InnsController < ApplicationController
         :chekin_minute,
         :checkout_hour,
         :checkout_minute
-      ]
+      ],
+      photos: []
     )
   end
 

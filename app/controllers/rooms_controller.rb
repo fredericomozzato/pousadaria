@@ -1,8 +1,8 @@
 class RoomsController < ApplicationController
-  before_action :set_room, only: [:show, :edit, :update, :change_status]
-  before_action :authenticate_current_owner, only: [:edit, :update, :change_status]
+  before_action :set_room, only: [:show, :edit, :update, :change_status, :remove_photo]
+  before_action :authenticate_current_owner, only: [:edit, :update, :change_status, :remove_photo]
   before_action :authenticate_owner!, only: [:index, :new, :create, :edit,
-                                             :update, :change_status]
+                                             :update, :change_status, :remove_photo]
 
   def index
     @inn = current_owner.inn
@@ -19,7 +19,7 @@ class RoomsController < ApplicationController
       redirect_to @room, notice: "Quarto cadastrado com sucesso!"
     else
       flash.now[:alert] = "Erro ao cadastrar quarto!"
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -36,7 +36,7 @@ class RoomsController < ApplicationController
       redirect_to @room, notice: "Quarto atualizado com sucesso!"
     else
       flash.now[:alert] = "Erro ao atualizar quarto!"
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -44,6 +44,11 @@ class RoomsController < ApplicationController
     @room.active = !@room.active
     @room.save
     redirect_to @room, notice: "Quarto atualizado com sucesso!"
+  end
+
+  def remove_photo
+    @room.photos.find_by(id: params[:photo_id]).purge
+    redirect_to @room
   end
 
   private
@@ -63,7 +68,8 @@ class RoomsController < ApplicationController
       :safe,
       :wifi,
       :accessibility,
-      :active
+      :active,
+      photos: []
     )
   end
 

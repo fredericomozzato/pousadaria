@@ -63,5 +63,43 @@ RSpec.describe Room, type: :model do
 
       expect(room.valid?).to be false
     end
+
+    it "inválido com arquivo de imagem diferente de jpeg/png" do
+      room = Room.new()
+      room.photos.attach(
+        io: File.open(Rails.root.join("spec/fixtures/images/wrong_type_file.txt")),
+        filename: "wrong_type_file.txt")
+
+      expect(room.valid?).to be false
+      expect(room.errors.include?(:photos)).to be true
+      expect(room.errors[:photos]).to include "somente nos formatos JPG, JPEG ou PNG"
+    end
+
+    it "inválido com mais de 5 fotos adicionadas" do
+      room = Room.new()
+      room.photos.attach(
+        {io: File.open(Rails.root.join("spec/fixtures/images/room_img_1.jpg")), filename: "room_img_1.jpg"},
+        {io: File.open(Rails.root.join("spec/fixtures/images/room_img_2.jpg")), filename: "room_img_2.jpg"},
+        {io: File.open(Rails.root.join("spec/fixtures/images/room_img_3.jpg")), filename: "room_img_3.jpg"},
+        {io: File.open(Rails.root.join("spec/fixtures/images/room_img_4.jpg")), filename: "room_img_4.jpg"},
+        {io: File.open(Rails.root.join("spec/fixtures/images/room_img_5.jpg")), filename: "room_img_5.jpg"},
+        {io: File.open(Rails.root.join("spec/fixtures/images/room_img_6.jpg")), filename: "room_img_6.jpg"},
+      )
+
+      expect(room.valid?).to be false
+      expect(room.errors.include?(:photos)).to be true
+      expect(room.errors[:photos]).to include "Número máximo de fotos: 5"
+    end
+
+    it "inválido com arquivo maior que 5 mb" do
+      room = Room.new()
+      room.photos.attach(
+        io: File.open(Rails.root.join("spec/fixtures/images/5_mb_img.jpg")), filename: "5_mb_img.jpg"
+      )
+
+      expect(room.valid?).to be false
+      expect(room.errors.include?(:photos)).to be true
+      expect(room.errors[:photos]).to include "não pode ser maior que 5 mb"
+    end
   end
 end

@@ -4,6 +4,7 @@ class Inn < ApplicationRecord
   has_many :rooms
   has_many :bookings, through: :rooms
   has_many :reviews, through: :bookings
+  has_many_attached :photos
 
   accepts_nested_attributes_for :address
 
@@ -14,7 +15,13 @@ class Inn < ApplicationRecord
             :email,
             :pay_methods,
             presence: true
+  validates :photos, content_type: {
+    in: ["image/jpg", "image/jpeg", "image/png"],
+    message: "somente nos formatos JPG, JPEG ou PNG"
+  }
+  validates :photos, size: { less_than: 5.megabytes, message: "não pode ser maior que 5 mb" }
   validate :validates_registration_number
+  validate -> { max_number_of_photos(5) }
 
   def self.search_inns(query)
     Inn.joins(:address)
