@@ -19,6 +19,7 @@ class Inn < ApplicationRecord
     in: ["image/jpg", "image/jpeg", "image/png"],
     message: "somente nos formatos JPG, JPEG ou PNG"
   }
+  validates :photos, size: { less_than: 5.megabytes, message: "não pode ser maior que 5 mb" }
   validate :validates_registration_number
   validate :max_number_of_photos
 

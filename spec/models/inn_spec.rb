@@ -74,6 +74,16 @@ RSpec.describe Inn, type: :model do
 
     it "válido com arquivos de imagem jpeg/png" do
       inn = Inn.new()
+      inn.photos.attach(
+        [
+          { io: File.open(Rails.root.join("spec/fixtures/images/png_img.png")), filename: "png_img.png" },
+          { io: File.open(Rails.root.join("spec/fixtures/images/inn_img_1.jpg")), filename: "inn_img_1.jpg" }
+        ]
+      )
+
+    inn.valid?
+
+      expect(inn.errors.include?(:photos)).to be false
     end
 
     it "inválido com arquivo de imagem diferente de jpeg/png" do
@@ -101,6 +111,15 @@ RSpec.describe Inn, type: :model do
       expect(inn.valid?).to be false
       expect(inn.errors.include?(:photos)).to be true
       expect(inn.errors[:photos]).to include "Número máximo de fotos: 5"
+    end
+
+    it "inválido com arquivo maior que 5mb" do
+      inn = Inn.new()
+      inn.photos.attach(io: File.open(Rails.root.join("spec/fixtures/images/5_mb_img.jpg")), filename: "5_mb_img.jpg")
+
+      expect(inn.valid?).to be false
+      expect(inn.errors.include?(:photos)).to be true
+      expect(inn.errors[:photos]).to include "não pode ser maior que 5 mb"
     end
   end
 
