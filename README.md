@@ -17,6 +17,7 @@ Projeto em desenvolvimento para o curso TreinaDev 11 com Ruby on Rails.
 ### Gems externas:
 
 - [br_documents](https://github.com/asseinfo/br_documents) - Validação de CPF e CNPJ
+- [active_storage_validations](https://github.com/igorkasyanchuk/active_storage_validations) - Validação de arquivos 
 
 
 ### Observações de design
