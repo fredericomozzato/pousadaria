@@ -20,6 +20,7 @@ class Inn < ApplicationRecord
     message: "somente nos formatos JPG, JPEG ou PNG"
   }
   validate :validates_registration_number
+  validate :max_number_of_photos
 
   def self.search_inns(query)
     Inn.joins(:address)
@@ -75,5 +76,13 @@ class Inn < ApplicationRecord
   def validates_registration_number
     cnpj = BrDocuments::CnpjCpf::Cnpj.new(registration_number)
     errors.add(:registration_number, " inválido") unless cnpj.valid?
+  end
+
+  def max_number_of_photos
+    return unless photos.attached?
+
+    limit = 5
+
+    errors.add(:photos, "Número máximo de fotos: #{limit}") if photos.count > limit
   end
 end

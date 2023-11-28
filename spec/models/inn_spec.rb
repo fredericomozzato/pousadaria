@@ -80,11 +80,27 @@ RSpec.describe Inn, type: :model do
       inn = Inn.new()
       inn.photos.attach(io: File.open(Rails.root.join("spec/fixtures/images/wrong_type_file.txt")), filename: "wrong_type_file.txt")
 
-      # debugger
-
       expect(inn.valid?).to be false
       expect(inn.errors.include?(:photos)).to be true
       expect(inn.errors[:photos]).to include "somente nos formatos JPG, JPEG ou PNG"
+    end
+
+    it "inválido com mais de 5 fotos adicionadas" do
+      inn = Inn.new()
+      inn.photos.attach(
+        [
+          { io: File.open(Rails.root.join("spec/fixtures/images/inn_img_1.jpg")), filename: "inn_img_1.jpg" },
+          { io: File.open(Rails.root.join("spec/fixtures/images/inn_img_2.jpg")), filename: "inn_img_2.jpg" },
+          { io: File.open(Rails.root.join("spec/fixtures/images/inn_img_3.jpg")), filename: "inn_img_3.jpg" },
+          { io: File.open(Rails.root.join("spec/fixtures/images/inn_img_4.jpg")), filename: "inn_img_4.jpg" },
+          { io: File.open(Rails.root.join("spec/fixtures/images/inn_img_5.jpg")), filename: "inn_img_5.jpg" },
+          { io: File.open(Rails.root.join("spec/fixtures/images/inn_img_6.jpg")), filename: "inn_img_6.jpg" }
+        ]
+      )
+
+      expect(inn.valid?).to be false
+      expect(inn.errors.include?(:photos)).to be true
+      expect(inn.errors[:photos]).to include "Número máximo de fotos: 5"
     end
   end
 

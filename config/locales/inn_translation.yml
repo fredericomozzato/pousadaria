@@ -19,6 +19,12 @@ pt-BR:
         check_out_time: "Horário de check-out"
         active: "Ativa"
         photos: "Fotos"
+    errors:
+      models:
+        inn:
+          attributes:
+            photos:
+              format: "%{message}"
 
   # views texts
   advanced_search: "Busca avançada"
