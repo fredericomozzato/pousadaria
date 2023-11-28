@@ -47,7 +47,12 @@
       <dd>
         <ul id="photos-list">
           <% @inn.photos.each do |photo| %>
-            <li><%= image_tag(photo.variant(resize_to_limit: [200, 200]).processed) %></li>
+            <li>
+              <div class="photo-container">
+                <%= image_tag(photo.variant(resize_to_limit: [200, 200]).processed) %>
+                <%= button_to "Remover", remove_photo_inn_path(@inn), method: :delete, params: { photo_id: photo.id }, data: { turbo_method: :delete, turbo_confirm: "Remover foto?" } %>
+              </div>
+              </li>
           <% end %>
         </ul>
       </dd>

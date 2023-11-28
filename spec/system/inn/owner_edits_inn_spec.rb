@@ -324,4 +324,42 @@ describe "Proprietário acessa a página de sua pousada" do
 
     expect(page).not_to have_button "Editar"
   end
+
+  it "e remove uma foto da pousada" do
+    owner = Owner.create!(email: "dono_1@email.com", password: "123456")
+    inn = Inn.create!(
+      name: "Mar Aberto",
+      corporate_name: "Pousada Mar Aberto/SC",
+      registration_number: "84.485.218/0001-73",
+      phone: "4899999-9999",
+      email: "pousadamaraberto@hotmail.com",
+      description: "Pousada na beira do mar com suítes e café da manhã incluso.",
+      pay_methods: "Crédito, débito, dinheiro ou pix",
+      pet_friendly: true,
+      user_policies: "A pousada conta com lei do silêncio das 22h às 8h",
+      check_in_time: Time.new(2000, 1, 1, 9, 0, 0, "UTC"),
+      check_out_time: Time.new(2000, 1, 1, 15, 30, 0, "UTC"),
+      owner: owner
+    )
+    Address.create!(
+      street: "Rua das Flores",
+      number: 300,
+      neighborhood: "Canasvieiras",
+      city: "Florianópolis",
+      state: "SC",
+      postal_code: "88000-000",
+      inn: inn
+    )
+    inn.photos.attach(
+      [
+        { io: File.open(Rails.root.join("spec/fixtures/images/inn_img_1.jpg")), filename: "inn_img_1.jpg" }
+      ]
+    )
+    
+    login_as owner, scope: :owner
+    visit my_inn_path
+    click_on "Remover"
+
+    expect(page).not_to have_selector "img[src$='inn_img_1.jpg']"
+  end
 end

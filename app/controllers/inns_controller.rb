@@ -1,7 +1,7 @@
 class InnsController < ApplicationController
   before_action :authenticate_owner!, only: [:new, :create, :edit, :update, :change_status]
   before_action :redirect_to_new_if_no_inn, only: [:show, :my_inn]
-  before_action :set_inn, only: [:show, :edit, :update, :change_status]
+  before_action :set_inn, only: [:show, :edit, :update, :change_status, :remove_photo]
 
 
   def new
@@ -76,6 +76,13 @@ class InnsController < ApplicationController
                      .where(active: true)
                      .where(address: { city: params[:city] })
                      .order(:name)
+  end
+
+  def remove_photo
+    photo = @inn.photos.find(params[:photo_id])
+    photo.purge
+
+    redirect_to my_inn_path
   end
 
   private

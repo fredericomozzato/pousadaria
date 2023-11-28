@@ -27,6 +27,7 @@ Rails.application.routes.draw do
     get "search", on: :collection
     get "city_search", on: :collection
     get "advanced_search", on: :collection
+    delete "remove_photo", on: :member
 
     resources :reviews, only: [:index]
   end
