@@ -57,29 +57,3 @@
     </div>
   </div>
 </nav>
-
-
-<!-- 
-<ul>
-  <li><%= link_to "Pousadaria", root_path, class: "navbar-brand" %></li>
-  <li><%= render partial: "layouts/search_bar" %></li>
-  <li><%= link_to t("advanced_search"), advanced_search_inns_path %></li>
-
-  <% if owner_signed_in? %>
-    <li><%= link_to t("my_inn"), my_inn_path %></li>
-    <li><%= link_to Booking.model_name.human(count: 2), bookings_path %></li>
-    <li><%= link_to t("active_bookings"), active_bookings_path %></li>
-    <li><%= link_to Review.model_name.human(count: 2), reviews_path %></li>
-    <li><%= current_owner.email %></li>
-    <li><%= button_to t("exit"), destroy_owner_session_path, method: :delete %></li>
-
-  <% elsif user_signed_in? %>
-    <li><%= current_user.email %></li>
-    <li><%= link_to t("my_bookings"), my_bookings_path %></li>
-    <li><%= button_to t("exit"), destroy_user_session_path, method: :delete %></li>
-
-  <% else %>
-    <li><%= link_to t("enter"), logins_path %></li>
-  <% end %>
-</ul>
--->

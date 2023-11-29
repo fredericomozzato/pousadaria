@@ -1,0 +1,34 @@
+header .navbar {
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+}
+
+body a {
+    text-decoration: none;
+}
+
+body a:hover {
+    color: orangered;
+}
+
+body ul {
+    list-style: none;
+}
+
+.form-group {
+    margin: auto;
+    width: 50%;
+}
+
+#login-redirector {
+    text-align: center;
+    width: 50%;
+    margin: auto;
+}
+
+#login-redirector a {
+    margin-bottom: 20px;
+    width: 40%;
+    font-size: 30px;
+}

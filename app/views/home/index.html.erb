@@ -3,9 +3,9 @@
 
     <div class="col-3 order-first">
         <nav id="cities-menu">
-          <ul>
+          <ul class="list-group" style="list-style: none;">
             <% @cities.each do |city| %>
-              <li><%= link_to city, city_search_inns_path(city: city) %></li>
+              <li><%= link_to city, city_search_inns_path(city: city), class: "list-group-item" %></li>
             <% end %>
           </ul>
         </nav>
