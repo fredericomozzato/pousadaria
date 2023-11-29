@@ -52,10 +52,16 @@ describe "Proprietário faz check-in de uma reserva", type: :request do
       end_date: 5.days.from_now,
       number_of_guests: 2,
     )
+    params = {
+      guests:
+        { guest_0: { name: "Fulano de Tal", document: "214.163.580-21", booking_id: "1" },
+          guest_1: { name: "Ciclano de Tal", document: "886.917.530-80", booking_id: "1" }
+        }
+    }
 
     login_as owner
     freeze_time do
-      post check_in_room_booking_path(room_ocean, booking)
+      post check_in_room_booking_path(room_ocean, booking, params: params)
       booking.reload
 
       expect(response).to redirect_to(booking_path(booking))
@@ -241,6 +247,70 @@ describe "Proprietário faz check-in de uma reserva", type: :request do
     expect(response).to redirect_to(root_path)
     expect(flash[:alert]).to eq "Não foi possível completar a requisição"
     expect(booking_1.active?).to be false
+  end
+
+  it "sem sucesso com número de hóspedes maior que o informado na reserva" do
+    owner = Owner.create!(
+          email: "owner@email.com",
+          password: "123456"
+      )
+    inn = Inn.create!(
+      name: "Mar Aberto",
+      corporate_name: "Pousada Mar Aberto/SC",
+      registration_number: "84.485.218/0001-73",
+      phone: "4899999-9999",
+      email: "pousadamaraberto@gmail.com",
+      description: "Pousada na beira do mar com suítes e café da manhã incluso.",
+      pay_methods: "Crédito, débito, dinheiro ou pix",
+      user_policies: "A pousada conta com lei do silêncio das 22h às 8h",
+      pet_friendly: true,
+      check_in_time: Time.new(2000, 1, 1, 9, 0, 0, 'UTC'),
+      check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
+      owner_id: owner.id
+    )
+    Address.create!(
+      street: "Rua das Flores",
+      number: 300,
+      neighborhood: "Canasvieiras",
+      city: "Florianópolis",
+      state: "SC",
+      postal_code: "88000-000",
+      inn_id: inn.id
+    )
+    room_ocean = Room.create!(
+      name: "Oceano",
+      description: "Quarto com vista para o mar",
+      size: 30,
+      max_guests: 2,
+      price: 200.00,
+      inn_id: inn.id
+    )
+    user = User.create!(
+        name: "User",
+        cpf: "820.628.780-95",
+        email: "user@email.com",
+        password: "123456"
+      )
+    booking = Booking.create!(
+      room: room_ocean,
+      user: user,
+      start_date: Date.today,
+      end_date: 5.days.from_now,
+      number_of_guests: 2,
+    )
+    params = {
+      guests:
+        { guest_0: { name: "Fulano de Tal", document: "214.163.580-21", booking_id: "1" },
+          guest_1: { name: "Ciclano de Tal", document: "886.917.530-80", booking_id: "1" },
+          guest_3: { name: "Beltrano de Tal", document: "679.233.210-00", booking_id: "1" }
+        }
+    }
+
+    login_as owner, scope: :owner
+    post check_in_room_booking_path(room_ocean, booking, params: params)
+
+    expect(booking.guests).to be_empty
+    expect(flash[:alert]).to include "ERRO: Número de hóspedes maior que o informado na reserva"
   end
 
 end

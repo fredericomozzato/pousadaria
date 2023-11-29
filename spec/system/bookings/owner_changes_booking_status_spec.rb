@@ -119,13 +119,27 @@ describe "Proprietário acessa uma reserva" do
     login_as owner
     visit bookings_path
     click_on booking.code
+    el = find(:css, "input[id$='_guests_guest_0__name']")
+    el.set("Fulano de Tal")
+    el = find(:css, "input[id$='_guests_guest_0__document']")
+    el.set("214.163.580-21")
+    el = find(:css, "input[id$='_guests_guest_1__name']")
+    el.set("Ciclano de Tal")
+    el = find(:css, "input[id$='_guests_guest_1__document']")
+    el.set("886.917.530-80")
     click_on "REALIZAR CHECK-IN"
     booking.reload
 
     expect(page).to have_content "Check-in realizado com sucesso"
     expect(page).to have_content "Status: Ativa"
+    expect(page).to have_content "Hóspedes:"
+    expect(page).to have_content "Nome: Fulano de Tal"
+    expect(page).to have_content "Documento: 214.163.580-21"
+    expect(page).to have_content "Nome: Ciclano de Tal"
+    expect(page).to have_content "Documento: 886.917.530-80"
     expect(page).not_to have_button "REALIZAR CHECK-IN"
     expect(booking.check_in).not_to be nil
+    expect(booking.guests).not_to be_empty
   end
 
   it "e faz o check-out com sucesso" do

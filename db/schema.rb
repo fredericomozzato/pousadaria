@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_28_124556) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_29_124204) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -55,6 +55,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_28_124556) do
     t.index ["inn_id"], name: "index_addresses_on_inn_id"
   end
 
+  create_table "booking_guests", force: :cascade do |t|
+    t.integer "booking_id", null: false
+    t.integer "guest_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["booking_id"], name: "index_booking_guests_on_booking_id"
+    t.index ["guest_id"], name: "index_booking_guests_on_guest_id"
+  end
+
   create_table "bookings", force: :cascade do |t|
     t.integer "room_id", null: false
     t.integer "user_id"
@@ -72,6 +81,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_28_124556) do
     t.index ["code"], name: "index_bookings_on_code", unique: true
     t.index ["room_id"], name: "index_bookings_on_room_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
+  end
+
+  create_table "guests", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "document", null: false
+    t.integer "booking_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["booking_id"], name: "index_guests_on_booking_id"
   end
 
   create_table "inns", force: :cascade do |t|
@@ -168,8 +186,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_28_124556) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "addresses", "inns"
   add_foreign_key "addresses", "inns"
+  add_foreign_key "booking_guests", "bookings"
+  add_foreign_key "booking_guests", "guests"
   add_foreign_key "bookings", "rooms"
   add_foreign_key "bookings", "users"
+  add_foreign_key "guests", "bookings"
   add_foreign_key "inns", "owners"
   add_foreign_key "reviews", "bookings"
   add_foreign_key "rooms", "inns"
