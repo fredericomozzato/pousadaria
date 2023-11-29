@@ -132,8 +132,14 @@ describe "Proprietário acessa uma reserva" do
 
     expect(page).to have_content "Check-in realizado com sucesso"
     expect(page).to have_content "Status: Ativa"
+    expect(page).to have_content "Hóspedes:"
+    expect(page).to have_content "Nome: Fulano de Tal"
+    expect(page).to have_content "Documento: 214.163.580-21"
+    expect(page).to have_content "Nome: Ciclano de Tal"
+    expect(page).to have_content "Documento: 886.917.530-80"
     expect(page).not_to have_button "REALIZAR CHECK-IN"
     expect(booking.check_in).not_to be nil
+    expect(booking.guests).not_to be_empty
   end
 
   it "e faz o check-out com sucesso" do
