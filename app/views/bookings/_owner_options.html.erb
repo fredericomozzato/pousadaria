@@ -14,6 +14,7 @@
             <%= g.text_field :name, placeholder: "Nome completo: " %>
             <%= g.label :document, "Número do documento" %>
             <%= g.text_field :document, placeholder: "RG ou CPF" %>
+            <%= g.hidden_field :booking_id, value: @booking.id %>
           <% end %>
         </div>
       <% end %>
@@ -22,7 +23,6 @@
   </div>
 
 <% elsif @booking.active? %>
-
   <%= form_with url: check_out_room_booking_path(@room) do |f| %>
     <%= f.label :pay_method, "Método de pagamento" %>
     <%= f.text_field :pay_method %>

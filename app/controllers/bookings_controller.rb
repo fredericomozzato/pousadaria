@@ -82,14 +82,12 @@ class BookingsController < ApplicationController
 
   def check_in
     if @booking.start_date <= Date.today
-      @booking.update!(
+      @booking.update(
         check_in: Time.current,
         status: :active
       )
-
-      # salvar nome dos hóspedes
-      debugger
-
+      @booking.guests.create(params[:guests].values)
+      
       redirect_to @booking, notice: "Check-in realizado com sucesso"
     else
       redirect_to @booking, alert: "Não foi possível realizar o check-in"
