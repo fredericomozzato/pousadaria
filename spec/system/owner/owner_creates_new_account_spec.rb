@@ -21,7 +21,7 @@ describe "Proprietário acessa a página de cadastro" do
     fill_in "Confirmar senha", with: "123456"
     click_on "Criar conta"
 
-    within "nav" do
+    within "#navigation-bar" do
       expect(page).to have_content "owner@example.com"
       expect(page).to have_button "Sair"
     end
