@@ -4,7 +4,22 @@
 
 <% elsif @booking.confirmed? %>
 
-  <%= button_to t("check_in_button"), check_in_room_booking_path(@room), data: { turbo_confirm: t("check_in_confirm") } %>
+  <div id="guests-registration">
+    <h3>Registro de hóspedes</h3>
+    <%= form_with(url: check_in_room_booking_path(@room)) do |f| %>
+      <% @booking.number_of_guests.times do |i| %>
+        <div class="guest-info">
+          <%= f.fields_for "guests[guest_#{i}]" do |g| %>
+            <%= g.label :name, "Hóspede: " %>
+            <%= g.text_field :name, placeholder: "Nome completo: " %>
+            <%= g.label :document, "Número do documento" %>
+            <%= g.text_field :document, placeholder: "RG ou CPF" %>
+          <% end %>
+        </div>
+      <% end %>
+      <%= f.submit t("check_in_button"), data: { turbo_confirm: t("check_in_confirm") } %>
+    <% end %>
+  </div>
 
 <% elsif @booking.active? %>
 

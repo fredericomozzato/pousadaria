@@ -119,6 +119,14 @@ describe "Proprietário acessa uma reserva" do
     login_as owner
     visit bookings_path
     click_on booking.code
+    el = find(:css, "input[id$='_guests_guest_0__name']")
+    el.set("Fulano de Tal")
+    el = find(:css, "input[id$='_guests_guest_0__document']")
+    el.set("214.163.580-21")
+    el = find(:css, "input[id$='_guests_guest_1__name']")
+    el.set("Ciclano de Tal")
+    el = find(:css, "input[id$='_guests_guest_1__document']")
+    el.set("886.917.530-80")
     click_on "REALIZAR CHECK-IN"
     booking.reload
 

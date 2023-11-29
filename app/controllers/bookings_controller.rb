@@ -86,6 +86,10 @@ class BookingsController < ApplicationController
         check_in: Time.current,
         status: :active
       )
+
+      # salvar nome dos hóspedes
+      debugger
+
       redirect_to @booking, notice: "Check-in realizado com sucesso"
     else
       redirect_to @booking, alert: "Não foi possível realizar o check-in"
