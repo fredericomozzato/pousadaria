@@ -12,7 +12,7 @@
           <%= f.fields_for "guests[guest_#{i}]" do |g| %>
             <%= g.label :name, "Hóspede: " %>
             <%= g.text_field :name, placeholder: "Nome completo: " %>
-            <%= g.label :document, "Número do documento" %>
+            <%= g.label :document, "Documento: " %>
             <%= g.text_field :document, placeholder: "RG ou CPF" %>
             <%= g.hidden_field :booking_id, value: @booking.id %>
           <% end %>

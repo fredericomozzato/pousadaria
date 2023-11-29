@@ -14,6 +14,16 @@
     <dt><%= Booking.human_attribute_name(:number_of_guests) %>:</dt>
     <dd><%= @booking.number_of_guests %></dd>
 
+    <dt>Hóspedes:</dt>
+    <dd>
+      <% @booking.guests.each do |guest| %>
+        <dt>Nome:</dt>
+        <dd><%= guest.name %></dd>
+        <dt>Documento:</dt>
+        <dd><%= guest.document %></dd>
+      <% end %>
+    </dd>
+
     <dt><%= Booking.human_attribute_name(:bill) %>:</dt>
     <dd><%= number_to_currency @booking.calculate_bill, unit: "R$", delimiter: ".", separator: "," %></dd>
 

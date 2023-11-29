@@ -9,6 +9,7 @@ class Booking < ApplicationRecord
   validates :number_of_guests, numericality: {greater_than: 0}
   validates :code, uniqueness: true
 
+  validate :check_in_overcrowd
   validate :past_dates, :date_conflict, :too_many_guests, :active_room, on: :create
 
   before_validation :generate_code, on: :create
@@ -83,5 +84,15 @@ class Booking < ApplicationRecord
 
   def generate_code
     self.code ||= SecureRandom.alphanumeric(8).upcase
+  end
+
+  def check_in_overcrowd
+    return if guests.empty?
+
+    # debugger
+
+    if guests.length > number_of_guests
+      errors.add(:guests, "Número de hóspedes maior que o informado na reserva")
+    end
   end
 end
