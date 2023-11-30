@@ -33,7 +33,7 @@ body ul {
     font-size: 30px;
 }
 
-#inn-details {
+.details {
     width: 70%;
     margin: auto;
     text-align: center;

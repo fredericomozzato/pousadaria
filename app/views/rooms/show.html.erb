@@ -1,34 +1,40 @@
-<%= render @room %>
+<section class="details">
+  <%= render @room %>
 
-<% if owner_signed_in? %>
-  <div>
-    <%= link_to "Editar Quarto", edit_room_path(@room) %>
-  </div>
-<% end %>
-
-<%= button_to "Reservar", new_room_booking_path(@room), method: :get %>
-
-<div>
-  <h3>Preços Sazonais</h3>
-  <% if @seasonal_prices.empty? %>
-    <p>Nenhum Preço Sazonal Cadastrado</p>
-  <% end %>
-
-  <ul id="seasonal-prices">
-    <% @seasonal_prices.each do |price| %>
-      <li>
-        <%= link_to price.date_pretty_print, edit_seasonal_price_path(price) %> | 
-        <%= number_to_currency price.price, unit: "R$", separator: ",", delimiter: "." %>
-      </li>
-    <% end %>
-  </ul>
   <% if owner_signed_in? %>
-    <%= link_to "Novo Preço Sazonal", new_room_seasonal_price_path(@room) %>
+    <div>
+      <%= link_to "Editar Quarto", edit_room_path(@room) %>
+    </div>
   <% end %>
-</div>
 
-<% if owner_signed_in? %>
-  <%= link_to "Voltar", my_inn_path %>
-<% else %>
-  <%= link_to "Voltar", inn_path(@room.inn) %>
-<% end %>
+  <% unless owner_signed_in? %>
+    <%= button_to "Reservar", new_room_booking_path(@room), method: :get, class: "btn btn-lg btn-dark" %>
+  <% end %>
+
+  <br>
+
+  <div>
+    <h3>Preços Sazonais</h3>
+    <% if @seasonal_prices.empty? %>
+      <p>Nenhum Preço Sazonal Cadastrado</p>
+    <% end %>
+
+    <ul id="seasonal-prices">
+      <% @seasonal_prices.each do |price| %>
+        <li>
+          <%= link_to price.date_pretty_print, edit_seasonal_price_path(price) %> | 
+          <%= number_to_currency price.price, unit: "R$", separator: ",", delimiter: "." %>
+        </li>
+      <% end %>
+    </ul>
+    <% if owner_signed_in? %>
+      <%= link_to "Novo Preço Sazonal", new_room_seasonal_price_path(@room) %>
+    <% end %>
+  </div>
+
+  <% if owner_signed_in? %>
+    <%= link_to "Voltar", my_inn_path %>
+  <% else %>
+    <%= link_to "Voltar", inn_path(@room.inn) %>
+  <% end %>
+</section>
