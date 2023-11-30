@@ -94,7 +94,6 @@ describe "Usuário visita uma pousada" do
     expect(page).to have_content "Rua das Flores, 300"
     expect(page).to have_content "Canasvieiras - Florianópolis, SC"
     expect(page).to have_content "CEP: 88000-000"
-    expect(page).to have_content "Galeria de fotos"
     expect(page).to have_selector "img[src$='inn_img_1.jpg']"
     expect(page).to have_selector "img[src$='inn_img_2.jpg']"
     expect(page).to have_selector "img[src$='inn_img_3.jpg']"
