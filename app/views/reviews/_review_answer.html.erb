@@ -1,6 +1,10 @@
 
 <% if @review.answer.present? %>
-  <p><%= Review.human_attribute_name(:answer) %>: <%= @review.answer %></p>
+  <div>
+    <p><%= Review.human_attribute_name(:answer) %>:</p>
+    <p><%= @review.answer %></p>
+  </div>
+
 <% elsif current_user %>
   <p><%= t("no_answers") %></p>
 <% elsif current_owner %>

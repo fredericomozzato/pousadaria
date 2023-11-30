@@ -1,9 +1,11 @@
-<div id="answer-form">
-  <h4><%= t("leave_an_answer") %></h4>
+<div id="answer-form" class="form">
+  <h5><%= t("leave_an_answer") %></h5>
   
   <%= form_with(url: answer_booking_review_path(@booking, @review)) do |f| %>
-    <%= f.label :answer, Review.human_attribute_name(:answer) %>
-    <%= f.text_area :answer %>
-    <%= f.submit t("send_button") %>
+    <div class="mb-3">
+      <%= f.label :answer, Review.human_attribute_name(:answer), class: "form-label" %>
+      <%= f.text_area :answer, class: "form-control" %>
+    </div>
+    <%= f.submit t("send_button"), class: "btn btn-sm btn-outline-success" %>
   <% end %>
 </div>

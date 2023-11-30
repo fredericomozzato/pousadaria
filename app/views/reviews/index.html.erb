@@ -10,23 +10,38 @@
     <% @reviews.each do |review| %>
       <div class="row">
         <div class="col">
-          <div class="card">
+          <div class="card w-60">
             <dl>
-              <% if current_owner %>
                 <div class="card-header">
-                  <dt><%= Booking.model_name.human(count: 1) %>:</dt>
-                  <dd><%= link_to review.booking.code, booking_path(review.booking) %></dd>
+                  <div class="row">
+                    <div class="col">
+                      <dt><%= User.model_name.human(count: 1) %>:</dt>
+                      <dd><%= review.booking.user.name %></dd>
+                    </div>
+                  <% if current_owner %>
+                    <div class="col">
+                      <dt><%= Booking.model_name.human(count: 1) %>:</dt>
+                      <dd><%= link_to review.booking.code, booking_path(review.booking) %></dd>
+                    </div>
+                  <% end %>
+                  </div>
                 </div>
-              <% end %>
               <div class="card-body">
-                <dt><%= User.model_name.human(count: 1) %>:</dt>
-                <dd><%= review.booking.user.name %></dd>
-                <dt><%= Review.human_attribute_name(:score) %>:</dt>
-                <dd><%= review.score %></dd>
-                <dt><%= Review.human_attribute_name(:message) %>:</dt>
-                <dd><%= review.message %></dd>
-                <dt><%= t("owner_answer") %>:</dt>
-                <dd><%= review.answer %></dd>
+                <div class="row">
+                  <div class="col">
+                    <dt><%= Review.human_attribute_name(:score) %>:</dt>
+                    <dd><%= review.score %></dd>
+                  </div>
+                  <div class="col">
+                    <dt><%= Review.human_attribute_name(:message) %>:</dt>
+                    <dd><%= review.message %></dd>
+                  </div>
+                </div>
+                <hr>
+                <div class="text-center">
+                  <dt><%= t("owner_answer") %>:</dt>
+                  <dd><%= review.answer %></dd>
+                </div>
               </div>
             </dl>
           </div>
