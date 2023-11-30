@@ -1,54 +1,56 @@
-<h1><%= t("advanced_search") %></h1>
+<h1 style="text-align: center; margin-top: 20px;"><%= t("advanced_search") %></h1>
 
-<div id="advanced-search-form">
-  <%= form_with(url: search_inns_path, method: :get) do |f| %>
-    <div>
-      <%= f.label :name, "Nome" %>
-      <%= f.text_field :name %>
-    </div>
-    <div>
-      <%= f.label :city, "Cidade" %>
-      <%= f.text_field :city %>
-    </div>
-    <div>
-      <%= f.label :pet_friendly, "Aceita pets" %>
-      <%= f.check_box :pet_friendly %>
-    </div>
-    <div>
-      <%= f.label :accessibility, "Acessível para PCD" %>
-      <%= f.check_box :accessibility %>
-    </div>
-    <div>
-      <%= f.label :wifi, "Wi-fi" %>
-      <%= f.check_box :wifi %>
-    </div>
-    <div>
-      <%= f.label :bathroom, "Banheiro privativo" %>
-      <%= f.check_box :bathroom %>
-    </div>
-    <div>
-      <%= f.label :air_conditioner, "Ar-condicionado" %>
-      <%= f.check_box :air_conditioner %>
-    </div>
-    <div>
-      <%= f.label :wardrobe, "Guarda-roupas" %>
-      <%= f.check_box :wardrobe %>
-    </div>
-    <div>
-      <%= f.label :tv, "TV" %>
-      <%= f.check_box :tv %>
-    </div>
-    <div>
-      <%= f.label :porch, "Varanda" %>
-      <%= f.check_box :porch %>
-    </div>
-    <div>
-      <%= f.label :safe, "Cofre" %>
-      <%= f.check_box :safe %>
-    </div>
-    <%= f.hidden_field :advanced, { value: true } %>
-    <div>
-      <%= f.submit t("search_button") %>
-    </div>
-  <% end %>
-</div>
+  <div class="mb-3 form" id="advanced-search-form">
+    <%= form_with(url: search_inns_path, method: :get) do |f| %>
+      <div>
+        <%= f.label :name, "Nome", class: "form-label" %>
+        <%= f.text_field :name, class: "form-control" %>
+      </div>
+      <div>
+        <%= f.label :city, "Cidade", class: "form-label" %>
+        <%= f.text_field :city, class: "form-control" %>
+      </div>
+      <div class="switches">
+        <div class="form-check form-switch">
+          <%= f.label :pet_friendly, "Aceita pets", class: "form-check-label" %>
+          <%= f.check_box :pet_friendly, class: "form-check-input" %>
+        </div>
+        <div class="form-check form-switch">
+          <%= f.label :accessibility, "Acessível para PCD", class: "form-check-label" %>
+          <%= f.check_box :accessibility, class: "form-check-input" %>
+        </div>
+        <div class="form-check form-switch">
+          <%= f.label :wifi, "Wi-fi", class: "form-check-label" %>
+          <%= f.check_box :wifi, class: "form-check-input" %>
+        </div>
+        <div class="form-check form-switch">
+          <%= f.label :bathroom, "Banheiro privativo", class: "form-check-label" %>
+          <%= f.check_box :bathroom, class: "form-check-input" %>
+        </div>
+        <div class="form-check form-switch">
+          <%= f.label :air_conditioner, "Ar-condicionado", class: "form-check-label" %>
+          <%= f.check_box :air_conditioner, class: "form-check-input" %>
+        </div>
+        <div class="form-check form-switch">
+          <%= f.label :wardrobe, "Guarda-roupas", class: "form-check-label" %>
+          <%= f.check_box :wardrobe, class: "form-check-input" %>
+        </div>
+        <div class="form-check form-switch">
+          <%= f.label :tv, "TV", class: "form-check-label" %>
+          <%= f.check_box :tv, class: "form-check-input" %>
+        </div>
+        <div class="form-check form-switch">
+          <%= f.label :porch, "Varanda", class: "form-check-label" %>
+          <%= f.check_box :porch, class: "form-check-input" %>
+        </div>
+        <div class="form-check form-switch">
+          <%= f.label :safe, "Cofre", class: "form-check-label" %>
+          <%= f.check_box :safe, class: "form-check-input" %>
+        </div>
+      </div>
+      <%= f.hidden_field :advanced, { value: true } %>
+      <div class="text-center">
+        <%= f.submit t("search_button"), class: "btn btn-lg btn-dark" %>
+      </div>
+    <% end %>
+  </div>

@@ -65,3 +65,19 @@ body ul {
     object-fit: cover;
     height: 150px;
 }
+
+.form {
+    width: 50%;
+    margin: auto;
+}
+
+#advanced-search-form button {
+    width: 40px;
+}
+
+.switches {
+    font-size: large;
+    margin-left: 35%;
+    margin-top: 40px;
+    margin-bottom: 30px;
+}
