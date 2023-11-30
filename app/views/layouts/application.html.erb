@@ -21,12 +21,17 @@
       </nav>
     </header>
 
-    <div>
-      <% if flash %>
-        <%= notice %>
-        <%= alert %>
+      <% if flash[:notice] %>
+        <div class="alert alert-primary text-center">
+          <%= notice %>
+        </div>
       <% end %>
-    </div>
+
+      <% if flash[:alert]%>
+        <div class="alert alert-danger text-center">
+          <%= alert %>
+        </div>
+      <% end %>
 
     <%= yield %>
 
