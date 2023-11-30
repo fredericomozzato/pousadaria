@@ -24,7 +24,7 @@ class RoomsController < ApplicationController
   end
 
   def show
-    @seasonal_prices = SeasonalPrice.where("room_id = ?", @room.id)
+    @seasonal_prices = SeasonalPrice.where("room_id = ?", @room.id).order(:start)
   end
 
   def edit; end

@@ -12,6 +12,7 @@
   <% end %>
 
   <br>
+  <br>
 
   <div>
     <h3>Preços Sazonais</h3>
@@ -19,14 +20,17 @@
       <p>Nenhum Preço Sazonal Cadastrado</p>
     <% end %>
 
-    <ul id="seasonal-prices">
+    <div id="seasonal-prices">
       <% @seasonal_prices.each do |price| %>
-        <li>
-          <%= link_to price.date_pretty_print, edit_seasonal_price_path(price) %> | 
-          <%= number_to_currency price.price, unit: "R$", separator: ",", delimiter: "." %>
-        </li>
+          <div class="card w-50 mb-3">
+            <div class="card-body">
+              <%= link_to price.date_pretty_print, edit_seasonal_price_path(price) %> | 
+              <%= number_to_currency price.price, unit: "R$", separator: ",", delimiter: "." %>
+            </div>
+        </div>
       <% end %>
-    </ul>
+    </div>
+
     <% if owner_signed_in? && @room.inn.owner == current_owner %>
       <%= link_to "Novo Preço Sazonal", new_room_seasonal_price_path(@room), class: "btn btn-lg btn-dark" %>
     <% end %>
