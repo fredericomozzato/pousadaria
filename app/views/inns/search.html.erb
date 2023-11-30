@@ -1,11 +1,23 @@
-<h1><%= t("search_for") %>: <%= params[:query] %></h1>
+<div class="container">
+  <div class="mt-5 mb-5 text-center">
+    <h1><%= t("search_for") %>: <%= params[:query] %></h1>
+    <p><%= t("results") %>: <%= @inns.count %></p>
+  </div>
 
-<p><%= t("results") %>: <%= @inns.count %></p>
 
-<% if @inns.empty? %>
-  <p><%= t("no_inn_found") %></p>
-<% else %>
-  <ul>
-    <li><%= render @inns %></li>
-  </ul>
-<% end %>
+  <% if @inns.empty? %>
+    <div class="text-center">
+      <p><%= t("no_inn_found") %></p>
+    </div>
+  <% else %>
+    <div class="d-flex justify-content-center">
+      <div class="row">
+        <% @inns.each do |inn| %>
+          <div class="col-md-4 mb-3">
+            <%= render partial: "inn_card", locals: { inn: inn } %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
