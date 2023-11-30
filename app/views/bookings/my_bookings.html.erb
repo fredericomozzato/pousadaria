@@ -11,7 +11,6 @@
     <% @bookings.each do |booking| %>
       <div class="col-md-4">
 
-
         <div class="card">
           <div class="card-header">
             Reserva
@@ -28,7 +27,6 @@
             </dl>
           </div>
         </div>
-
 
       </div>
     <% end %>
@@ -55,4 +53,8 @@
   </ul>
 </section>
 
-<%= link_to t("back_to_beginning_link"), root_path %>
+<br>
+
+<div class="text-center">
+  <%= link_to t("back_to_beginning_link"), root_path, class: "btn btn-lg btn-outline-dark" %>
+</div>

@@ -9,7 +9,7 @@ class BookingsController < ApplicationController
 
   def index
     @inn = current_owner.inn
-    @bookings = @inn.bookings
+    @bookings = @inn.bookings.order(:start_date)
   end
 
   def new

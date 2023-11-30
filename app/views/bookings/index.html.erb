@@ -1,17 +1,43 @@
-<h1><%= Booking.model_name.human count: 2 %> - <%= @inn.name %></h1>
 
-<% if @bookings.empty? %>
-  <div>
-    <p><%= t("no_bookings_found") %></p>
+<section style="width: 70vw; margin:auto;">
+  <br>
+
+  <div class="text-center">
+    <h1><%= Booking.model_name.human count: 2 %> - <%= @inn.name %></h1>
   </div>
-<% end %>
 
-<section id="bookings-list">
-  <ul>
+  <br>
+
+  <% if @bookings.empty? %>
+    <div class="text-center">
+      <p><%= t("no_bookings_found") %></p>
+    </div>
+  <% end %>
+
+  <div id="bookings-list" class="row">
     <% @bookings.each do |booking| %>
-      <li>
-        <%= render booking %>
-      </li>
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header">
+            <%= Booking.model_name.human %>:
+          </div>
+          <div class="card-body">
+            <h5><%= link_to booking.code, booking_path(booking) %></h5>
+            <dl>
+              <dt><%= Room.model_name.human %>:</dt>
+              <dd><%= booking.room.name %></dd>
+              <dt><%= Booking.human_attribute_name(:start_date) %>:</dt>
+              <dd><%= I18n.l(booking.start_date) %></dd>
+              <dt><%= Booking.human_attribute_name(:end_date) %>:</dt>
+              <dd><%= I18n.l(booking.end_date) %></dd>
+              <dt><%= Booking.human_attribute_name(:number_of_guests) %>:</dt>
+              <dd><%= booking.number_of_guests %></dd>
+              <dt><%= Booking.human_attribute_name(:status) %>:</dt>
+              <dd><%= t(booking.status) %></dd>
+            </dl>
+          </div>
+        </div>
+      </div>
     <% end %>
-  </ul>
+  </div>
 </section>
