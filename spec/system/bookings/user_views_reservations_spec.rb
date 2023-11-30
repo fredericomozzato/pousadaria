@@ -111,7 +111,7 @@ describe "Usuário visita a página inicial" do
 
       expect(page).to have_content "Reservas"
       expect(page).not_to have_content "Você não possui reservas"
-      within "section#bookings-list" do
+      within "#bookings-list" do
         expect(page).to have_link booking.code
         expect(page).to have_content "Pousada: #{inn.name}"
         expect(page).to have_content "Quarto: #{room_ocean.name}"
@@ -174,7 +174,7 @@ describe "Usuário visita a página inicial" do
       within "#navigation-bar" do
         click_on "Minhas Reservas"
       end
-      within "section#bookings-list" do
+      within "#bookings-list" do
         click_on booking.code
       end
 

@@ -61,6 +61,12 @@
   <% end %>
 </section>
 
+<br>
+
 <div class="text-center">
-  <%= link_to t("back_link"), bookings_path %>
+  <% if owner_signed_in? %>
+    <%= link_to t("back_link"), bookings_path %>
+  <% else %>
+    <%= link_to t("back_link"), my_bookings_path %>
+  <% end %>
 </div>
