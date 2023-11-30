@@ -88,3 +88,8 @@ body ul {
     margin: auto;
     padding: 20px;
 }
+
+#booking-inn-room-names h4 {
+    font-size: 20px;
+    font-weight: 100;
+}
