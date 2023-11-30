@@ -6,57 +6,27 @@
   <p><%= t("no_bookings_found_for_user") %></p>
 <% end %>
 
-<div id="bookings-list" class="container d-flex flex-column align-items-center">
+<div id="bookings-list" class="container">
   <div class="row d-flex justify-content-center">
     <% @bookings.each do |booking| %>
-      <div class="col-md-4">
-
-        <div class="card">
-          <div class="card-header">
-            Reserva
-          </div>
-          <div class="card-body">
-            <h5 class="card-title"><%= link_to booking.code, booking %></h5>
-            <dl class="list-group list-group-flush">
-              <dt><%= Inn.model_name.human count: 1 %>:</dt>
-              <dd class="list-group-item"><%= booking.room.inn.name %></dd>
-              <dt><%= Room.model_name.human count: 1 %>:</dt>
-              <dd class="list-group-item"><%= booking.room.name %></dd>
-              <dt><%= t("booking_period") %>:</dt>
-              <dd class="list-group-item"><%= I18n.l(booking.start_date) %> - <%= I18n.l(booking.end_date) %></dd>
-            </dl>
-          </div>
-        </div>
-
+      <div class="col-md-4 mb-3">
+        <%= render partial: "my_bookings_card", locals: { booking: booking } %>
       </div>
     <% end %>
   </div>
 </div>
 
 
-<section id="closed-bookings" class="container d-flex flex-column align-items-center">
-  <h2><%= t("closed_bookings") %></h2>
-    <% @closed_bookings.each do |closed_booking| %>
-      <div class="col-md-4">
-        <div class="card">
-          <div class="card-header">
-            Reserva
-          </div>
-          <div class="card-body">
-            <h5 class="card-title"><%= link_to closed_booking.code, closed_booking %></h5>
-            <dl class="list-group list-group-flush">
-              <dt><%= Inn.model_name.human count: 1 %>:</dt>
-              <dd class="list-group-item"><%= closed_booking.room.inn.name %></dd>
-              <dt><%= Room.model_name.human count: 1 %>:</dt>
-              <dd class="list-group-item"><%= closed_booking.room.name %></dd>
-              <dt><%= t("booking_period") %>:</dt>
-              <dd class="list-group-item"><%= I18n.l(closed_booking.start_date) %> - <%= I18n.l(closed_booking.end_date) %></dd>
-            </dl>
-          </div>
+<div id="closed-bookings" class="container">
+  <div class="row d-flex justify-content-center">
+    <h2><%= t("closed_bookings") %></h2>
+      <% @closed_bookings.each do |closed_booking| %>
+        <div class="col-md-4 mb-3">
+          <%= render partial: "my_bookings_card", locals: { booking: closed_booking } %>
         </div>
-      </div>
-    <% end %>
-</section>
+      <% end %>
+  </div>
+</div>
 
 <br>
 

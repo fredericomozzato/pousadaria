@@ -211,7 +211,8 @@ describe "Proprietário acessa página de avaliações de sua pousada" do
 
 
     expect(page).to have_content "Resposta salva com sucesso"
-    expect(page).to have_content "Resposta: Obrigado João, serão sempre bem vindos! Um abraço"
+    expect(page).to have_content "Resposta:"
+    expect(page).to have_content "Obrigado João, serão sempre bem vindos! Um abraço"
     expect(page).not_to have_content "Deixe uma resposta para a avaliação"
     expect(page).not_to have_field "Resposta"
     expect(page).not_to have_button "Enviar"

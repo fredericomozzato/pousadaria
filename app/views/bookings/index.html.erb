@@ -1,5 +1,5 @@
 
-<section class="width-70">
+<section>
   <br>
 
   <div class="text-center">
@@ -13,10 +13,10 @@
       <p><%= t("no_bookings_found") %></p>
     </div>
   <% end %>
-
-  <div id="bookings-list" class="row">
+  
+  <div id="bookings-list" class="row d-flex justify-content-center">
     <% @bookings.each do |booking| %>
-      <div class="col-md-4">
+      <div class="col-md-4 mb-3">
         <%= render partial: "booking_card", locals: { booking: booking } %>
       </div>
     <% end %>

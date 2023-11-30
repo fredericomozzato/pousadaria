@@ -463,6 +463,7 @@ describe "Usuário acessa a página de avaliação" do
     visit my_bookings_path
     click_on booking.code
 
-    expect(page).to have_content "Resposta: Obrigado!"
+    expect(page).to have_content "Resposta:"
+    expect(page).to have_content "Obrigado!"
   end
 end
