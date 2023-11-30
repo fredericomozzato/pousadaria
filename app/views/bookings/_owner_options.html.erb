@@ -1,36 +1,55 @@
-<% if @booking.start_date > Date.today %>
+<section class="width-70">
+  <% if @booking.start_date > Date.today %>
 
-  <p><%= t("check_in_available_from") %> <%= l(@booking.start_date) %></p>
+    <p><%= t("check_in_available_from") %> <%= l(@booking.start_date) %></p>
 
-<% elsif @booking.confirmed? %>
+  <% elsif @booking.confirmed? %>
 
-  <div id="guests-registration">
-    <h3>Registro de hóspedes</h3>
-    <%= form_with(url: check_in_room_booking_path(@room)) do |f| %>
-      <% @booking.number_of_guests.times do |i| %>
-        <div class="guest-info">
-          <%= f.fields_for "guests[guest_#{i}]" do |g| %>
-            <%= g.label :name, "Hóspede: " %>
-            <%= g.text_field :name, placeholder: "Nome completo: " %>
-            <%= g.label :document, "Documento: " %>
-            <%= g.text_field :document, placeholder: "RG ou CPF" %>
-            <%= g.hidden_field :booking_id, value: @booking.id %>
-          <% end %>
+    <div id="guests-registration" class="width-70">
+      <h3>Registro de hóspedes</h3>
+      <%= form_with(url: check_in_room_booking_path(@room)) do |f| %>
+        <% @booking.number_of_guests.times do |i| %>
+          <div class="guest-info container">
+            <%= f.fields_for "guests[guest_#{i}]" do |g| %>
+              <div class="row">
+                  <div class="col">
+                    <%= g.text_field :name, placeholder: "Nome completo: ", class: "form-control" %>
+                  </div>
+                  <div class="col">
+                    <%= g.text_field :document, placeholder: "RG ou CPF", class: "form-control" %>
+                  </div>
+              </div>
+              <%= g.hidden_field :booking_id, value: @booking.id %>
+              <br>
+            <% end %>
+          </div>
+        <% end %>
+        <br>
+        <div>
+          <%= f.submit t("check_in_button"), data: { turbo_confirm: t("check_in_confirm") }, class: "btn btn-lg btn-dark" %>
         </div>
       <% end %>
-      <%= f.submit t("check_in_button"), data: { turbo_confirm: t("check_in_confirm") } %>
-    <% end %>
-  </div>
+    </div>
 
-<% elsif @booking.active? %>
+  <% elsif @booking.active? %>
+
   <%= form_with url: check_out_room_booking_path(@room) do |f| %>
-    <%= f.label :pay_method, "Método de pagamento" %>
-    <%= f.text_field :pay_method %>
-    <%= f.submit t("check_out_button"), data: { turbo_confirm: t("check_out_confirm") } %>
+    <div class="row g-3 align-items-center d-flex justify-content-center">
+      <div class="col-auto" style="font-size: 20px; font-weight: 100;">
+        <%= f.label :pay_method, "Método de pagamento", class: "col-form-label" %>
+      </div>
+      <div class="col-auto">
+        <%= f.text_field :pay_method, class: "form-control" %>
+      </div>
+      <div class="d-grid gap-2">
+        <%= f.submit t("check_out_button"), data: { turbo_confirm: t("check_out_confirm") }, class: "btn btn-lg btn-dark" %>
+      </div>
+    </div>
   <% end %>
 
-<% end %>
+  <% end %>
 
-<% if Date.today >= @booking.start_date + 2.days && @booking.confirmed? %>
-  <%= button_to t("cancel_booking_button"), cancel_room_booking_path(@room), data: { turbo_confirm: t("cancel_booking_confirm") } %>
-<% end %>
+  <% if Date.today >= @booking.start_date + 2.days && @booking.confirmed? %>
+    <%= button_to t("cancel_booking_button"), cancel_room_booking_path(@room), data: { turbo_confirm: t("cancel_booking_confirm") } %>
+  <% end %>
+</section>

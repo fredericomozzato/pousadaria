@@ -1,5 +1,5 @@
 
-<section style="width: 70vw; margin:auto;">
+<section class="width-70">
   <br>
 
   <div class="text-center">
@@ -17,26 +17,7 @@
   <div id="bookings-list" class="row">
     <% @bookings.each do |booking| %>
       <div class="col-md-4">
-        <div class="card">
-          <div class="card-header">
-            <%= Booking.model_name.human %>:
-          </div>
-          <div class="card-body">
-            <h5><%= link_to booking.code, booking_path(booking) %></h5>
-            <dl>
-              <dt><%= Room.model_name.human %>:</dt>
-              <dd><%= booking.room.name %></dd>
-              <dt><%= Booking.human_attribute_name(:start_date) %>:</dt>
-              <dd><%= I18n.l(booking.start_date) %></dd>
-              <dt><%= Booking.human_attribute_name(:end_date) %>:</dt>
-              <dd><%= I18n.l(booking.end_date) %></dd>
-              <dt><%= Booking.human_attribute_name(:number_of_guests) %>:</dt>
-              <dd><%= booking.number_of_guests %></dd>
-              <dt><%= Booking.human_attribute_name(:status) %>:</dt>
-              <dd><%= t(booking.status) %></dd>
-            </dl>
-          </div>
-        </div>
+        <%= render partial: "booking_card", locals: { booking: booking } %>
       </div>
     <% end %>
   </div>

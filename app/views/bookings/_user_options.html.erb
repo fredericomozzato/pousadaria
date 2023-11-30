@@ -10,7 +10,7 @@
     </div>
   <% elsif @booking.closed? && @review.nil? %>
     <div>
-      <%= link_to "Avaliar", new_booking_review_path(@booking) %>
+      <%= link_to "Avaliar", new_booking_review_path(@booking), class: "btn btn-lg btn-outline-success" %>
     </div>
   <% end %>
 </div>

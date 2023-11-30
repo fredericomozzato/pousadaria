@@ -1,21 +1,49 @@
-<%= render partial: "shared/form_errors", locals: { model: @review } %>
+<section class="form">
+  <%= render partial: "shared/form_errors", locals: { model: @review } %>
 
-<h1><%= t("review_your_stay") %></h1>
+  <h1><%= t("review_your_stay") %></h1>
 
-<h2><%= @inn.name %></h2>
+  <h2><%= @inn.name %></h2>
 
-<%= form_with model: [@booking, @review] do |f| %>
-  <div>
-    <%= f.label :score, Review.human_attribute_name(:score) %>
-    <%= f.collection_radio_buttons :score, Review.scores, :last, :first %>
-  </div>
-  <div>
-    <%= f.label :message, Review.human_attribute_name(:message) %>
-    <%= f.text_area :message %>
-  </div>
-  <div>
-    <%= f.submit t("send_button"), data: { turbo_confirm: t("confirm_review") } %>
-  </div>
-<% end %>
+  <%= form_with model: [@booking, @review] do |f| %>
+    <div class="text-center">
+      <div class="form-check form-check-inline">
+        <input type="radio" value="0" name="review[score]" id="review_score_0" class="form-check-input">
+        <label for="review_score_0" class="form-check-label">0</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input type="radio" value="1" name="review[score]" id="review_score_1" class="form-check-input">
+        <label for="review_score_1" class="form-check-label">1</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input type="radio" value="2" name="review[score]" id="review_score_2" class="form-check-input">
+        <label for="review_score_2" class="form-check-label">2</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input type="radio" value="3" name="review[score]" id="review_score_3" class="form-check-input">
+        <label for="review_score_3" class="form-check-label">3</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input type="radio" value="4" name="review[score]" id="review_score_4" class="form-check-input">
+        <label for="review_score_4" class="form-check-label">4</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input type="radio" value="5" name="review[score]" id="review_score_5" class="form-check-input">
+        <label for="review_score_5" class="form-check-label">5</label>
+      </div>
+    </div>
+    <div class="mb-3">
+      <%= f.label :message, Review.human_attribute_name(:message), class: "form-label" %>
+      <%= f.text_area :message, class: "form-control" %>
+    </div>
+    <div class="text-center">
+      <%= f.submit t("send_button"), data: { turbo_confirm: t("confirm_review") }, class: "btn btn-lg btn-dark" %>
+    </div>
+  <% end %>
+</section>
 
-<%= link_to t("back_link"), my_bookings_path %>
+<br>
+
+<div class="text-center">
+  <%= link_to t("back_link"), my_bookings_path, class: "btn btn-lg btn-outline-dark" %>
+</div>

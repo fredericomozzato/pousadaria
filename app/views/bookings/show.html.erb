@@ -16,15 +16,19 @@
     <dt><%= Booking.human_attribute_name(:number_of_guests) %>:</dt>
     <dd class="list-group-item"><%= @booking.number_of_guests %></dd>
 
-    <dt>Hóspedes:</dt>
-    <dd class="list-group-item">
-      <% @booking.guests.each do |guest| %>
-        <dt>Nome:</dt>
-        <dd><%= guest.name %></dd>
-        <dt>Documento:</dt>
-        <dd><%= guest.document %></dd>
-      <% end %>
-    </dd>
+    <% if @booking.guests.present? %>
+      <dt>Hóspedes</dt>
+      <dd>
+        <% @booking.guests.each do |guest| %>
+          <dt>Nome:</dt>
+          <dd><%= guest.name %></dd>
+          <dt>Documento:</dt>
+          <dd><%= guest.document %></dd>
+        <% end %>
+      </dd>
+      <dd></dd>
+      <dt class="list-group-item"></dt>
+    <% end %>
 
     <dt><%= Booking.human_attribute_name(:bill) %>:</dt>
     <dd class="list-group-item"><%= number_to_currency @booking.calculate_bill, unit: "R$", delimiter: ".", separator: "," %></dd>
@@ -38,19 +42,32 @@
 </section>
 
 <% if @review.present? %>
-  <section id="review">
-    <h3>Avaliação</h3>
-    <dl>
-      <dt>Nota:</dt>
-      <dd><%= @review.score %></dd>
-      <dt>Mensagem:</dt>
-      <dd><%= @review.message %></dd>
-    </dl>
+  <section id="review" class="width-70 d-flex justify-content-center">
+    <div class="card" style="width: 40vw;">
+      <div class="card-header text-center">
+        <h5>Avaliação</h5>
+      </div>
+      <div class="card-body">
+        <dl class="description-list">
+          <div class="row">
+            <div class="col">
+              <dt>Nota:</dt>
+              <dd><%= @review.score %></dd>
+            </div>
+            <div class="col">
+              <dt>Mensagem:</dt>
+              <dd><%= @review.message %></dd>
+            </div>
+          </div>
+        </dl>
+        <hr>
+        <section id="review-answer" class="text-center">
+          <%= render partial: "reviews/review_answer" %>
+        </section> 
+      </div>
+    </div>
   </section>
 
-  <section id="review-answer">
-    <%= render partial: "reviews/review_answer" %>
-  </section> 
 <% end %>
 
 <section id="booking-options" class="text-center">
@@ -65,8 +82,8 @@
 
 <div class="text-center">
   <% if owner_signed_in? %>
-    <%= link_to t("back_link"), bookings_path %>
+    <%= link_to t("back_link"), bookings_path, class: "btn btn-lg btn-outline-dark" %>
   <% else %>
-    <%= link_to t("back_link"), my_bookings_path %>
+    <%= link_to t("back_link"), my_bookings_path, class: "btn btn-lg btn-outline-dark" %>
   <% end %>
 </div>

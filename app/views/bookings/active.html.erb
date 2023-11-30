@@ -1,20 +1,22 @@
-<section id="active-bookings">
-  <h1><%= t("active_bookings") %></h1>
+<section id="active-bookings" class="width-70">
+  <div class="text-center">
+    <h1><%= t("active_bookings") %></h1>
+  </div>
 
   <% if @active_bookings.empty? %>
-    <div>
+    <div class="text-center">
       <p><%= t("no_active_booking") %></p>
     </div>
   <% end %>
 
   <section id="active-bookings-list">
-    <ul>
+    <div class="row d-flex justify-content-center">
       <% @active_bookings.each do |booking| %>
-        <li>
-          <%= render booking %>
-        </li>
+        <div class="col-md-4">
+          <%= render partial: "booking_card", locals: { booking: booking } %>
+        </div>
       <% end %>
-    </ul>
+    </div>
   </section>
 
 </section>

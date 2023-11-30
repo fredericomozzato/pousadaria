@@ -3,7 +3,7 @@
   
   <% if owner_signed_in? %>
     <% if room.photos.attached? %>
-      <div class="photo-gallery row">
+      <div class="photo-gallery row d-flex justify-content-center">
         <% room.photos.each do |photo| %>
           <div class="col-6">
             <div class="card" style="width: 25vw;">

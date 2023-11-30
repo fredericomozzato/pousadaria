@@ -110,3 +110,8 @@ dl dd {
     align-items: center;
     margin-bottom: 10px;
 }
+
+.width-70 {
+    width: 70vw;
+    margin: auto;
+}

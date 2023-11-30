@@ -1,26 +1,32 @@
-<h1><%= Review.model_name.human(count: 2) %> - <%= @inn.name %></h1>
+<section id="reviews-list" class="width-70">
+  <div class="text-center">
+    <h1><%= Review.model_name.human(count: 2) %> - <%= @inn.name %></h1>
+  </div>
 
-<section id="reviews-list">
-  <ul>
-    <% @reviews.each do |review| %>
-      <li>
-        <dl>
-          <% if current_owner %>
-            <dt><%= Booking.model_name.human(count: 1) %>:</dt>
-            <dd><%= link_to review.booking.code, booking_path(review.booking) %></dd>
-          <% end %>
-          <dt><%= User.model_name.human(count: 1) %>:</dt>
-          <dd><%= review.booking.user.name %></dd>
-          <dt><%= Review.human_attribute_name(:score) %>:</dt>
-          <dd><%= review.score %></dd>
-          <dt><%= Review.human_attribute_name(:message) %>:</dt>
-          <dd><%= review.message %></dd>
-          <dt><%= t("owner_answer") %>:</dt>
-          <dd><%= review.answer %></dd>
-        </dl>
-      </li>
-    <% end %>
-  </ul>
+  <br>
+  
+    <ul>
+      <% @reviews.each do |review| %>
+        <li>
+          <dl>
+            <% if current_owner %>
+              <dt><%= Booking.model_name.human(count: 1) %>:</dt>
+              <dd><%= link_to review.booking.code, booking_path(review.booking) %></dd>
+            <% end %>
+            <dt><%= User.model_name.human(count: 1) %>:</dt>
+            <dd><%= review.booking.user.name %></dd>
+            <dt><%= Review.human_attribute_name(:score) %>:</dt>
+            <dd><%= review.score %></dd>
+            <dt><%= Review.human_attribute_name(:message) %>:</dt>
+            <dd><%= review.message %></dd>
+            <dt><%= t("owner_answer") %>:</dt>
+            <dd><%= review.answer %></dd>
+          </dl>
+        </li>
+      <% end %>
+    </ul>
 </section>
 
-<%= link_to t("back_link"), root_path %>
+<div class="text-center">
+  <%= link_to t("back_link"), root_path, class: "btn btn-lg btn-outline-dark" %>
+</div>

@@ -1,3 +1,4 @@
+
 <% if @review.answer.present? %>
   <p><%= Review.human_attribute_name(:answer) %>: <%= @review.answer %></p>
 <% elsif current_user %>

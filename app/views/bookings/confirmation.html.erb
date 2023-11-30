@@ -21,9 +21,16 @@
     <dd class="list-group-item"><%= @inn.pay_methods %></dd>
   </dl>
 
+  <br>
+
   <div class="text-center">
-    <%= button_to t("confirm_booking_button"), room_bookings_path, class: "btn btn-lg btn-dark" %>
-    <%= link_to t("back_link"), new_room_booking_path(params[:room_id]) %>
+    <div class="d-grid gap-2">
+      <%= button_to t("confirm_booking_button"), room_bookings_path, class: "btn btn-lg btn-dark" %>
+    </div>
+
+    <br>
+
+    <%= link_to t("back_link"), new_room_booking_path(params[:room_id]), class: "btn btn-lg btn-outline-dark" %>
   </div>
 </div>
 
