@@ -1,21 +1,23 @@
-<h1><%= I18n.t("booking_details") %></h1>
+<h1 class="text-center"><%= I18n.t("booking_details") %></h1>
 
-<section id="booking-details">
-  <h2><%= @inn.name %></h2>
-  <h3><%= Room.model_name.human(count: 1) %>: <%= @room.name %></h3>
+<section class="list-formatting">
+  <div class="text-center">
+    <h2><%= @inn.name %></h2>
+    <h3><%= Room.model_name.human(count: 1) %>: <%= @room.name %></h3>
+  </div>
 
-  <dl>
+  <dl class="list-group list-group-flush">
     <dt><%= Booking.human_attribute_name(:check_in) %>:</dt>
-    <dd><%= l(@booking.start_date) %> a partir das <%= @inn.check_in_time.strftime("%H:%M") %> horas</dd>
+    <dd class="list-group-item"><%= l(@booking.start_date) %> a partir das <%= @inn.check_in_time.strftime("%H:%M") %> horas</dd>
 
     <dt><%= Booking.human_attribute_name(:check_out) %>:</dt>
-    <dd><%= l(@booking.end_date) %> até as <%= @inn.check_out_time.strftime("%H:%M") %> horas</dd>
+    <dd class="list-group-item"><%= l(@booking.end_date) %> até as <%= @inn.check_out_time.strftime("%H:%M") %> horas</dd>
 
     <dt><%= Booking.human_attribute_name(:number_of_guests) %>:</dt>
-    <dd><%= @booking.number_of_guests %></dd>
+    <dd class="list-group-item"><%= @booking.number_of_guests %></dd>
 
     <dt>Hóspedes:</dt>
-    <dd>
+    <dd class="list-group-item">
       <% @booking.guests.each do |guest| %>
         <dt>Nome:</dt>
         <dd><%= guest.name %></dd>
@@ -25,13 +27,13 @@
     </dd>
 
     <dt><%= Booking.human_attribute_name(:bill) %>:</dt>
-    <dd><%= number_to_currency @booking.calculate_bill, unit: "R$", delimiter: ".", separator: "," %></dd>
+    <dd class="list-group-item"><%= number_to_currency @booking.calculate_bill, unit: "R$", delimiter: ".", separator: "," %></dd>
 
     <dt><%= Booking.human_attribute_name(:code) %>:</dt>
-    <dd><%= @booking.code %></dd>
+    <dd class="list-group-item"><%= @booking.code %></dd>
 
     <dt><%= Booking.human_attribute_name(:status) %>:</dt>
-    <dd><%= t(@booking.status) %></dd>
+    <dd class="list-group-item"><%= t(@booking.status) %></dd>
   </dl>
 </section>
 
@@ -51,7 +53,7 @@
   </section> 
 <% end %>
 
-<section id="booking-options">
+<section id="booking-options" class="text-center">
   <% if current_user %>
     <%= render partial: "user_options" %>
   <% elsif current_owner %>
@@ -59,4 +61,6 @@
   <% end %>
 </section>
 
-<%= link_to t("back_link"), bookings_path %>
+<div class="text-center">
+  <%= link_to t("back_link"), bookings_path %>
+</div>

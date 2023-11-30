@@ -93,3 +93,13 @@ body ul {
     font-size: 20px;
     font-weight: 100;
 }
+
+.list-formatting {
+    width: 40%;
+    margin: auto;
+}
+
+dl dd {
+    font-size: 20px;
+    font-weight: 100;
+}
