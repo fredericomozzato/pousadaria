@@ -1,5 +1,6 @@
-<h1><%= t("seasonal_price_details") %>:</h1>
-
 <%= render partial: "shared/form_errors", locals: { model: @seasonal_price } %>
 
-<%= render partial: "seasonal_price_form" %>
+<section class="form">
+    <h1><%= t("seasonal_price_details") %>:</h1>
+    <%= render partial: "seasonal_price_form" %>
+</section>
