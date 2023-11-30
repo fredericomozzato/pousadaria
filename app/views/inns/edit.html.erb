@@ -1,13 +1,23 @@
 <%= render partial: "shared/form_errors", locals: { model: @inn }%>
 
-<h1>Editar <%= Inn.model_name.human(count: 1) %></h1>
+<section class="form">
+    <h1>Editar <%= Inn.model_name.human(count: 1) %></h1>
 
-<%= render partial: "inn_form" %>
+    <%= render partial: "inn_form" %>
 
-<% if @inn.active? %>
-    <%= button_to "Desativar Pousada", change_status_inn_path, { method: "patch" } %>
-<% else %>
-    <%= button_to "Ativar Pousada", change_status_inn_path, { method: "patch" } %>
-<% end %>
+    <br>
 
-<%= link_to t("back_link"), my_inn_path %>
+    <div class="text-center d-grid gap-2 col-6 mx-auto">
+        <% if @inn.active? %>
+            <%= button_to "Desativar Pousada", change_status_inn_path, { method: "patch", class: "btn btn-lg btn-danger" } %>
+        <% else %>
+            <%= button_to "Ativar Pousada", change_status_inn_path, { method: "patch", class: "btn btn-lg btn-success" } %>
+        <% end %>
+    </div>
+
+    <br>
+
+    <div class="text-center">
+        <%= link_to t("back_link"), my_inn_path, class: "btn btn-outline-dark" %>
+    </div>
+</section>

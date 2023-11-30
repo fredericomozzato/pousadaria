@@ -96,33 +96,27 @@ describe "Proprietário acessa página de quartos" do
       login_as(owner)
       visit my_inn_path
 
-      within ".room-preview:nth-child(1)" do
-        expect(page).to have_content "Quarto"
-        expect(page).to have_content "Oceano"
-        expect(page).to have_content "Quarto com vista para o mar"
-        expect(page).to have_content "30 m²"
-        expect(page).to have_content "Hóspedes: 2"
-        expect(page).to have_content "Diária: R$ 200,00"
-        expect(page).to have_content "Situação: ativo"
-      end
-      within ".room-preview:nth-child(2)" do
-        expect(page).to have_content "Quarto"
-        expect(page).to have_content "Montanha"
-        expect(page).to have_content "Quarto com vista para a montanha"
-        expect(page).to have_content "25 m²"
-        expect(page).to have_content "Hóspedes: 4"
-        expect(page).to have_content "Diária: R$ 250,00"
-        expect(page).to have_content "Situação: inativo"
-      end
-      within ".room-preview:nth-child(3)" do
-        expect(page).to have_content "Quarto"
-        expect(page).to have_content "Campo"
-        expect(page).to have_content "Quarto com vista para o campo"
-        expect(page).to have_content "20 m²"
-        expect(page).to have_content "Hóspedes: 3"
-        expect(page).to have_content "Diária: R$ 225,50"
-        expect(page).to have_content "Situação: ativo"
-      end
+      expect(page).to have_content "Quarto"
+      expect(page).to have_content "Oceano"
+      expect(page).to have_content "Quarto com vista para o mar"
+      expect(page).to have_content "30 m²"
+      expect(page).to have_content "Hóspedes: 2"
+      expect(page).to have_content "Diária: R$ 200,00"
+      expect(page).to have_content "Situação: ativo"
+      expect(page).to have_content "Quarto"
+      expect(page).to have_content "Montanha"
+      expect(page).to have_content "Quarto com vista para a montanha"
+      expect(page).to have_content "25 m²"
+      expect(page).to have_content "Hóspedes: 4"
+      expect(page).to have_content "Diária: R$ 250,00"
+      expect(page).to have_content "Situação: inativo"
+      expect(page).to have_content "Quarto"
+      expect(page).to have_content "Campo"
+      expect(page).to have_content "Quarto com vista para o campo"
+      expect(page).to have_content "20 m²"
+      expect(page).to have_content "Hóspedes: 3"
+      expect(page).to have_content "Diária: R$ 225,50"
+      expect(page).to have_content "Situação: ativo"
     end
 
     it "e vê detalhes de um quarto" do

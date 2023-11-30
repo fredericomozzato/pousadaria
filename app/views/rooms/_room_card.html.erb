@@ -1,0 +1,16 @@
+<div class="card">
+  <% if room.photos.attached? %>
+    <%= image_tag(room.photos.first, class: "card-img-top") %>
+  <% else %>
+    <img src="https://archive.org/download/placeholder-image/placeholder-image.jpg" alt="no image" class="card-img-top" width="100px">
+  <% end %>
+  <div class="card-body">
+    <h2 class="card-title"><%= link_to room.name, room %></h2>
+    <p class="card-text"><%= room.description %></p>
+    <p class="card-text"><%= room.size %> m²</p>
+    <p class="card-text">Hóspedes: <%= room.max_guests %></p>
+    <p class="card-text">Diária: <%= number_to_currency room.price, 
+        unit: "R$", separator: ",", delimiter: "." %></p>
+    <p class="card-text">Situação: <%= room.active? ? "ativo" : "inativo" %></p>
+  </div>
+</div>

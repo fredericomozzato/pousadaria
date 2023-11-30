@@ -1,9 +1,9 @@
 <section class="details">
   <%= render @room %>
 
-  <% if owner_signed_in? %>
+  <% if owner_signed_in? && @room.inn.owner == current_owner %>
     <div>
-      <%= link_to "Editar Quarto", edit_room_path(@room) %>
+      <%= link_to "Editar Quarto", edit_room_path(@room), class: "btn btn-lg btn-dark" %>
     </div>
   <% end %>
 
@@ -27,14 +27,16 @@
         </li>
       <% end %>
     </ul>
-    <% if owner_signed_in? %>
-      <%= link_to "Novo Preço Sazonal", new_room_seasonal_price_path(@room) %>
+    <% if owner_signed_in? && @room.inn.owner == current_owner %>
+      <%= link_to "Novo Preço Sazonal", new_room_seasonal_price_path(@room), class: "btn btn-lg btn-dark" %>
     <% end %>
   </div>
 
+  <br>
+
   <% if owner_signed_in? %>
-    <%= link_to "Voltar", my_inn_path %>
+    <%= link_to "Voltar", my_inn_path, class: "btn btn-lg btn-outline-dark" %>
   <% else %>
-    <%= link_to "Voltar", inn_path(@room.inn) %>
+    <%= link_to "Voltar", inn_path(@room.inn), class: "btn btn-lg btn-outline-dark" %>
   <% end %>
 </section>
