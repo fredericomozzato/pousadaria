@@ -1,30 +1,39 @@
-<section id="reviews-list" class="width-70">
+<section id="reviews-list">
+  <br>
   <div class="text-center">
     <h1><%= Review.model_name.human(count: 2) %> - <%= @inn.name %></h1>
   </div>
 
   <br>
-  
-    <ul>
-      <% @reviews.each do |review| %>
-        <li>
-          <dl>
-            <% if current_owner %>
-              <dt><%= Booking.model_name.human(count: 1) %>:</dt>
-              <dd><%= link_to review.booking.code, booking_path(review.booking) %></dd>
-            <% end %>
-            <dt><%= User.model_name.human(count: 1) %>:</dt>
-            <dd><%= review.booking.user.name %></dd>
-            <dt><%= Review.human_attribute_name(:score) %>:</dt>
-            <dd><%= review.score %></dd>
-            <dt><%= Review.human_attribute_name(:message) %>:</dt>
-            <dd><%= review.message %></dd>
-            <dt><%= t("owner_answer") %>:</dt>
-            <dd><%= review.answer %></dd>
-          </dl>
-        </li>
-      <% end %>
-    </ul>
+
+    <section class="width-70 d-flex justify-content-center">
+    <% @reviews.each do |review| %>
+      <div class="row">
+        <div class="col">
+          <div class="card">
+            <dl>
+              <% if current_owner %>
+                <div class="card-header">
+                  <dt><%= Booking.model_name.human(count: 1) %>:</dt>
+                  <dd><%= link_to review.booking.code, booking_path(review.booking) %></dd>
+                </div>
+              <% end %>
+              <div class="card-body">
+                <dt><%= User.model_name.human(count: 1) %>:</dt>
+                <dd><%= review.booking.user.name %></dd>
+                <dt><%= Review.human_attribute_name(:score) %>:</dt>
+                <dd><%= review.score %></dd>
+                <dt><%= Review.human_attribute_name(:message) %>:</dt>
+                <dd><%= review.message %></dd>
+                <dt><%= t("owner_answer") %>:</dt>
+                <dd><%= review.answer %></dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    </section>
 </section>
 
 <div class="text-center">
