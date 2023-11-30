@@ -1,0 +1,14 @@
+<div class="card">
+	<% if inn.photos.attached? %>
+		<%= image_tag(inn.photos.first, class: "card-img-top") %>
+	<% else %>
+		<img src="https://archive.org/download/placeholder-image/placeholder-image.jpg" alt="no image" class="card-img-top" width="100px">
+	<% end %>
+	<div class="card-body">
+		<h4 class="card-title"><%= link_to inn.name, inn_path(inn) %></h4>
+		<p class="card-text"><%= inn.description %></p>
+		<address class="card-text">
+			<%= inn.address.city %> - <%= inn.address.state %>
+		</address>
+	</div>
+</div>

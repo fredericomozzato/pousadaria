@@ -8,6 +8,10 @@ body a {
     text-decoration: none;
 }
 
+h2 {
+    text-align: center;
+}
+
 body a:hover {
     color: orangered;
 }
@@ -43,4 +47,21 @@ body ul {
     width: 70%;
     margin: auto;
     text-align: start;
+}
+
+#cities-menu {
+    margin-top: 55px;
+    font-size: larger;
+}
+
+.card {
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+
+.card-img-top {
+    width: 100%;
+    object-fit: cover;
+    height: 150px;
 }

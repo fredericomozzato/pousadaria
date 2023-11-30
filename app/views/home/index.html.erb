@@ -12,26 +12,29 @@
     </div>
 
     <div class="col">
-      <section>
-        <% if @recent_inns.empty? %>
-          <p><%= t("no_inns_yet") %></p>
-        <% else %>
-          <h2><%= t("new_inns") %></h2>
-          <div id="recent">
-            <div>
-              <%= render @recent_inns %>
+      <% if @recent_inns.empty? %>
+        <p><%= t("no_inns_yet") %></p>
+      <% else %>
+        <h2><%= t("new_inns") %></h2>
+        <div id="recent" class="row">
+          <% @recent_inns.each do |inn| %>
+            <div class="col-md-4">
+              <%= render partial: "inns/inn_card", locals: { inn: inn } %>
             </div>
-          </div>
-          <hr/>
-          <h2><%= Inn.model_name.human(count: 2) %></h2>
-          <div id="inns-list">
-            <div>
-              <%= render @inns %>
-            </div>
-          </div>
-        <% end %>
-      </section>
-    </div>
+          <% end %>
+        </div>
 
+        <hr/>
+
+        <h2><%= Inn.model_name.human(count: 2) %></h2>
+        <div id="inns-list" class="row">
+          <% @inns.each do |inn| %>
+            <div class="col-md-4">
+              <%= render partial: "inns/inn_card", locals: { inn: inn } %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>
