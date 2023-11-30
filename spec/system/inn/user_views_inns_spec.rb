@@ -91,7 +91,7 @@ describe "Usuário visita uma pousada" do
     expect(page).to have_content "Políticas de uso: A pousada conta com lei do silêncio das 22h às 8h"
     expect(page).to have_content "Horário de check-in: a partir das 9:00"
     expect(page).to have_content "Horário de check-out: até as 15:30"
-    expect(page).to have_content "Endereço: Rua das Flores, 300"
+    expect(page).to have_content "Rua das Flores, 300"
     expect(page).to have_content "Canasvieiras - Florianópolis, SC"
     expect(page).to have_content "CEP: 88000-000"
     expect(page).to have_content "Galeria de fotos"

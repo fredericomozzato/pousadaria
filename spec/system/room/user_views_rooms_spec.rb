@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe "Usuário visita a página de uma pousada" do
-  it "e vê os quartos desta" do
+  it "e vê os quartos" do
     owner = Owner.create!(
       email: "owner@email.com",
       password: "123456"
@@ -77,42 +77,21 @@ describe "Usuário visita a página de uma pousada" do
     expect(page).to have_content "Políticas de uso: A pousada conta com lei do silêncio das 22h às 8h"
     expect(page).to have_content "Horário de check-in: a partir das 9:00"
     expect(page).to have_content "Horário de check-out: até as 15:00"
-    expect(page).to have_content "Endereço: Rua das Flores, 300"
+    expect(page).to have_content "Rua das Flores, 300"
     expect(page).to have_content "Canasvieiras - Florianópolis, SC"
     expect(page).to have_content "CEP: 88000-000"
 
     expect(page).to have_content "Quartos disponíveis:"
     within "#rooms-list" do
       expect(page).to have_content "Oceano"
-      expect(page).to have_content "Descrição: Quarto com vista para o mar"
-      expect(page).to have_content "Tamanho: 30 m²"
-      expect(page).to have_content "Número máximo de hóspedes: 2"
+      expect(page).to have_content "Quarto com vista para o mar"
       expect(page).to have_content "Valor da diária: R$ 200,00"
-      expect(page).to have_content "Comodidades:", count: 2
-      expect(page).to have_content "Banheiro privativo: sim"
-      expect(page).to have_content "Varanda: sim"
-      expect(page).to have_content "Ar-condicionado: sim"
-      expect(page).to have_content "Guarda-roupas: sim"
-      expect(page).to have_content "Acessibilidade: sim"
-      expect(page).to have_content "Cofre: não"
-      expect(page).to have_content "Wi-fi: sim"
-      expect(page).to have_content "Disponível para reservas: sim"
 
       expect(page).not_to have_content "Montanha"
 
       expect(page).to have_content "Campo"
-      expect(page).to have_content "Descrição: Quarto com vista para o campo"
-      expect(page).to have_content "Tamanho: 20 m²"
-      expect(page).to have_content "Número máximo de hóspedes: 2"
-      expect(page).to have_content "Número máximo de hóspedes: 2"
+      expect(page).to have_content "Quarto com vista para o campo"
       expect(page).to have_content "Valor da diária: R$ 225,50"
-      expect(page).to have_content "Banheiro privativo: sim"
-      expect(page).to have_content "Varanda: sim"
-      expect(page).to have_content "Guarda-roupas: não"
-      expect(page).to have_content "Acessibilidade: não"
-      expect(page).to have_content "Cofre: não"
-      expect(page).to have_content "Wi-fi: não"
-      expect(page).to have_content "Disponível para reservas: sim"
     end
   end
 end

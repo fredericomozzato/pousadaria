@@ -1,6 +1,6 @@
-<h1><%= @inn.name %></h1>
 
-<section>
+<section id="inn-details">
+<h1><%= @inn.name %></h1>
 
   <div class="photo-gallery">
     <h3>Galeria de fotos</h3>
@@ -10,54 +10,70 @@
   </div>
 
   <div>
-    <dl>
+    <dl class="description-list list-group list-group-flush">
       <dt><%= Review.model_name.human(count: 1) %>:</dt>
       <% if @average_score.blank? %>
-        <dd><%= t("no_reviews") %></dd>
+        <dd class="list-group-item"><%= t("no_reviews") %></dd>
       <% else %>
-        <dd><%= @average_score %></dd>
+        <dd class="list-group-item"><%= @average_score %></dd>
       <% end %>
       <dt><%= Inn.human_attribute_name(:name) %>:</dt>
-      <dd><%= @inn.name %></dd>
+      <dd class="list-group-item"><%= @inn.name %></dd>
 
       <dt><%= Inn.human_attribute_name(:phone) %>:</dt>
-      <dd><%= @inn.phone %></dd>
+      <dd class="list-group-item"><%= @inn.phone %></dd>
 
       <dt><%= Inn.human_attribute_name(:email) %>:</dt>
-      <dd><%= @inn.email %></dd>
+      <dd class="list-group-item"><%= @inn.email %></dd>
 
       <dt><%= Inn.human_attribute_name(:description) %>:</dt>
-      <dd><%= @inn.description %></dd>
+      <dd class="list-group-item"><%= @inn.description %></dd>
 
       <dt><%= Inn.human_attribute_name(:pay_methods) %>:</dt>
-      <dd><%= @inn.pay_methods %></dd>
+      <dd class="list-group-item"><%= @inn.pay_methods %></dd>
 
       <dt><%= Inn.human_attribute_name(:pet_friendly) %>:</dt>
-      <dd><%= @inn.pet_friendly ? "sim" : "não" %></dd>
+      <dd class="list-group-item"><%= @inn.pet_friendly ? "sim" : "não" %></dd>
 
       <dt><%= Inn.human_attribute_name(:user_policies) %>:</dt>
-      <dd><%= @inn.user_policies %></dd>
+      <dd class="list-group-item"><%= @inn.user_policies %></dd>
 
       <dt><%= Inn.human_attribute_name(:check_in_time) %>:</dt>
-      <dd>a partir das <%= @inn.check_in_time.strftime("%k:%M") %></dd>
+      <dd class="list-group-item">a partir das <%= @inn.check_in_time.strftime("%k:%M") %></dd>
 
       <dt><%= Inn.human_attribute_name(:check_out_time) %>:</dt>
-      <dd>até as <%= @inn.check_out_time.strftime("%k:%M") %></dd>
+      <dd class="list-group-item">até as <%= @inn.check_out_time.strftime("%k:%M") %></dd>
 
       <dt><%= Address.model_name.human %>:</dt>
-      <dd><%= @inn.address.street_values %></dd>
-      <dd><%= @inn.address.location_values %></dd>
+      <dd class="list-group-item">
+        <address>
+          <%= @inn.address.street_values %> <br>
+          <%= @inn.address.location_values %>
+        </address>
+        </dd>
 
       <dt><%= Address.human_attribute_name(:postal_code) %>:</dt>
-      <dd><%= @inn.address.postal_code %></dd>
+      <dd class="list-group-item"><%= @inn.address.postal_code %></dd>
     </dl>
   </div>
 
   <h2><%= t("available_rooms") %>:</h2>
-  <div id="rooms-list">
+
+  <div id="rooms-list" class="row">
     <% @rooms.each do |room| %>
-      <div>
-        <%= render room %>
+      <div class="col-md-4">
+        <div class="card">
+          <% if room.photos.attached? %>
+            <%= image_tag(room.photos.first, class: "card-img-top") %>
+          <% else %>
+            <img src="https://archive.org/download/placeholder-image/placeholder-image.jpg" alt="no image" class="card-img-top" width="100px">
+          <% end %>
+          <div class="card-body">
+            <h4 class="card-title"><%= link_to room.name, room_path(room) %></h4>
+            <p class="card-text"><%= room.description %></p>
+            <p class="card-text">Valor da diária: <%= number_to_currency room.price, unit: "R$", separator: ",", delimiter: "." %></p>
+          </div>
+        </div>
       </div>
     <% end %>
   </div>
