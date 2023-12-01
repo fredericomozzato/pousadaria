@@ -17,7 +17,7 @@
         <p><%= t("no_inns_yet") %></p>
       <% else %>
         <h2><%= t("new_inns") %></h2>
-        <div id="recent" class="row">
+        <div id="recent" class="row mb-5">
           <% @recent_inns.each do |inn| %>
             <div class="col-md-4">
               <%= render partial: "inns/inn_card", locals: { inn: inn } %>
@@ -28,7 +28,7 @@
         <hr/>
 
         <h2><%= Inn.model_name.human(count: 2) %></h2>
-        <div id="inns-list" class="row">
+        <div id="inns-list" class="row mb-3">
           <% @inns.each do |inn| %>
             <div class="col-md-4">
               <%= render partial: "inns/inn_card", locals: { inn: inn } %>

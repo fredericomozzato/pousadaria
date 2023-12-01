@@ -1,6 +1,8 @@
 <section id="login-redirector">
-  <h1><%= t("enter_as")%></h1>
 
+  <div class="mb-5">
+    <h1><%= t("enter_as")%></h1>
+  </div>
 
   <div>
     <%= link_to Owner.model_name.human, new_owner_session_path, class: "btn btn-dark" %>

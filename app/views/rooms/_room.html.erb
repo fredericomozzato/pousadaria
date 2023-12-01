@@ -1,11 +1,13 @@
-
-  <h3>Quarto: <%= link_to room.name, room_path(room) %></h3>
+<section>
+  <div class="mt-5 mb-3 text-center">
+    <h3>Quarto: <%= link_to room.name, room_path(room) %></h3>
+  </div>
   
   <% if owner_signed_in? %>
     <% if room.photos.attached? %>
       <div class="photo-gallery row d-flex justify-content-center">
         <% room.photos.each do |photo| %>
-          <div class="col-6">
+          <div class="col-5">
             <div class="card" style="width: 25vw;">
               <div class="card-header">
                 <h6>Foto</h6>
@@ -74,4 +76,6 @@
     <dt>Disponível para reservas:</dt>
     <dd class="list-group-item"><%= room.active? ? "sim" : "não" %></dd>
   </dl>
+</section>
+
 
