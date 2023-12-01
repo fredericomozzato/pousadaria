@@ -1,68 +1,73 @@
-<section>
-  <dl>
+<section class="width-70">
+  <dl class="list-group list-group-flush">
       <dt><%= Inn.human_attribute_name(:name) %>:</dt>
-      <dd><%= @inn.name %></dd>
+      <dd class="list-group-item"><%= @inn.name %></dd>
 
       <dt><%= Inn.human_attribute_name(:corporate_name) %>:</dt>
-      <dd><%= @inn.corporate_name %></dd>
+      <dd class="list-group-item"><%= @inn.corporate_name %></dd>
 
       <dt><%= Inn.human_attribute_name(:registration_number) %>:</dt>
-      <dd><%= @inn.registration_number %></dd>
+      <dd class="list-group-item"><%= @inn.registration_number %></dd>
 
       <dt><%= Inn.human_attribute_name(:phone) %>:</dt>
-      <dd><%= @inn.phone %></dd>
+      <dd class="list-group-item"><%= @inn.phone %></dd>
 
       <dt><%= Inn.human_attribute_name(:email) %>:</dt>
-      <dd><%= @inn.email %></dd>
+      <dd class="list-group-item"><%= @inn.email %></dd>
 
       <dt><%= Inn.human_attribute_name(:description) %>:</dt>
-      <dd><%= @inn.description %></dd>
+      <dd class="list-group-item"><%= @inn.description %></dd>
 
       <dt><%= Inn.human_attribute_name(:pay_methods) %>:</dt>
-      <dd><%= @inn.pay_methods %></dd>
+      <dd class="list-group-item"><%= @inn.pay_methods %></dd>
 
       <dt><%= Inn.human_attribute_name(:pet_friendly) %>:</dt>
-      <dd><%= @inn.pet_friendly ? "sim" : "não" %></dd>
+      <dd class="list-group-item"><%= @inn.pet_friendly ? "sim" : "não" %></dd>
 
       <dt><%= Inn.human_attribute_name(:user_policies) %>:</dt>
-      <dd><%= @inn.user_policies %></dd>
+      <dd class="list-group-item"><%= @inn.user_policies %></dd>
 
       <dt><%= Inn.human_attribute_name(:check_in_time) %>:</dt>
-      <dd>a partir das <%= @inn.check_in_time.strftime("%k:%M") %></dd>
+      <dd class="list-group-item">a partir das <%= @inn.check_in_time.strftime("%k:%M") %></dd>
 
       <dt><%= Inn.human_attribute_name(:check_out_time) %>:</dt>
-      <dd>até as <%= @inn.check_out_time.strftime("%k:%M") %></dd>
+      <dd class="list-group-item">até as <%= @inn.check_out_time.strftime("%k:%M") %></dd>
 
       <dt><%= Address.model_name.human %>:</dt>
       <dd><%= @inn.address.street_values %></dd>
-      <dd><%= @inn.address.location_values %></dd>
+      <dd class="list-group-item"><%= @inn.address.location_values %></dd>
 
       <dt><%= Address.human_attribute_name(:postal_code) %>:</dt>
-      <dd><%= @inn.address.postal_code %></dd>
+      <dd class="list-group-item"><%= @inn.address.postal_code %></dd>
 
       <dt><%= t("inn_status_text") %>:</dt>
-      <dd><%= @inn.active ? "Ativa" : "Desativada" %></dd>
+      <dd class="list-group-item"><%= @inn.active ? "Ativa" : "Desativada" %></dd>
 
       <dt>Fotos:</dt>
-      <dd>
-        <ul id="photos-list">
+      <dd class="list-group-item">
+        <div class="row">
           <% @inn.photos.each do |photo| %>
-            <li>
-              <div class="photo-container">
-                <%= image_tag(photo.variant(resize_to_limit: [200, 200]).processed) %>
-                <%= button_to "Remover", remove_photo_inn_path(@inn), method: :delete, params: { photo_id: photo.id }, data: { turbo_method: :delete, turbo_confirm: "Remover foto?" } %>
+            <div class="col-md-4">
+              <div class="card text-center">
+                <%= image_tag(photo.variant(resize_to_limit: [150, 150]).processed, class: "card-img-top")  %>
+                <div class="card-body">
+                  <%= button_to "Remover", remove_photo_inn_path(@inn), method: :delete, params: { photo_id: photo.id }, data: { turbo_method: :delete, turbo_confirm: "Remover foto?" }, class: "btn btn-outline-danger" %>
+                </div>
               </div>
-              </li>
+            </div>
           <% end %>
-        </ul>
+        </div>
       </dd>
     </dl>
 
-  <div>
-    <%= link_to "Editar Pousada", edit_inn_path(@inn) %>
+  <div class="text-center">
+    <%= link_to "Editar Pousada", edit_inn_path(@inn), class: "btn btn-lg btn-dark" %>
   </div>
 
-  <div id="rooms">
+  <br>
+  <hr>
+
+  <div id="rooms" class="width-70">
     <h2><%= Room.model_name.human(count: 2) %></h2>
     <%= render partial: "rooms/rooms_list" %>
   </div>

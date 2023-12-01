@@ -1,68 +1,77 @@
-<%= form_with model: @room do |f| %>
-  <div>
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
-  <div>
-    <%= f.label :description %>
-    <%= f.text_field :description %>
-  </div>
-  <div>
-    <%= f.label :size %>
-    <%= f.number_field :size%>
-  </div>
-  <div>
-    <%= f.label :max_guests %>
-    <%= f.number_field :max_guests%>
-  </div>
-  <div>
-    <%= f.label :price %>
-    <%= f.number_field :price, step: 0.01%>
-  </div>
-  <div>
-    <p>Comodidades</p>
-    <div>
-      <%= f.label :bathroom %>
-      <%= f.check_box :bathroom %>
+<section class="form">
+  <%= form_with model: @room do |f| %>
+    <div class="mb-3">
+      <%= f.label :name, class: "form-label" %>
+      <%= f.text_field :name, class: "form-control" %>
     </div>
-    <div>
-      <%= f.label :porch %>
-      <%= f.check_box :porch %>
+    <div class="mb-3">
+      <%= f.label :description, class: "form-label" %>
+      <%= f.text_field :description, class: "form-control" %>
     </div>
-    <div>
-      <%= f.label :air_conditioner %>
-      <%= f.check_box :air_conditioner %>
+    <div class="mb-3">
+      <%= f.label :size, class: "form-label" %>
+      <%= f.number_field :size, class: "form-control" %>
     </div>
-    <div>
-      <%= f.label :tv %>
-      <%= f.check_box :tv %>
+    <div class="mb-3">
+      <%= f.label :max_guests, class: "form-label" %>
+      <%= f.number_field :max_guests, class: "form-control" %>
     </div>
-    <div>
-      <%= f.label :wardrobe %>
-      <%= f.check_box :wardrobe %>
+    <div class="mb-3">
+      <%= f.label :price, class: "form-label" %>
+      <%= f.number_field :price, step: 0.01, class: "form-control" %>
     </div>
-    <div>
-      <%= f.label :safe %>
-      <%= f.check_box :safe %>
+    <div class="mb-3 row">
+      <p>Comodidades</p>
+      <div class="col-md-6">
+        <div class="form-check form-switch">
+          <%= f.label :bathroom, class: "form-check-label" %>
+          <%= f.check_box :bathroom, class: "form-check-input" %>
+        </div>
+        <div class="form-check form-switch">
+          <%= f.label :porch, class: "form-check-label" %>
+          <%= f.check_box :porch, class: "form-check-input" %>
+        </div>
+        <div class="form-check form-switch">
+          <%= f.label :air_conditioner, class: "form-label" %>
+          <%= f.check_box :air_conditioner, class: "form-check-input" %>
+        </div>
+        <div class="form-check form-switch">
+          <%= f.label :tv, class: "form-check-label" %>
+          <%= f.check_box :tv, class: "form-check-input" %>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-check form-switch">
+          <%= f.label :wardrobe, class: "form-check-label" %>
+          <%= f.check_box :wardrobe, class: "form-check-input" %>
+        </div>
+        <div class="form-check form-switch">
+          <%= f.label :safe, class: "form-check-label" %>
+          <%= f.check_box :safe, class: "form-check-input" %>
+        </div>
+        <div class="form-check form-switch">
+          <%= f.label :accessibility, class: "form-check-label" %>
+          <%= f.check_box :accessibility, class: "form-check-input"%>
+        </div>
+        <div class="form-check form-switch">
+          <%= f.label :wifi, class: "form-check-label" %>
+          <%= f.check_box :wifi, class: "form-check-input" %>
+        </div>
+      </div>
     </div>
-    <div>
-      <%= f.label :accessibility %>
-      <%= f.check_box :accessibility%>
+    <br>
+    <div class="form-check form-switch">
+      <%= f.label :active, class: "form-check-label" %>
+      <%= f.check_box :active, class: "form-check-input" %>
     </div>
-    <div>
-      <%= f.label :wifi %>
-      <%= f.check_box :wifi %>
+    <br>
+    <div class="mb-3 input-group">
+      <%= f.label :photos, "Fotos", class: "input-group-text" %>
+      <%= f.file_field :photos, multiple: true, class: "form-control" %>
     </div>
-  </div>
-  <div>
-    <%= f.label :active %>
-    <%= f.check_box :active %>
-  </div>
-  <div>
-    <%= f.label :photos, "Fotos" %>
-    <%= f.file_field :photos, multiple: true %>
-  </div>
-  <div>
-    <%= f.submit "Salvar Quarto" %>
-  </div>
-<% end %>
+    <div class="text-center d-grid gap-2">
+      <%= f.submit "Salvar Quarto", class: "btn tn-lg btn-dark" %>
+    </div>
+  <% end %>
+
+</section>

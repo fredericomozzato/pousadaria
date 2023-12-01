@@ -1,5 +1,12 @@
-<h1><%= t("seasonal_price_details") %>:</h1>
-
 <%= render partial: "shared/form_errors", locals: { model: @seasonal_price } %>
 
-<%= render partial: "seasonal_price_form" %>
+<section class="form">
+    <h1><%= t("seasonal_price_details") %>:</h1>
+    <%= render partial: "seasonal_price_form" %>
+</section>
+
+<br>
+
+<div class="text-center">
+<%= link_to t("back_link"), room_path(@room), class: "btn btn-lg btn-outline-dark" %>
+</div>

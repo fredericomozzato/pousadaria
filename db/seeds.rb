@@ -438,5 +438,4 @@ booking_5 = Booking.create!(
   start_date: 1.week.from_now,
   end_date: 2.weeks.from_now,
   number_of_guests: 2,
-  status: :active
 )

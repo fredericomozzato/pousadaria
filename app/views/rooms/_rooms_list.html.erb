@@ -1,20 +1,22 @@
-<%=link_to "Novo Quarto", new_room_path %>
+<div class="container">
 
-<% if @rooms.empty? %>
-  <p>Nenhum quarto cadastrado</p>
-<% end %>
+  <br>
 
-<section>
-  <% @rooms.each do |room| %>
-    <div class="room-preview">
-      <h2><%= link_to room.name, room %></h2>
-      <p><%= room.description %></p>
-      <p><%= room.size %> m²</p>
-      <p>Hóspedes: <%= room.max_guests %></p>
-      <p>Diária: <%= number_to_currency room.price, 
-        unit: "R$", separator: ",", delimiter: "." %></p>
-      <p>Situação: <%= room.active? ? "ativo" : "inativo" %></p>
-    </div>
+  <% if @rooms.empty? %>
+    <p>Nenhum quarto cadastrado</p>
   <% end %>
-</section>
+
+  <div class="row">
+    <% @rooms.each do |room| %>
+      <div class="col-md-4">
+        <%= render partial: "rooms/room_card", locals: { room: room } %>
+      </div>
+    <% end %>
+  </section>
+  <br>
+
+  <div class="text-center">
+    <%=link_to "Novo Quarto", new_room_path, class: "btn btn-lg btn-dark" %>
+  </div>
+</div>
 

@@ -1,26 +1,37 @@
-<h1><%= t("booking_details") %></h1>
+<div class="list-formatting">
+  <h1 class="text-center"><%= t("booking_details") %></h1>
 
-<dl>
-  <dt><%= Room.model_name.human(count: 1) %>:</dt>
-  <dd> <%= @room.name %></dd>
+  <dl class="list-group list-group-flush">
+    <dt><%= Room.model_name.human(count: 1) %>:</dt>
+    <dd class="list-group-item"> <%= @room.name %></dd>
 
-  <dt><%= Booking.human_attribute_name(:start_date) %>:</dt>
-  <dd><%= I18n.l(@pre_booking.start_date) %> a partir das <%= @inn.check_in_time.strftime("%H:%M") %> horas</dd>
+    <dt><%= Booking.human_attribute_name(:start_date) %>:</dt>
+    <dd class="list-group-item"><%= I18n.l(@pre_booking.start_date) %> a partir das <%= @inn.check_in_time.strftime("%H:%M") %> horas</dd>
 
-  <dt><%= Booking.human_attribute_name(:end_date) %>:</dt>
-  <dd><%= I18n.l(@pre_booking.end_date) %> até as <%= @inn.check_out_time.strftime("%H:%M") %> horas</dd>
+    <dt><%= Booking.human_attribute_name(:end_date) %>:</dt>
+    <dd class="list-group-item"><%= I18n.l(@pre_booking.end_date) %> até as <%= @inn.check_out_time.strftime("%H:%M") %> horas</dd>
 
-  <dt><%= Booking.human_attribute_name(:number_of_guests) %>:</dt>
-  <dd><%= @pre_booking.number_of_guests %></dd>
+    <dt><%= Booking.human_attribute_name(:number_of_guests) %>:</dt>
+    <dd class="list-group-item"><%= @pre_booking.number_of_guests %></dd>
 
-  <dt><%= Booking.human_attribute_name(:bill) %>:</dt>
-  <dd><%= number_to_currency @pre_booking.calculate_bill, unit: "R$", separator: ",", delimiter: "." %></dd>
+    <dt><%= Booking.human_attribute_name(:bill) %>:</dt>
+    <dd class="list-group-item"><%= number_to_currency @pre_booking.calculate_bill, unit: "R$", separator: ",", delimiter: "." %></dd>
 
-  <dt><%= t("payment_methods") %>:</dt>
-  <dd><%= @inn.pay_methods %></dd>
+    <dt><%= t("payment_methods") %>:</dt>
+    <dd class="list-group-item"><%= @inn.pay_methods %></dd>
+  </dl>
 
-</dl>
+  <br>
 
-<%= button_to t("confirm_booking_button"), room_bookings_path %>
-<%= link_to t("back_link"), new_room_booking_path(params[:room_id]) %>
+  <div class="text-center">
+    <div class="d-grid gap-2">
+      <%= button_to t("confirm_booking_button"), room_bookings_path, class: "btn btn-lg btn-dark" %>
+    </div>
+
+    <br>
+
+    <%= link_to t("back_link"), new_room_booking_path(params[:room_id]), class: "btn btn-lg btn-outline-dark" %>
+  </div>
+</div>
+
 

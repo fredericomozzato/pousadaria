@@ -1,7 +1,11 @@
 <% if model.errors %>
   <ul>
     <% model.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
+      <li>
+        <div class="alert alert-danger text-center">
+          <%= msg %>
+        </div>
+      </li>
     <% end%>
   </ul>
 <% end %>

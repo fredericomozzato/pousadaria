@@ -1,7 +1,16 @@
-<h1><%= Inn.model_name.human(count: 2) %> em: <%= params[:city] %></h1>
+<section id="city-search-results">
+  <h1><%= Inn.model_name.human(count: 2) %> em: <%= params[:city] %></h1>
 
-<ul>
-  <% @found_inns.each do |inn| %>
-    <li><%= link_to inn.name, inn %></li>
-  <% end %>
-</ul>
+  <div class="container">
+      <div class="row justify-content-center">
+        <% @found_inns.each do |inn| %>
+          <div class="col-md-4">
+            <%= render partial: "inn_card", locals: { inn: inn } %>
+          </div>
+        <% end %>
+      </div>
+    <div class="mt-5">
+      <%= link_to t("back_link"), root_path, class: "btn btn-lg btn-dark" %>
+    </div>
+  </div>
+</section>

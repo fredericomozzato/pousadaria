@@ -1,27 +1,43 @@
-<nav id="cities-menu">
-  <ul>
-    <% @cities.each do |city| %>
-      <li><%= link_to city, city_search_inns_path(city: city) %></li>
-    <% end %>
-  </ul>
-</nav>
+<br>
+<div class="container">
+  <div class="row align-items-start">
 
-<section>
-  <% if @recent_inns.empty? %>
-    <p><%= t("no_inns_yet") %></p>
-  <% else %>
-    <h2><%= t("new_inns") %></h2>
-    <div id="recent">
-      <div>
-        <%= render @recent_inns %>
-      </div>
+    <div class="col-3 order-first">
+        <nav id="cities-menu">
+          <ul class="list-group" style="list-style: none;">
+            <% @cities.each do |city| %>
+              <li><%= link_to city, city_search_inns_path(city: city), class: "list-group-item" %></li>
+            <% end %>
+          </ul>
+        </nav>
     </div>
-    <hr/>
-    <h2><%= Inn.model_name.human(count: 2) %></h2>
-    <div id="inns-list">
-      <div>
-        <%= render @inns %>
-      </div>
+
+    <div class="col">
+      <% if @recent_inns.empty? %>
+        <p><%= t("no_inns_yet") %></p>
+      <% else %>
+        <div class="mt-5 mb-3">
+          <h2><%= t("new_inns") %></h2>
+        </div>
+        <div id="recent" class="row mb-5">
+          <% @recent_inns.each do |inn| %>
+            <div class="col-md-4">
+              <%= render partial: "inns/inn_card", locals: { inn: inn } %>
+            </div>
+          <% end %>
+        </div>
+
+        <hr/>
+
+        <h2><%= Inn.model_name.human(count: 2) %></h2>
+        <div id="inns-list" class="row mb-3">
+          <% @inns.each do |inn| %>
+            <div class="col-md-4">
+              <%= render partial: "inns/inn_card", locals: { inn: inn } %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
     </div>
-  <% end %>
-</section>
+  </div>
+</div>

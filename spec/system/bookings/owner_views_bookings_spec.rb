@@ -131,7 +131,7 @@ describe "Proprietário acessa a página de reservas da pousada" do
     visit bookings_path
 
     expect(page).not_to have_content "Nenhuma reserva encontrada"
-    within "section#bookings-list" do
+    within "#bookings-list" do
       expect(page).to have_content "Reserva:"
       expect(page).to have_link booking_1.code
       expect(page).to have_content "Quarto: Oceano"

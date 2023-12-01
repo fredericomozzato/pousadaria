@@ -1,85 +1,99 @@
-<%= form_with model: @inn do |f| %>
-  <div>
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
-  <div>
-    <%= f.label :corporate_name %>
-    <%= f.text_field :corporate_name %>
-  </div> 
-  <div>
-    <%= f.label :registration_number %>
-    <%= f.text_field :registration_number %>
-  </div>
-  <div>
-    <%= f.label :phone %>
-    <%= f.telephone_field :phone %>
-  </div>
-  <div>
-    <%= f.label :email %>
-    <%= f.email_field :email %>
-  </div>
+<div class="container">
+  <%= form_with model: @inn do |f| %>
+    <div class="mb-3">
+      <%= f.label :name, class: "form-label" %>
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
+    <div class="mb-3">
+      <%= f.label :corporate_name, class: "form-label" %>
+      <%= f.text_field :corporate_name, class: "form-control" %>
+    </div> 
+    <div class="mb-3">
+      <%= f.label :registration_number, class: "form-label" %>
+      <%= f.text_field :registration_number, class: "form-control" %>
+    </div>
+    <div class="mb-3">
+      <%= f.label :phone, class: "form-label" %>
+      <%= f.telephone_field :phone, class: "form-control" %>
+    </div>
+    <div class="mb-3">
+      <%= f.label :email, class: "form-label" %>
+      <%= f.email_field :email, class: "form-control" %>
+    </div>
 
-  <div>
-    <%= f.fields_for :address, @address do |a| %>
-      <div>
-        <%= a.label :street %>
-        <%= a.text_field :street %>
-      </div>
-      <div>
-        <%= a.label :number %>
-        <%= a.text_field :number %>
-      </div>
-      <div>
-        <%= a.label :neighborhood %>
-        <%= a.text_field :neighborhood %>
-      </div>
-      <div>
-        <%= a.label :city %>
-        <%= a.text_field :city %>
-      </div>
-      <div>
-        <%= a.label :state %>
-        <%= a.select :state, Address.states.keys, prompt: "Selecione" %>
-      </div>
-      <div>
-        <%= a.label :postal_code %>
-        <%= a.text_field :postal_code %>
-      </div>
-    <% end %>
-  </div>
+    <div>
+      <%= f.fields_for :address, @address do |a| %>
+        <div class="mb-3">
+          <%= a.label :street, class: "form-label" %>
+          <%= a.text_field :street, class: "form-control" %>
+        </div>
+        <div class="mb-3">
+          <%= a.label :number, class: "form-label" %>
+          <%= a.text_field :number, class: "form-control" %>
+        </div>
+        <div class="mb-3">
+          <%= a.label :neighborhood, class: "form-label" %>
+          <%= a.text_field :neighborhood, class: "form-control" %>
+        </div>
+        <div class="mb-3">
+          <%= a.label :city, class: "form-label" %>
+          <%= a.text_field :city, class: "form-control" %>
+        </div>
+        <div class="mb-3">
+          <%= a.label :state, class: "form-label" %>
+          <%= a.select :state, Address.states.keys,{ prompt: "Selecione" }, { class: "form-select" } %>
+        </div>
+        <div class="mb-3">
+          <%= a.label :postal_code, class: "form-label" %>
+          <%= a.text_field :postal_code, class: "form-control" %>
+        </div>
+      <% end %>
+    </div>
 
-  <div>
-    <%= f.label :description %>
-    <%= f.text_area :description %>
-  </div>
-  <div>
-    <%= f.label :pay_methods %>
-    <%= f.text_field :pay_methods %>
-  </div>
-  <div>
-    <%= f.label :pet_friendly %>
-    <%= f.check_box :pet_friendly %>
-  </div>
-  <div>
-    <%= f.label :user_policies %>
-    <%= f.text_area :user_policies %>
-  </div>
-  <div>
-    <%= f.label :check_in_time %>
-    <%= select_hour Time.new, field_name: "checkin_hour" %>:
-    <%= select_minute Time.new, field_name: "checkin_minute", minute_step: 15 %> horas
-  </div>
-  <div>
-    <%= f.label :check_out_time %>
-    <%= select_hour Time.new, field_name: "checkout_hour" %>:
-    <%= select_minute Time.new, field_name: "checkout_minute", minute_step: 15 %> horas
-  </div>
-  <div>
-    <%= f.label :photos, "Fotos" %>
-    <%= f.file_field :photos, multiple: true %>
-  </div>
-  <div>
-    <%= f.submit %>
-  </div>
-<% end %>
+    <div class="mb-3">
+      <%= f.label :description, class: "form-label" %>
+      <%= f.text_area :description, class: "form-control" %>
+    </div>
+    <div class="mb-3">
+      <%= f.label :pay_methods, class: "form-label" %>
+      <%= f.text_field :pay_methods, class: "form-control" %>
+    </div>
+    <div class="mb-3 form-check form-switch">
+      <%= f.label :pet_friendly, class: "form-label" %>
+      <%= f.check_box :pet_friendly, class: "form-check-input" %>
+    </div>
+    <div class="mb-3">
+      <%= f.label :user_policies, class: "form-label" %>
+      <%= f.text_area :user_policies, class: "form-control" %>
+    </div>
+    <div class="mb-3">
+      <%= f.label :check_in_time, class: "form-label" %>
+      <div class="row">
+        <div class="col">
+          <%= select_hour Time.new, { field_name: "checkin_hour" }, { class: "form-select" } %>
+        </div>
+        <div class="col">
+          <%= select_minute Time.new, { field_name: "checkin_minute", minute_step: 15 }, { class: "form-select" } %>
+        </div>
+      </div>
+    </div>
+    <div class="mb-3">
+      <%= f.label :check_out_time, class: "form-label" %>
+      <div class="row">
+        <div class="col">
+          <%= select_hour Time.new, { field_name: "checkout_hour" }, { class: "form-select" } %>
+        </div>
+        <div class="col">
+          <%= select_minute Time.new, { field_name: "checkout_minute", minute_step: 15 }, { class: "form-select" } %>
+        </div>
+      </div>
+    </div>
+    <div class="mb-3 input-group">
+      <%= f.label :photos, "Fotos", class: "input-group-text" %>
+      <%= f.file_field :photos, multiple: true, class: "form-control" %>
+    </div>
+    <div class="text-center d-grid gap-2">
+      <%= f.submit class: "btn btn-lg btn-dark" %>
+    </div>
+  <% end %>
+</div>

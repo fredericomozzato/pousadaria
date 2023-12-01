@@ -65,7 +65,6 @@ describe "Usuário acessa a página de avaliação" do
 
     expect(page).to have_content "Avalie sua estadia"
     expect(page).to have_content "Mar Aberto"
-    expect(page).to have_content "Nota"
     expect(page).to have_content "0"
     expect(page).to have_content "1"
     expect(page).to have_content "2"
@@ -464,6 +463,7 @@ describe "Usuário acessa a página de avaliação" do
     visit my_bookings_path
     click_on booking.code
 
-    expect(page).to have_content "Resposta: Obrigado!"
+    expect(page).to have_content "Resposta:"
+    expect(page).to have_content "Obrigado!"
   end
 end

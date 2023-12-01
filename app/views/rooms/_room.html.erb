@@ -1,38 +1,81 @@
-<h3>Quarto: <%= link_to room.name, room_path(room) %></h3>
-
-<% if room.photos.attached? %>
-  <div class="photo-gallery">
-    <% room.photos.each do |photo| %>
-      <%= link_to image_tag(photo.variant(resize_to_limit: [250, 250]).processed), photo %>
-      <% if owner_signed_in? %>
-        <%= button_to "Remover", remove_photo_room_path(room), params: { photo_id: photo.id }, method: :delete, data: { turbo_method: :delete, turbo_confirm: "Remover foto?" } %>
-      <% end %>
-    <% end %>
+<section>
+  <div class="mt-5 mb-3 text-center">
+    <h3>Quarto: <%= link_to room.name, room_path(room) %></h3>
   </div>
-<% end %>
+  
+  <% if owner_signed_in? %>
+    <% if room.photos.attached? %>
+      <div class="photo-gallery row d-flex justify-content-center">
+        <% room.photos.each do |photo| %>
+          <div class="col-5">
+            <div class="card" style="width: 25vw;">
+              <div class="card-header">
+                <h6>Foto</h6>
+              </div>
+              <div class="card-image-top">
+                <%= link_to image_tag(photo.variant(resize_to_limit: [250, 250]).processed), photo %>
+              </div>
+              <div class="card-body">
+                <%= button_to "Remover", remove_photo_room_path(room), params: { photo_id: photo.id }, method: :delete, data: { turbo_method: :delete, turbo_confirm: "Remover foto?" }, class: "btn btn-sm btn-danger" %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
 
-<dl>
-  <dt>Descrição: </dt>
-  <dd><%= room.description %></dd>
-  <dt>Tamanho:</dt>
-  <dd><%= room.size %> m²</dd>
-  <dt>Número máximo de hóspedes:</dt>
-  <dd><%= room.max_guests %></dd>
-  <dt>Valor da diária:</dt>
-  <dd><%= number_to_currency room.price, unit: "R$", separator: ",", delimiter: "." %></dd>
-  <dt>Comodidades:</dt>
-  <dd>
-    <ul class="ammenities">
-      <li>Banheiro privativo: <%= room.bathroom ? "sim" : "não" %></li>
-      <li>Varanda: <%= room.porch ? "sim" : "não" %></li>
-      <li>Ar-condicionado: <%= room.air_conditioner ? "sim" : "não" %></li>
-      <li>Televisão: <%= room.tv ? "sim" : "não" %></li>
-      <li>Guarda-roupas: <%= room.wardrobe ? "sim" : "não" %></li>
-      <li>Cofre: <%= room.safe ? "sim" : "não" %></li>
-      <li>Acessibilidade: <%= room.accessibility ? "sim" : "não" %></li>
-      <li>Wi-fi: <%= room.wifi ? "sim" : "não" %></li>
-    </ul>
-  </dd>
-  <dt>Disponível para reservas:</dt>
-  <dd><%= room.active? ? "sim" : "não" %></dd>
-</dl>
+  <% else %>  
+    <% if room.photos.attached? %>
+      <div id="room-photo-carousel" class="carousel slide">
+          <div class="carousel-indicators">
+            <button type="button" data-bs-target="#room-photo-carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#room-photo-carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#room-photo-carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+          </div>
+          <div class="carousel-inner">
+            <% @room.photos.each do |photo| %>
+              <div class="carousel-item active">
+                <%= image_tag(photo, class: "d-block w-100") %>
+              </div>
+            <% end %>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#room-photo-carousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Anterior</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#room-photo-carousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Próxima</span>
+          </button>
+        </div>
+    <% end %>
+  <% end %>
+
+  <dl class="description-list list-group list-group-flush">
+    <dt>Descrição: </dt>
+    <dd class="list-group-item"><%= room.description %></dd>
+    <dt>Tamanho:</dt>
+    <dd class="list-group-item"><%= room.size %> m²</dd>
+    <dt>Número máximo de hóspedes:</dt>
+    <dd class="list-group-item"><%= room.max_guests %></dd>
+    <dt>Valor da diária:</dt>
+    <dd class="list-group-item"><%= number_to_currency room.price, unit: "R$", separator: ",", delimiter: "." %></dd>
+    <dt>Comodidades:</dt>
+    <dd class="list-group-item">
+      <ul class="ammenities">
+        <li>Banheiro privativo: <%= room.bathroom ? "sim" : "não" %></li>
+        <li>Varanda: <%= room.porch ? "sim" : "não" %></li>
+        <li>Ar-condicionado: <%= room.air_conditioner ? "sim" : "não" %></li>
+        <li>Televisão: <%= room.tv ? "sim" : "não" %></li>
+        <li>Guarda-roupas: <%= room.wardrobe ? "sim" : "não" %></li>
+        <li>Cofre: <%= room.safe ? "sim" : "não" %></li>
+        <li>Acessibilidade: <%= room.accessibility ? "sim" : "não" %></li>
+        <li>Wi-fi: <%= room.wifi ? "sim" : "não" %></li>
+      </ul>
+    </dd>
+    <dt>Disponível para reservas:</dt>
+    <dd class="list-group-item"><%= room.active? ? "sim" : "não" %></dd>
+  </dl>
+</section>
+
+

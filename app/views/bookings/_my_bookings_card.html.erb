@@ -1,0 +1,16 @@
+<div class="card">
+    <div class="card-header">
+    Reserva
+    </div>
+    <div class="card-body">
+        <h5 class="card-title"><%= link_to booking.code, booking %></h5>
+        <dl class="list-group list-group-flush">
+            <dt><%= Inn.model_name.human count: 1 %>:</dt>
+            <dd class="list-group-item"><%= booking.room.inn.name %></dd>
+            <dt><%= Room.model_name.human count: 1 %>:</dt>
+            <dd class="list-group-item"><%= booking.room.name %></dd>
+            <dt><%= t("booking_period") %>:</dt>
+            <dd class="list-group-item"><%= I18n.l(booking.start_date) %> - <%= I18n.l(booking.end_date) %></dd>
+        </dl>
+    </div>
+</div>

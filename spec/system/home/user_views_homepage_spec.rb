@@ -7,7 +7,7 @@ describe "Usuário visita a página inicial" do
 
       within "#navigation-bar" do
         expect(page).to have_content "Pousadaria"
-        expect(page).to have_field "Buscar Pousada"
+        expect(page).to have_field "query"
         expect(page).to have_button "Buscar"
         expect(page).to have_link "Busca avançada"
         expect(page).to have_link "Entrar"
@@ -449,7 +449,7 @@ describe "Usuário visita a página inicial" do
 
       login_as owner
       visit root_path
-      within "nav" do
+      within "#navigation-bar" do
         click_on "Sair"
       end
 

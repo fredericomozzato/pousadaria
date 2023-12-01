@@ -1,17 +1,24 @@
-<h1><%= Booking.model_name.human count: 2 %> - <%= @inn.name %></h1>
 
-<% if @bookings.empty? %>
-  <div>
-    <p><%= t("no_bookings_found") %></p>
+<section>
+  <br>
+
+  <div class="text-center">
+    <h1><%= Booking.model_name.human count: 2 %> - <%= @inn.name %></h1>
   </div>
-<% end %>
 
-<section id="bookings-list">
-  <ul>
+  <br>
+
+  <% if @bookings.empty? %>
+    <div class="text-center">
+      <p><%= t("no_bookings_found") %></p>
+    </div>
+  <% end %>
+  
+  <div id="bookings-list" class="row d-flex justify-content-center">
     <% @bookings.each do |booking| %>
-      <li>
-        <%= render booking %>
-      </li>
+      <div class="col-md-4 mb-3">
+        <%= render partial: "booking_card", locals: { booking: booking } %>
+      </div>
     <% end %>
-  </ul>
+  </div>
 </section>

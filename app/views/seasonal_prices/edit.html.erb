@@ -1,7 +1,16 @@
-<h1><%= t("edit_seasonal_price") %></h1>
 
-<%= render partial: "seasonal_price_form" %>
+<section class="form">
+  <h1><%= t("edit_seasonal_price") %></h1>
 
-<div>
-  <%= button_to "Excluir", seasonal_price_path(@seasonal_price), method: :delete %>
-</div>
+  <%= render partial: "seasonal_price_form" %>
+  <div class="text-center">
+    <%= button_to "Excluir", seasonal_price_path(@seasonal_price),{ method: :delete, class: "btn btn-lg btn-danger" } %>
+  </div>
+
+  <br>
+
+  <div class="text-center">
+    <%= link_to t("back_link"), room_path(@room_id), class: "btn btn-lg btn-outline-dark" %>
+  </div>
+</section>
+

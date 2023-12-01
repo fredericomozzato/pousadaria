@@ -141,7 +141,7 @@ describe "Usuário usa o campo de buscas" do
 
     visit root_path
     within "#navigation-bar" do
-      fill_in "Buscar Pousada", with: "Florianópolis"
+      fill_in "query", with: "Florianópolis"
       click_on "Buscar"
     end
 
@@ -294,7 +294,7 @@ describe "Usuário usa o campo de buscas" do
 
     visit inn_path(second_inn)
     within "#navigation-bar" do
-        fill_in "Buscar Pousada", with: "ilha"
+        fill_in "query", with: "ilha"
         click_on "Buscar"
     end
 
@@ -362,7 +362,7 @@ describe "Usuário usa o campo de buscas" do
 
     visit root_path
     within "#navigation-bar" do
-        fill_in "Buscar Pousada", with: "ilha"
+        fill_in "query", with: "ilha"
         click_on "Buscar"
     end
 

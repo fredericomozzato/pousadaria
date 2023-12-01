@@ -1,78 +1,153 @@
-<h1><%= @inn.name %></h1>
 
-<section>
-
-  <div class="photo-gallery">
-    <h3>Galeria de fotos</h3>
-    <% @inn.photos.each do |photo| %>
-      <%= link_to image_tag(photo.variant(resize_to_limit: [250, 250]).processed), photo %>
-    <% end %>
+<section class="details">
+  <div class="mb-3 mt-5">
+    <h1><%= @inn.name %></h1>
   </div>
+  <% if @inn.photos.attached? %>
+    <div id="inn-photo-carousel" class="carousel slide">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#inn-photo-carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#inn-photo-carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#inn-photo-carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      </div>
+      <div class="carousel-inner">
+        <% @inn.photos.each do |photo| %>
+          <div class="carousel-item active">
+            <%= image_tag(photo, class: "d-block w-100") %>
+          </div>
+        <% end %>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#inn-photo-carousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Anterior</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#inn-photo-carousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Próxima</span>
+      </button>
+    </div>
+  <% end %>
 
   <div>
-    <dl>
+    <dl class="description-list list-group list-group-flush">
       <dt><%= Review.model_name.human(count: 1) %>:</dt>
       <% if @average_score.blank? %>
-        <dd><%= t("no_reviews") %></dd>
+        <dd class="list-group-item"><%= t("no_reviews") %></dd>
       <% else %>
-        <dd><%= @average_score %></dd>
+        <dd class="list-group-item"><%= @average_score %></dd>
       <% end %>
       <dt><%= Inn.human_attribute_name(:name) %>:</dt>
-      <dd><%= @inn.name %></dd>
+      <dd class="list-group-item"><%= @inn.name %></dd>
 
       <dt><%= Inn.human_attribute_name(:phone) %>:</dt>
-      <dd><%= @inn.phone %></dd>
+      <dd class="list-group-item"><%= @inn.phone %></dd>
 
       <dt><%= Inn.human_attribute_name(:email) %>:</dt>
-      <dd><%= @inn.email %></dd>
+      <dd class="list-group-item"><%= @inn.email %></dd>
 
       <dt><%= Inn.human_attribute_name(:description) %>:</dt>
-      <dd><%= @inn.description %></dd>
+      <dd class="list-group-item"><%= @inn.description %></dd>
 
       <dt><%= Inn.human_attribute_name(:pay_methods) %>:</dt>
-      <dd><%= @inn.pay_methods %></dd>
+      <dd class="list-group-item"><%= @inn.pay_methods %></dd>
 
       <dt><%= Inn.human_attribute_name(:pet_friendly) %>:</dt>
-      <dd><%= @inn.pet_friendly ? "sim" : "não" %></dd>
+      <dd class="list-group-item"><%= @inn.pet_friendly ? "sim" : "não" %></dd>
 
       <dt><%= Inn.human_attribute_name(:user_policies) %>:</dt>
-      <dd><%= @inn.user_policies %></dd>
+      <dd class="list-group-item"><%= @inn.user_policies %></dd>
 
       <dt><%= Inn.human_attribute_name(:check_in_time) %>:</dt>
-      <dd>a partir das <%= @inn.check_in_time.strftime("%k:%M") %></dd>
+      <dd class="list-group-item">a partir das <%= @inn.check_in_time.strftime("%k:%M") %></dd>
 
       <dt><%= Inn.human_attribute_name(:check_out_time) %>:</dt>
-      <dd>até as <%= @inn.check_out_time.strftime("%k:%M") %></dd>
+      <dd class="list-group-item">até as <%= @inn.check_out_time.strftime("%k:%M") %></dd>
 
       <dt><%= Address.model_name.human %>:</dt>
-      <dd><%= @inn.address.street_values %></dd>
-      <dd><%= @inn.address.location_values %></dd>
+      <dd class="list-group-item">
+        <address>
+          <%= @inn.address.street_values %> <br>
+          <%= @inn.address.location_values %>
+        </address>
+        </dd>
 
       <dt><%= Address.human_attribute_name(:postal_code) %>:</dt>
-      <dd><%= @inn.address.postal_code %></dd>
+      <dd class="list-group-item"><%= @inn.address.postal_code %></dd>
     </dl>
   </div>
 
   <h2><%= t("available_rooms") %>:</h2>
-  <div id="rooms-list">
+
+  <div id="rooms-list" class="row">
     <% @rooms.each do |room| %>
-      <div>
-        <%= render room %>
+      <div class="col-md-4">
+        <div class="card">
+          <% if room.photos.attached? %>
+            <%= image_tag(room.photos.first, class: "card-img-top") %>
+          <% else %>
+            <img src="https://archive.org/download/placeholder-image/placeholder-image.jpg" alt="no image" class="card-img-top" width="100px">
+          <% end %>
+          <div class="card-body">
+            <h4 class="card-title"><%= link_to room.name, room_path(room) %></h4>
+            <p class="card-text"><%= room.description %></p>
+            <p class="card-text">Valor da diária: <%= number_to_currency room.price, unit: "R$", separator: ",", delimiter: "." %></p>
+          </div>
+        </div>
       </div>
     <% end %>
   </div>
 
+  <br>
+
   <section id="recent-reviews">
     <h3><%= t("recent_reviews") %></h3>
     <% @recent_reviews.each do |review| %>
-      <div>
-        <%= render review %>
-      </div>
+      <div class="row d-flex justify-content-center">
+        <div class="col">
+          <div class="card w-50">
+            <dl>
+                <div class="card-header">
+                  <div class="row">
+                    <div class="col">
+                      <dt><%= User.model_name.human(count: 1) %>:</dt>
+                      <dd><%= review.booking.user.name %></dd>
+                    </div>
+                  <% if current_owner %>
+                    <div class="col">
+                      <dt><%= Booking.model_name.human(count: 1) %>:</dt>
+                      <dd><%= link_to review.booking.code, booking_path(review.booking) %></dd>
+                    </div>
+                  <% end %>
+                  </div>
+                </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <dt><%= Review.human_attribute_name(:score) %>:</dt>
+                    <dd><%= review.score %></dd>
+                  </div>
+                  <div class="col">
+                    <dt><%= Review.human_attribute_name(:message) %>:</dt>
+                    <dd><%= review.message %></dd>
+                  </div>
+                </div>
+                <hr>
+                <div class="text-center">
+                  <dt><%= t("owner_answer") %>:</dt>
+                  <dd><%= review.answer %></dd>
+                </div>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </div>        
     <% end %>
     <div>
-      <%= link_to t("view_all_reviews"), inn_reviews_path(@inn) %>
+      <%= link_to t("back_link"), root_path, class: "btn btn-lg btn-outline-dark" %>
+      <%= link_to t("view_all_reviews"), inn_reviews_path(@inn), class: "btn btn-lg btn-outline-success" %>
     </div>
   </section>
 
-  <%= link_to t("back_link"), root_path %>
+  <br>
+
 </section>
