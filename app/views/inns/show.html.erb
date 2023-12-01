@@ -1,6 +1,8 @@
 
 <section class="details">
-  <h1><%= @inn.name %></h1>
+  <div class="mb-3 mt-5">
+    <h1><%= @inn.name %></h1>
+  </div>
   <% if @inn.photos.attached? %>
     <div id="inn-photo-carousel" class="carousel slide">
       <div class="carousel-indicators">
