@@ -32,22 +32,15 @@ class Inn < ApplicationRecord
   end
 
   def self.advanced_search(params)
-    Inn.joins(:address, :rooms)
-       .where("inns.name LIKE ?", "%#{params[:name]}%")
-       .where("addresses.city LIKE ?", "%#{params[:city]}%")
-       .where(inns: {
-                active: true,
-                pet_friendly: params[:pet_friendly]},
-              rooms: {
-                bathroom: params[:bathroom],
-                porch: params[:porch],
-                air_conditioner: params[:air_conditioner],
-                tv: params[:tv],
-                wardrobe: params[:wardrobe],
-                safe: params[:safe],
-                wifi: params[:wifi],
-                accessibility: params[:accessibility]
-              }).uniq
+    @inns = Inn.joins(:address, :rooms).where(active: true)
+    @inns = @inns.where("inns.name LIKE ?", "%#{params[:name]}%") if params[:name].present?
+    @inns = @inns.where("addresses.city LIKE ?", "%#{params[:city]}%") if params[:city].present?
+    @inns = @inns.where(inns: { pet_friendly: true }) if params[:pet_friendly] == "1"
+
+    room_params = self.room_params(params)
+
+    @inns = @inns.where(rooms: room_params) if room_params.present?
+    @inns.uniq
   end
 
   def self.all_cities
@@ -77,5 +70,18 @@ class Inn < ApplicationRecord
   def validates_registration_number
     cnpj = BrDocuments::CnpjCpf::Cnpj.new(registration_number)
     errors.add(:registration_number, " inválido") unless cnpj.valid?
+  end
+
+  def self.room_params(params)
+    room_params = {}
+    room_params[:accessibility] = true if params[:accessibility] == "1"
+    room_params[:wifi] = true if params[:wifi] == "1"
+    room_params[:bathroom] = true if params[:bathroom] == "1"
+    room_params[:air_conditioner] = true if params[:air_conditioner] == "1"
+    room_params[:wardrobe] = true if params[:wardrobe] == "1"
+    room_params[:tv] = true if params[:tv] == "1"
+    room_params[:porch] = true if params[:porch] == "1"
+    room_params[:safe] = true if params[:safe] == "1"
+    room_params
   end
 end

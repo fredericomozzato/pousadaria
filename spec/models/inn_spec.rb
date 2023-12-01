@@ -327,6 +327,126 @@ RSpec.describe Inn, type: :model do
   end
 
   describe ".advanced_search" do
+    it "encontra pousada por busca avançada" do
+      owner_1 = Owner.create!(email: "dono_1@email.com", password: "123456")
+      inn_1 = Inn.create!(
+        name: "Mar Aberto",
+        corporate_name: "Pousada Mar Aberto/SC",
+        registration_number: "84.485.218/0001-73",
+        phone: "4899999-9999",
+        email: "pousadamaraberto@hotmail.com",
+        description: "Pousada na beira do mar com suítes e café da manhã incluso.",
+        pay_methods: "Crédito, débito, dinheiro ou pix",
+        pet_friendly: true,
+        user_policies: "A pousada conta com lei do silêncio das 22h às 8h",
+        check_in_time: Time.new(2000, 1, 1, 9, 0, 0, "UTC"),
+        check_out_time: Time.new(2000, 1, 1, 15, 30, 0, "UTC"),
+        owner: owner_1
+      )
+      Address.create!(
+        street: "Rua das Flores",
+        number: 300,
+        neighborhood: "Canasvieiras",
+        city: "Florianópolis",
+        state: "SC",
+        postal_code: "88000-000",
+        inn: inn_1
+      )
+      inn_1_room_1 = Room.create!(
+        name: "Atlântico",
+        description: "Quarto com vista para o mar",
+        size: 30,
+        max_guests: 2,
+        price: 200.00,
+        inn: inn_1,
+        bathroom: true
+      )
+      owner_2 = Owner.create!(email: "dono_2@email.com", password: "654321")
+      inn_2 = Inn.create!(
+        name: "Morro Azul",
+        corporate_name: "Pousada Da Montanha/RS",
+        registration_number: "59.457.495/0001-25",
+        phone: "5499999-9999",
+        email: "pousadamorroazul@gmail.com",
+        description: "Pousada com vista pra montanha.",
+        pay_methods: "Crédito, débito, dinheiro ou pix",
+        user_policies: "A pousada conta com lei do silêncio das 22h às 8h",
+        pet_friendly: false,
+        check_in_time: Time.new(2000, 1, 1, 9, 0, 0, 'UTC'),
+        check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
+        owner: owner_2
+      )
+      Address.create!(
+        street: "Rua da Cachoeira",
+        number: 560,
+        neighborhood: "Zona Rual",
+        city: "Cambará do Sul",
+        state: "RS",
+        postal_code: "77000-000",
+        inn: inn_2
+      )
+      inn_2_room_1 = Room.create!(
+        name: "Canarinho",
+        description: "Quarto com vista para a montanha",
+        size: 30,
+        max_guests: 2,
+        price: 150.00,
+        inn: inn_2
+      )
+      owner_3 = Owner.create!(email: "dono_3@email.com", password: "abcdef")
+      inn_3 = Inn.create!(
+        name: "Ilha da Magia",
+        corporate_name: "Pousada Ilha da Magia Floripa",
+        registration_number: "81.289.700/0001-40",
+        phone: "48829999-9999",
+        email: "pousadailhadamagia@gmail.com",
+        description: "Pousada na Ilha da Magia.",
+        pay_methods: "Crédito, débito, dinheiro ou pix",
+        user_policies: "A pousada conta com lei do silêncio das 22h às 8h",
+        pet_friendly: true,
+        check_in_time: Time.new(2000, 1, 1, 9, 0, 0, 'UTC'),
+        check_out_time: Time.new(2000, 1, 1, 15, 0, 0, 'UTC'),
+        owner: owner_3
+      )
+      Address.create!(
+        street: "Rua da Praia",
+        number: 190,
+        neighborhood: "Campeche",
+        city: "Florianópolis",
+        state: "SC",
+        postal_code: "88800-000",
+        inn: inn_3
+      )
+      inn_3_room_1 = Room.create!(
+        name: "Canasvieiras",
+        description: "Quarto com vista para a praia",
+        size: 20,
+        max_guests: 2,
+        price: 200.00,
+        inn: inn_3,
+        wifi: true,
+        accessibility: true
+      )
+      params = {
+        name: "",
+        city: "",
+        pet_friendly: "1",
+        accessibility: "1",
+        wifi: "1",
+        bathroom: "0",
+        air_conditioner: "0",
+        wardrobe: "0",
+        tv: "0",
+        porch: "0",
+        safe: "0"
+      }
+
+      result = Inn.advanced_search(params)
+
+      expect(result.count).to eq 1
+      expect(result).to include inn_3
+    end
+
     it "encontra uma pousada por nome" do
       owner = Owner.create!(
         email: "owner@email.com",
@@ -372,15 +492,15 @@ RSpec.describe Inn, type: :model do
       params = {
         name: "Pousada",
         city: "",
-        pet_friendly: false,
-        accessibility: false,
-        wifi: false,
-        bathroom: false,
-        air_conditioner: false,
-        wardrobe: false,
-        tv: false,
-        porch: false,
-        safe: false
+        pet_friendly: "0",
+        accessibility: "0",
+        wifi: "0",
+        bathroom: "0",
+        air_conditioner: "0",
+        wardrobe: "0",
+        tv: "0",
+        porch: "0",
+        safe: "0"
       }
 
       result = Inn.advanced_search(params)
@@ -434,15 +554,15 @@ RSpec.describe Inn, type: :model do
       params = {
         name: "paradouro",
         city: "",
-        pet_friendly: false,
-        accessibility: false,
-        wifi: false,
-        bathroom: false,
-        air_conditioner: false,
-        wardrobe: false,
-        tv: false,
-        porch: false,
-        safe: false
+        pet_friendly: "0",
+        accessibility: "0",
+        wifi: "0",
+        bathroom: "0",
+        air_conditioner: "0",
+        wardrobe: "0",
+        tv: "0",
+        porch: "0",
+        safe: "0"
       }
 
       result = Inn.advanced_search(params)
@@ -487,15 +607,15 @@ RSpec.describe Inn, type: :model do
       params = {
         name: "",
         city: "Florianópolis",
-        pet_friendly: false,
-        accessibility: false,
-        wifi: false,
-        bathroom: false,
-        air_conditioner: false,
-        wardrobe: false,
-        tv: false,
-        porch: false,
-        safe: false
+        pet_friendly: "0",
+        accessibility: "0",
+        wifi: "0",
+        bathroom: "0",
+        air_conditioner: "0",
+        wardrobe: "0",
+        tv: "0",
+        porch: "0",
+        safe: "0"
       }
 
       result = Inn.advanced_search(params)
@@ -541,15 +661,15 @@ RSpec.describe Inn, type: :model do
       params = {
         name: "",
         city: "Gramado",
-        pet_friendly: false,
-        accessibility: false,
-        wifi: false,
-        bathroom: false,
-        air_conditioner: false,
-        wardrobe: false,
-        tv: false,
-        porch: false,
-        safe: false
+        pet_friendly: "0",
+        accessibility: "0",
+        wifi: "0",
+        bathroom: "0",
+        air_conditioner: "0",
+        wardrobe: "0",
+        tv: "0",
+        porch: "0",
+        safe: "0"
       }
 
       result = Inn.advanced_search(params)
@@ -595,15 +715,15 @@ RSpec.describe Inn, type: :model do
       params = {
         name: "",
         city: "",
-        pet_friendly: true,
-        accessibility: false,
-        wifi: false,
-        bathroom: false,
-        air_conditioner: false,
-        wardrobe: false,
-        tv: false,
-        porch: false,
-        safe: false
+        pet_friendly: "1",
+        accessibility: "0",
+        wifi: "0",
+        bathroom: "0",
+        air_conditioner: "0",
+        wardrobe: "0",
+        tv: "0",
+        porch: "0",
+        safe: "0"
       }
 
       result = Inn.advanced_search(params)
@@ -650,15 +770,15 @@ RSpec.describe Inn, type: :model do
       params = {
         name: "",
         city: "",
-        pet_friendly: true,
-        accessibility: false,
-        wifi: false,
-        bathroom: false,
-        air_conditioner: false,
-        wardrobe: false,
-        tv: false,
-        porch: false,
-        safe: false
+        pet_friendly: "1",
+        accessibility: "0",
+        wifi: "0",
+        bathroom: "0",
+        air_conditioner: "0",
+        wardrobe: "0",
+        tv: "0",
+        porch: "0",
+        safe: "0"
       }
 
       result = Inn.advanced_search(params)
@@ -704,15 +824,15 @@ RSpec.describe Inn, type: :model do
       params = {
         name: "",
         city: "",
-        pet_friendly: false,
-        accessibility: true,
-        wifi: false,
-        bathroom: false,
-        air_conditioner: false,
-        wardrobe: false,
-        tv: false,
-        porch: false,
-        safe: false
+        pet_friendly: "0",
+        accessibility: "1",
+        wifi: "0",
+        bathroom: "0",
+        air_conditioner: "0",
+        wardrobe: "0",
+        tv: "0",
+        porch: "0",
+        safe: "0"
       }
 
       result = Inn.advanced_search(params)
@@ -759,15 +879,15 @@ RSpec.describe Inn, type: :model do
       params = {
         name: "",
         city: "",
-        pet_friendly: false,
-        accessibility: true,
-        wifi: false,
-        bathroom: false,
-        air_conditioner: false,
-        wardrobe: false,
-        tv: false,
-        porch: false,
-        safe: false
+        pet_friendly: "0",
+        accessibility: "1",
+        wifi: "0",
+        bathroom: "0",
+        air_conditioner: "0",
+        wardrobe: "0",
+        tv: "0",
+        porch: "0",
+        safe: "0"
       }
 
       result = Inn.advanced_search(params)
@@ -813,15 +933,15 @@ RSpec.describe Inn, type: :model do
       params = {
         name: "",
         city: "",
-        pet_friendly: false,
-        accessibility: false,
-        wifi: true,
-        bathroom: false,
-        air_conditioner: false,
-        wardrobe: false,
-        tv: false,
-        porch: false,
-        safe: false
+        pet_friendly: "0",
+        accessibility: "0",
+        wifi: "1",
+        bathroom: "0",
+        air_conditioner: "0",
+        wardrobe: "0",
+        tv: "0",
+        porch: "0",
+        safe: "0"
       }
 
       result = Inn.advanced_search(params)
@@ -868,15 +988,15 @@ RSpec.describe Inn, type: :model do
       params = {
         name: "",
         city: "",
-        pet_friendly: false,
-        accessibility: false,
-        wifi: true,
-        bathroom: false,
-        air_conditioner: false,
-        wardrobe: false,
-        tv: false,
-        porch: false,
-        safe: false
+        pet_friendly: "0",
+        accessibility: "0",
+        wifi: "1",
+        bathroom: "0",
+        air_conditioner: "0",
+        wardrobe: "0",
+        tv: "0",
+        porch: "0",
+        safe: "0"
       }
 
       result = Inn.advanced_search(params)
@@ -922,15 +1042,15 @@ RSpec.describe Inn, type: :model do
       params = {
         name: "",
         city: "",
-        pet_friendly: false,
-        accessibility: false,
-        wifi: false,
-        bathroom: true,
-        air_conditioner: false,
-        wardrobe: false,
-        tv: false,
-        porch: false,
-        safe: false
+        pet_friendly: "0",
+        accessibility: "0",
+        wifi: "0",
+        bathroom: "1",
+        air_conditioner: "0",
+        wardrobe: "0",
+        tv: "0",
+        porch: "0",
+        safe: "0"
       }
 
       result = Inn.advanced_search(params)
@@ -977,15 +1097,15 @@ RSpec.describe Inn, type: :model do
       params = {
         name: "",
         city: "",
-        pet_friendly: false,
-        accessibility: false,
-        wifi: false,
-        bathroom: true,
-        air_conditioner: false,
-        wardrobe: false,
-        tv: false,
-        porch: false,
-        safe: false
+        pet_friendly: "0",
+        accessibility: "0",
+        wifi: "0",
+        bathroom: "1",
+        air_conditioner: "0",
+        wardrobe: "0",
+        tv: "0",
+        porch: "0",
+        safe: "0"
       }
 
       result = Inn.advanced_search(params)
@@ -1086,15 +1206,15 @@ RSpec.describe Inn, type: :model do
       params = {
         name: "",
         city: "",
-        pet_friendly: false,
-        accessibility: false,
-        wifi: false,
-        bathroom: false,
-        air_conditioner: true,
-        wardrobe: false,
-        tv: false,
-        porch: false,
-        safe: false
+        pet_friendly: "0",
+        accessibility: "0",
+        wifi: "0",
+        bathroom: "0",
+        air_conditioner: "1",
+        wardrobe: "0",
+        tv: "0",
+        porch: "0",
+        safe: "0"
       }
 
       result = Inn.advanced_search(params)
@@ -1140,15 +1260,15 @@ RSpec.describe Inn, type: :model do
       params = {
         name: "",
         city: "",
-        pet_friendly: false,
-        accessibility: false,
-        wifi: false,
-        bathroom: false,
-        air_conditioner: false,
-        wardrobe: true,
-        tv: false,
-        porch: false,
-        safe: false
+        pet_friendly: "0",
+        accessibility: "0",
+        wifi: "0",
+        bathroom: "0",
+        air_conditioner: "0",
+        wardrobe: "1",
+        tv: "0",
+        porch: "0",
+        safe: "0"
       }
 
       result = Inn.advanced_search(params)
@@ -1195,15 +1315,15 @@ RSpec.describe Inn, type: :model do
       params = {
         name: "",
         city: "",
-        pet_friendly: false,
-        accessibility: false,
-        wifi: false,
-        bathroom: false,
-        air_conditioner: false,
-        wardrobe: true,
-        tv: false,
-        porch: false,
-        safe: false
+        pet_friendly: "0",
+        accessibility: "0",
+        wifi: "0",
+        bathroom: "0",
+        air_conditioner: "0",
+        wardrobe: "1",
+        tv: "0",
+        porch: "0",
+        safe: "0"
       }
 
       result = Inn.advanced_search(params)
@@ -1249,15 +1369,15 @@ RSpec.describe Inn, type: :model do
       params = {
         name: "",
         city: "",
-        pet_friendly: false,
-        accessibility: false,
-        wifi: false,
-        bathroom: false,
-        air_conditioner: false,
-        wardrobe: false,
-        tv: true,
-        porch: false,
-        safe: false
+        pet_friendly: "0",
+        accessibility: "0",
+        wifi: "0",
+        bathroom: "0",
+        air_conditioner: "0",
+        wardrobe: "0",
+        tv: "1",
+        porch: "0",
+        safe: "0"
       }
 
       result = Inn.advanced_search(params)
@@ -1304,15 +1424,15 @@ RSpec.describe Inn, type: :model do
       params = {
         name: "",
         city: "",
-        pet_friendly: false,
-        accessibility: false,
-        wifi: false,
-        bathroom: false,
-        air_conditioner: false,
-        wardrobe: false,
-        tv: true,
-        porch: false,
-        safe: false
+        pet_friendly: "0",
+        accessibility: "0",
+        wifi: "0",
+        bathroom: "0",
+        air_conditioner: "0",
+        wardrobe: "0",
+        tv: "1",
+        porch: "0",
+        safe: "0"
       }
 
       result = Inn.advanced_search(params)
@@ -1358,15 +1478,15 @@ RSpec.describe Inn, type: :model do
       params = {
         name: "",
         city: "",
-        pet_friendly: false,
-        accessibility: false,
-        wifi: false,
-        bathroom: false,
-        air_conditioner: false,
-        wardrobe: false,
-        tv: false,
-        porch: true,
-        safe: false
+        pet_friendly: "0",
+        accessibility: "0",
+        wifi: "0",
+        bathroom: "0",
+        air_conditioner: "0",
+        wardrobe: "0",
+        tv: "0",
+        porch: "1",
+        safe: "0"
       }
 
       result = Inn.advanced_search(params)
@@ -1413,15 +1533,15 @@ RSpec.describe Inn, type: :model do
       params = {
         name: "",
         city: "",
-        pet_friendly: false,
-        accessibility: false,
-        wifi: false,
-        bathroom: false,
-        air_conditioner: false,
-        wardrobe: false,
-        tv: false,
-        porch: true,
-        safe: false
+        pet_friendly: "0",
+        accessibility: "0",
+        wifi: "0",
+        bathroom: "0",
+        air_conditioner: "0",
+        wardrobe: "0",
+        tv: "0",
+        porch: "1",
+        safe: "0"
       }
 
       result = Inn.advanced_search(params)
@@ -1467,15 +1587,15 @@ RSpec.describe Inn, type: :model do
       params = {
         name: "",
         city: "",
-        pet_friendly: false,
-        accessibility: false,
-        wifi: false,
-        bathroom: false,
-        air_conditioner: false,
-        wardrobe: false,
-        tv: false,
-        porch: false,
-        safe: true
+        pet_friendly: "0",
+        accessibility: "0",
+        wifi: "0",
+        bathroom: "0",
+        air_conditioner: "0",
+        wardrobe: "0",
+        tv: "0",
+        porch: "0",
+        safe: "1"
       }
 
       result = Inn.advanced_search(params)
@@ -1522,15 +1642,15 @@ RSpec.describe Inn, type: :model do
       params = {
         name: "",
         city: "",
-        pet_friendly: false,
-        accessibility: false,
-        wifi: false,
-        bathroom: false,
-        air_conditioner: false,
-        wardrobe: false,
-        tv: false,
-        porch: false,
-        safe: true
+        pet_friendly: "0",
+        accessibility: "0",
+        wifi: "0",
+        bathroom: "0",
+        air_conditioner: "0",
+        wardrobe: "0",
+        tv: "0",
+        porch: "0",
+        safe: "1"
       }
 
       result = Inn.advanced_search(params)
@@ -1612,15 +1732,15 @@ RSpec.describe Inn, type: :model do
       params = {
         name: "",
         city: "",
-        pet_friendly: false,
-        accessibility: false,
-        wifi: true,
-        bathroom: true,
-        air_conditioner: false,
-        wardrobe: false,
-        tv: false,
-        porch: false,
-        safe: true
+        pet_friendly: "0",
+        accessibility: "0",
+        wifi: "1",
+        bathroom: "1",
+        air_conditioner: "0",
+        wardrobe: "0",
+        tv: "0",
+        porch: "0",
+        safe: "1"
       }
 
       expect(Inn.advanced_search(params).count).to eq 1
@@ -1701,15 +1821,15 @@ RSpec.describe Inn, type: :model do
       params = {
         name: "",
         city: "",
-        pet_friendly: false,
-        accessibility: false,
-        wifi: true,
-        bathroom: true,
-        air_conditioner: false,
-        wardrobe: false,
-        tv: false,
-        porch: false,
-        safe: true
+        pet_friendly: "0",
+        accessibility: "0",
+        wifi: "1",
+        bathroom: "1",
+        air_conditioner: "0",
+        wardrobe: "0",
+        tv: "0",
+        porch: "0",
+        safe: "1"
       }
 
       expect(Inn.advanced_search(params).count).to eq 0
