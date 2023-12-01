@@ -16,7 +16,9 @@
       <% if @recent_inns.empty? %>
         <p><%= t("no_inns_yet") %></p>
       <% else %>
-        <h2><%= t("new_inns") %></h2>
+        <div class="mt-5 mb-3">
+          <h2><%= t("new_inns") %></h2>
+        </div>
         <div id="recent" class="row mb-5">
           <% @recent_inns.each do |inn| %>
             <div class="col-md-4">
